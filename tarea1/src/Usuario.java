@@ -1,6 +1,6 @@
 import java.util.Date;
 
-public class Usuario {
+abstract class Usuario {
     private String nickname;
     private String nombre;
     private String apellido;

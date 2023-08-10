@@ -36,4 +36,5 @@ abstract class Usuario {
     }
 
     // Setters (si es necesario)
+    // prueba de rama chris.
 }

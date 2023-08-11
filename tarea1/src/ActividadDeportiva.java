@@ -1,4 +1,5 @@
 import java.util.Date;
+import java.util.ArrayList;
 
 public class ActividadDeportiva {
     private String institucion;
@@ -7,40 +8,76 @@ public class ActividadDeportiva {
     private int duracionMinutos;
     private double costo;
     private Date fechaRegistro;
+    private ArrayList<Clase> arrayClase;
 
-    public ActividadDeportiva(String institucion, String nombre, String descripcion, int duracionMinutos,
-                              double costo, Date fechaRegistro) {
+
+    
+    public ActividadDeportiva(String institucion, String nombre, String descripcion, int duracionMinutos,double costo, Date fechaRegistro, ArrayList<Clase> arrayClase) 
+    {
         this.institucion = institucion;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.duracionMinutos = duracionMinutos;
         this.costo = costo;
         this.fechaRegistro = fechaRegistro;
+        this.arrayClase = arrayClase;
     }
 
-    public String getInstitucion() {
-        return institucion;
-    }
+	public ArrayList<Clase> getArrayClase() {
+		return arrayClase;
+	}
 
-    public String getNombre() {
-        return nombre;
-    }
+	public void setArrayClase(ArrayList<Clase> arrayClase) {
+		this.arrayClase = arrayClase;
+	}
 
-    public String getDescripcion() {
-        return descripcion;
-    }
+	public String getInstitucion() {
+		return institucion;
+	}
 
-    public int getDuracionMinutos() {
-        return duracionMinutos;
-    }
+	public void setInstitucion(String institucion) {
+		this.institucion = institucion;
+	}
 
-    public double getCosto() {
-        return costo;
-    }
+	public String getNombre() {
+		return nombre;
+	}
 
-    public Date getFechaRegistro() {
-        return fechaRegistro;
-    }
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-    // Setters (si es necesario)
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public int getDuracionMinutos() {
+		return duracionMinutos;
+	}
+
+	public void setDuracionMinutos(int duracionMinutos) {
+		this.duracionMinutos = duracionMinutos;
+	}
+
+	public double getCosto() {
+		return costo;
+	}
+
+	public void setCosto(double costo) {
+		this.costo = costo;
+	}
+
+	public Date getFechaRegistro() {
+		return fechaRegistro;
+	}
+
+	public void setFechaRegistro(Date fechaRegistro) {
+		this.fechaRegistro = fechaRegistro;
+	}
+
+   
 }

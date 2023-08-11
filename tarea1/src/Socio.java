@@ -1,21 +1,24 @@
+import java.util.ArrayList;
 import java.util.Date;
 
-public class Socio {
-    private Usuario usuario;
-    private Date fechaInscripcion;
+public class Socio extends Usuario {
 
-    public Socio(Usuario usuario, Date fechaInscripcion) {
-        this.usuario = usuario;
-        this.fechaInscripcion = fechaInscripcion;
+	private ArrayList<Registro> arrayRegistro;	
+	
+    public Socio(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento, ArrayList<Registro> arrayRegistro)
+    {
+    	super(nickname, nombre, apellido, correoElectronico, fechaNacimiento);
+    	this.arrayRegistro= arrayRegistro;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
+	public ArrayList<Registro> getArrayRegistro() {
+		return arrayRegistro;
+	}
 
-    public Date getFechaInscripcion() {
-        return fechaInscripcion;
-    }
+	public void setArrayRegistro(ArrayList<Registro> arrayRegistro) {
+		this.arrayRegistro = arrayRegistro;
+	}
 
-    // Setters (si es necesario)
+
+
 }

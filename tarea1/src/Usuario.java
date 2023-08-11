@@ -15,25 +15,46 @@ abstract class Usuario {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public String getNickname() {
-        return nickname;
-    }
+	public String getNickname() {
+		return nickname;
+	}
 
-    public String getNombre() {
-        return nombre;
-    }
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 
-    public String getApellido() {
-        return apellido;
-    }
+	public String getNombre() {
+		return nombre;
+	}
 
-    public String getCorreoElectronico() {
-        return correoElectronico;
-    }
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
-    }
+	public String getApellido() {
+		return apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
+	public String getCorreoElectronico() {
+		return correoElectronico;
+	}
+
+	public void setCorreoElectronico(String correoElectronico) {
+		this.correoElectronico = correoElectronico;
+	}
+
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
 
     // Setters (si es necesario)
     // prueba de rama chris.

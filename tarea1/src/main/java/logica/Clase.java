@@ -92,6 +92,4 @@ public class Clase {
 		this.arrayRegistro = arrayRegistro;
 	}
 
-    
-    
 }

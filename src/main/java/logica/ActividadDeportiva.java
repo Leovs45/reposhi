@@ -12,27 +12,20 @@ public class ActividadDeportiva {
     private Date fechaRegistro;
     private ArrayList<Clase> arrayClase;
 
-
-    
-    public ActividadDeportiva(String institucion, String nombre, String descripcion, int duracionMinutos,double costo, Date fechaRegistro, ArrayList<Clase> arrayClase) 
-    {
-        this.institucion = institucion;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.duracionMinutos = duracionMinutos;
-        this.costo = costo;
-        this.fechaRegistro = fechaRegistro;
-        this.arrayClase = arrayClase;
-    }
-
-	public ArrayList<Clase> getArrayClase() {
-		return arrayClase;
-	}
-
-	public void setArrayClase(ArrayList<Clase> arrayClase) {
+    //Constructor
+	public ActividadDeportiva(String institucion, String nombre, String descripcion, int duracionMinutos, double costo,
+			Date fechaRegistro, ArrayList<Clase> arrayClase) {
+		super();
+		this.institucion = institucion;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.duracionMinutos = duracionMinutos;
+		this.costo = costo;
+		this.fechaRegistro = fechaRegistro;
 		this.arrayClase = arrayClase;
 	}
-
+	
+	//Geters & Setters
 	public String getInstitucion() {
 		return institucion;
 	}
@@ -81,5 +74,12 @@ public class ActividadDeportiva {
 		this.fechaRegistro = fechaRegistro;
 	}
 
+	public ArrayList<Clase> getArrayClase() {
+		return arrayClase;
+	}
+
+	public void setArrayClase(ArrayList<Clase> arrayClase) {
+		this.arrayClase = arrayClase;
+	}
    
 }

@@ -12,19 +12,22 @@ public class Clase {
     private String urlClase;
     private Date fechaRegistro;
     private ArrayList<Registro> arrayRegistro;
-
-    public Clase(String nombreClase, ActividadDeportiva actividadDeportiva, Date fechaClase, Profesor profesor,
-                 String horaInicio, String urlClase, Date fechaRegistro, ArrayList<Registro> arrayRegistro) {
-        this.nombreClase = nombreClase;
-        this.actividadDeportiva = actividadDeportiva;
-        this.fechaClase = fechaClase;
-        this.profesor = profesor;
-        this.horaInicio = horaInicio;
-        this.urlClase = urlClase;
-        this.fechaRegistro = fechaRegistro;
-        this.arrayRegistro = arrayRegistro;
-    }
-
+    
+    //Constructor
+	public Clase(String nombreClase, ActividadDeportiva actividadDeportiva, Date fechaClase, Profesor profesor,
+			String horaInicio, String urlClase, Date fechaRegistro, ArrayList<Registro> arrayRegistro) {
+		super();
+		this.nombreClase = nombreClase;
+		this.actividadDeportiva = actividadDeportiva;
+		this.fechaClase = fechaClase;
+		this.profesor = profesor;
+		this.horaInicio = horaInicio;
+		this.urlClase = urlClase;
+		this.fechaRegistro = fechaRegistro;
+		this.arrayRegistro = arrayRegistro;
+	}
+	
+	//Getters & Setters
 	public String getNombreClase() {
 		return nombreClase;
 	}
@@ -89,5 +92,4 @@ public class Clase {
 		this.arrayRegistro = arrayRegistro;
 	}
 
-    
 }

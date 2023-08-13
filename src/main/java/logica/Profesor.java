@@ -7,7 +7,8 @@ public class Profesor extends Usuario {
     private String descripcionGeneral;
     private String biografia;
     private String sitioWeb;
-
+    
+    //Constructor
     public Profesor(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento,
                     String institucion, String descripcionGeneral, String biografia, String sitioWeb) {
         super(nickname, nombre, apellido, correoElectronico, fechaNacimiento);
@@ -17,6 +18,7 @@ public class Profesor extends Usuario {
         this.sitioWeb = sitioWeb;
     }
 
+    //Getters & Setters
 	public String getInstitucion() {
 		return institucion;
 	}

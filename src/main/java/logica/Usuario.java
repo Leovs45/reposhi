@@ -9,7 +9,9 @@ abstract class Usuario {
     private String correoElectronico;
     private Date fechaNacimiento;
 
+    //Constructor
     public Usuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento) {
+    	super();
         this.nickname = nickname;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -17,6 +19,7 @@ abstract class Usuario {
         this.fechaNacimiento = fechaNacimiento;
     }
 
+    //Getters & Setters
 	public String getNickname() {
 		return nickname;
 	}

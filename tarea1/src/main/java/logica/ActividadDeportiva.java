@@ -25,7 +25,7 @@ public class ActividadDeportiva {
 		this.arrayClase = arrayClase;
 	}
 	
-	//Geters & Setters
+	//Getters & Setters
 	public String getInstitucion() {
 		return institucion;
 	}

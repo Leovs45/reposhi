@@ -35,26 +35,34 @@ public class Principal {
 		
 		System.out.println("Nombre de la institucion: ");
 		String nombre = null;
+		int opt = 1;
 		nombre = entrada.nextLine();
 		
 		InstitucionDeportiva institucion = cInstitucion.buscarInstitucionDeportiva(nombre);
 
-		while (institucion != null) {
+		while (institucion != null && opt == 1) {
 			System.out.println("Ya existe una institucion con ese nombre.");
-			System.out.println("Nombre de la institucion: ");
-			nombre = entrada.nextLine();
-			institucion = cInstitucion.buscarInstitucionDeportiva(nombre);
+			System.out.println("Deseas volver a intentarlo?");
+			System.out.println("  1. Si \n  2. No");
+			opt = Integer.parseInt(entrada.nextLine());
+		  if (opt == 1) {
+				System.out.println("Nombre de la institucion: ");
+				nombre = entrada.nextLine();
+				institucion = cInstitucion.buscarInstitucionDeportiva(nombre);
+			}
 		}
 		
-		System.out.println("Descripcion de la institucion: ");
-		String descripcion = null;
-		descripcion = entrada.nextLine();
-		
-		System.out.println("URL de la institucion: ");
-		String url = null;
-		url = entrada.nextLine();
-		
-		cInstitucion.altaInstitucionDeportiva(nombre, descripcion, url);
+		if(opt == 1) {
+			System.out.println("Descripcion de la institucion: ");
+			String descripcion = null;
+			descripcion = entrada.nextLine();
+			
+			System.out.println("URL de la institucion: ");
+			String url = null;
+			url = entrada.nextLine();
+			
+			cInstitucion.altaInstitucionDeportiva(nombre, descripcion, url);
+		}
 	}
 
 		

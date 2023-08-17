@@ -10,14 +10,12 @@ public class InstitucionDeportiva {
 	ArrayList<ActividadDeportiva> arrayActividadDeportiva;
 	
 	//Constructor
-	public InstitucionDeportiva (String nombre, String descripcion, String url, ArrayList<Profesor> arrayProfesor, ArrayList<ActividadDeportiva> arrayActividadDeportiva)
+	public InstitucionDeportiva (String nombre, String descripcion, String url)
 	{
 		super();
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.url = url;
-		this.arrayProfesor = arrayProfesor;
-		this.arrayActividadDeportiva = arrayActividadDeportiva;
 	}
 
 	//Getters & Setters

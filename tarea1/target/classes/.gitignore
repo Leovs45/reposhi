@@ -1,4 +1,4 @@
+/presentacion/
 /logica/
-/interfaces/
+*.class
 /controladores/
-/datatypes/

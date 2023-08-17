@@ -7,7 +7,7 @@ public class Socio extends Usuario {
 	private ArrayList<Registro> arrayRegistro;
 	
 	//Constructor
-    public Socio(String nickname, String nombre, String apellido, String correoElectronico, String fechaNacimiento,
+    public Socio(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento,
 			ArrayList<Registro> arrayRegistro) {
 		super(nickname, nombre, apellido, correoElectronico, fechaNacimiento);
 		this.arrayRegistro = arrayRegistro;

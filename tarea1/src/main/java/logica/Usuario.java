@@ -2,7 +2,7 @@ package logica;
 
 import java.util.Date;
 
-abstract class Usuario {
+public abstract class Usuario {
     private String nickname;
     private String nombre;
     private String apellido;

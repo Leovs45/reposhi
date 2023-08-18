@@ -1,26 +1,31 @@
 package controladores;
-
+import logica.*;
 import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import datatypes.TipoUsuario;
 import interfaces.IUsuario;
 
 public class CUsuario implements IUsuario{
-
+	private List<Usuario> usuarios = new ArrayList<>();
+	
+	
 	@Override
-	public void altaUsuario(TipoUsuario tipoUsuario, String nickname, String nombre, String apellido, String email,
-			Date fechaNacimiento) {
-		// TODO Auto-generated method stub
-		
+	public void altaUsuario(TipoUsuario tipoUsuario, String nickname, String nombre, String apellido, String correoElectronico, String fechaNacimiento, String institucion, String descripcionGeneral, String biografia, String sitioWeb){
+		if(tipoUsuario == TipoUsuario.Profesor) {
+			Usuario profe = new Profesor(nickname, nombre, apellido, correoElectronico, fechaNacimiento, institucion, descripcionGeneral, biografia, sitioWeb);
+			usuarios.add(profe);
+		}
 	}
-
-	@Override
-	public void altaProfesor(String nickname, String nombre, String apellido, String email, Date fechaNacimiento,
-			String institucion, String descripcion, String biografia, String link) {
-		// TODO Auto-generated method stub
-		
+	public void existeUsuario(String nombre) {
+		for (Usuario usuario : usuarios) {
+			if(usuario.getNombre().equals(nombre)) {
+				System.out.print("Existe este usuario");
+			}else
+				System.out.print("No Existe este usuario");
+		}
 	}
-
 	@Override
 	public void consultaUsuario() {
 		// TODO Auto-generated method stub

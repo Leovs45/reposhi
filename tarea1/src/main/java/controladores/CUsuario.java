@@ -10,21 +10,41 @@ import interfaces.IUsuario;
 public class CUsuario implements IUsuario{
 	private List<Usuario> usuarios = new ArrayList<>();
 	
+	private static CUsuario instancia = null;
+
+	public static CUsuario getInstancia() {
+		if (instancia == null)
+			instancia = new CUsuario();
+		return instancia;
+	}
+	
 	
 	@Override
-	public void altaUsuario(TipoUsuario tipoUsuario, String nickname, String nombre, String apellido, String correoElectronico, String fechaNacimiento, String institucion, String descripcionGeneral, String biografia, String sitioWeb){
+	public void altaUsuario(TipoUsuario tipoUsuario, String nickname, String nombre, String apellido, String correoElectronico, String fechaNacimiento, InstitucionDeportiva institucion, String descripcionGeneral, String biografia, String sitioWeb){
 		if(tipoUsuario == TipoUsuario.Profesor) {
 			Usuario profe = new Profesor(nickname, nombre, apellido, correoElectronico, fechaNacimiento, institucion, descripcionGeneral, biografia, sitioWeb);
 			usuarios.add(profe);
 		}
 	}
-	public void existeUsuario(String nombre) {
-		for (Usuario usuario : usuarios) {
-			if(usuario.getNombre().equals(nombre)) {
-				System.out.print("Existe este usuario");
-			}else
-				System.out.print("No Existe este usuario");
+	public void altaUsuario(TipoUsuario tipoUsuario, String nickname, String nombre, String apellido, String correoElectronico, String fechaNacimiento) {
+		if(tipoUsuario == TipoUsuario.UsuarioComun) {
+			Usuario socio = new Socio(nickname, nombre, apellido, correoElectronico, fechaNacimiento);
+			usuarios.add(socio);
 		}
+	}	
+	public Usuario buscarUsuario(String nickname) {
+		Usuario usuario = null;
+		if (usuarios.size() == 0) {
+			return usuario;
+		} else {
+			for(Usuario i: usuarios) {
+				if (i.getNickname().equals(nickname)) {
+					usuario = i;
+				}
+			}
+		}
+
+		return usuario;
 	}
 	@Override
 	public void consultaUsuario() {

@@ -1,16 +1,19 @@
 package logica;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Profesor extends Usuario {
-    private String institucion;
+    private InstitucionDeportiva institucion;
     private String descripcionGeneral;
     private String biografia;
     private String sitioWeb;
+	private List<Clase> clases = new ArrayList<>();
 
     //Constructor
-    public Profesor(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento,
-                    String institucion, String descripcionGeneral, String biografia, String sitioWeb) {
+    public Profesor(String nickname, String nombre, String apellido, String correoElectronico, String fechaNacimiento,
+    		InstitucionDeportiva institucion, String descripcionGeneral, String biografia, String sitioWeb) {
         super(nickname, nombre, apellido, correoElectronico, fechaNacimiento);
         this.institucion = institucion;
         this.descripcionGeneral = descripcionGeneral;
@@ -19,11 +22,11 @@ public class Profesor extends Usuario {
     }
  
     //Getters & Setters
-	public String getInstitucion() {
+	public InstitucionDeportiva getInstitucion() {
 		return institucion;
 	}
 
-	public void setInstitucion(String institucion) {
+	public void setInstitucion(InstitucionDeportiva institucion) {
 		this.institucion = institucion;
 	}
 

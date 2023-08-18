@@ -1,12 +1,15 @@
 package interfaces;
 
+import logica.*;
 import java.util.Date;
+
+import controladores.CUsuario;
 import datatypes.TipoUsuario;
 
 public interface IUsuario {
-	public void altaUsuario(TipoUsuario tipoUsuario, String nickname, String nombre, String apellido, String email, Date fechaNacimiento);
-	// La idea es que si TipoUsuario == Profesor, adentro de la implementaci�n de altaUsuario se llame a altaProfesor. Sino, se crea el socio comun
-	public void altaProfesor(String nickname, String nombre, String apellido, String email, Date fechaNacimiento, String institucion, String descripcion, String biografia, String link);
+	public void altaUsuario(TipoUsuario tipoUsuario, String nickname, String nombre, String apellido, String correoElectronico, String fechaNacimiento, InstitucionDeportiva institucion, String descripcionGeneral, String biografia, String sitioWeb);
+	public void altaUsuario(TipoUsuario tipoUsuario, String nickname, String nombre, String apellido, String correoElectronico, String fechaNacimiento);
+	public Usuario buscarUsuario(String nombre);
 	public void consultaUsuario();
 	
 	//Opcionales

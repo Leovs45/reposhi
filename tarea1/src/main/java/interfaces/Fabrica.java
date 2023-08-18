@@ -16,6 +16,7 @@ public class Fabrica {
 	public IUsuario getIUsuario() {
 		return CUsuario.getInstancia();
 	}
+	
 	public IInstitucionDeportiva getIInstitucionDeportiva() {
 		return CInstitucionDeportiva.getInstancia();
 	}

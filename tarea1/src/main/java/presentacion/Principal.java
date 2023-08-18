@@ -28,11 +28,12 @@ public class Principal {
 		"11- Modificar Institucion Deportiva\n" +
 		"12- Ranking de dictado de clases\n" +
 		"13- Ranking de Actividades Deportivas\n" +
+		"15- Listar usuarios\n" +
 		"0- Salir");
 	}
 	
 	static void agregarInstitucionDeportiva() {
-		IInstitucionDeportiva IInstitucion = f.getIInstitucionDeportiva();
+		IInstitucionDeportiva iInstitucion = f.getIInstitucionDeportiva();
 		Scanner entrada = new Scanner(System.in);
 		
 		System.out.println("Nombre de la institucion: ");
@@ -40,7 +41,7 @@ public class Principal {
 		int opt = 1;
 		nombre = entrada.nextLine();
 		
-		InstitucionDeportiva institucion = IInstitucion.buscarInstitucionDeportiva(nombre);
+		InstitucionDeportiva institucion = iInstitucion.buscarInstitucionDeportiva(nombre);
 
 		while (institucion != null && opt == 1) {
 			System.out.println("Ya existe una institucion con ese nombre.");
@@ -50,7 +51,7 @@ public class Principal {
 		  if (opt == 1) {
 				System.out.println("Nombre de la institucion: ");
 				nombre = entrada.nextLine();
-				institucion = IInstitucion.buscarInstitucionDeportiva(nombre);
+				institucion = iInstitucion.buscarInstitucionDeportiva(nombre);
 			}
 		}
 		
@@ -63,18 +64,19 @@ public class Principal {
 			String url = null;
 			url = entrada.nextLine();
 			
-			IInstitucion.altaInstitucionDeportiva(nombre, descripcion, url);
+			iInstitucion.altaInstitucionDeportiva(nombre, descripcion, url);
 		}
 	}
+
 	static void altaUsuario() {
 		CInstitucionDeportiva cInstitucion = CInstitucionDeportiva.getInstancia();
-		IUsuario IUser = f.getIUsuario();
+		IUsuario iUser = f.getIUsuario();
 		int aux=0;
 		do {
 			Scanner input = new Scanner(System.in);
 			System.out.print("Nickname: ");
 			String nickname = input.nextLine();
-			Usuario user= IUser.buscarUsuario(nickname);
+			Usuario user= iUser.buscarUsuario(nickname);
 			if(user != null){
 				System.out.print("Ya existe este usuario\n");
 				aux =1;
@@ -108,16 +110,77 @@ public class Principal {
 				        String biografia = input.nextLine();
 				        System.out.print("Sitio Web: ");
 				        String sitioWeb = input.nextLine();
-			        	IUser.altaUsuario(tpProfe, nickname, nombre, apellido, correoElectronico, fechaNacimiento, institucion, descripcionGeneral, biografia, sitioWeb);
+			        	iUser.altaUsuario(tpProfe, nickname, nombre, apellido, correoElectronico, fechaNacimiento, institucion, descripcionGeneral, biografia, sitioWeb);
 			        	break;
 			        }
 			    case 2:
 			    	TipoUsuario tpSocio = TipoUsuario.UsuarioComun;
-		        	IUser.altaUsuario(tpSocio, nickname, nombre, apellido, correoElectronico, fechaNacimiento);
+		        	iUser.altaUsuario(tpSocio, nickname, nombre, apellido, correoElectronico, fechaNacimiento);
 			    	break;
 			    }
 			}
 		}while (aux !=0);
+	}
+	
+	static void modificarUsuario() {
+		IUsuario iUsuario = f.getIUsuario();
+		Scanner entrada = new Scanner(System.in);
+		int opt, opt2 = 1;
+		
+		String nickname;
+		System.out.println("Ingresa el nickname del usuario a modificar: ");
+		nickname = entrada.nextLine();
+		Usuario user = iUsuario.buscarUsuario(nickname);
+		
+		while (user == null && opt2 == 1) {
+			System.out.println("No existe un usuario con el nickname " + nickname);
+			System.out.println("Deseas volver a intentarlo?");
+			System.out.println("    1. Si \n    2. No");
+			opt2 = Integer.parseInt(entrada.nextLine());
+			
+			if(opt2 == 1) {
+				System.out.println("Ingresa el nickname del usuario a modificar: ");
+				nickname = entrada.nextLine();
+				user = iUsuario.buscarUsuario(nickname);
+			}
+		}
+		
+		if (opt2 == 1) {
+			System.out.println("\nQue dato deseas modificar?");
+			System.out.println("    1. Nombre \n    2. Apellido \n    3. Fecha de Nacimiento \n    4. Salir");
+			opt = Integer.parseInt(entrada.nextLine());
+			
+			switch(opt) {
+				case 1:
+					String nuevoNombre;
+					System.out.println("Ingresa el nuevo nombre: ");
+					nuevoNombre = entrada.nextLine();
+					iUsuario.modificarNombre(nickname, nuevoNombre);
+					break;
+				case 2:
+					String nuevoApellido;
+					System.out.println("Ingresa el nuevo apellido: ");
+					nuevoApellido = entrada.nextLine();
+					iUsuario.modificarApellido(nickname, nuevoApellido);
+					break;
+				case 3:
+					String nuevaFecha;
+					System.out.println("Ingresa el nueva fecha de nacimiento: ");
+					nuevaFecha = entrada.nextLine();
+					iUsuario.modificarFechaNacimiento(nickname, nuevaFecha);
+					break;
+				case 4:
+					break;
+				default:
+					System.out.println("ERROR - " + opt + " no es una opcion valida");
+					break;
+			}
+		}
+	}
+	
+	static void listarUsuarios () {
+		IUsuario iUsuario = f.getIUsuario();
+		iUsuario.listarUsuarios();
 	}
 		
 	public static void main(String[] args) {
@@ -139,6 +202,12 @@ public class Principal {
 				break;
 			case 7:
 				agregarInstitucionDeportiva();
+				break;
+			case 8:
+				modificarUsuario();
+				break;
+			case 15:
+				listarUsuarios();
 				break;
 			default:
 				break;

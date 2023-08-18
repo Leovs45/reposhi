@@ -6,6 +6,7 @@ import java.util.List;
 
 import datatypes.TipoUsuario;
 import interfaces.IUsuario;
+import logica.Usuario;
 
 public class CUsuario implements IUsuario{
 	private List<Usuario> usuarios = new ArrayList<>();
@@ -18,7 +19,6 @@ public class CUsuario implements IUsuario{
 		return instancia;
 	}
 	
-	
 	@Override
 	public void altaUsuario(TipoUsuario tipoUsuario, String nickname, String nombre, String apellido, String correoElectronico, String fechaNacimiento, InstitucionDeportiva institucion, String descripcionGeneral, String biografia, String sitioWeb){
 		if(tipoUsuario == TipoUsuario.Profesor) {
@@ -26,12 +26,14 @@ public class CUsuario implements IUsuario{
 			usuarios.add(profe);
 		}
 	}
+	
 	public void altaUsuario(TipoUsuario tipoUsuario, String nickname, String nombre, String apellido, String correoElectronico, String fechaNacimiento) {
 		if(tipoUsuario == TipoUsuario.UsuarioComun) {
 			Usuario socio = new Socio(nickname, nombre, apellido, correoElectronico, fechaNacimiento);
 			usuarios.add(socio);
 		}
-	}	
+	}
+	
 	public Usuario buscarUsuario(String nickname) {
 		Usuario usuario = null;
 		if (usuarios.size() == 0) {
@@ -46,6 +48,7 @@ public class CUsuario implements IUsuario{
 
 		return usuario;
 	}
+	
 	@Override
 	public void consultaUsuario() {
 		// TODO Auto-generated method stub
@@ -58,20 +61,31 @@ public class CUsuario implements IUsuario{
 
 	@Override
 	public void modificarNombre(String nickname, String nuevoNombre) {
-		// TODO Auto-generated method stub
-		
+		Usuario user = buscarUsuario(nickname);
+		user.setNombre(nuevoNombre);
 	}
 
 	@Override
 	public void modificarApellido(String nickname, String nuevoApellido) {
-		// TODO Auto-generated method stub
-		
+		Usuario user = buscarUsuario(nickname);
+		user.setApellido(nuevoApellido);
 	}
 
 	@Override
-	public void modificarFechaNacimiento(String nickname, Date nuevaFecha) {
-		// TODO Auto-generated method stub
-		
+	public void modificarFechaNacimiento(String nickname, String nuevaFecha) {
+		Usuario user = buscarUsuario(nickname);
+		user.setFechaNacimiento(nuevaFecha);
+	}
+	
+	@Override
+	public void listarUsuarios() {
+		if(usuarios.size() == 0) {
+			System.out.println("  ERROR - No existe ningun usuario creado");
+		} else {
+			for(Usuario u: usuarios) {
+				System.out.println(u.getNickname() + " - " + u.getNombre() + " " + u.getApellido() + " " + u.getFechaNacimiento());
+			}
+		}
 	}
 	
 }

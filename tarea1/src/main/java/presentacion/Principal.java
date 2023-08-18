@@ -12,7 +12,7 @@ public class Principal {
 	Fabrica f = Fabrica.getInstancia();
 
 	static void menu() {
-		System.out.println("MENU\n"+
+		System.out.println("\nMENU\n"+
 		"1- Agregar Usuario\n" +
 		"2- Consultar perfil de usuario\n" +
 		"3- Agregar Actividad Deportiva\n" +
@@ -26,6 +26,7 @@ public class Principal {
 		"11- Modificar Institucion Deportiva\n" +
 		"12- Ranking de dictado de clases\n" +
 		"13- Ranking de Actividades Deportivas\n" +
+		"14- Listar instituciones deportivas\n" +
 		"0- Salir");
 	}
 	
@@ -43,7 +44,7 @@ public class Principal {
 		while (institucion != null && opt == 1) {
 			System.out.println("Ya existe una institucion con ese nombre.");
 			System.out.println("Deseas volver a intentarlo?");
-			System.out.println("  1. Si \n  2. No");
+			System.out.println("    1. Si \n    2. No");
 			opt = Integer.parseInt(entrada.nextLine());
 		  if (opt == 1) {
 				System.out.println("Nombre de la institucion: ");
@@ -64,6 +65,63 @@ public class Principal {
 			cInstitucion.altaInstitucionDeportiva(nombre, descripcion, url);
 		}
 	}
+	
+	static void modificarInstitucionDeportiva() {
+		CInstitucionDeportiva cInstitucion = CInstitucionDeportiva.getInstancia();
+		Scanner entrada = new Scanner(System.in);
+		int opt, opt2 = 1;
+		
+		String nombreInstitucion;
+		InstitucionDeportiva institucion = null;
+		
+		System.out.println("Ingresa el nombre de la institucion a modificar");
+		nombreInstitucion = entrada.nextLine();
+		institucion = cInstitucion.buscarInstitucionDeportiva(nombreInstitucion);
+		
+		while (institucion == null && opt2 == 1) {
+			System.out.println("No existe una institucion con ese nombre");
+			System.out.println("Deseas volver a intentarlo?");
+			System.out.println("    1. Si \n    2. No");
+			opt2 = Integer.parseInt(entrada.nextLine());
+			
+			if(opt2 == 1) {
+				System.out.println("Ingresa el nombre de la institucion a modificar");
+				nombreInstitucion = entrada.nextLine();
+				institucion = cInstitucion.buscarInstitucionDeportiva(nombreInstitucion);
+			}
+		}
+		
+		if(opt2 == 1) {
+			System.out.println("\nQue dato deseas modificar?");
+			System.out.println("    1. Descripcion \n    2. Url \n    3. Salir");
+			opt = Integer.parseInt(entrada.nextLine());
+			
+			switch (opt) {
+				case 1: 
+					String descripcion;
+					System.out.println("Ingresa la nueva descripcion: ");
+					descripcion = entrada.nextLine();
+					cInstitucion.modificarDescripcion(nombreInstitucion, descripcion);
+					break;
+				case 2:
+					String url;
+					System.out.println("Ingresa la nueva url: ");
+					url = entrada.nextLine();
+					cInstitucion.modificarUrl(nombreInstitucion, url);
+					break;
+				case 3:
+					break;
+				default:
+					System.out.println("ERROR - " + opt + " no es una opcion valida");
+					break;
+			}
+		}
+	}
+	
+	static void listarInstituciones() {
+		CInstitucionDeportiva cInstitucion = CInstitucionDeportiva.getInstancia();
+		cInstitucion.listarInstituciones();
+	}
 
 		
 	public static void main(String[] args) {
@@ -76,6 +134,8 @@ public class Principal {
 			op = Integer.parseInt(input.nextLine());
 			
 			switch (op) {
+			case 0:
+				break;
 			case 1:
 				//AltaUsuario();
 				System.out.print("Alta usuario - No implementado");
@@ -87,7 +147,14 @@ public class Principal {
 			case 7:
 				agregarInstitucionDeportiva();
 				break;
+			case 11:
+				modificarInstitucionDeportiva();
+				break;
+			case 14:
+				listarInstituciones();
+				break;
 			default:
+				System.out.print("  ERROR - " + op + " no es una opcion valida");
 				break;
 		}
 	  } while (op != 0);

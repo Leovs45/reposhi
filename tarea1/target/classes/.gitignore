@@ -2,3 +2,5 @@
 /logica/
 *.class
 /controladores/
+/META-INF/
+/interfaces/

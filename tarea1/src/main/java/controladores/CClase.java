@@ -5,6 +5,14 @@ import java.util.Date;
 import interfaces.IClase;
 
 public class CClase implements IClase {
+	
+	private static CClase instancia = null;
+	
+	public static CClase getInstancia() {
+		if (instancia == null)
+			instancia = new CClase();
+		return instancia;
+	}
 
 	@Override
 	public void altaDictadoClase(String institucion, String nombreClase, Date fecha, String horaInicio,

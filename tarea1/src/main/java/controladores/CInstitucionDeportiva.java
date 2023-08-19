@@ -49,14 +49,24 @@ public class CInstitucionDeportiva implements IInstitucionDeportiva {
 
 	@Override
 	public void modificarDescripcion(String nombreInstitucion, String nuevaDescripcion) {
-		// TODO Auto-generated method stub
-		
+		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombreInstitucion);
+		institucion.setDescripcion(nuevaDescripcion);
 	}
 
 	@Override
 	public void modificarUrl(String nombreInstitucion, String nuevoUrl) {
-		// TODO Auto-generated method stub
-		
+		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombreInstitucion);
+		institucion.setUrl(nuevoUrl);
 	}
-
+	
+	@Override
+	public void listarInstituciones() {
+		if(instituciones.size() == 0) {
+			System.out.println("  ERROR - No existe ninguna institucion deportiva creada");
+		} else {
+			for (InstitucionDeportiva i: instituciones) {
+				System.out.println(i.getNombre() + " " + i.getDescripcion() + " " + i.getUrl());
+			}
+		}
+	}
 }

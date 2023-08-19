@@ -5,6 +5,14 @@ import java.util.Date;
 import interfaces.IActividadDeportiva;
 
 public class CActividadDeportiva implements IActividadDeportiva {
+	
+	private static CActividadDeportiva instancia = null;
+	
+	public static CActividadDeportiva getInstancia() {
+		if (instancia == null)
+			instancia = new CActividadDeportiva();
+		return instancia;
+	}
 
 	@Override
 	public void altaActividadDeportiva(String institucion, String nombreActividad, String descripcion, String duracion,

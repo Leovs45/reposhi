@@ -1,6 +1,6 @@
 package interfaces;
 
-import controladores.CUsuario;
+import controladores.*;
 
 public class Fabrica {
 	private static Fabrica instancia = null;
@@ -14,6 +14,18 @@ public class Fabrica {
 	}
 	
 	public IUsuario getIUsuario() {
-		return new CUsuario();
+		return CUsuario.getInstancia();
+	}
+	
+	public IInstitucionDeportiva getIInstitucionDeportiva() {
+		return CInstitucionDeportiva.getInstancia();
+	}
+	
+	public IActividadDeportiva getIActividadDeportiva() {
+		return CActividadDeportiva.getInstancia();
+	}
+	
+	public IClase getIClase() {
+		return CClase.getInstancia();
 	}
 }

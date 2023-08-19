@@ -27,6 +27,7 @@ public class CInstitucionDeportiva implements IInstitucionDeportiva {
 	
 	// Recibe un string y devuelve una institución deportiva con ese nombre
 	// Si no existe una institución deportiva con ese nombre devuelve null
+	@Override
 	public InstitucionDeportiva buscarInstitucionDeportiva(String nombre) {
 		InstitucionDeportiva institucion = null;
 		if (instituciones.size() == 0) {

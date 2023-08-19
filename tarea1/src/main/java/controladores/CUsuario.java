@@ -6,6 +6,14 @@ import datatypes.TipoUsuario;
 import interfaces.IUsuario;
 
 public class CUsuario implements IUsuario{
+	
+	private static CUsuario instancia = null;
+	
+	public static CUsuario getInstancia() {
+		if (instancia == null)
+			instancia = new CUsuario();
+		return instancia;
+	}
 
 	@Override
 	public void altaUsuario(TipoUsuario tipoUsuario, String nickname, String nombre, String apellido, String email,

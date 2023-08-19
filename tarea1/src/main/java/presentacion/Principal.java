@@ -3,6 +3,7 @@ package presentacion;
 import java.util.Scanner;
 
 import interfaces.Fabrica;
+import interfaces.IInstitucionDeportiva;
 import logica.InstitucionDeportiva;
 import controladores.CInstitucionDeportiva;
 
@@ -30,8 +31,9 @@ public class Principal {
 		"0- Salir");
 	}
 	
-	static void agregarInstitucionDeportiva() {
-		CInstitucionDeportiva cInstitucion = CInstitucionDeportiva.getInstancia();
+	static void agregarInstitucionDeportiva(){
+		Fabrica f = Fabrica.getInstancia();
+		IInstitucionDeportiva cInstitucion = f.getIInstitucionDeportiva();
 		Scanner entrada = new Scanner(System.in);
 		
 		System.out.println("Nombre de la institucion: ");

@@ -4,3 +4,6 @@
 /controladores/
 /META-INF/
 /interfaces/
+/presentacionAltas/
+/presentacionConsultas/
+/presentacionModificacion/

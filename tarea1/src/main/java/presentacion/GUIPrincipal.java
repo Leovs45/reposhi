@@ -1,5 +1,6 @@
 package presentacion;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -7,17 +8,25 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+import interfaces.*;
 import presentacionAltas.*;
 import presentacionConsultas.*;
 import presentacionModificacion.*;
+import java.awt.BorderLayout;
+import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
+import javax.swing.JTextPane;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class GUIPrincipal {
 
 	private JFrame frame;
-	private GUIAltaSocio agregarSocioInternalFrame;
+	private GUIAltaSocio altaSocioInternalFrame;
 	private GUIAltaProfesor altaProfesorInternalFrame;
-	private GUIAltaInstitucionDeportiva altaInstitucionInternalFrame;
-	private GUIAltaActividadDeportiva altaActividadInternalFrame;
+	private GUIAltaInstitucion altaInstitucionInternalFrame;
+	private GUIAltaActividad altaActividadInternalFrame;
 	private GUIAltaDictadoClase altaClaseInternalFrame;
 	private GUIConsultaUsuario consultaUsuarioInternalFrame;
 	private GUIConsultaInstitucion consultaInstitucionInternalFrame;
@@ -47,6 +56,57 @@ public class GUIPrincipal {
 
 	public GUIPrincipal() {
 		initialize();
+		
+		Fabrica f = Fabrica.getInstancia();
+		IUsuario iUsuario = f.getIUsuario();
+		IInstitucionDeportiva iInstitucion = f.getIInstitucionDeportiva();
+		IActividadDeportiva iActividad = f.getIActividadDeportiva();
+		IClase iClase = f.getIClase();
+		
+		Dimension desktopSize = frame.getSize();
+		Dimension jInternalFrameSize;
+		
+		// Crea frame de alta profesor
+		altaProfesorInternalFrame = new GUIAltaProfesor(iUsuario); 
+		jInternalFrameSize = altaProfesorInternalFrame.getSize();
+		altaProfesorInternalFrame.setLocation((desktopSize.width - jInternalFrameSize.width)/2
+				,(desktopSize.height - jInternalFrameSize.height)/2);
+		altaProfesorInternalFrame.setVisible(false);
+		frame.getContentPane().add(altaProfesorInternalFrame);
+		altaProfesorInternalFrame.getContentPane().setLayout(null);
+		
+		// Crea frame de alta socio
+		altaSocioInternalFrame = new GUIAltaSocio(iUsuario); 
+		jInternalFrameSize = altaSocioInternalFrame.getSize();
+		altaSocioInternalFrame.setLocation((desktopSize.width - jInternalFrameSize.width)/2
+				,(desktopSize.height - jInternalFrameSize.height)/2);
+		altaSocioInternalFrame.setVisible(false);
+		frame.getContentPane().add(altaSocioInternalFrame);
+		
+		// Crea frame de alta institucion
+		altaInstitucionInternalFrame = new GUIAltaInstitucion(iInstitucion); 
+		jInternalFrameSize = altaInstitucionInternalFrame.getSize();
+		altaInstitucionInternalFrame.setLocation((desktopSize.width - jInternalFrameSize.width)/2
+				,(desktopSize.height - jInternalFrameSize.height)/2);
+		altaInstitucionInternalFrame.setVisible(false);
+		frame.getContentPane().add(altaInstitucionInternalFrame);
+		
+		// Crea frame de alta actividad
+		altaActividadInternalFrame = new GUIAltaActividad(iActividad); 
+		jInternalFrameSize = altaActividadInternalFrame.getSize();
+		altaActividadInternalFrame.setLocation((desktopSize.width - jInternalFrameSize.width)/2
+				,(desktopSize.height - jInternalFrameSize.height)/2);
+		altaActividadInternalFrame.setVisible(false);
+		frame.getContentPane().add(altaActividadInternalFrame);
+		
+		// Crea frame de alta clase
+		altaClaseInternalFrame = new GUIAltaDictadoClase(iClase); 
+		jInternalFrameSize = altaClaseInternalFrame.getSize();
+		altaClaseInternalFrame.setLocation((desktopSize.width - jInternalFrameSize.width)/2
+				,(desktopSize.height - jInternalFrameSize.height)/2);
+		altaClaseInternalFrame.setVisible(false);
+		frame.getContentPane().add(altaClaseInternalFrame);
+		
 	}
 
 	private void initialize() {

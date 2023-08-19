@@ -4,30 +4,14 @@ import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 
+import interfaces.Fabrica;
+import interfaces.IUsuario;
+
 public class GUIAltaSocio extends JInternalFrame {
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GUIAltaSocio frame = new GUIAltaSocio();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public GUIAltaSocio() {
+	/* Create the frame.*/
+	public GUIAltaSocio(IUsuario iUsuario) {
 		setBounds(100, 100, 450, 300);
 
 	}
-
 }

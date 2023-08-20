@@ -7,6 +7,15 @@ import logica.ActividadDeportiva;
 public class CActividadDeportiva implements IActividadDeportiva {
 	
 
+	private static CActividadDeportiva instancia = null;
+	
+	public static CActividadDeportiva getInstancia() {
+		if (instancia == null)
+			instancia = new CActividadDeportiva();
+		return instancia;
+	}
+
+
 
 private static CActividadDeportiva instancia = null;
 	

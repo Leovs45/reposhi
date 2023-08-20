@@ -14,7 +14,7 @@ public class ActividadDeportiva {
 
     //Constructor
 	public ActividadDeportiva(String institucion, String nombre, String descripcion, int duracionMinutos, double costo,
-			Date fechaRegistro, ArrayList<Clase> arrayClase) {
+			Date fechaRegistro) {
 		super();
 		this.institucion = institucion;
 		this.nombre = nombre;
@@ -22,7 +22,6 @@ public class ActividadDeportiva {
 		this.duracionMinutos = duracionMinutos;
 		this.costo = costo;
 		this.fechaRegistro = fechaRegistro;
-		this.arrayClase = arrayClase;
 	}
 	
 	//Getters & Setters

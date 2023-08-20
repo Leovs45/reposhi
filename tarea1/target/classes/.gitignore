@@ -1,6 +1,11 @@
+/controladores/
+/interfaces/
 /presentacion/
+/META-INF/
 /logica/
+
 *.class
 /controladores/
 /META-INF/
 /interfaces/
+

@@ -1,9 +1,14 @@
 package presentacion;
 
-import java.util.Scanner;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Scanner;
 import interfaces.Fabrica;
+import interfaces.IActividadDeportiva;
+import interfaces.IInstitucionDeportiva;
 import logica.InstitucionDeportiva;
+import logica.ActividadDeportiva;
 import controladores.CInstitucionDeportiva;
 
 
@@ -64,8 +69,96 @@ public class Principal {
 			cInstitucion.altaInstitucionDeportiva(nombre, descripcion, url);
 		}
 	}
+//**************************************************************************************
+	static void agregarActividadDeportiva() {
+	    Fabrica f = Fabrica.getInstancia();
+	    IActividadDeportiva iActividad = f.getIActividadDeportiva();
+	    IInstitucionDeportiva iInstitucion = f.getIInstitucionDeportiva();
+
+	    Scanner entrada = new Scanner(System.in);
+
+	    String nombreInstitucion;
+	    String nombre;
+	    String descripcion;
+	    int duracionMinutos;
+	    double costo;
+	    Date fechaRegistro;
+	    int opt =1;
+
+	    // Obtener la fecha actual
+	    fechaRegistro = new Date();
+	    System.out.println("Fecha de inscripcion: " + fechaRegistro + "\n");
+
+	    do {
+	        System.out.println("Ingresar nombre de la actividad:");
+	        nombre = entrada.nextLine();
+
+	        ActividadDeportiva ad = iActividad.buscarActividadDeportiva(nombre);
+	        if (ad != null) {
+	            System.out.println("Ya existe una actividad con ese nombre.");
+	            System.out.println("¿Deseas Modificar?");
+	            System.out.println("  1. Si\n  2. No");
+	            opt = entrada.nextInt();
+	            entrada.nextLine(); // Limpiar el buffer del scanner
+
+	            if (opt == 1) {
+	                System.out.println("Ingresar la descripcion:");
+	                descripcion = entrada.nextLine();
+
+	                System.out.println("Ingresar la duracion en minutos de la actividad:");
+	                duracionMinutos = entrada.nextInt();
+	                entrada.nextLine(); // Limpiar el buffer del scanner
+
+	                System.out.println("Ingresar costo:");
+	                costo = entrada.nextDouble();
+	                entrada.nextLine(); // Limpiar el buffer del scanner
+
+	                System.out.println("Ingresar nombre de la Institucion:");
+	                nombreInstitucion = entrada.nextLine();
+
+	                InstitucionDeportiva institucion = iInstitucion.buscarInstitucionDeportiva(nombreInstitucion);
+	                if (institucion == null) {
+	                    System.out.println("La institucion deportiva no existe");
+	                } else {
+	                    iActividad.modificarDescripcion(nombre, descripcion);
+	                    iActividad.modificarDuracion(nombre, duracionMinutos);
+	                    iActividad.modificarCosto(nombre, costo);
+	                    iActividad.modificarInstitucion(nombre, nombreInstitucion);
+	                }
+	            }
+	        } else {
+	            System.out.println("Ingresar la descripcion:");
+	            descripcion = entrada.nextLine();
+
+	            System.out.println("Ingresar la duracion en minutos de la actividad:");
+	            duracionMinutos = entrada.nextInt();
+	            entrada.nextLine(); // Limpiar el buffer del scanner
+
+	            System.out.println("Ingresar costo:");
+	            costo = entrada.nextDouble();
+	            entrada.nextLine(); // Limpiar el buffer del scanner
+
+	            System.out.println("Ingresar nombre de la Institucion:");
+	            nombreInstitucion = entrada.nextLine();
+
+	            InstitucionDeportiva institucion = iInstitucion.buscarInstitucionDeportiva(nombreInstitucion);
+	            if (institucion == null) {
+	                System.out.println("La institucion deportiva no existe");
+	            } else {
+	                iActividad.altaActividadDeportiva(nombreInstitucion, nombre, descripcion, duracionMinutos, costo, fechaRegistro);
+	            }
+	        }
+
+	        System.out.println("¿Deseas agregar otra actividad deportiva?");
+	        System.out.println("  1. Si\n  2. No");
+	        opt = entrada.nextInt();
+	        entrada.nextLine(); // Limpiar el buffer del scanner
+
+	    } while (opt == 1);
+	}
 
 		
+	//**************************************************************************************		
 	public static void main(String[] args) {
 		Fabrica f = Fabrica.getInstancia();
 		Scanner input = new Scanner(System.in);
@@ -82,7 +175,8 @@ public class Principal {
 				break;
 			case 2:
 				break;
-			case 3:
+			case 3://Alta de Actividad Deportiva
+				agregarActividadDeportiva();
 				break;
 			case 7:
 				agregarInstitucionDeportiva();

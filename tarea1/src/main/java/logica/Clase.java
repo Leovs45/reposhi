@@ -15,7 +15,7 @@ public class Clase {
     
     //Constructor
 	public Clase(String nombreClase, ActividadDeportiva actividadDeportiva, Date fechaClase, Profesor profesor,
-			String horaInicio, String urlClase, Date fechaRegistro, ArrayList<Registro> arrayRegistro) {
+			String horaInicio, String urlClase, Date fechaRegistro) {
 		super();
 		this.nombreClase = nombreClase;
 		this.actividadDeportiva = actividadDeportiva;
@@ -24,7 +24,6 @@ public class Clase {
 		this.horaInicio = horaInicio;
 		this.urlClase = urlClase;
 		this.fechaRegistro = fechaRegistro;
-		this.arrayRegistro = arrayRegistro;
 	}
 	
 	//Getters & Setters

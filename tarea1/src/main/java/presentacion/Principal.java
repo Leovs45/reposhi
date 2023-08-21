@@ -1,10 +1,18 @@
 package presentacion;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 import interfaces.Fabrica;
+import interfaces.IClase;
 import interfaces.IInstitucionDeportiva;
+import interfaces.IActividadDeportiva;
 import logica.InstitucionDeportiva;
+import logica.Profesor;
+import logica.Clase;
+import logica.ActividadDeportiva;
+import controladores.CClase;
 import controladores.CInstitucionDeportiva;
 
 
@@ -124,8 +132,85 @@ public class Principal {
 		CInstitucionDeportiva cInstitucion = CInstitucionDeportiva.getInstancia();
 		cInstitucion.listarInstituciones();
 	}
-
 		
+	static void agregarClase() {
+		 Fabrica f = Fabrica.getInstancia();
+		 IActividadDeportiva iActividad = f.getIActividadDeportiva();
+		 IInstitucionDeportiva iInstitucion = f.getIInstitucionDeportiva();
+		 IClase iClase = f.getIClase();		   
+		 Scanner entrada = new Scanner(System.in);
+
+		 String nombreClase;
+		 String instituto;
+		 Date fechaClase;
+	     String horaIncio;
+	     String urlClase;
+	     Date fechaRegistro;
+		 int opt =1;
+
+		 // Obtener la fecha actual
+		 fechaRegistro = new Date();
+		 System.out.println("Fecha de inscripcion: " + fechaRegistro + "\n");
+		 
+		 //Fecha de clase seteada a mano
+		 fechaClase = new Date(2023, 7, 21);
+	        System.out.println("Fecha de la Clase: " + fechaClase + "\n");
+	        
+
+		 do {
+		   System.out.println("Ingresar institución deportiva: ");
+		   instituto = entrada.nextLine();
+		   InstitucionDeportiva id = iInstitucion.buscarInstitucionDeportiva(instituto);
+		   if (instituto == null) {
+               System.out.println("La institucion deportiva no existe");
+		   }else{
+			   System.out.println("Se eligio la institucion: " + instituto + " Se tendrían que listar las activudades asociadas a esa institución....");
+			   System.out.println("Eligo la actividad..");
+		   }
+		  
+		   nombreClase = entrada.nextLine();
+		   Clase claseExistente = iClase.buscarClase(nombreClase);
+		   
+		   if (claseExistente != null) {
+               System.out.println("El nombre de la clase ya existe");
+               System.out.println("¿Deseas Modificar?");
+	           System.out.println("  1. Si\n  2. No");
+	           opt = entrada.nextInt();
+	           entrada.nextLine(); // Limpiar el buffer del scanner
+	           
+	           if (opt == 1) {
+	                System.out.println("Ingresar profesor: ");
+	                String nomProfe = entrada.nextLine();
+	                System.out.println("Ingresar actividad deportiva: ");
+	                //actDepor = entrada.nextLine();
+	                //ActividadDeportiva ad = new ActividadDeportiva(actDepor);
+
+	                System.out.println("Ingresar hora inicio: ");
+	                horaIncio = entrada.nextLine();
+	                
+	                System.out.println("Ingresar url: ");
+	                urlClase = entrada.nextLine();
+	            }
+	        } else {
+	        	System.out.println("Ingresar profesor: ");
+                //nomProfe = entrada.nextLine();
+
+                System.out.println("Ingresar actividad deportiva: ");
+                //actDepor = entrada.nextLine();
+                //ActividadDeportiva ad = new ActividadDeportiva(actDepor);
+
+                System.out.println("Ingresar hora inicio: ");
+                horaIncio = entrada.nextLine();
+                
+                System.out.println("Ingresar url: ");
+                urlClase = entrada.nextLine();
+                
+                //iClase.altaDictadoClase(nombreClase, actDepor, fechaClase, nomProfe, horaIncio, urlClase, fechaRegistro);
+	        }	//tengo un problema con los parametros de actDepor y profesor, tengo que hacer el new pero me entrevere y no estoy pudiendo inicializarlo.
+		   
+	    } while (opt == 1);
+	}
+	
 	public static void main(String[] args) {
 		Fabrica f = Fabrica.getInstancia();
 		Scanner input = new Scanner(System.in);
@@ -145,6 +230,9 @@ public class Principal {
 			case 2:
 				break;
 			case 3:
+				break;
+			case 5:
+				agregarClase();
 				break;
 			case 7:
 				agregarInstitucionDeportiva();

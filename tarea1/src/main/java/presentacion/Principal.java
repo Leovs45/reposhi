@@ -12,13 +12,15 @@ import logica.Usuario;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
+import controladores.CInstitucionDeportiva;
+
 import interfaces.Fabrica;
 
 import interfaces.IActividadDeportiva;
 import interfaces.IInstitucionDeportiva;
 import logica.InstitucionDeportiva;
 import logica.ActividadDeportiva;
-import controladores.CInstitucionDeportiva;
+
 
 
 public class Principal {
@@ -46,7 +48,6 @@ public class Principal {
 		Fabrica f = Fabrica.getInstancia();
 		IInstitucionDeportiva cInstitucion = f.getIInstitucionDeportiva();
 		Scanner entrada = new Scanner(System.in);
-		
 		System.out.println("Nombre de la institucion: ");
 		String nombre = null;
 		int opt = 1;
@@ -277,6 +278,38 @@ public class Principal {
 		cInstitucion.listarInstituciones();
 
 	}
+	
+	static void consultarActividadDeportiva() {
+		Fabrica f = Fabrica.getInstancia();
+		IInstitucionDeportiva cInstitucion = f.getIInstitucionDeportiva();
+		Scanner entrada = new Scanner(System.in);
+		int opt, opt2 = 1;
+		
+		String nombreInstitucion;
+		InstitucionDeportiva institucion = null;
+		
+		System.out.println("Ingresa el nombre de la institucion que ofrece la actividad deportiva que queres consultar");
+		nombreInstitucion = entrada.nextLine();
+		institucion = cInstitucion.buscarInstitucionDeportiva(nombreInstitucion);
+		
+		while (institucion == null && opt2 == 1) {
+			System.out.println("No existe una institucion con ese nombre");
+			System.out.println("Deseas volver a intentarlo?");
+			System.out.println("    1. Si \n    2. No");
+			opt2 = Integer.parseInt(entrada.nextLine());
+			
+			if(opt2 == 1) {
+				System.out.println("Ingresa el nombre de la institucion que ofrece la actividad deportiva que queres consultar");
+				nombreInstitucion = entrada.nextLine();
+				institucion = cInstitucion.buscarInstitucionDeportiva(nombreInstitucion);
+			}
+		}
+		
+		if(opt2 == 1) {
+			cInstitucion.listarActividadesDeportivas(institucion);
+		}
+		entrada.close();
+	}
 
 		
 	//**************************************************************************************		
@@ -299,6 +332,10 @@ public class Principal {
 				break;
 			case 3://Alta de Actividad Deportiva
 				agregarActividadDeportiva();
+				break;
+			case 4:
+				//Consultar Actividad Deportiva();
+				consultarActividadDeportiva();
 				break;
 			case 7:
 				agregarInstitucionDeportiva();

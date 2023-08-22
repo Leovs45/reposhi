@@ -13,4 +13,5 @@ public interface IInstitucionDeportiva {
 	// Adicionales
 	public InstitucionDeportiva buscarInstitucionDeportiva(String nombre);
 	public void listarInstituciones();
+	public void listarActividadesDeportivas(InstitucionDeportiva institucion);
 }

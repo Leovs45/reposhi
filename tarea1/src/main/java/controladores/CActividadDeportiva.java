@@ -1,8 +1,12 @@
 package controladores;
+
+import java.util.ArrayList;
 import java.util.Date;
 import interfaces.IActividadDeportiva;
-import logica.ActividadDeportiva;
 
+import interfaces.IInstitucionDeportiva;
+import logica.ActividadDeportiva;
+import logica.InstitucionDeportiva;
 
 public class CActividadDeportiva implements IActividadDeportiva {
 	
@@ -41,7 +45,46 @@ public class CActividadDeportiva implements IActividadDeportiva {
 	@Override
 	public void consultaActividadDeportiva(String institucion) {
 		// TODO Auto-generated method stub
-		
+		/*
+		El caso de uso comienza cuando el administrador desea consultar una
+		actividad deportiva. En primer lugar, el administrador indica la
+		institución que ofrece la actividad deportiva y el sistema lista las
+		actividades deportivas asociadas a la misma. El administrador elige una
+		de ellas y el sistema devuelve todos los datos de la actividad,
+		incluyendo la lista de clases asociadas. Si el administrador selecciona
+		una clase asociada a esa actividad deportiva, se muestra la información
+		detallada, tal como se indica en el caso de uso Consulta de Dictado de
+		Clase.
+		*/
+				/*
+			InstitucionDeportiva instDep = 
+			if (instDep.size() == 0) {
+				System.out.println("La institución indicada no existe");
+			}
+			else {
+				
+			}
+					
+			public InstitucionDeportiva buscarInstitucionDeportiva(String nombre);
+			public void listarInstituciones();
+			
+			InstitucionDeportiva institucion = null;
+			if (instituciones.size() == 0) {
+				return institucion;
+			} else {
+				for(InstitucionDeportiva i: instituciones) {
+					if (i.getNombre().equals(nombre)) {
+						institucion = i;
+					}
+				}
+
+			}
+			*/
+
+	}
+	
+	public String DevolverNombre(ActividadDeportiva Nombre) {
+		return Nombre.getNombre();
 	}
 	
 	/**********************************/

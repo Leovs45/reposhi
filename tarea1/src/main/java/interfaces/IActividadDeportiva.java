@@ -6,6 +6,8 @@ import java.util.List;
 import logica.ActividadDeportiva;
 
 
+import logica.ActividadDeportiva;
+
 public interface IActividadDeportiva {
 	public List<ActividadDeportiva> Actividades = new ArrayList<>();
 	public void altaActividadDeportiva(String institucion, String nombreActividad, String descripcion, int duracionMinutos, double costo, Date fechaAlta);
@@ -18,4 +20,7 @@ public interface IActividadDeportiva {
 	public void modificarDuracion(String nombreActividad, int nuevaDuracion);
 	public void modificarCosto(String nombreActividad, double nuevoCosto);
 	public void rankingActividades();
+	
+	//Adicionales
+	public String DevolverNombre(ActividadDeportiva Nombre);
 }

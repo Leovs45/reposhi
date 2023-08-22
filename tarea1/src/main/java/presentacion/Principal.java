@@ -62,7 +62,7 @@ public class Principal {
 		int opt = 1;
 		nombre = entrada.nextLine();
 		
-		InstitucionDeportiva institucion = iInstitucion.buscarInstitucionDeportiva(nombre);
+		InstitucionDeportiva institucion = cInstitucion.buscarInstitucionDeportiva(nombre);
 
 		while (institucion != null && opt == 1) {
 			System.out.println("Ya existe una institucion con ese nombre.");
@@ -72,7 +72,7 @@ public class Principal {
 		  if (opt == 1) {
 				System.out.println("Nombre de la institucion: ");
 				nombre = entrada.nextLine();
-				institucion = iInstitucion.buscarInstitucionDeportiva(nombre);
+				institucion = cInstitucion.buscarInstitucionDeportiva(nombre);
 			}
 		}
 		
@@ -85,62 +85,10 @@ public class Principal {
 			String url = null;
 			url = entrada.nextLine();
 			
-			iInstitucion.altaInstitucionDeportiva(nombre, descripcion, url);
+			cInstitucion.altaInstitucionDeportiva(nombre, descripcion, url);
 		}
 	}
-	static void altaUsuario() {
-		CInstitucionDeportiva cInstitucion = CInstitucionDeportiva.getInstancia();
-		IUsuario IUser = f.getIUsuario();
-		int aux=0;
-		do {
-			Scanner input = new Scanner(System.in);
-			System.out.print("Nickname: ");
-			String nickname = input.nextLine();
-			Usuario user= IUser.buscarUsuario(nickname);
-			if(user != null){
-				System.out.print("Ya existe este usuario\n");
-				aux =1;
-			}
-			else {
-				System.out.print("Nombre: ");
-			    String nombre = input.nextLine();
-			    System.out.print("Apellido: ");
-			    String apellido = input.nextLine();
-			    System.out.print("Correo Electronico: ");
-			    String correoElectronico = input.nextLine();
-			    System.out.print("Fecha de Nacimiento: ");
-			    String fechaNacimiento = input.nextLine();
-			    System.out.print("El usuario es profesor o socio? 1- Profesor 2- Socio ");
-			    int op = Integer.parseInt(input.nextLine());
-			    switch(op) {
-			    case 1:
-			    	TipoUsuario tpProfe = TipoUsuario.Profesor;
-			    	System.out.print("Institucion: ");
-			    	
-			        String nombreInstitucion = input.nextLine();
-			        InstitucionDeportiva institucion = cInstitucion.buscarInstitucionDeportiva(nombreInstitucion);
-			        if(institucion != null) {
-			        	System.out.print("Ya existe una institucion deportiva con ese nombre");
-			        	aux=1;
-			        }
-			        else {
-				        System.out.print("Descripcion General: ");
-				        String descripcionGeneral = input.nextLine();
-				        System.out.print("Biografia: ");
-				        String biografia = input.nextLine();
-				        System.out.print("Sitio Web: ");
-				        String sitioWeb = input.nextLine();
-			        	IUser.altaUsuario(tpProfe, nickname, nombre, apellido, correoElectronico, fechaNacimiento, institucion, descripcionGeneral, biografia, sitioWeb);
-			        	break;
-			        }
-			    case 2:
-			    	TipoUsuario tpSocio = TipoUsuario.UsuarioComun;
-		        	IUser.altaUsuario(tpSocio, nickname, nombre, apellido, correoElectronico, fechaNacimiento);
-			    	break;
-			    }
-			}
-		}while (aux !=0);
-	}
+	
 
 //**************************************************************************************
 	static void agregarActividadDeportiva() {
@@ -407,39 +355,38 @@ public class Principal {
 		 Fabrica f = Fabrica.getInstancia();
 		 IActividadDeportiva iActividad = f.getIActividadDeportiva();
 		 IInstitucionDeportiva iInstitucion = f.getIInstitucionDeportiva();
-		 IClase iClase = f.getIClase();		   
+		 IClase iClase = f.getIClase();
+		 IUsuario iUsuario = f.getIUsuario();
 		 Scanner entrada = new Scanner(System.in);
-
-		 String nombreClase;
-		 String instituto;
-		 Date fechaClase;
-	     String horaIncio;
-	     String urlClase;
-	     Date fechaRegistro;
 		 int opt =1;
 
 		 // Obtener la fecha actual
-		 fechaRegistro = new Date();
+		 Date fechaRegistro = new Date();
 		 System.out.println("Fecha de inscripcion: " + fechaRegistro + "\n");
 		 
 		 //Fecha de clase seteada a mano
-		 fechaClase = new Date(2023, 7, 21);
+		 Date fechaClase = new Date(2023, 7, 21);
 	        System.out.println("Fecha de la Clase: " + fechaClase + "\n");
 	        
-
-		 do {
+	        
 		   System.out.println("Ingresar institución deportiva: ");
-		   instituto = entrada.nextLine();
+		   String instituto = entrada.nextLine();
 		   InstitucionDeportiva id = iInstitucion.buscarInstitucionDeportiva(instituto);
 		   if (instituto == null) {
                System.out.println("La institucion deportiva no existe");
 		   }else{
-			   System.out.println("Se eligio la institucion: " + instituto + " Se tendrían que listar las activudades asociadas a esa institución....");
-			   System.out.println("Eligo la actividad..");
+			   System.out.println("Se eligio la institucion: " + instituto);
+			   id.listarActividades();
 		   }
 		  
-		   nombreClase = entrada.nextLine();
-		   //Clase claseExistente = iClase.buscarClase(nombreClase);
+		   System.out.println("Elija una opción: ");
+		   int op = Integer.parseInt(entrada.nextLine());
+		   ActividadDeportiva ad = id.obtenerActividad(op);
+		   
+		  do {
+		   System.out.println("Ingrese el nombre de la clase: ");
+		   String nombreClase = entrada.nextLine();
+		   Clase claseExistente = ad.buscarClase(nombreClase);
 		   
 		   if (claseExistente != null) {
                System.out.println("El nombre de la clase ya existe");
@@ -448,37 +395,34 @@ public class Principal {
 	           opt = entrada.nextInt();
 	           entrada.nextLine(); // Limpiar el buffer del scanner
 	           
-	           if (opt == 1) {
-	                System.out.println("Ingresar profesor: ");
-	                String nomProfe = entrada.nextLine();
-	                System.out.println("Ingresar actividad deportiva: ");
-	                //actDepor = entrada.nextLine();
-	                //ActividadDeportiva ad = new ActividadDeportiva(actDepor);
-
-	                System.out.println("Ingresar hora inicio: ");
-	                horaIncio = entrada.nextLine();
-	                
-	                System.out.println("Ingresar url: ");
-	                urlClase = entrada.nextLine();
-	            }
+	           System.out.println("Ingresar nombre de la clase nuevamente: ");
+	           String nuevoNomClase = entrada.nextLine();
+	            
 	        } else {
 	        	System.out.println("Ingresar profesor: ");
-                //nomProfe = entrada.nextLine();
+	        	String nomProfe = entrada.nextLine();
+                Usuario unProfe = iUsuario.buscarUsuario(nomProfe);
+                if(unProfe != null) {
+                	System.out.print("Este usuario ya existe");
+                	if(!iUsuario.esProfesor(unProfe)) {
+                		System.out.println(" y no es profesor.");
+                	}
+                }
 
                 System.out.println("Ingresar actividad deportiva: ");
                 //actDepor = entrada.nextLine();
                 //ActividadDeportiva ad = new ActividadDeportiva(actDepor);
 
                 System.out.println("Ingresar hora inicio: ");
-                horaIncio = entrada.nextLine();
+                String horaIncio = entrada.nextLine();
                 
                 System.out.println("Ingresar url: ");
-                urlClase = entrada.nextLine();
+                String urlClase = entrada.nextLine();
                 
-                //iClase.altaDictadoClase(nombreClase, actDepor, fechaClase, nomProfe, horaIncio, urlClase, fechaRegistro);
-	        }	//tengo un problema con los parametros de actDepor y profesor, tengo que hacer el new pero me entrevere y no estoy pudiendo inicializarlo.
+                iClase.altaDictadoClase(nombreClase, ad, fechaClase, unProfe, instituto, nombreClase, fechaRegistro);
+	        }
 		   
-	    } while (opt == 1);
+		 } while (opt == 1);
 	}
 	
 	public static void main(String[] args) {

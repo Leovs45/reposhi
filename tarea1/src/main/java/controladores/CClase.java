@@ -54,5 +54,5 @@ public class CClase implements IClase {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 }

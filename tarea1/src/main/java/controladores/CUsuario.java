@@ -1,6 +1,7 @@
 package controladores;
 import logica.*;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,22 +19,6 @@ public class CUsuario implements IUsuario{
 			instancia = new CUsuario();
 		return instancia;
 	}
-	
-	@Override
-	public void altaUsuario(TipoUsuario tipoUsuario, String nickname, String nombre, String apellido, String correoElectronico, String fechaNacimiento, InstitucionDeportiva institucion, String descripcionGeneral, String biografia, String sitioWeb){
-		if(tipoUsuario == TipoUsuario.Profesor) {
-			Usuario profe = new Profesor(nickname, nombre, apellido, correoElectronico, fechaNacimiento, institucion, descripcionGeneral, biografia, sitioWeb);
-			usuarios.add(profe);
-		}
-	}
-	
-
-	public static CUsuario getInstancia() {
-		if (instancia == null)
-			instancia = new CUsuario();
-		return instancia;
-	}
-	
 	
 	@Override
 	public void altaUsuario(TipoUsuario tipoUsuario, String nickname, String nombre, String apellido, String correoElectronico, String fechaNacimiento, InstitucionDeportiva institucion, String descripcionGeneral, String biografia, String sitioWeb){
@@ -62,6 +47,14 @@ public class CUsuario implements IUsuario{
 		}
 
 		return usuario;
+	}
+	
+	public boolean esProfesor(Usuario u) {
+		if(u instanceof Profesor) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 	
 	@Override

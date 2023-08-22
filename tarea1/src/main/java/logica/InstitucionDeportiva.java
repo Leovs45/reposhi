@@ -59,4 +59,26 @@ public class InstitucionDeportiva {
 		this.arrayActividadDeportiva = arrayActividadDeportiva;
 	}
 	
+	public void listarActividades() {
+		if(arrayActividadDeportiva.size() == 0) {
+			System.out.println("  ERROR - No existe ninguna actividad");
+		} else {
+			int contador = 1;
+			for(ActividadDeportiva a: arrayActividadDeportiva) {
+				System.out.println(contador + "- " + a.getNombre()+ "\n");
+				contador++;
+			}
+		}
+	}
+	
+	public ActividadDeportiva obtenerActividad(int opt) {
+		ActividadDeportiva ad = null;
+		if (arrayActividadDeportiva.size() == 0) {
+			return ad;
+		} else {
+			ad = arrayActividadDeportiva.get(opt);
+		}
+		return ad;
+	}
+	
 }

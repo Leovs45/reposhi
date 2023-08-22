@@ -12,7 +12,6 @@ public interface IClase {
 			String horaInicio, String urlClase, Date fechaRegistro);
 	public void registroClase(String institucion, String actividadDeportiva, String clase, String nickname);
 	//public void altaDictadoClase(String institucion, String nombreClase, Date fecha, Date horaInicio,String nombreProfesor, String url, Date fechaAlta);
-	public Clase buscarClase(String nombre);
 	
 	// Opcionales
 	public void consultarDictadoClase(String institucion, String clase);

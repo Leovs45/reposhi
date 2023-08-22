@@ -439,7 +439,7 @@ public class Principal {
 		   }
 		  
 		   nombreClase = entrada.nextLine();
-		   Clase claseExistente = iClase.buscarClase(nombreClase);
+		   //Clase claseExistente = iClase.buscarClase(nombreClase);
 		   
 		   if (claseExistente != null) {
                System.out.println("El nombre de la clase ya existe");

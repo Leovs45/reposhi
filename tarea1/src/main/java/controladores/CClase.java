@@ -14,8 +14,6 @@ import logica.Profesor;
 
 public class CClase implements IClase {
 	
-	private List<Clase> clases = new ArrayList<>();
-	
 	private static CClase instancia = null;
 	
 	public static CClase getInstancia() {
@@ -28,7 +26,7 @@ public class CClase implements IClase {
 	public void altaDictadoClase(String nombreClase, ActividadDeportiva actividadDeportiva, Date fechaClase, Profesor profesor,
 			String horaInicio, String urlClase, Date fechaRegistro) {
 		Clase clase = new Clase(nombreClase, actividadDeportiva, fechaClase, profesor, horaInicio, urlClase, fechaRegistro);
-		clases.add(clase);
+		profesor.agregarClase(clase);
 		System.out.println("OK - Clase Creada");
 	}
 
@@ -38,20 +36,7 @@ public class CClase implements IClase {
 		
 	}
 	
-	public Clase buscarClase(String nombre) {
-		Clase clase = null;
-		if (clases.size() == 0) {
-			return clase;
-		} else {
-			for(Clase c: clases) {
-				if (c.getNombreClase().equals(nombre)) {
-					clase = c;
-				}
-			}
-		}
 
-		return clase;
-	}
 	
 	
 	/**********************************/

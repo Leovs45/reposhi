@@ -15,16 +15,6 @@ public class CActividadDeportiva implements IActividadDeportiva {
 		return instancia;
 	}
 
-
-
-private static CActividadDeportiva instancia = null;
-	
-	public static CActividadDeportiva getInstancia() {
-		if (instancia == null)
-			instancia = new CActividadDeportiva();
-		return instancia;
-	}
-	
 	public void altaActividadDeportiva(String institucion, String nombreActividad, String descripcion, int duracionMinutos,
 			double costo, Date fechaAlta) {
 		ActividadDeportiva ActividadDp = new ActividadDeportiva(institucion,nombreActividad,descripcion,duracionMinutos,costo,fechaAlta);

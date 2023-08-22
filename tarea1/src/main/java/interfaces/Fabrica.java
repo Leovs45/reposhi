@@ -1,4 +1,5 @@
 package interfaces;
+import controladores.*;
 
 import controladores.*;
 
@@ -16,7 +17,17 @@ public class Fabrica {
 	public IUsuario getIUsuario() {
 		return CUsuario.getInstancia();
 	}
+	
 	public IInstitucionDeportiva getIInstitucionDeportiva() {
 		return CInstitucionDeportiva.getInstancia();
 	}
+	
+	public IActividadDeportiva getIActividadDeportiva() {
+		return CActividadDeportiva.getInstancia();
+	}
+	
+	public IClase getIClase() {
+		return CClase.getInstancia();
+	}
 }
+	

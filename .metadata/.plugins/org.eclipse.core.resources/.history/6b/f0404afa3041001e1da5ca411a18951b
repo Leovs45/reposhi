@@ -1,0 +1,5 @@
+package controladores;
+import interfaces.*;
+public class CRegistro implements IRegistro{
+
+}

@@ -1,0 +1,17 @@
+package presentacionAltas;
+
+import java.awt.EventQueue;
+import interfaces.IUsuario;
+
+import javax.swing.JInternalFrame;
+
+public class GUIAltaUsuario extends JInternalFrame {
+	/**
+	 * Create the frame.
+	 */
+	public GUIAltaUsuario(IUsuario iUsuario) {
+		setBounds(100, 100, 450, 300);
+
+	}
+
+}

@@ -1,7 +1,7 @@
 package interfaces;
 import controladores.*;
 
-import controladores.*;
+
 
 public class Fabrica {
 	private static Fabrica instancia = null;
@@ -29,5 +29,9 @@ public class Fabrica {
 	public IClase getIClase() {
 		return CClase.getInstancia();
 	}
+	public IRegistro getIRegistro() {
+		return CRegistro.getInstancia();
+	}
+	
 }
 	

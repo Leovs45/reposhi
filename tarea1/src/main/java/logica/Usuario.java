@@ -7,10 +7,10 @@ public abstract class Usuario {
     private String nombre;
     private String apellido;
     private String correoElectronico;
-    private Date fechaNacimiento;
-
+    private String fechaNacimiento;
+    
     //Constructor
-    public Usuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento) {
+    public Usuario(String nickname, String nombre, String apellido, String correoElectronico, String fechaNacimiento) {
     	super();
         this.nickname = nickname;
         this.nombre = nombre;
@@ -52,11 +52,11 @@ public abstract class Usuario {
 		this.correoElectronico = correoElectronico;
 	}
 
-	public Date getFechaNacimiento() {
+	public String getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(Date fechaNacimiento) {
+	public void setFechaNacimiento(String fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 

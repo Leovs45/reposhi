@@ -59,4 +59,9 @@ public class InstitucionDeportiva {
 		this.arrayActividadDeportiva = arrayActividadDeportiva;
 	}
 	
+	public void setAgregarActividad(ActividadDeportiva ad){
+		
+		this.arrayActividadDeportiva.add(ad);
+	}
+	
 }

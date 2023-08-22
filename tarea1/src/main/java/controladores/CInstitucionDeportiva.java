@@ -2,8 +2,8 @@ package controladores;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import interfaces.IInstitucionDeportiva;
+import logica.ActividadDeportiva;
 import logica.InstitucionDeportiva;
 
 public class CInstitucionDeportiva implements IInstitucionDeportiva {
@@ -55,6 +55,11 @@ public class CInstitucionDeportiva implements IInstitucionDeportiva {
 	@Override
 	public void modificarUrl(String nombreInstitucion, String nuevoUrl) {
 		// TODO Auto-generated method stub
+		
+	}
+	public void agregarActividadDeportivaInstitucion(InstitucionDeportiva unaInstitucion, ActividadDeportiva unaActividad){
+		
+		unaInstitucion.setAgregarActividad(unaActividad);
 		
 	}
 

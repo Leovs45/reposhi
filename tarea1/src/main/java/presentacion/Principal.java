@@ -52,7 +52,7 @@ public class Principal {
 		int opt = 1;
 		nombre = entrada.nextLine();
 		
-		InstitucionDeportiva institucion = IInstitucion.buscarInstitucionDeportiva(nombre);
+		InstitucionDeportiva institucion = cInstitucion.buscarInstitucionDeportiva(nombre);
 
 		while (institucion != null && opt == 1) {
 			System.out.println("Ya existe una institucion con ese nombre.");
@@ -62,7 +62,7 @@ public class Principal {
 		  if (opt == 1) {
 				System.out.println("Nombre de la institucion: ");
 				nombre = entrada.nextLine();
-				institucion = IInstitucion.buscarInstitucionDeportiva(nombre);
+				institucion = cInstitucion.buscarInstitucionDeportiva(nombre);
 			}
 		}
 		
@@ -75,7 +75,7 @@ public class Principal {
 			String url = null;
 			url = entrada.nextLine();
 			
-			IInstitucion.altaInstitucionDeportiva(nombre, descripcion, url);
+			cInstitucion.altaInstitucionDeportiva(nombre, descripcion, url);
 		}
 	}
 	static void altaUsuario() {

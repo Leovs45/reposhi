@@ -18,12 +18,6 @@ public class CUsuario implements IUsuario{
 			instancia = new CUsuario();
 		return instancia;
 	}
-
-	public static CUsuario getInstancia() {
-		if (instancia == null)
-			instancia = new CUsuario();
-		return instancia;
-	}
 	
 	
 	@Override

@@ -1,10 +1,16 @@
 package interfaces;
-
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import logica.ActividadDeportiva;
+
 
 public interface IActividadDeportiva {
-	public void altaActividadDeportiva(String institucion, String nombreActividad, String descripcion, String duracion, int costo, Date fechaAlta);
+	public List<ActividadDeportiva> Actividades = new ArrayList<>();
+	public void altaActividadDeportiva(String institucion, String nombreActividad, String descripcion, int duracionMinutos, double costo, Date fechaAlta);
 	public void consultaActividadDeportiva(String institucion);
+	public ActividadDeportiva buscarActividadDeportiva(String nombre);
 	
 	//Opcionales
 	public void modificarInstitucion(String nombreActividad, String nuevaInstitucion);

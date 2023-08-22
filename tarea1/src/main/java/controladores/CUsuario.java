@@ -27,6 +27,21 @@ public class CUsuario implements IUsuario{
 		}
 	}
 	
+
+	public static CUsuario getInstancia() {
+		if (instancia == null)
+			instancia = new CUsuario();
+		return instancia;
+	}
+	
+	
+	@Override
+	public void altaUsuario(TipoUsuario tipoUsuario, String nickname, String nombre, String apellido, String correoElectronico, String fechaNacimiento, InstitucionDeportiva institucion, String descripcionGeneral, String biografia, String sitioWeb){
+		if(tipoUsuario == TipoUsuario.Profesor) {
+			Usuario profe = new Profesor(nickname, nombre, apellido, correoElectronico, fechaNacimiento, institucion, descripcionGeneral, biografia, sitioWeb);
+			usuarios.add(profe);
+		}
+	}
 	public void altaUsuario(TipoUsuario tipoUsuario, String nickname, String nombre, String apellido, String correoElectronico, String fechaNacimiento) {
 		if(tipoUsuario == TipoUsuario.UsuarioComun) {
 			Usuario socio = new Socio(nickname, nombre, apellido, correoElectronico, fechaNacimiento);

@@ -10,7 +10,7 @@ public interface IUsuario {
 	public void altaUsuario(TipoUsuario tipoUsuario, String nickname, String nombre, String apellido, String correoElectronico, String fechaNacimiento, InstitucionDeportiva institucion, String descripcionGeneral, String biografia, String sitioWeb);
 	public void altaUsuario(TipoUsuario tipoUsuario, String nickname, String nombre, String apellido, String correoElectronico, String fechaNacimiento);
 	public Usuario buscarUsuario(String nombre);
-	public void consultaUsuario();
+	public void consultaUsuario(String Nickname);
 	
 	//Opcionales
 	public void modificarNombre(String nickname, String nuevoNombre);

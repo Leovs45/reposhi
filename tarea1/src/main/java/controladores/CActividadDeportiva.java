@@ -19,7 +19,7 @@ public class CActividadDeportiva implements IActividadDeportiva {
 			double costo, Date fechaAlta) {
 		ActividadDeportiva ActividadDp = new ActividadDeportiva(institucion,nombreActividad,descripcion,duracionMinutos,costo,fechaAlta);
 		Actividades.add(ActividadDp);
-		System.out.println("OK  -  La institucion fue creada correctamente");
+		//System.out.println("OK  -  La institucion fue creada correctamente");
 		// TODO Auto-generated method stub
 		
 	}
@@ -40,7 +40,16 @@ public class CActividadDeportiva implements IActividadDeportiva {
 	}
 	@Override
 	public void consultaActividadDeportiva(String institucion) {
-		// TODO Auto-generated method stub
+		  for (ActividadDeportiva actividad : Actividades) {
+		        if (actividad.getInstitucion().equals(institucion)) {
+		            System.out.println("Nombre: " + actividad.getNombre());
+		            System.out.println("Descripción: " + actividad.getDescripcion());
+		            System.out.println("Duración en minutos: " + actividad.getDuracionMinutos());
+		            System.out.println("Costo: " + actividad.getCosto());
+		            System.out.println("Fecha de alta: " + actividad.getFechaRegistro());
+		            System.out.println("--------------------------------------------");
+		        }
+		    }
 		
 	}
 	

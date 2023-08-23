@@ -7,7 +7,10 @@
 *.class
 /controladores/
 /META-INF/
+/controladores/
 /interfaces/
+/presentacion/
+/logica/
 /presentacionAltas/
 /presentacionConsultas/
 /presentacionModificacion/

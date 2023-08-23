@@ -29,5 +29,6 @@ public class Fabrica {
 	public IClase getIClase() {
 		return CClase.getInstancia();
 	}
+	
 }
 	

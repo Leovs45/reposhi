@@ -80,5 +80,19 @@ public class ActividadDeportiva {
 	public void setArrayClase(ArrayList<Clase> arrayClase) {
 		this.arrayClase = arrayClase;
 	}
+	
+	public Clase buscarClase(String nombre) {
+		Clase clase = null;
+		if (arrayClase.size() == 0) {
+			return clase;
+		} else {
+			for(Clase c: arrayClase) {
+				if (c.getNombreClase().equals(nombre)) {
+					clase = c;
+				}
+			}
+		}
+		return clase;
+	}
    
 }

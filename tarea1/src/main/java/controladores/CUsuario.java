@@ -1,7 +1,5 @@
 package controladores;
 import logica.*;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,7 +89,12 @@ public class CUsuario implements IUsuario{
 			System.out.println("  ERROR - No existe ningun usuario creado");
 		} else {
 			for(Usuario u: usuarios) {
-				System.out.println(u.getNickname() + " - " + u.getNombre() + " " + u.getApellido() + " " + u.getFechaNacimiento());
+				if(u instanceof Profesor) {
+					Profesor profesor = (Profesor) u;
+					System.out.println("PROFE: " + profesor.getNickname() + " - " + profesor.getNombre() + " " + profesor.getApellido() + " " + profesor.getFechaNacimiento() + " " + profesor.getInstitucion());
+				} else {
+					System.out.println("SOCIO: " + u.getNickname() + " - " + u.getNombre() + " " + u.getApellido() + " " + u.getFechaNacimiento());
+				}
 			}
 		}
 	}

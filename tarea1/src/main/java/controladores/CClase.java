@@ -1,15 +1,11 @@
 package controladores;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
 
 
 import interfaces.IClase;
 import logica.ActividadDeportiva;
 import logica.Clase;
-import logica.InstitucionDeportiva;
 import logica.Profesor;
 
 public class CClase implements IClase {

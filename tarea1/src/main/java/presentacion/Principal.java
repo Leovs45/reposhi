@@ -89,8 +89,6 @@ public class Principal {
 		}
 	}
 	
-
-//**************************************************************************************
 	static void agregarActividadDeportiva() {
 	    Fabrica f = Fabrica.getInstancia();
 	    IActividadDeportiva iActividad = f.getIActividadDeportiva();
@@ -408,23 +406,26 @@ public class Principal {
                 		System.out.println(" y no es profesor.");
                 	}
                 }
+                
+                Profesor profesor = (Profesor) unProfe;
 
                 System.out.println("Ingresar actividad deportiva: ");
-                //actDepor = entrada.nextLine();
-                //ActividadDeportiva ad = new ActividadDeportiva(actDepor);
 
                 System.out.println("Ingresar hora inicio: ");
-                String horaIncio = entrada.nextLine();
+                String horaInicio = entrada.nextLine();
                 
                 System.out.println("Ingresar url: ");
                 String urlClase = entrada.nextLine();
                 
-                iClase.altaDictadoClase(nombreClase, ad, fechaClase, unProfe, instituto, nombreClase, fechaRegistro);
+                iClase.altaDictadoClase(nombreClase, ad, fechaClase, profesor, horaInicio, urlClase, fechaRegistro);
 	        }
 		   
 		 } while (opt == 1);
 	}
 	
+	
+//**************************************************************************************
+
 	public static void main(String[] args) {
 		Fabrica f = Fabrica.getInstancia();
 		Scanner input = new Scanner(System.in);
@@ -440,13 +441,17 @@ public class Principal {
 			case 1:
 				altaUsuario();
 				break;
-			case 2:
+			case 2: //Consultar perfil usuario
 				break;
-			case 3://Alta de Actividad Deportiva
+			case 3: //Alta de Actividad Deportiva
 				agregarActividadDeportiva();
+				break;
+			case 4: //Consultar actividad deportiva
 				break;
 			case 5:
 				agregarClase();
+				break;
+			case 6: //Registrar socio a clase
 				break;
 			case 7:
 				agregarInstitucionDeportiva();
@@ -454,8 +459,16 @@ public class Principal {
 			case 8:
 				modificarUsuario();
 				break;
+			case 9: // Consultar dictado de clase
+				break;
+			case 10: //Modificar Actividad Deportiva
+				break;
 			case 11:
 				modificarInstitucionDeportiva();
+				break;
+			case 12: // Ranking de dictado de clases
+				break;
+			case 13: // Ranking de Actividades Deportivas
 				break;
 			case 14:
 				listarInstituciones();

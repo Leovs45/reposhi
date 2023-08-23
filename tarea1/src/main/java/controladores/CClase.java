@@ -1,8 +1,16 @@
 package controladores;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Scanner;
+
 
 import interfaces.IClase;
+import logica.ActividadDeportiva;
+import logica.Clase;
+import logica.InstitucionDeportiva;
+import logica.Profesor;
 
 public class CClase implements IClase {
 	
@@ -15,10 +23,11 @@ public class CClase implements IClase {
 	}
 
 	@Override
-	public void altaDictadoClase(String institucion, String nombreClase, Date fecha, String horaInicio,
-			String nombreProfesor, String url, Date fechaAlta) {
-		// TODO Auto-generated method stub
-		
+	public void altaDictadoClase(String nombreClase, ActividadDeportiva actividadDeportiva, Date fechaClase, Profesor profesor,
+			String horaInicio, String urlClase, Date fechaRegistro) {
+		Clase clase = new Clase(nombreClase, actividadDeportiva, fechaClase, profesor, horaInicio, urlClase, fechaRegistro);
+		profesor.agregarClase(clase);
+		System.out.println("OK - Clase Creada");
 	}
 
 	@Override
@@ -26,6 +35,8 @@ public class CClase implements IClase {
 		// TODO Auto-generated method stub
 		
 	}
+	
+
 	
 	
 	/**********************************/
@@ -43,5 +54,5 @@ public class CClase implements IClase {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 }

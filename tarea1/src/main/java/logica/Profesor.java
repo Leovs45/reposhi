@@ -9,8 +9,8 @@ public class Profesor extends Usuario {
     private String descripcionGeneral;
     private String biografia;
     private String sitioWeb;
-	private List<Clase> clases = new ArrayList<>();
-
+    private List<Clase> clases = new ArrayList<>();
+    
     //Constructor
     public Profesor(String nickname, String nombre, String apellido, String correoElectronico, String fechaNacimiento,
     		InstitucionDeportiva institucion, String descripcionGeneral, String biografia, String sitioWeb) {
@@ -52,6 +52,25 @@ public class Profesor extends Usuario {
 
 	public void setSitioWeb(String sitioWeb) {
 		this.sitioWeb = sitioWeb;
+	}
+	
+	public void agregarClase(Clase c) {
+		clases.add(c);
+	}
+	
+	public Clase buscarClase(String nombre) {
+		Clase clase = null;
+		if (clases.size() == 0) {
+			return clase;
+		} else {
+			for(Clase c: clases) {
+				if (c.getNombreClase().equals(nombre)) {
+					clase = c;
+				}
+			}
+		}
+
+		return clase;
 	}
 
     

@@ -29,6 +29,10 @@ public class Profesor extends Usuario {
 	public void setInstitucion(InstitucionDeportiva institucion) {
 		this.institucion = institucion;
 	}
+	
+	public String getNombreInstitucion() {
+		return institucion.getNombre();
+	}
 
 	public String getDescripcionGeneral() {
 		return descripcionGeneral;

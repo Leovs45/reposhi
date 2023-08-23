@@ -265,11 +265,11 @@ public class Principal {
 			    	
 			        String nombreInstitucion = input.nextLine();
 			        InstitucionDeportiva institucion = cInstitucion.buscarInstitucionDeportiva(nombreInstitucion);
-			        if(institucion != null) {
-			        	System.out.print("Ya existe una institucion deportiva con ese nombre");
-			        	aux=1;
-			        }
-			        else {
+			        if(institucion == null) {
+			        	System.out.print("No existe una institucion deportiva con ese nombre \n");
+			        	aux=0;
+			        	break;
+			        } else {
 				        System.out.print("Descripcion General: ");
 				        String descripcionGeneral = input.nextLine();
 				        System.out.print("Biografia: ");

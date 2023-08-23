@@ -91,7 +91,7 @@ public class CUsuario implements IUsuario{
 			for(Usuario u: usuarios) {
 				if(u instanceof Profesor) {
 					Profesor profesor = (Profesor) u;
-					System.out.println("PROFE: " + profesor.getNickname() + " - " + profesor.getNombre() + " " + profesor.getApellido() + " " + profesor.getFechaNacimiento() + " " + profesor.getInstitucion());
+					System.out.println("PROFE: " + profesor.getNickname() + " - " + profesor.getNombre() + " " + profesor.getApellido() + " " + profesor.getFechaNacimiento() + " " + profesor.getNombreInstitucion());
 				} else {
 					System.out.println("SOCIO: " + u.getNickname() + " - " + u.getNombre() + " " + u.getApellido() + " " + u.getFechaNacimiento());
 				}

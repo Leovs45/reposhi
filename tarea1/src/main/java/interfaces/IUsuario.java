@@ -2,13 +2,15 @@ package interfaces;
 
 import logica.*;
 import java.util.Date;
+import java.util.List;
 
 import controladores.CUsuario;
 import datatypes.TipoUsuario;
 
 public interface IUsuario {
-	public void altaUsuario(TipoUsuario tipoUsuario, String nickname, String nombre, String apellido, String correoElectronico, String fechaNacimiento, InstitucionDeportiva institucion, String descripcionGeneral, String biografia, String sitioWeb);
-	public void altaUsuario(TipoUsuario tipoUsuario, String nickname, String nombre, String apellido, String correoElectronico, String fechaNacimiento);
+	public void altaUsuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento, InstitucionDeportiva institucion, String descripcionGeneral, String biografia, String sitioWeb);
+	public void altaUsuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento);
+	public List<Usuario> getUsuarios();
 	public Usuario buscarUsuario(String nombre);
 	public void consultaUsuario();
 	

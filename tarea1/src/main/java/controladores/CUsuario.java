@@ -21,17 +21,13 @@ public class CUsuario implements IUsuario{
 	
 	
 	@Override
-	public void altaUsuario(TipoUsuario tipoUsuario, String nickname, String nombre, String apellido, String correoElectronico, String fechaNacimiento, InstitucionDeportiva institucion, String descripcionGeneral, String biografia, String sitioWeb){
-		if(tipoUsuario == TipoUsuario.Profesor) {
-			Usuario profe = new Profesor(nickname, nombre, apellido, correoElectronico, fechaNacimiento, institucion, descripcionGeneral, biografia, sitioWeb);
-			usuarios.add(profe);
-		}
+	public void altaUsuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento, InstitucionDeportiva institucion, String descripcionGeneral, String biografia, String sitioWeb){
+					Usuario profe = new Profesor(nickname, nombre, apellido, correoElectronico, fechaNacimiento, institucion, descripcionGeneral, biografia, sitioWeb);
+					usuarios.add(profe);
 	}
-	public void altaUsuario(TipoUsuario tipoUsuario, String nickname, String nombre, String apellido, String correoElectronico, String fechaNacimiento) {
-		if(tipoUsuario == TipoUsuario.UsuarioComun) {
+	public void altaUsuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento) {
 			Usuario socio = new Socio(nickname, nombre, apellido, correoElectronico, fechaNacimiento);
 			usuarios.add(socio);
-		}
 	}	
 	public Usuario buscarUsuario(String nickname) {
 		Usuario usuario = null;
@@ -73,6 +69,11 @@ public class CUsuario implements IUsuario{
 	public void modificarFechaNacimiento(String nickname, Date nuevaFecha) {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+	public List<Usuario> getUsuarios() {
+		return usuarios;
 	}
 	
 }

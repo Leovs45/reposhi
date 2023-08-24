@@ -8,4 +8,12 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
+   <dependencies>
+    <!-- Otras dependencias -->
+    <dependency>
+      <groupId>com.toedter</groupId>
+      <artifactId>jcalendar</artifactId>
+      <version>1.4</version> <!-- Asegúrate de usar la última versión disponible -->
+    </dependency>
+  </dependencies> 
 </project>

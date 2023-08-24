@@ -30,7 +30,6 @@ public class GUIPrincipal {
 	private GUIConsultaUsuario consultaUsuarioInternalFrame;
 	private GUIConsultaInstitucion consultaInstitucionInternalFrame;
 	private GUIConsultaActividadDeportiva consultaActividadInternalFrame;
-	private GUIRegistroDictadoClase registroDictadoClaseInternalFrame;
 	private GUIModificarUsuarioNombre modificarUsuarioNombre;
 	private GUIModificarUsuarioApellido modificarUsuarioApellido;
 	private GUIModificarUsuarioFechaNacimiento modificarUsuarioFechaNacimiento;
@@ -61,14 +60,13 @@ public class GUIPrincipal {
 		IUsuario iUsuario = f.getIUsuario();
 		IInstitucionDeportiva iInstitucion = f.getIInstitucionDeportiva();
 		IActividadDeportiva iActividad = f.getIActividadDeportiva();
-		IRegistro iRegistro = f.getIRegistro();
 		IClase iClase = f.getIClase();
 		
 		Dimension desktopSize = frame.getSize();
 		Dimension jInternalFrameSize;
 		
 		// Crea frame de alta Usuario
-		altaUsuarioInternalFrame = new GUIAltaUsuario(iUsuario);
+		altaUsuarioInternalFrame = new GUIAltaUsuario(iUsuario, iInstitucion);
 		jInternalFrameSize = altaUsuarioInternalFrame.getSize();
 		altaUsuarioInternalFrame.setLocation((desktopSize.width - jInternalFrameSize.width)/2
 				,(desktopSize.height - jInternalFrameSize.height)/2);
@@ -116,20 +114,11 @@ public class GUIPrincipal {
 		consultaActividadInternalFrame.setVisible(false);
 		frame.getContentPane().add(consultaActividadInternalFrame);
 		
-		//Crea frame de Registro Dictado de Clase
-		registroDictadoClaseInternalFrame = new GUIRegistroDictadoClase(iRegistro);
-		jInternalFrameSize = registroDictadoClaseInternalFrame.getSize();
-		registroDictadoClaseInternalFrame.setLocation((desktopSize.width - jInternalFrameSize.width)/2
-				,(desktopSize.height - jInternalFrameSize.height)/2);
-		registroDictadoClaseInternalFrame.setVisible(false);
-		frame.getContentPane().add(registroDictadoClaseInternalFrame);
-		
-		
 	}
 
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 867, 572);
+		frame.setBounds(100, 100, 867, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -149,7 +138,6 @@ public class GUIPrincipal {
 				altaUsuarioInternalFrame.setVisible(true);
 				consultaUsuarioInternalFrame.setVisible(false);
 				consultaActividadInternalFrame.setVisible(false);
-				registroDictadoClaseInternalFrame.setVisible(false);
 			}
 		});
 		menuAltas.add(menuAltaUsuario);
@@ -163,7 +151,6 @@ public class GUIPrincipal {
 				altaUsuarioInternalFrame.setVisible(false);
 				consultaUsuarioInternalFrame.setVisible(false);
 				consultaActividadInternalFrame.setVisible(false);
-				registroDictadoClaseInternalFrame.setVisible(false);
 			}
 		});
 		menuAltas.add(menuItemAltaItDeportiva);
@@ -177,7 +164,6 @@ public class GUIPrincipal {
 				altaUsuarioInternalFrame.setVisible(false);
 				consultaUsuarioInternalFrame.setVisible(false);
 				consultaActividadInternalFrame.setVisible(false);
-				registroDictadoClaseInternalFrame.setVisible(false);
 			}
 		});
 		menuAltas.add(menuItemAltaActDeportiva);
@@ -191,7 +177,6 @@ public class GUIPrincipal {
 				altaUsuarioInternalFrame.setVisible(false);
 				consultaUsuarioInternalFrame.setVisible(false);
 				consultaActividadInternalFrame.setVisible(false);
-				registroDictadoClaseInternalFrame.setVisible(false);
 			}
 		});
 		menuAltas.add(menuItemAltaClase);
@@ -205,7 +190,6 @@ public class GUIPrincipal {
 				altaUsuarioInternalFrame.setVisible(false);
 				consultaUsuarioInternalFrame.setVisible(false);
 				consultaActividadInternalFrame.setVisible(false);
-				registroDictadoClaseInternalFrame.setVisible(true);
 			}
 		});
 		menuAltas.add(mntmRegistroDeDictado);
@@ -222,7 +206,6 @@ public class GUIPrincipal {
 				altaUsuarioInternalFrame.setVisible(false);
 				consultaUsuarioInternalFrame.setVisible(true);
 				consultaActividadInternalFrame.setVisible(false);
-				registroDictadoClaseInternalFrame.setVisible(false);
 			}
 		});
 		menuConsultas.add(menuItemConsultaUsuario);
@@ -236,7 +219,6 @@ public class GUIPrincipal {
 				altaUsuarioInternalFrame.setVisible(false);
 				consultaUsuarioInternalFrame.setVisible(false);
 				consultaActividadInternalFrame.setVisible(true);
-				registroDictadoClaseInternalFrame.setVisible(false);
 			}
 		});
 		menuConsultas.add(menuItemConsultaActividad);

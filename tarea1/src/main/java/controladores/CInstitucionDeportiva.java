@@ -69,4 +69,10 @@ public class CInstitucionDeportiva implements IInstitucionDeportiva {
 			}
 		}
 	}
+
+	public List<InstitucionDeportiva> getInstituciones() {
+		return instituciones;
+	}
+	
+	
 }

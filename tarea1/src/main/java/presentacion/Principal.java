@@ -124,8 +124,7 @@ public class Principal {
 			        	break;
 			        }
 			    case 2:
-			    	TipoUsuario tpSocio = TipoUsuario.UsuarioComun;
-		        	IUser.altaUsuario(tpSocio, nickname, nombre, apellido, correoElectronico, fechaNacimiento);
+		        	IUser.altaUsuario( nickname, nombre, apellido, correoElectronico, fechaNacimiento);
 			    	break;
 			    }
 			}

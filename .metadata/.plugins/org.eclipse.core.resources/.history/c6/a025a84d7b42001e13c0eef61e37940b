@@ -70,7 +70,6 @@ public class GUIAltaInstitucion extends JInternalFrame {
 		lblInstitucionYaExiste.setForeground(Color.RED);
 		lblInstitucionYaExiste.setBounds(124, 172, 172, 15);
 		getContentPane().add(lblInstitucionYaExiste);
-		lblInstitucionYaExiste.setVisible(false);
 		
 		JButton btnAgregar = new JButton("Agregar");
 		btnAgregar.addActionListener(new ActionListener() {

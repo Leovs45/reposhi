@@ -66,12 +66,6 @@ public class GUIAltaInstitucion extends JInternalFrame {
 		getContentPane().add(lblInstitucionAgregada);
 		lblInstitucionAgregada.setVisible(false);
 		
-		JLabel lblInstitucionYaExiste = new JLabel("Institucion ya existe");
-		lblInstitucionYaExiste.setForeground(Color.RED);
-		lblInstitucionYaExiste.setBounds(124, 172, 172, 15);
-		getContentPane().add(lblInstitucionYaExiste);
-		lblInstitucionYaExiste.setVisible(false);
-		
 		JButton btnAgregar = new JButton("Agregar");
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -84,23 +78,18 @@ public class GUIAltaInstitucion extends JInternalFrame {
 				}
 				else {
 					InstitucionDeportiva institucion = iInstitucion.buscarInstitucionDeportiva(nombre);
-					if(institucion != null) {
-						lblInstitucionAgregada.setVisible(false);
-						lblError.setVisible(false);
-						lblInstitucionYaExiste.setVisible(true);
-					}else {
+					if(institucion != null) 
+						System.out.println("Existe una institucion con ese nombre");
+					else
 						iInstitucion.altaInstitucionDeportiva(nombre, descripcion, url);
 						lblInstitucionAgregada.setVisible(true);
 						lblError.setVisible(false);
-					}
 				}
 
 			}
 		});
 		btnAgregar.setBounds(160, 213, 117, 25);
 		getContentPane().add(btnAgregar);
-		
-
 		
 
 		

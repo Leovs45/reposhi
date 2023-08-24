@@ -2,11 +2,13 @@ package controladores;
 
 import java.util.Date;
 
-
+import interfaces.Fabrica;
 import interfaces.IClase;
+import interfaces.IUsuario;
 import logica.ActividadDeportiva;
 import logica.Clase;
 import logica.Profesor;
+import logica.Usuario;
 
 public class CClase implements IClase {
 	
@@ -19,8 +21,14 @@ public class CClase implements IClase {
 	}
 
 	@Override
-	public void altaDictadoClase(String nombreClase, ActividadDeportiva actividadDeportiva, Date fechaClase, Profesor profesor,
+	public void altaDictadoClase(String nombreClase, ActividadDeportiva actividadDeportiva, Date fechaClase, String nombreProfesor,
 			String horaInicio, String urlClase, Date fechaRegistro) {
+		Fabrica f = Fabrica.getInstancia();
+		IUsuario iUsuario = f.getIUsuario();
+
+		Usuario usuario = iUsuario.buscarUsuario(nombreProfesor);
+		Profesor profesor = (Profesor) usuario;
+
 		Clase clase = new Clase(nombreClase, actividadDeportiva, fechaClase, profesor, horaInicio, urlClase, fechaRegistro);
 		profesor.agregarClase(clase);
 		actividadDeportiva.agregarClase(clase);

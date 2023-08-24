@@ -395,7 +395,7 @@ public class Principal {
 	           String nuevoNomClase = entrada.nextLine();
 	            
 	        } else {
-	        	System.out.println("Ingresar profesor: ");
+	        	System.out.println("Ingresar nickname del profesor: ");
 	        	String nomProfe = entrada.nextLine();
 						Usuario unProfe = iUsuario.buscarUsuario(nomProfe);
 						if(unProfe != null) {
@@ -404,8 +404,6 @@ public class Principal {
 								System.out.println(" y no es profesor.");
 							}
 						}
-						
-						Profesor profesor = (Profesor) unProfe;
 
 						System.out.println("Ingresar actividad deportiva: ");
 
@@ -415,7 +413,7 @@ public class Principal {
 						System.out.println("Ingresar url: ");
 						String urlClase = entrada.nextLine();
 						
-						iClase.altaDictadoClase(nombreClase, ad, fechaClase, profesor, horaInicio, urlClase, fechaRegistro);
+						iClase.altaDictadoClase(nombreClase, ad, fechaClase, nomProfe, horaInicio, urlClase, fechaRegistro);
 	        }
 		   
 		 } while (opt == 1);
@@ -495,11 +493,11 @@ public class Principal {
 	
 		// Creo clases
 		IClase iClase = f.getIClase();
-		iClase.altaDictadoClase("c1", a1, new Date(), profe1, "12:00", "url", new Date());
-		iClase.altaDictadoClase("c3", a1, new Date(), profe1, "12:00", "url", new Date());
-		iClase.altaDictadoClase("c5", a3, new Date(), profe1, "12:00", "url", new Date());
-		iClase.altaDictadoClase("c2", a2, new Date(), profe2, "12:00", "url", new Date());
-		iClase.altaDictadoClase("c4", a4, new Date(), profe2, "12:00", "url", new Date());
+		iClase.altaDictadoClase("c1", a1, new Date(), profe1.getNickname(), "12:00", "url", new Date());
+		iClase.altaDictadoClase("c3", a1, new Date(), profe1.getNickname(), "12:00", "url", new Date());
+		iClase.altaDictadoClase("c5", a3, new Date(), profe1.getNickname(), "12:00", "url", new Date());
+		iClase.altaDictadoClase("c2", a2, new Date(), profe2.getNickname(), "12:00", "url", new Date());
+		iClase.altaDictadoClase("c4", a4, new Date(), profe2.getNickname(), "12:00", "url", new Date());
 	}
 	
 	

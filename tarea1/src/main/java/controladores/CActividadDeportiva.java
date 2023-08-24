@@ -39,7 +39,7 @@ public class CActividadDeportiva implements IActividadDeportiva {
 
 	@Override
 	public void modificarDuracion(ActividadDeportiva actividad, int nuevaDuracion) {
-		actividad.setCosto(nuevaDuracion);
+		actividad.setDuracionMinutos(nuevaDuracion);
 	}
 
 	@Override

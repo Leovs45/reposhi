@@ -8,9 +8,11 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTable;
 
 public class GUIConsultaUsuario extends JInternalFrame {
 	private JTextField textFieldIngreseUsr;
@@ -32,19 +34,23 @@ public class GUIConsultaUsuario extends JInternalFrame {
 		lblConsultarUsuario.setBounds(70, 38, 132, 15);
 		getContentPane().add(lblConsultarUsuario);
 		
-		JList listDataUsuarios = new JList();
-		listDataUsuarios.setBounds(49, 67, 418, 185);
-		getContentPane().add(listDataUsuarios);
+		
+		DefaultListModel<String> lista = new DefaultListModel<String>();
+		JList listaDataUsers = new JList(lista);
+		listaDataUsers.setBounds(55, 80, 453, 160);
+		getContentPane().add(listaDataUsers);
+		listaDataUsers.setEnabled(false);
 		
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if(iUsuario.existenUsuarios()) {
-					JOptionPane.showMessageDialog(null, "Error - No existe usuario", "Error Consulta usuario", JOptionPane.WARNING_MESSAGE);
+				String nickname = textFieldIngreseUsr.getText();
+						if(iUsuario.buscarUsuario(nickname) == null) {
+					JOptionPane.showMessageDialog(null, "Error - No existe usuario: "+nickname, "Error Consulta usuario", JOptionPane.WARNING_MESSAGE);
 				}else {
-					String nickname = textFieldIngreseUsr.getText();
-					listDataUsuarios.add(iUsuario.consultaUsuario(nickname));
+					JOptionPane.showMessageDialog(null, "Se encontro a la usuario/a: "+nickname, "Consulta usuario", JOptionPane.INFORMATION_MESSAGE);
+					listaDataUsers.setModel(lista);
 				}
 			}
 		});
@@ -55,7 +61,7 @@ public class GUIConsultaUsuario extends JInternalFrame {
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				
+				dispose();
 			}
 		});
 		btnCancelar.setBounds(287, 274, 117, 25);

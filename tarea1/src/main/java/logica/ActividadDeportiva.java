@@ -1,6 +1,7 @@
 package logica;
 
 import java.util.Date;
+import java.util.List;
 import java.util.ArrayList;
 
 public class ActividadDeportiva {
@@ -10,13 +11,13 @@ public class ActividadDeportiva {
     private int duracionMinutos;
     private double costo;
     private Date fechaRegistro;
-    private ArrayList<Clase> arrayClase;
+    private List<Clase> clases = new ArrayList<>();
 
     //Constructor
-	public ActividadDeportiva(String institucion, String nombre, String descripcion, int duracionMinutos, double costo,
+	public ActividadDeportiva(InstitucionDeportiva institucion2, String nombre, String descripcion, int duracionMinutos, double costo,
 			Date fechaRegistro) {
 		super();
-		this.institucion = institucion;
+		this.institucion = institucion2.getNombre();
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.duracionMinutos = duracionMinutos;
@@ -73,26 +74,41 @@ public class ActividadDeportiva {
 		this.fechaRegistro = fechaRegistro;
 	}
 
-	public ArrayList<Clase> getArrayClase() {
-		return arrayClase;
+	public List<Clase> getArrayClase() {
+		return clases;
 	}
 
-	public void setArrayClase(ArrayList<Clase> arrayClase) {
-		this.arrayClase = arrayClase;
+	public void setArrayClase(List<Clase> arrayClase) {
+		this.clases = arrayClase;
 	}
 	
 	public Clase buscarClase(String nombre) {
 		Clase clase = null;
-		if (arrayClase.size() == 0) {
+		if (clases.size() == 0) {
 			return clase;
 		} else {
-			for(Clase c: arrayClase) {
+			for(Clase c: clases) {
 				if (c.getNombreClase().equals(nombre)) {
 					clase = c;
 				}
 			}
 		}
 		return clase;
+	}
+	
+	public void listarClases() {
+		if (clases.size() == 0) {
+			System.out.println("  ERROR - No hay clases");
+		} else {
+			System.out.println("\nCLASES: \n");
+			for (Clase c: clases) {
+				System.out.println(c.getNombreClase() + " - " + c.getActividadDeportiva().getNombre() + " - " + c.getFechaClase() + " - " + c.getProfesor().getNombre() + " - " + c.getHoraInicio());
+			}
+		}
+	}
+	
+	public void agregarClase(Clase c) {
+		clases.add(c);
 	}
    
 }

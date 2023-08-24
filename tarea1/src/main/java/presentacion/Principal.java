@@ -89,94 +89,90 @@ public class Principal {
 		}
 	}
 	
-
-//**************************************************************************************
 	static void agregarActividadDeportiva() {
-	    Fabrica f = Fabrica.getInstancia();
-	    IActividadDeportiva iActividad = f.getIActividadDeportiva();
-	    IInstitucionDeportiva iInstitucion = f.getIInstitucionDeportiva();
+	  Fabrica f = Fabrica.getInstancia();
+	  IActividadDeportiva iActividad = f.getIActividadDeportiva();
+	  IInstitucionDeportiva iInstitucion = f.getIInstitucionDeportiva();
 
-	    Scanner entrada = new Scanner(System.in);
+	  Scanner entrada = new Scanner(System.in);
 
-	    String nombreInstitucion;
-	    String nombre;
-	    String descripcion;
-	    int duracionMinutos;
-	    double costo;
-	    Date fechaRegistro;
-	    int opt =1;
+	  String nombreInstitucion;
+	  String nombre;
+	  String descripcion;
+	  int duracionMinutos;
+	  double costo;
+	  Date fechaRegistro;
+	  int opt =1;
+		InstitucionDeportiva institucion = null;
+	  // Obtener la fecha actual
+	  fechaRegistro = new Date();
+	  System.out.println("Fecha de inscripcion: " + fechaRegistro + "\n");
+		
+		System.out.println("Ingresar nombre de la Institucion: ");
+		nombreInstitucion = entrada.nextLine();
+		institucion = iInstitucion.buscarInstitucionDeportiva(nombreInstitucion);
+		
+		if (institucion == null) {
+			System.out.println("No existe la institucion " + nombreInstitucion);
+		} else {
+			do {
+				System.out.println("Ingresar nombre de la actividad:");
+				nombre = entrada.nextLine();
 
-	    // Obtener la fecha actual
-	    fechaRegistro = new Date();
-	    System.out.println("Fecha de inscripcion: " + fechaRegistro + "\n");
+				ActividadDeportiva ad = iInstitucion.buscarActividadDeportiva(nombreInstitucion, nombre);
+				if (ad != null) {
+					System.out.println("Ya existe una actividad con ese nombre.");
+					System.out.println("¿Deseas Modificar?");
+					System.out.println("  1. Si\n  2. No");
+					opt = entrada.nextInt();
+								
+					switch (opt) {
+						case 1: 
+							System.out.println("Que deseas modificar? \n    1. Descripcion \n    2. Duracion \n    3. Costo");
+							int optModificar;
+							optModificar = entrada.nextInt();
+										
+							switch (optModificar) {
+								case 1:
+									System.out.println("Ingresar la nueva descripcion:");
+									descripcion = entrada.nextLine();
+									iActividad.modificarDescripcion(ad, descripcion);
+									break;
+								case 2:
+									System.out.println("Ingresar la duracion en minutos de la actividad:");
+									duracionMinutos = entrada.nextInt();
+									iActividad.modificarDuracion(ad, duracionMinutos);
+									break;
+								case 3:
+									System.out.println("Ingresar costo:");
+									costo = entrada.nextDouble();
+									iActividad.modificarCosto(ad, costo);
+								break;
+							}
 
-	    do {
-	        System.out.println("Ingresar nombre de la actividad:");
-	        nombre = entrada.nextLine();
+							break;
+						case 2:
+						break;
+					}
 
-	        ActividadDeportiva ad = iActividad.buscarActividadDeportiva(nombre);
-	        if (ad != null) {
-	            System.out.println("Ya existe una actividad con ese nombre.");
-	            System.out.println("¿Deseas Modificar?");
-	            System.out.println("  1. Si\n  2. No");
-	            opt = entrada.nextInt();
-	            entrada.nextLine(); // Limpiar el buffer del scanner
+				} else {
+					System.out.println("Ingresar la nueva descripcion:");
+					descripcion = entrada.nextLine();
+					System.out.println("Ingresar la duracion en minutos de la actividad:");
+					duracionMinutos = entrada.nextInt();
+					System.out.println("Ingresar costo:");
+					costo = entrada.nextDouble();
+					
+					iActividad.altaActividadDeportiva(institucion, nombre, descripcion, duracionMinutos, costo, fechaRegistro);
+				}
 
-	            if (opt == 1) {
-	                System.out.println("Ingresar la descripcion:");
-	                descripcion = entrada.nextLine();
+				System.out.println("¿Deseas agregar otra actividad deportiva?");
+				System.out.println("    1. Si \n    2. No");
+				opt = entrada.nextInt();
 
-	                System.out.println("Ingresar la duracion en minutos de la actividad:");
-	                duracionMinutos = entrada.nextInt();
-	                entrada.nextLine(); // Limpiar el buffer del scanner
-
-	                System.out.println("Ingresar costo:");
-	                costo = entrada.nextDouble();
-	                entrada.nextLine(); // Limpiar el buffer del scanner
-
-	                System.out.println("Ingresar nombre de la Institucion:");
-	                nombreInstitucion = entrada.nextLine();
-
-	                InstitucionDeportiva institucion = iInstitucion.buscarInstitucionDeportiva(nombreInstitucion);
-	                if (institucion == null) {
-	                    System.out.println("La institucion deportiva no existe");
-	                } else {
-	                    iActividad.modificarDescripcion(nombre, descripcion);
-	                    iActividad.modificarDuracion(nombre, duracionMinutos);
-	                    iActividad.modificarCosto(nombre, costo);
-	                    iActividad.modificarInstitucion(nombre, nombreInstitucion);
-	                }
-	            }
-	        } else {
-	            System.out.println("Ingresar la descripcion:");
-	            descripcion = entrada.nextLine();
-
-	            System.out.println("Ingresar la duracion en minutos de la actividad:");
-	            duracionMinutos = entrada.nextInt();
-	            entrada.nextLine(); // Limpiar el buffer del scanner
-
-	            System.out.println("Ingresar costo:");
-	            costo = entrada.nextDouble();
-	            entrada.nextLine(); // Limpiar el buffer del scanner
-
-	            System.out.println("Ingresar nombre de la Institucion:");
-	            nombreInstitucion = entrada.nextLine();
-
-	            InstitucionDeportiva institucion = iInstitucion.buscarInstitucionDeportiva(nombreInstitucion);
-	            if (institucion == null) {
-	                System.out.println("La institucion deportiva no existe");
-	            } else {
-	                iActividad.altaActividadDeportiva(nombreInstitucion, nombre, descripcion, duracionMinutos, costo, fechaRegistro);
-	            }
-	        }
-
-	        System.out.println("¿Deseas agregar otra actividad deportiva?");
-	        System.out.println("  1. Si\n  2. No");
-	        opt = entrada.nextInt();
-	        entrada.nextLine(); // Limpiar el buffer del scanner
-
-	    } while (opt == 1);
-}
+	  	} while (opt == 1);	
+		}
+	}
 	
 	static void modificarInstitucionDeportiva() {
 		CInstitucionDeportiva cInstitucion = CInstitucionDeportiva.getInstancia();
@@ -267,11 +263,11 @@ public class Principal {
 			    	
 			        String nombreInstitucion = input.nextLine();
 			        InstitucionDeportiva institucion = cInstitucion.buscarInstitucionDeportiva(nombreInstitucion);
-			        if(institucion != null) {
-			        	System.out.print("Ya existe una institucion deportiva con ese nombre");
-			        	aux=1;
-			        }
-			        else {
+			        if(institucion == null) {
+			        	System.out.print("No existe una institucion deportiva con ese nombre \n");
+			        	aux=0;
+			        	break;
+			        } else {
 				        System.out.print("Descripcion General: ");
 				        String descripcionGeneral = input.nextLine();
 				        System.out.print("Biografia: ");
@@ -399,32 +395,114 @@ public class Principal {
 	           String nuevoNomClase = entrada.nextLine();
 	            
 	        } else {
-	        	System.out.println("Ingresar profesor: ");
+	        	System.out.println("Ingresar nickname del profesor: ");
 	        	String nomProfe = entrada.nextLine();
-                Usuario unProfe = iUsuario.buscarUsuario(nomProfe);
-                if(unProfe != null) {
-                	System.out.print("Este usuario ya existe");
-                	if(!iUsuario.esProfesor(unProfe)) {
-                		System.out.println(" y no es profesor.");
-                	}
-                }
+						Usuario unProfe = iUsuario.buscarUsuario(nomProfe);
+						if(unProfe != null) {
+							System.out.print("Este usuario ya existe");
+							if(!iUsuario.esProfesor(unProfe)) {
+								System.out.println(" y no es profesor.");
+							}
+						}
 
-                System.out.println("Ingresar actividad deportiva: ");
-                //actDepor = entrada.nextLine();
-                //ActividadDeportiva ad = new ActividadDeportiva(actDepor);
+						System.out.println("Ingresar actividad deportiva: ");
 
-                System.out.println("Ingresar hora inicio: ");
-                String horaIncio = entrada.nextLine();
-                
-                System.out.println("Ingresar url: ");
-                String urlClase = entrada.nextLine();
-                
-                iClase.altaDictadoClase(nombreClase, ad, fechaClase, unProfe, instituto, nombreClase, fechaRegistro);
+						System.out.println("Ingresar hora inicio: ");
+						String horaInicio = entrada.nextLine();
+						
+						System.out.println("Ingresar url: ");
+						String urlClase = entrada.nextLine();
+						
+						iClase.altaDictadoClase(nombreClase, ad, fechaClase, nomProfe, horaInicio, urlClase, fechaRegistro);
 	        }
 		   
 		 } while (opt == 1);
 	}
 	
+	static void consultarActividadDeportiva() {
+		Fabrica f = Fabrica.getInstancia();
+		IActividadDeportiva iActividad = f.getIActividadDeportiva();
+		IInstitucionDeportiva iInstitucion = f.getIInstitucionDeportiva();
+		Scanner entrada = new Scanner(System.in);
+		
+		System.out.println("Ingresa el nombre de la institucion: ");
+		String nombreInstitucion = entrada.nextLine();
+		
+		InstitucionDeportiva institucion = iInstitucion.buscarInstitucionDeportiva(nombreInstitucion);
+		
+		if (institucion == null) {
+			System.out.println("No existe una institucion con el nombre" + nombreInstitucion);
+		} else {
+			institucion.listarActividades();
+			
+			ActividadDeportiva ad = null;
+			int opt = 1;
+			do {
+				System.out.println("Elija una opción: ");
+				int op = Integer.parseInt(entrada.nextLine());
+				ad = institucion.obtenerActividad(op);
+				
+				if (ad == null) {
+					System.out.println(op + " no es una opcion correcta");
+					System.out.println("Volver a intentar? \n    1. Si \n    2. No");
+					opt = entrada.nextInt();
+				}
+
+			} while (ad == null && opt == 1);
+			
+			if (ad != null) {
+				System.out.println(ad.getNombre() + " - " + ad.getDescripcion() + " - " + ad.getDuracionMinutos() + " - " + ad.getCosto() + " - " + ad.getFechaRegistro());
+				ad.listarClases();
+			}
+		}
+	}
+	
+	static void precargarDatos() {
+		Fabrica f = Fabrica.getInstancia();
+		
+		// Creo institucion
+		IInstitucionDeportiva iInstitucion = f.getIInstitucionDeportiva();
+		iInstitucion.altaInstitucionDeportiva("i1", "descripcion", "url");
+		iInstitucion.altaInstitucionDeportiva("i2", "descripcion", "url");
+		
+		// Creo usuario
+		IUsuario iUsuario = f.getIUsuario();
+		iUsuario.altaUsuario(TipoUsuario.UsuarioComun, "Mei", "Maite", "Martinez", "mail@false.com", "30/10/1998");
+		InstitucionDeportiva i1 = iInstitucion.buscarInstitucionDeportiva("i1");
+		InstitucionDeportiva i2 = iInstitucion.buscarInstitucionDeportiva("i2");
+		iUsuario.altaUsuario(TipoUsuario.Profesor, "Profe", "Profesor", "Profesoro", "otro@mail.com", "18/08/1995", i1, "Descripcion", "Bio", "sitio web");
+		iUsuario.altaUsuario(TipoUsuario.Profesor, "Profa", "Profesora", "Profesorara", "otro@mail.com", "18/08/1995", i2, "Descripcion", "Bio", "sitio web");
+		
+		Usuario user1 = iUsuario.buscarUsuario("Profe");
+		Usuario user2 = iUsuario.buscarUsuario("Profa");
+		
+		Profesor profe1 = (Profesor) user1;
+		Profesor profe2 = (Profesor) user2;
+		
+		// Creo actividades
+		IActividadDeportiva iActividad = f.getIActividadDeportiva();
+		iActividad.altaActividadDeportiva(i1, "a1", "Descripcion", 120, 120, new Date());
+		iActividad.altaActividadDeportiva(i1, "a3", "Descripcion", 120, 120, new Date());
+		iActividad.altaActividadDeportiva(i2, "a2", "Descripcion", 120, 120, new Date());
+		iActividad.altaActividadDeportiva(i2, "a4", "Descripcion", 120, 120, new Date());
+
+		ActividadDeportiva a1 = i1.buscarActividadDeportiva("a1");
+		ActividadDeportiva a3 = i1.buscarActividadDeportiva("a3");
+		ActividadDeportiva a2 = i2.buscarActividadDeportiva("a2");
+		ActividadDeportiva a4 = i2.buscarActividadDeportiva("a4");
+	
+		// Creo clases
+		IClase iClase = f.getIClase();
+		iClase.altaDictadoClase("c1", a1, new Date(), profe1.getNickname(), "12:00", "url", new Date());
+		iClase.altaDictadoClase("c3", a1, new Date(), profe1.getNickname(), "12:00", "url", new Date());
+		iClase.altaDictadoClase("c5", a3, new Date(), profe1.getNickname(), "12:00", "url", new Date());
+		iClase.altaDictadoClase("c2", a2, new Date(), profe2.getNickname(), "12:00", "url", new Date());
+		iClase.altaDictadoClase("c4", a4, new Date(), profe2.getNickname(), "12:00", "url", new Date());
+	}
+	
+	
+//**************************************************************************************
+
 	public static void main(String[] args) {
 		Fabrica f = Fabrica.getInstancia();
 		Scanner input = new Scanner(System.in);
@@ -440,13 +518,18 @@ public class Principal {
 			case 1:
 				altaUsuario();
 				break;
-			case 2:
+			case 2: //Consultar perfil usuario
 				break;
-			case 3://Alta de Actividad Deportiva
+			case 3: //Alta de Actividad Deportiva
 				agregarActividadDeportiva();
+				break;
+			case 4: //Consultar actividad deportiva
+				consultarActividadDeportiva();
 				break;
 			case 5:
 				agregarClase();
+				break;
+			case 6: //Registrar socio a clase
 				break;
 			case 7:
 				agregarInstitucionDeportiva();
@@ -454,14 +537,25 @@ public class Principal {
 			case 8:
 				modificarUsuario();
 				break;
+			case 9: // Consultar dictado de clase
+				break;
+			case 10: //Modificar Actividad Deportiva
+				break;
 			case 11:
 				modificarInstitucionDeportiva();
+				break;
+			case 12: // Ranking de dictado de clases
+				break;
+			case 13: // Ranking de Actividades Deportivas
 				break;
 			case 14:
 				listarInstituciones();
 				break;
 			case 15:
 				listarUsuarios();
+				break;
+			case 99:
+				precargarDatos();
 				break;
 			default:
 				System.out.print("  ERROR - " + op + " no es una opcion valida");

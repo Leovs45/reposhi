@@ -4,18 +4,18 @@ import java.util.Date;
 import java.util.List;
 
 import logica.ActividadDeportiva;
+import logica.InstitucionDeportiva;
 
 
 public interface IActividadDeportiva {
-	public List<ActividadDeportiva> Actividades = new ArrayList<>();
-	public void altaActividadDeportiva(String institucion, String nombreActividad, String descripcion, int duracionMinutos, double costo, Date fechaAlta);
+	public List<ActividadDeportiva> actividades = new ArrayList<>();
+	public void altaActividadDeportiva(InstitucionDeportiva institucion, String nombreActividad, String descripcion, int duracionMinutos,
+			double costo, Date fechaAlta);
 	public void consultaActividadDeportiva(String institucion);
-	public ActividadDeportiva buscarActividadDeportiva(String nombre);
 	
 	//Opcionales
-	public void modificarInstitucion(String nombreActividad, String nuevaInstitucion);
-	public void modificarDescripcion(String nombreActividad, String nuevaDescripcion);
-	public void modificarDuracion(String nombreActividad, int nuevaDuracion);
-	public void modificarCosto(String nombreActividad, double nuevoCosto);
+	public void modificarDescripcion(ActividadDeportiva actividad, String nuevaDescripcion);
+	public void modificarDuracion(ActividadDeportiva actividad, int nuevaDuracion);
+	public void modificarCosto(ActividadDeportiva actividad, double nuevoCosto);
 	public void rankingActividades();
 }

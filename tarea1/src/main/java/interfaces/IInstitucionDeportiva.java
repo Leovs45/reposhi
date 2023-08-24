@@ -1,5 +1,6 @@
 package interfaces;
 
+import logica.ActividadDeportiva;
 import logica.InstitucionDeportiva;
 
 public interface IInstitucionDeportiva {
@@ -12,4 +13,5 @@ public interface IInstitucionDeportiva {
 	// Adicionales
 	public InstitucionDeportiva buscarInstitucionDeportiva(String nombre);
 	public void listarInstituciones();
+	public ActividadDeportiva buscarActividadDeportiva(String nombreInstitucion, String nombreActividad);
 }

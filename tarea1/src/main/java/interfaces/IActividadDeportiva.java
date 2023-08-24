@@ -9,9 +9,9 @@ import logica.ActividadDeportiva;
 public interface IActividadDeportiva {
 	public List<ActividadDeportiva> Actividades = new ArrayList<>();
 	public void altaActividadDeportiva(String institucion, String nombreActividad, String descripcion, int duracionMinutos, double costo, Date fechaAlta);
-	public void consultaActividadDeportiva(String institucion);
+	//public void consultaActividadDeportiva(String institucion);
+	public List<ActividadDeportiva> consultaActividadDeportiva(String institucion);
 	public ActividadDeportiva buscarActividadDeportiva(String nombre);
-	
 	//Opcionales
 	public void modificarInstitucion(String nombreActividad, String nuevaInstitucion);
 	public void modificarDescripcion(String nombreActividad, String nuevaDescripcion);

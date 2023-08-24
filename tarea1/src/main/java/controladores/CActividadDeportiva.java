@@ -1,5 +1,8 @@
 package controladores;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import interfaces.IActividadDeportiva;
 import logica.ActividadDeportiva;
 
@@ -39,19 +42,18 @@ public class CActividadDeportiva implements IActividadDeportiva {
 		return Actividad;
 	}
 	@Override
-	public void consultaActividadDeportiva(String institucion) {
-		  for (ActividadDeportiva actividad : Actividades) {
-		        if (actividad.getInstitucion().equals(institucion)) {
-		            System.out.println("Nombre: " + actividad.getNombre());
-		            System.out.println("Descripción: " + actividad.getDescripcion());
-		            System.out.println("Duración en minutos: " + actividad.getDuracionMinutos());
-		            System.out.println("Costo: " + actividad.getCosto());
-		            System.out.println("Fecha de alta: " + actividad.getFechaRegistro());
-		            System.out.println("--------------------------------------------");
-		        }
-		    }
-		
+	public List<ActividadDeportiva> consultaActividadDeportiva(String institucion) {
+	    List<ActividadDeportiva> actividadesEncontradas = new ArrayList<>();
+	    
+	    for (ActividadDeportiva actividad : Actividades) {
+	        if (actividad.getInstitucion().equals(institucion)) {
+	            actividadesEncontradas.add(actividad);
+	        }
+	    }
+	    
+	    return actividadesEncontradas;
 	}
+
 	
 	/**********************************/
 	// OPCIONALES

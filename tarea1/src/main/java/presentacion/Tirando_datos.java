@@ -1,5 +1,7 @@
 package presentacion;
 import java.util.Date;
+import java.util.List;
+
 import interfaces.*;
 import logica.ActividadDeportiva;
 import logica.InstitucionDeportiva;
@@ -78,6 +80,7 @@ public class Tirando_datos {
 		System.out.println("========================================");
 		//me esta faltando ConsultaUsuario() para probar hice esto:
 		//donde se esta guardando el tipo de usuario???
+		//if uc1 instaceof 
 		iUser.consultaUsuario(uc1.getNickname());
 		iUser.consultaUsuario(uc2.getNickname());
 		iUser.consultaUsuario(uc3.getNickname());
@@ -103,16 +106,41 @@ public class Tirando_datos {
 		iActividad.altaActividadDeportiva(id4.getNombre(), "nombreActividad 8","descripcion actividad b", '1',8.1f,fecha);
 		
 		//consulta Actividad Deportiva
-		System.out.println("Consulta Actividades Deportivas");
+		System.out.println("Consulta(lista de) Actividades Deportivas");
 		System.out.println("========================================");
-		iActividad.consultaActividadDeportiva(id1.getNombre()); //esta no hacia  nada
-		iActividad.consultaActividadDeportiva(id2.getNombre());
-		iActividad.consultaActividadDeportiva(id3.getNombre());
-		iActividad.consultaActividadDeportiva(id4.getNombre());
+		List<ActividadDeportiva>lad1 = iActividad.consultaActividadDeportiva(id1.getNombre()); //esta no hacia  nada porque no esta?
+		List<ActividadDeportiva>lad2 = iActividad.consultaActividadDeportiva(id2.getNombre());
+		List<ActividadDeportiva>lad3 = iActividad.consultaActividadDeportiva(id3.getNombre());
+		List<ActividadDeportiva>lad4 = iActividad.consultaActividadDeportiva(id4.getNombre());
+		//List<ActividadDeportiva> actividadesEncontradas;
+		System.out.println("========================================");
+		for(ActividadDeportiva actividad : lad1) {//solo el lad1 y lad2 de ejemplo
+			
+			System.out.println("Nombre: " + actividad.getNombre());
+		    System.out.println("Descripción: " + actividad.getDescripcion());
+		    System.out.println("Duración en minutos: " + actividad.getDuracionMinutos());
+		    System.out.println("Costo: " + actividad.getCosto());
+		    System.out.println("Fecha de alta: " + actividad.getFechaRegistro());
+		    System.out.println("--------------------------------------------");
+			
+		}
+		System.out.println("========================================");
+		for(ActividadDeportiva actividad : lad2) {
+			
+			System.out.println("Nombre: " + actividad.getNombre());
+		    System.out.println("Descripción: " + actividad.getDescripcion());
+		    System.out.println("Duración en minutos: " + actividad.getDuracionMinutos());
+		    System.out.println("Costo: " + actividad.getCosto());
+		    System.out.println("Fecha de alta: " + actividad.getFechaRegistro());
+		    System.out.println("--------------------------------------------");
+			
+		}
 		
-		// Obtener Actividad Deportiva
-		System.out.println("Obteniendo actividades deportivas");
+		// busca Actividad Deportiva
+		System.out.println("BUSCA actividades deportivas");
 		System.out.println("========================================");
+		//List<ActividadDeportiva> actividadesEncontradas = controladorActividades.consultaActividadDeportiva("nombreDeLaInstitucion");
+		
 		ActividadDeportiva ad1= iActividad.buscarActividadDeportiva("nombreActividad 1");
 		ActividadDeportiva ad2= iActividad.buscarActividadDeportiva("nombreActividad 2");
 		ActividadDeportiva ad3= iActividad.buscarActividadDeportiva("nombreActividad 3");
@@ -137,7 +165,7 @@ public class Tirando_datos {
 		iClase.altaDictadoClase(id4.getNombre(), "nombre Clase 2", fecha, "15:00", up4.getNombre(),"String url", fecha);
 		
 	
-		//Registro a dictado de Clase del tipo asociativo  dede clase??
+		//Registro a dictado de Clase del tipo asociativo  dede clase?? esta no esta haciendo nada por ahora
 		System.out.println("alta registro dictado de clases");
 		System.out.println("========================================");
 		iClase.registroClase(id1.getNombre(), ad1.getNombre(),"nombre Clase 1", uc1.getNombre());//usuario comun  estoy tirando un socio

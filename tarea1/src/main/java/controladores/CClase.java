@@ -23,6 +23,7 @@ public class CClase implements IClase {
 			String horaInicio, String urlClase, Date fechaRegistro) {
 		Clase clase = new Clase(nombreClase, actividadDeportiva, fechaClase, profesor, horaInicio, urlClase, fechaRegistro);
 		profesor.agregarClase(clase);
+		actividadDeportiva.agregarClase(clase);
 		System.out.println("OK - Clase Creada");
 	}
 

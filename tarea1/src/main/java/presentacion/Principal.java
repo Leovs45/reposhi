@@ -508,11 +508,16 @@ public class Principal {
 	public static void consultarPerfilUsuario() {
 		Fabrica f = Fabrica.getInstancia();
 		IUsuario iUsuario = f.getIUsuario();
+		Scanner entrada = new Scanner(System.in);
 		
-		if (iUsuario.existenUsuarios)	{
-			System.out.println("Existen");
+		iUsuario.listarUsuarios();
+
+		if (!iUsuario.existenUsuarios())	{
+			System.out.println("  ERROR - No existen usuarios");
 		} else {
-			System.out.println("No existen");
+			System.out.println("Ingresa el nickname del usuario: ");
+			String nickname = entrada.nextLine();
+			iUsuario.consultaUsuario(nickname);
 		}
 	}
 	

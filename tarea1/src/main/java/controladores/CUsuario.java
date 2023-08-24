@@ -56,14 +56,30 @@ public class CUsuario implements IUsuario{
 	}
 	
 	@Override
-	public void consultaUsuario() {
-		// TODO Auto-generated method stub
+	public void consultaUsuario(String nickname) {
+		Usuario usuario = buscarUsuario(nickname);
+		
+		if(usuario == null) {
+			System.out.println("  ERROR - No existe un usuario con el nickname " + nickname);
+		} else {
+			if (usuario instanceof Socio) {
+				System.out.println("SOCIO: " + usuario.getNickname());
+				System.out.println("Nombre: " + usuario.getNombre() + " " + usuario.getApellido());
+				System.out.println("Correo electronico: " + usuario.getCorreoElectronico());
+				System.out.println("Fecha de Nacimiento: " + usuario.getFechaNacimiento());
+				// TODO agregar que se muestre las clases en las que participó
+			} else {
+				Profesor profe = (Profesor) usuario;
+				System.out.println("PROFESOR: " + usuario.getNickname());
+				System.out.println("Nombre: " + usuario.getNombre() + " " + usuario.getApellido());
+				System.out.println("Correo electronico: " + usuario.getCorreoElectronico());
+				System.out.println("Fecha de Nacimiento: " + usuario.getFechaNacimiento());
+				System.out.println("Clases que dicta: ");
+				profe.listarClases();
+			}
+		}
 		
 	}
-	
-	/**********************************/
-	// OPCIONALES
-	/**********************************/
 
 	@Override
 	public void modificarNombre(String nickname, String nuevoNombre) {
@@ -94,6 +110,7 @@ public class CUsuario implements IUsuario{
 		}
 	}
 	
+	@Override
 	public boolean existenUsuarios() {
 		return usuarios.size() != 0;
 	}

@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import interfaces.IUsuario;
 import interfaces.IInstitucionDeportiva;
 import logica.InstitucionDeportiva;
+import logica.Usuario;
 
 
 import java.util.ArrayList;

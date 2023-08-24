@@ -21,4 +21,6 @@ public interface IUsuario {
 	public void listarUsuarios();
 	public boolean esProfesor(Usuario u);
 	public boolean existenUsuarios();
+	public Usuario buscarSocio(String nickname);
+	public void listarSocios();
 }

@@ -1,6 +1,7 @@
 package logica;
 
 import java.util.Date;
+import java.util.List;
 import java.util.ArrayList;
 
 public class Clase {
@@ -11,7 +12,7 @@ public class Clase {
     private String horaInicio;
     private String urlClase;
     private Date fechaRegistro;
-    private ArrayList<Registro> arrayRegistro;
+    private List<Registro> registros = new ArrayList<>();
     
     //Constructor
 	public Clase(String nombreClase, ActividadDeportiva actividadDeportiva, Date fechaClase, Profesor profesor,
@@ -83,12 +84,19 @@ public class Clase {
 		this.fechaRegistro = fechaRegistro;
 	}
 
-	public ArrayList<Registro> getArrayRegistro() {
-		return arrayRegistro;
+	public List<Registro> getArrayRegistro() {
+		return registros;
 	}
 
 	public void setArrayRegistro(ArrayList<Registro> arrayRegistro) {
-		this.arrayRegistro = arrayRegistro;
+		this.registros = arrayRegistro;
+	}
+	
+	public void registroClase(Socio socio, Clase clase) {
+		Date date = new Date();
+		Registro registro = new Registro(date, socio, clase);
+		registros.add(registro);
+		socio.agregarRegistro(registro);
 	}
 
 }

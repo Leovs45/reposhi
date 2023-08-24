@@ -89,14 +89,13 @@ public class CUsuario implements IUsuario{
 			System.out.println("  ERROR - No existe ningun usuario creado");
 		} else {
 			for(Usuario u: usuarios) {
-				if(u instanceof Profesor) {
-					Profesor profesor = (Profesor) u;
-					System.out.println("PROFE: " + profesor.getNickname() + " - " + profesor.getNombre() + " " + profesor.getApellido() + " " + profesor.getFechaNacimiento() + " " + profesor.getNombreInstitucion());
-				} else {
-					System.out.println("SOCIO: " + u.getNickname() + " - " + u.getNombre() + " " + u.getApellido() + " " + u.getFechaNacimiento());
-				}
+				System.out.println(u.getNickname());
 			}
 		}
+	}
+	
+	public boolean existenUsuarios() {
+		return usuarios.size() != 0;
 	}
 	
 }

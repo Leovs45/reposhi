@@ -505,6 +505,17 @@ public class Principal {
 	
 //**************************************************************************************
 
+	public static void consultarPerfilUsuario() {
+		Fabrica f = Fabrica.getInstancia();
+		IUsuario iUsuario = f.getIUsuario();
+		
+		if (iUsuario.existenUsuarios)	{
+			System.out.println("Existen");
+		} else {
+			System.out.println("No existen");
+		}
+	}
+	
 	public static void main(String[] args) {
 		Fabrica f = Fabrica.getInstancia();
 		Scanner input = new Scanner(System.in);
@@ -520,7 +531,8 @@ public class Principal {
 			case 1:
 				altaUsuario();
 				break;
-			case 2: //Consultar perfil usuario
+			case 2:
+				consultarPerfilUsuario();
 				break;
 			case 3: //Alta de Actividad Deportiva
 				agregarActividadDeportiva();

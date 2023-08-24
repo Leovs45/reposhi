@@ -503,6 +503,22 @@ public class Principal {
 	
 //**************************************************************************************
 
+	public static void consultarPerfilUsuario() {
+		Fabrica f = Fabrica.getInstancia();
+		IUsuario iUsuario = f.getIUsuario();
+		Scanner entrada = new Scanner(System.in);
+		
+		iUsuario.listarUsuarios();
+
+		if (!iUsuario.existenUsuarios())	{
+			System.out.println("  ERROR - No existen usuarios");
+		} else {
+			System.out.println("Ingresa el nickname del usuario: ");
+			String nickname = entrada.nextLine();
+			iUsuario.consultaUsuario(nickname);
+		}
+	}
+	
 	public static void main(String[] args) {
 		Fabrica f = Fabrica.getInstancia();
 		Scanner input = new Scanner(System.in);
@@ -518,7 +534,8 @@ public class Principal {
 			case 1:
 				altaUsuario();
 				break;
-			case 2: //Consultar perfil usuario
+			case 2:
+				consultarPerfilUsuario();
 				break;
 			case 3: //Alta de Actividad Deportiva
 				agregarActividadDeportiva();

@@ -9,7 +9,7 @@ import datatypes.TipoUsuario;
 public interface IUsuario {
 	public void altaUsuario(TipoUsuario tipoUsuario, String nickname, String nombre, String apellido, String correoElectronico, String fechaNacimiento, InstitucionDeportiva institucion, String descripcionGeneral, String biografia, String sitioWeb);
 	public void altaUsuario(TipoUsuario tipoUsuario, String nickname, String nombre, String apellido, String correoElectronico, String fechaNacimiento);
-	public void consultaUsuario();
+	public void consultaUsuario(String nickname);
 	
 	// Opcionales
 	public void modificarNombre(String nickname, String nuevoNombre);
@@ -20,4 +20,5 @@ public interface IUsuario {
 	public Usuario buscarUsuario(String nombre);
 	public void listarUsuarios();
 	public boolean esProfesor(Usuario u);
+	public boolean existenUsuarios();
 }

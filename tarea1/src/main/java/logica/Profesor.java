@@ -77,5 +77,15 @@ public class Profesor extends Usuario {
 		return clase;
 	}
 
+	public void listarClases() {
+		if (clases.size() == 0) {
+			System.out.println("  - No hay clases para este profesor");
+		} else {
+			for(Clase c: clases) {
+				System.out.println("- " + c.getNombreClase() + "\n  Fecha: " + c.getFechaClase() + "\n  Horario: " + c.getHoraInicio());
+				System.out.println("  Actividad: " + c.getActividadDeportiva().getNombre() + "\n  Institucion: " + c.getActividadDeportiva().getInstitucion() + "\n");
+			}
+		}
+	}
     
 }

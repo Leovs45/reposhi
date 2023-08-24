@@ -45,6 +45,8 @@ public class GUIPrincipal {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					Tirando_datos td= new Tirando_datos();
+					td.rellenarDatos();
 					GUIPrincipal window = new GUIPrincipal();
 					window.frame.setVisible(true);
 				} catch (Exception e) {

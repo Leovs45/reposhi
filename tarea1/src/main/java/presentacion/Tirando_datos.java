@@ -24,6 +24,17 @@ public class Tirando_datos {
 		iInstitucion.altaInstitucionDeportiva("Instituto 2","descripcion inistitucion 2", "url Insitucion 2");
 		iInstitucion.altaInstitucionDeportiva("Instituto 3","descripcion inistitucion 3", "url Insitucion 3");
 		iInstitucion.altaInstitucionDeportiva("Instituto 4","descripcion inistitucion 4", "url Insitucion 4");
+		
+		System.out.println("coleccion de institucion deportiva");
+		System.out.println("========================================");
+		
+		List<InstitucionDeportiva> ins = iInstitucion.getListaInstituciones();//las "coleccion de " intituciones recordadas por el controlador
+		for(InstitucionDeportiva i : ins) {
+			System.out.println(i.getNombre());
+		}
+		
+		
+		
 		//obtener/buscar  instituciones:
 		System.out.println("buscar institucion deportiva");
 		System.out.println("========================================");

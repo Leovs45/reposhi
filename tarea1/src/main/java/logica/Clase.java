@@ -27,6 +27,8 @@ public class Clase {
 		this.arrayRegistro = arrayRegistro;
 	}
 	
+	public Clase(){};//cree un constructor vacio
+
 	//Getters & Setters
 	public String getNombreClase() {
 		return nombreClase;

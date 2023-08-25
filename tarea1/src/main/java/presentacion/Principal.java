@@ -210,6 +210,8 @@ public class Principal {
 	                System.out.println("La institucion deportiva no existe");
 	            } else {
 	                iActividad.altaActividadDeportiva(nombreInstitucion, nombre, descripcion, duracionMinutos, costo, fechaRegistro);
+	                ActividadDeportiva adRecienCreada = iActividad.buscarActividadDeportiva(nombreInstitucion);
+			        iInstitucion.agregarActividadDeportivaInstitucion(institucion, adRecienCreada);
 	            }
 	        }
 
@@ -285,8 +287,8 @@ public class Principal {
 		//Fabrica f = Fabrica.getInstancia();
 		//Scanner input = new Scanner(System.in);
 		
-		Tirando_datos td= new Tirando_datos();
-		td.rellenarDatos();
+		//Tirando_datos td= new Tirando_datos();
+		//td.rellenarDatos();
 		
 	/***
 	 int op;

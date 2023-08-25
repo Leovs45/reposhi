@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import interfaces.IInstitucionDeportiva;
+import logica.ActividadDeportiva;
 import logica.InstitucionDeportiva;
 
 public class CInstitucionDeportiva implements IInstitucionDeportiva {
@@ -43,6 +44,11 @@ public class CInstitucionDeportiva implements IInstitucionDeportiva {
 		return institucion;
 	}
 	
+	public void agregarActividadDeportivaInstitucion(InstitucionDeportiva unaInstitucion, ActividadDeportiva unaActividad){
+		
+		unaInstitucion.setAgregarActividad(unaActividad);
+		
+	}
 	/**********************************/
 	// OPCIONALES
 	/**********************************/

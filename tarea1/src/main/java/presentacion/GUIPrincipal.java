@@ -42,6 +42,10 @@ public class GUIPrincipal {
 	
 
 	public static void main(String[] args) {
+		
+		Tirando_datos td= new Tirando_datos();
+		td.rellenarDatos();
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

@@ -10,6 +10,7 @@ public class ActividadDeportiva {
     private int duracionMinutos;
     private double costo;
     private Date fechaRegistro;
+    ArrayList<ActividadDeportiva> arrayActividadDeportiva;
     private ArrayList<Clase> arrayClase;
 
     //Constructor
@@ -76,9 +77,13 @@ public class ActividadDeportiva {
 	public ArrayList<Clase> getArrayClase() {
 		return arrayClase;
 	}
-
+	public void setAgregarActividad(ActividadDeportiva ad){
+		
+		this.arrayActividadDeportiva.add(ad);
+	}
 	public void setArrayClase(ArrayList<Clase> arrayClase) {
 		this.arrayClase = arrayClase;
 	}
+
    
 }

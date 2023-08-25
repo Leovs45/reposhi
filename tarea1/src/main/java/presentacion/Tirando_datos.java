@@ -1,16 +1,17 @@
 package presentacion;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import interfaces.*;
-import logica.ActividadDeportiva;
-import logica.InstitucionDeportiva;
-import logica.Usuario;
+import logica.*;
 import datatypes.*;
 
 
 public class Tirando_datos {
 
+	@SuppressWarnings("null")
 	public void rellenarDatos() {
 		// TODO Auto-generated method stub
 		Date fecha =new Date();
@@ -115,8 +116,8 @@ public class Tirando_datos {
 		iActividad.altaActividadDeportiva(id3.getNombre(), "nombreActividad 6","descripcion actividad 2", '3',6.1f,fecha);
 		iActividad.altaActividadDeportiva(id4.getNombre(), "nombreActividad 7","descripcion actividad a", '2',7.1f,fecha);
 		iActividad.altaActividadDeportiva(id4.getNombre(), "nombreActividad 8","descripcion actividad b", '1',8.1f,fecha);
+		//ojo que en alta de actividad deportiva debe rellenarse el array de clase
 		
-		//consulta Actividad Deportiva
 		System.out.println("Consulta(lista de) Actividades Deportivas");
 		System.out.println("========================================");
 		List<ActividadDeportiva>lad1 = iActividad.consultaActividadDeportiva(id1.getNombre()); //esta no hacia  nada porque no esta?
@@ -160,7 +161,66 @@ public class Tirando_datos {
 		ActividadDeportiva ad6= iActividad.buscarActividadDeportiva("nombreActividad 6");
 		ActividadDeportiva ad7= iActividad.buscarActividadDeportiva("nombreActividad 7");
 		ActividadDeportiva ad8= iActividad.buscarActividadDeportiva("nombreActividad 8");
+
+	//ojo que cuando creamos el ata de actividad depórtiva deberiamos agregar clases asociadas	
+		Clase c1 = new Clase();
+		c1.setNombreClase("nombre Clase 1"); 
+		c1.setUrlClase("URL Clase 1"); 
+		Clase c2 = new Clase();
+		c2.setNombreClase("nombre Clase 2"); 
+		c2.setUrlClase("URL Clase 2"); 
+		Clase c3 = new Clase();
+		c3.setNombreClase("nombre Clase 3"); 
+		c3.setUrlClase("URL Clase 3"); 
+		Clase c4 = new Clase();
+		c4.setNombreClase("nombre Clase 4"); 
+		c4.setUrlClase("URL Clase 4"); 
+		Clase c5 = new Clase();
+		c5.setNombreClase("nombre Clase 5"); 
+		c5.setUrlClase("URL Clase5"); 
+		Clase c6 = new Clase();
+		c6.setNombreClase("nombre Clase 6"); 
+		c6.setUrlClase("URL Clase 6"); 
+		Clase c7 = new Clase();
+		c7.setNombreClase("nombre Clase 7"); 
+		c7.setUrlClase("URL Clase7"); 
+		Clase c8 = new Clase();
+		c8.setNombreClase("nombre Clase 8"); 
+		c8.setUrlClase("URL Clase 8"); 
 		
+		
+		 ArrayList<Clase> clasesitas1= new ArrayList<>();
+		 ArrayList<Clase> clasesitas2 = new ArrayList<>();
+		 ArrayList<Clase> clasesitas3 = new ArrayList<>();
+		 ArrayList<Clase> clasesitas4 = new ArrayList<>();
+		 ArrayList<Clase> clasesitas5= new ArrayList<>();
+		 ArrayList<Clase> clasesitas6 = new ArrayList<>();
+		 ArrayList<Clase> clasesitas7 = new ArrayList<>();
+		 ArrayList<Clase> clasesitas8 = new ArrayList<>();
+		
+		clasesitas1.add(c1);
+		clasesitas1.add(c1);
+		clasesitas2.add(c2);
+		clasesitas2.add(c2);
+		clasesitas3.add(c3);
+		clasesitas3.add(c3);
+		clasesitas4.add(c4);
+		clasesitas4.add(c4);
+		clasesitas5.add(c5);
+		clasesitas6.add(c6);
+		clasesitas7.add(c7);
+		clasesitas8.add(c8);
+	
+		
+		ad1.setArrayClase(clasesitas1);
+		ad2.setArrayClase(clasesitas2);
+		ad3.setArrayClase(clasesitas3);
+		ad5.setArrayClase(clasesitas4);
+		ad6.setArrayClase(clasesitas6);
+		ad7.setArrayClase(clasesitas7);
+		ad8.setArrayClase(clasesitas8);
+		
+		//consulta Actividad Deportiva
 		
 		//Alta Dictado de clases
 		System.out.println("alta dicatado de clases");

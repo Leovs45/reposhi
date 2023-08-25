@@ -499,9 +499,6 @@ public class Principal {
 		iClase.altaDictadoClase("c2", a2, new Date(), profe2.getNickname(), "12:00", "url", new Date());
 		iClase.altaDictadoClase("c4", a4, new Date(), profe2.getNickname(), "12:00", "url", new Date());
 	}
-	
-	
-//**************************************************************************************
 
 	public static void consultarPerfilUsuario() {
 		Fabrica f = Fabrica.getInstancia();
@@ -518,6 +515,62 @@ public class Principal {
 			iUsuario.consultaUsuario(nickname);
 		}
 	}
+	
+	public static void registroDictadoClase() {
+		Fabrica f = Fabrica.getInstancia();
+		IInstitucionDeportiva iInstitucion = f.getIInstitucionDeportiva();
+		IUsuario iUsuario = f.getIUsuario();
+		Scanner entrada = new Scanner(System.in);
+		
+		System.out.println("Ingresa la institucion:");
+		String nombreInstitucion = entrada.nextLine();
+		
+		InstitucionDeportiva institucion = iInstitucion.buscarInstitucionDeportiva(nombreInstitucion);
+		
+		if(institucion == null) {
+			System.out.println("  ERROR - No existe una institucion con el nombre " + nombreInstitucion);
+		} else {
+			if(!institucion.existenActividades()) {
+				System.out.println("  ERROR - No existen actividades en esta institucion");
+			} else {
+				System.out.println("--------------------\nLISTA DE ACTIVIDADES:");
+				institucion.listarActividades();
+				System.out.println("--------------------");
+				System.out.println("Ingresa el nombre de la actividad");
+				System.out.println("0. Salir");
+				
+				String nombreActividad = entrada.nextLine();
+				
+				if(nombreActividad != "0") {
+					ActividadDeportiva actividad = institucion.buscarActividadDeportiva(nombreActividad);
+					
+					if (actividad != null){
+						System.out.println("--------------------\nLISTA DE SOCIOS:");
+						iUsuario.listarSocios();
+						System.out.println("--------------------");
+						System.out.println("Ingresa el nombre del socio que deseas registrar:");
+						String nicknameSocio = entrada.nextLine();
+						Usuario socio = iUsuario.buscarSocio(nicknameSocio);
+						
+						if (socio == null) {
+							System.out.println("No existe un usuario con el nickname " + nicknameSocio);
+						} else {
+							System.out.println("--------------------\nLISTA DE CLASES:");
+							actividad.listarClases();
+							System.out.println("--------------------");
+							System.out.println("A que clase lo deseas registrar: ");
+							String nombreClase = entrada.nextLine();
+							actividad.registroClase(nombreClase, socio);
+						}
+					}
+				}
+			}
+			
+		}
+		
+	}
+	
+	//**************************************************************************************
 	
 	public static void main(String[] args) {
 		Fabrica f = Fabrica.getInstancia();
@@ -547,6 +600,7 @@ public class Principal {
 				agregarClase();
 				break;
 			case 6: //Registrar socio a clase
+				registroDictadoClase();
 				break;
 			case 7:
 				agregarInstitucionDeportiva();

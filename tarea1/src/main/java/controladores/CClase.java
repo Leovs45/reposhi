@@ -41,9 +41,6 @@ public class CClase implements IClase {
 		
 	}
 	
-
-	
-	
 	/**********************************/
 	// OPCIONALES
 	/**********************************/

@@ -110,5 +110,20 @@ public class ActividadDeportiva {
 	public void agregarClase(Clase c) {
 		clases.add(c);
 	}
+	
+	public void registroClase(String nombreClase, Usuario usuario){
+		Socio socio = (Socio) usuario;
+		Clase clase = buscarClase(nombreClase);
+		
+		if (clase == null) {
+			System.out.println("  ERROR - No existe una clase con el nombre " + nombreClase);
+		} else {
+			clase.registroClase(socio, clase);
+		}
+	}
+	
+	public boolean existenClases() {
+		return clases.size() > 0;
+	}
    
 }

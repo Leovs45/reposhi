@@ -63,11 +63,13 @@ public class CUsuario implements IUsuario{
 			System.out.println("  ERROR - No existe un usuario con el nickname " + nickname);
 		} else {
 			if (usuario instanceof Socio) {
-				System.out.println("SOCIO: " + usuario.getNickname());
-				System.out.println("Nombre: " + usuario.getNombre() + " " + usuario.getApellido());
-				System.out.println("Correo electronico: " + usuario.getCorreoElectronico());
-				System.out.println("Fecha de Nacimiento: " + usuario.getFechaNacimiento());
-				// TODO agregar que se muestre las clases en las que participó
+				Socio socio = (Socio) usuario;
+				System.out.println("SOCIO: " + socio.getNickname());
+				System.out.println("Nombre: " + socio.getNombre() + " " + socio.getApellido());
+				System.out.println("Correo electronico: " + socio.getCorreoElectronico());
+				System.out.println("Fecha de Nacimiento: " + socio.getFechaNacimiento());
+				System.out.println("Clases a las que se registro: ");
+				socio.listarRegistros();
 			} else {
 				Profesor profe = (Profesor) usuario;
 				System.out.println("PROFESOR: " + usuario.getNickname());
@@ -108,6 +110,37 @@ public class CUsuario implements IUsuario{
 				System.out.println(u.getNickname());
 			}
 		}
+	}
+	
+	@Override
+	public void listarSocios() {
+		if(usuarios.size() == 0) {
+			System.out.println("  ERROR - No existe ningun usuario creado");
+		} else {
+			for(Usuario u: usuarios) {
+				if(u instanceof Socio) {
+					System.out.println(u.getNickname());
+				}
+			}
+		}
+	}
+	
+	@Override
+	public Usuario buscarSocio(String nickname) {
+		Usuario socio = null;
+		if (usuarios.size() == 0) {
+			return socio;
+		} else {
+			for(Usuario u: usuarios) {
+				if (u.getNickname().equals(nickname)) {
+					if(u instanceof Socio) {
+						socio = u;
+					}
+				}
+			}
+		}
+
+		return socio;
 	}
 	
 	@Override

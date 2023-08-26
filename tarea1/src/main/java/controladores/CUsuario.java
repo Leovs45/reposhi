@@ -1,11 +1,9 @@
 package controladores;
 import logica.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
-import datatypes.TipoUsuario;
 import interfaces.IUsuario;
-import logica.Usuario;
 
 public class CUsuario implements IUsuario{
 	private List<Usuario> usuarios = new ArrayList<>();
@@ -19,19 +17,17 @@ public class CUsuario implements IUsuario{
 	}
 	
 	@Override
-	public void altaUsuario(TipoUsuario tipoUsuario, String nickname, String nombre, String apellido, String correoElectronico, String fechaNacimiento, InstitucionDeportiva institucion, String descripcionGeneral, String biografia, String sitioWeb){
-		if(tipoUsuario == TipoUsuario.Profesor) {
-			Usuario profe = new Profesor(nickname, nombre, apellido, correoElectronico, fechaNacimiento, institucion, descripcionGeneral, biografia, sitioWeb);
-			usuarios.add(profe);
-		}
-	}
-	public void altaUsuario(TipoUsuario tipoUsuario, String nickname, String nombre, String apellido, String correoElectronico, String fechaNacimiento) {
-		if(tipoUsuario == TipoUsuario.UsuarioComun) {
-			Usuario socio = new Socio(nickname, nombre, apellido, correoElectronico, fechaNacimiento);
-			usuarios.add(socio);
-		}
+	public void altaUsuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento, InstitucionDeportiva institucion, String descripcionGeneral, String biografia, String sitioWeb){
+		Usuario profe = new Profesor(nickname, nombre, apellido, correoElectronico, fechaNacimiento, institucion, descripcionGeneral, biografia, sitioWeb);
+		usuarios.add(profe);
 	}
 	
+	public void altaUsuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento) {
+		Usuario socio = new Socio(nickname, nombre, apellido, correoElectronico, fechaNacimiento);
+		usuarios.add(socio);
+	}	
+	
+	@Override
 	public Usuario buscarUsuario(String nickname) {
 		Usuario usuario = null;
 		if (usuarios.size() == 0) {
@@ -96,7 +92,7 @@ public class CUsuario implements IUsuario{
 	}
 
 	@Override
-	public void modificarFechaNacimiento(String nickname, String nuevaFecha) {
+	public void modificarFechaNacimiento(String nickname, Date nuevaFecha) {
 		Usuario user = buscarUsuario(nickname);
 		user.setFechaNacimiento(nuevaFecha);
 	}
@@ -146,6 +142,11 @@ public class CUsuario implements IUsuario{
 	@Override
 	public boolean existenUsuarios() {
 		return usuarios.size() != 0;
+	}
+
+
+	public List<Usuario> getUsuarios() {
+		return usuarios;
 	}
 	
 }

@@ -88,7 +88,8 @@ public class Principal {
 			cInstitucion.altaInstitucionDeportiva(nombre, descripcion, url);
 		}
 	}
-	
+
+//**************************************************************************************
 	static void agregarActividadDeportiva() {
 	  Fabrica f = Fabrica.getInstancia();
 	  IActividadDeportiva iActividad = f.getIActividadDeportiva();
@@ -253,12 +254,11 @@ public class Principal {
 			    System.out.print("Correo Electronico: ");
 			    String correoElectronico = input.nextLine();
 			    System.out.print("Fecha de Nacimiento: ");
-			    String fechaNacimiento = input.nextLine();
+			    Date fechaNacimiento = new Date();
 			    System.out.print("El usuario es profesor o socio? 1- Profesor 2- Socio ");
 			    int op = Integer.parseInt(input.nextLine());
 			    switch(op) {
 			    case 1:
-			    	TipoUsuario tpProfe = TipoUsuario.Profesor;
 			    	System.out.print("Institucion: ");
 			    	
 			        String nombreInstitucion = input.nextLine();
@@ -274,12 +274,11 @@ public class Principal {
 				        String biografia = input.nextLine();
 				        System.out.print("Sitio Web: ");
 				        String sitioWeb = input.nextLine();
-			        	iUser.altaUsuario(tpProfe, nickname, nombre, apellido, correoElectronico, fechaNacimiento, institucion, descripcionGeneral, biografia, sitioWeb);
+			        	iUser.altaUsuario(nickname, nombre, apellido, correoElectronico, fechaNacimiento, institucion, descripcionGeneral, biografia, sitioWeb);
 			        	break;
 			        }
 			    case 2:
-			    	TipoUsuario tpSocio = TipoUsuario.UsuarioComun;
-		        	iUser.altaUsuario(tpSocio, nickname, nombre, apellido, correoElectronico, fechaNacimiento);
+		        	iUser.altaUsuario(nickname, nombre, apellido, correoElectronico, fechaNacimiento);
 			    	break;
 			    }
 			}
@@ -328,9 +327,8 @@ public class Principal {
 					iUsuario.modificarApellido(nickname, nuevoApellido);
 					break;
 				case 3:
-					String nuevaFecha;
 					System.out.println("Ingresa el nueva fecha de nacimiento: ");
-					nuevaFecha = entrada.nextLine();
+					Date nuevaFecha = new Date();
 					iUsuario.modificarFechaNacimiento(nickname, nuevaFecha);
 					break;
 				case 4:
@@ -467,11 +465,11 @@ public class Principal {
 		
 		// Creo usuario
 		IUsuario iUsuario = f.getIUsuario();
-		iUsuario.altaUsuario(TipoUsuario.UsuarioComun, "Mei", "Maite", "Martinez", "mail@false.com", "30/10/1998");
+		iUsuario.altaUsuario("Mei", "Maite", "Martinez", "mail@false.com", new Date());
 		InstitucionDeportiva i1 = iInstitucion.buscarInstitucionDeportiva("i1");
 		InstitucionDeportiva i2 = iInstitucion.buscarInstitucionDeportiva("i2");
-		iUsuario.altaUsuario(TipoUsuario.Profesor, "Profe", "Profesor", "Profesoro", "otro@mail.com", "18/08/1995", i1, "Descripcion", "Bio", "sitio web");
-		iUsuario.altaUsuario(TipoUsuario.Profesor, "Profa", "Profesora", "Profesorara", "otro@mail.com", "18/08/1995", i2, "Descripcion", "Bio", "sitio web");
+		iUsuario.altaUsuario("Profe", "Profesor", "Profesoro", "otro@mail.com", new Date(), i1, "Descripcion", "Bio", "sitio web");
+		iUsuario.altaUsuario("Profa", "Profesora", "Profesorara", "otro@mail.com", new Date(), i2, "Descripcion", "Bio", "sitio web");
 		
 		Usuario user1 = iUsuario.buscarUsuario("Profe");
 		Usuario user2 = iUsuario.buscarUsuario("Profa");

@@ -88,7 +88,8 @@ public class Principal {
 			cInstitucion.altaInstitucionDeportiva(nombre, descripcion, url);
 		}
 	}
-	
+
+//**************************************************************************************
 	static void agregarActividadDeportiva() {
 	  Fabrica f = Fabrica.getInstancia();
 	  IActividadDeportiva iActividad = f.getIActividadDeportiva();
@@ -253,12 +254,11 @@ public class Principal {
 			    System.out.print("Correo Electronico: ");
 			    String correoElectronico = input.nextLine();
 			    System.out.print("Fecha de Nacimiento: ");
-			    String fechaNacimiento = input.nextLine();
+			    Date fechaNacimiento = new Date();
 			    System.out.print("El usuario es profesor o socio? 1- Profesor 2- Socio ");
 			    int op = Integer.parseInt(input.nextLine());
 			    switch(op) {
 			    case 1:
-			    	TipoUsuario tpProfe = TipoUsuario.Profesor;
 			    	System.out.print("Institucion: ");
 			    	
 			        String nombreInstitucion = input.nextLine();
@@ -274,12 +274,11 @@ public class Principal {
 				        String biografia = input.nextLine();
 				        System.out.print("Sitio Web: ");
 				        String sitioWeb = input.nextLine();
-			        	iUser.altaUsuario(tpProfe, nickname, nombre, apellido, correoElectronico, fechaNacimiento, institucion, descripcionGeneral, biografia, sitioWeb);
+			        	iUser.altaUsuario(nickname, nombre, apellido, correoElectronico, fechaNacimiento, institucion, descripcionGeneral, biografia, sitioWeb);
 			        	break;
 			        }
 			    case 2:
-			    	TipoUsuario tpSocio = TipoUsuario.UsuarioComun;
-		        	iUser.altaUsuario(tpSocio, nickname, nombre, apellido, correoElectronico, fechaNacimiento);
+		        	iUser.altaUsuario(nickname, nombre, apellido, correoElectronico, fechaNacimiento);
 			    	break;
 			    }
 			}
@@ -328,9 +327,8 @@ public class Principal {
 					iUsuario.modificarApellido(nickname, nuevoApellido);
 					break;
 				case 3:
-					String nuevaFecha;
 					System.out.println("Ingresa el nueva fecha de nacimiento: ");
-					nuevaFecha = entrada.nextLine();
+					Date nuevaFecha = new Date();
 					iUsuario.modificarFechaNacimiento(nickname, nuevaFecha);
 					break;
 				case 4:
@@ -467,11 +465,11 @@ public class Principal {
 		
 		// Creo usuario
 		IUsuario iUsuario = f.getIUsuario();
-		iUsuario.altaUsuario(TipoUsuario.UsuarioComun, "Mei", "Maite", "Martinez", "mail@false.com", "30/10/1998");
+		iUsuario.altaUsuario("Mei", "Maite", "Martinez", "mail@false.com", new Date());
 		InstitucionDeportiva i1 = iInstitucion.buscarInstitucionDeportiva("i1");
 		InstitucionDeportiva i2 = iInstitucion.buscarInstitucionDeportiva("i2");
-		iUsuario.altaUsuario(TipoUsuario.Profesor, "Profe", "Profesor", "Profesoro", "otro@mail.com", "18/08/1995", i1, "Descripcion", "Bio", "sitio web");
-		iUsuario.altaUsuario(TipoUsuario.Profesor, "Profa", "Profesora", "Profesorara", "otro@mail.com", "18/08/1995", i2, "Descripcion", "Bio", "sitio web");
+		iUsuario.altaUsuario("Profe", "Profesor", "Profesoro", "otro@mail.com", new Date(), i1, "Descripcion", "Bio", "sitio web");
+		iUsuario.altaUsuario("Profa", "Profesora", "Profesorara", "otro@mail.com", new Date(), i2, "Descripcion", "Bio", "sitio web");
 		
 		Usuario user1 = iUsuario.buscarUsuario("Profe");
 		Usuario user2 = iUsuario.buscarUsuario("Profa");
@@ -499,9 +497,6 @@ public class Principal {
 		iClase.altaDictadoClase("c2", a2, new Date(), profe2.getNickname(), "12:00", "url", new Date());
 		iClase.altaDictadoClase("c4", a4, new Date(), profe2.getNickname(), "12:00", "url", new Date());
 	}
-	
-	
-//**************************************************************************************
 
 	public static void consultarPerfilUsuario() {
 		Fabrica f = Fabrica.getInstancia();
@@ -518,6 +513,62 @@ public class Principal {
 			iUsuario.consultaUsuario(nickname);
 		}
 	}
+	
+	public static void registroDictadoClase() {
+		Fabrica f = Fabrica.getInstancia();
+		IInstitucionDeportiva iInstitucion = f.getIInstitucionDeportiva();
+		IUsuario iUsuario = f.getIUsuario();
+		Scanner entrada = new Scanner(System.in);
+		
+		System.out.println("Ingresa la institucion:");
+		String nombreInstitucion = entrada.nextLine();
+		
+		InstitucionDeportiva institucion = iInstitucion.buscarInstitucionDeportiva(nombreInstitucion);
+		
+		if(institucion == null) {
+			System.out.println("  ERROR - No existe una institucion con el nombre " + nombreInstitucion);
+		} else {
+			if(!institucion.existenActividades()) {
+				System.out.println("  ERROR - No existen actividades en esta institucion");
+			} else {
+				System.out.println("--------------------\nLISTA DE ACTIVIDADES:");
+				institucion.listarActividades();
+				System.out.println("--------------------");
+				System.out.println("Ingresa el nombre de la actividad");
+				System.out.println("0. Salir");
+				
+				String nombreActividad = entrada.nextLine();
+				
+				if(nombreActividad != "0") {
+					ActividadDeportiva actividad = institucion.buscarActividadDeportiva(nombreActividad);
+					
+					if (actividad != null){
+						System.out.println("--------------------\nLISTA DE SOCIOS:");
+						iUsuario.listarSocios();
+						System.out.println("--------------------");
+						System.out.println("Ingresa el nombre del socio que deseas registrar:");
+						String nicknameSocio = entrada.nextLine();
+						Usuario socio = iUsuario.buscarSocio(nicknameSocio);
+						
+						if (socio == null) {
+							System.out.println("No existe un usuario con el nickname " + nicknameSocio);
+						} else {
+							System.out.println("--------------------\nLISTA DE CLASES:");
+							actividad.listarClases();
+							System.out.println("--------------------");
+							System.out.println("A que clase lo deseas registrar: ");
+							String nombreClase = entrada.nextLine();
+							actividad.registroClase(nombreClase, socio);
+						}
+					}
+				}
+			}
+			
+		}
+		
+	}
+	
+	//**************************************************************************************
 	
 	public static void main(String[] args) {
 		Fabrica f = Fabrica.getInstancia();
@@ -547,6 +598,7 @@ public class Principal {
 				agregarClase();
 				break;
 			case 6: //Registrar socio a clase
+				registroDictadoClase();
 				break;
 			case 7:
 				agregarInstitucionDeportiva();

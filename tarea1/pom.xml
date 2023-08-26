@@ -1,8 +1,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.tarea1</groupId>
-  <artifactId>tarea1</artifactId>
+  <groupId>PApp</groupId>
+  <artifactId>PApp</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>Tarea1</name>
-  <description>tarea1</description>
+  <name>papp-tarea1</name>
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+   <dependencies>
+    <!-- Otras dependencias -->
+    <dependency>
+      <groupId>com.toedter</groupId>
+      <artifactId>jcalendar</artifactId>
+      <version>1.4</version> <!-- Asegúrate de usar la última versión disponible -->
+    </dependency>
+  </dependencies> 
 </project>

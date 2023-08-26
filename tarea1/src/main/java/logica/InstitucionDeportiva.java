@@ -103,5 +103,22 @@ public class InstitucionDeportiva {
 	public void agregarActividadDeportiva(ActividadDeportiva actividad) {
 		actividades.add(actividad);
 	}
+	
+	public boolean existenActividades() {
+		return actividades.size() > 0;
+	}
+	
+	public void listarActividadesClases() {
+		if(actividades.size() == 0) {
+			System.out.println("  ERROR - No existe ninguna actividad");
+		} else {
+			for(ActividadDeportiva a: actividades) {
+				System.out.println(" - " + a.getNombre());
+				if(a.existenClases()) {
+					a.listarClases();
+				}
+			}
+		}
+	}
 
 }

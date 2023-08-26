@@ -68,7 +68,7 @@ public class GUIPrincipal {
 		Dimension jInternalFrameSize;
 		
 		// Crea frame de alta Usuario
-		altaUsuarioInternalFrame = new GUIAltaUsuario(iUsuario);
+		altaUsuarioInternalFrame = new GUIAltaUsuario(iUsuario, iInstitucion);
 		jInternalFrameSize = altaUsuarioInternalFrame.getSize();
 		altaUsuarioInternalFrame.setLocation((desktopSize.width - jInternalFrameSize.width)/2
 				,(desktopSize.height - jInternalFrameSize.height)/2);
@@ -129,7 +129,7 @@ public class GUIPrincipal {
 
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 867, 572);
+		frame.setBounds(100, 100, 867, 800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JMenuBar menuBar = new JMenuBar();

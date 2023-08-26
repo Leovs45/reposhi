@@ -30,6 +30,9 @@ public class Fabrica {
 		return CClase.getInstancia();
 	}
 
+	public IRegistro getIRegistro() {
+		return CRegistro.getInstancia();
+	}
 	
 }
 	

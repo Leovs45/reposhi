@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import javax.swing.JLabel;
 
 public class GUIAltaInstitucion extends JInternalFrame {
 	private JTextField textFieldNombre;

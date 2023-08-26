@@ -8,7 +8,7 @@ public class GUIConsultaUsuario extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public GUIConsultaUsuario(IUsuario IUsuario) {
+	public GUIConsultaUsuario(IUsuario iUsuario) {
 		setBounds(100, 100, 450, 300);
 
 	}

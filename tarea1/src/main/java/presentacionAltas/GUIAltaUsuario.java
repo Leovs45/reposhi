@@ -27,6 +27,8 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.DefaultListModel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 public class GUIAltaUsuario extends JInternalFrame {
 	private JTextField textFieldNickname;
@@ -102,11 +104,27 @@ public class GUIAltaUsuario extends JInternalFrame {
 		
 		//PRUEBA PARA INGRESAR ARRAYLIST A UNA LIST
 		
-
-		List<InstitucionDeportiva> instituciones = iInstitucion.getInstituciones();
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBounds(206, 210, 137, 103);
+		getContentPane().add(scrollPane);
 		JList listaInstitucion = new JList();
+		scrollPane.setViewportView(listaInstitucion);
+		
+		
+		listaInstitucion.setEnabled(false);
+		List<InstitucionDeportiva> instituciones = iInstitucion.getInstituciones();
 		iInstitucion.altaInstitucionDeportiva("Institucion 1", "Es la institucion numero 1", "institucion1.com");
 		iInstitucion.altaInstitucionDeportiva("Institucion 2", "Es la institucion numero 2", "institucion2.com");
+		iInstitucion.altaInstitucionDeportiva("Institucion 3", "Es la institucion numero 3", "institucion3.com");
+		iInstitucion.altaInstitucionDeportiva("Institucion 4", "Es la institucion numero 4", "institucion4.com");
+		iInstitucion.altaInstitucionDeportiva("Institucion 5", "Es la institucion numero 5", "institucion5.com");
+		iInstitucion.altaInstitucionDeportiva("Institucion 6", "Es la institucion numero 6", "institucion6.com");
+		iInstitucion.altaInstitucionDeportiva("Institucion 7", "Es la institucion numero 7", "institucion7.com");
+		iInstitucion.altaInstitucionDeportiva("Institucion 8", "Es la institucion numero 8", "institucion8.com");
+		iInstitucion.altaInstitucionDeportiva("Institucion 9", "Es la institucion numero 9", "institucion9.com");
+		iInstitucion.altaInstitucionDeportiva("Institucion 10", "Es la institucion numero 10", "institucion10.com");
+
 		DefaultListModel<String> milista = new DefaultListModel<String>();
 		for(InstitucionDeportiva id: instituciones) {
 			milista.addElement(id.getNombre());
@@ -193,6 +211,12 @@ public class GUIAltaUsuario extends JInternalFrame {
 		getContentPane().add(lblUsuarioIngresado);
 		lblUsuarioIngresado.setVisible(false);
 		
+		JLabel lblUsuarioExistente = new JLabel("Usuario existente");
+		lblUsuarioExistente.setForeground(Color.RED);
+		lblUsuarioExistente.setBounds(377, 378, 137, 15);
+		getContentPane().add(lblUsuarioExistente);
+		lblUsuarioExistente.setVisible(false);
+		
 		rdbtnProfesor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(rdbtnProfesor.isSelected())
@@ -214,9 +238,12 @@ public class GUIAltaUsuario extends JInternalFrame {
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String nickname = textFieldNickname.getText();
-				if (iUsuario.buscarUsuario(nickname) != null) 
-					System.out.println("Usuario existente");
-				else {
+				if (iUsuario.buscarUsuario(nickname) != null) {
+					lblError1.setVisible(false);
+					lblError2.setVisible(false);
+					lblUsuarioIngresado.setVisible(false);
+					lblUsuarioExistente.setVisible(true);
+				}else {
 					String nombre = textFieldNombre.getText();
 					String apellido = textFieldApellido.getText();
 					String email = textFieldCorreoElectronico.getText();
@@ -271,8 +298,6 @@ public class GUIAltaUsuario extends JInternalFrame {
 		});
 		btnAgregar.setBounds(395, 327, 117, 25);
 		getContentPane().add(btnAgregar);
-		
-
 	}
 }
 

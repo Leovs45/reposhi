@@ -570,6 +570,38 @@ public class Principal {
 		
 	}
 	
+	public static void consultaRegistroClase() {
+		Fabrica f = Fabrica.getInstancia();
+		IInstitucionDeportiva iInstitucion = f.getIInstitucionDeportiva();
+		IClase iClase = f.getIClase();
+		Scanner entrada = new Scanner(System.in);
+		
+		System.out.println("Ingresa la institucion: ");
+		String nombreInstitucion = entrada.nextLine();
+		
+		InstitucionDeportiva institucion = iInstitucion.buscarInstitucionDeportiva(nombreInstitucion);
+		
+		if(institucion != null){
+			institucion.listarActividades();
+			System.out.println("Ingresa el nombre de la actividad: ");
+			String nombreActividad = entrada.nextLine();
+			ActividadDeportiva actividad = institucion.buscarActividadDeportiva(nombreActividad);
+			
+			if(actividad != null) {
+				actividad.listarClases();
+				System.out.println("Ingresa el nombre de la clase: ");
+				String nombreClase = entrada.nextLine();
+				Clase clase = actividad.buscarClase(nombreClase);
+				iClase.consultarDictadoClase(clase);
+			} else {
+				System.out.println("  ERROR - No existe una institucion con el nombre " + nombreActividad);
+			}
+
+		} else {
+			System.out.println("  ERROR - No existe una institucion con el nombre " + nombreInstitucion);
+		}
+	}
+	
 	//**************************************************************************************
 	
 	public static void main(String[] args) {

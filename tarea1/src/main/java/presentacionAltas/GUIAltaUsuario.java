@@ -131,7 +131,9 @@ public class GUIAltaUsuario extends JInternalFrame {
 		}
 		listaInstitucion.setModel(milista);
 		
-		
+		listaInstitucion.setEnabled(false);
+		listaInstitucion.setBounds(206, 211, 137, 104);
+		getContentPane().add(listaInstitucion);
 		
 		JLabel lblDescripcion = new JLabel("Descripcion: ");
 		lblDescripcion.setEnabled(false);
@@ -298,5 +300,4 @@ public class GUIAltaUsuario extends JInternalFrame {
 		getContentPane().add(btnAgregar);
 	}
 }
-
 

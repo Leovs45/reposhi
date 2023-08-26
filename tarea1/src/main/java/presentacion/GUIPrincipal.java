@@ -129,7 +129,7 @@ public class GUIPrincipal {
 
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 867, 600);
+		frame.setBounds(100, 100, 867, 800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JMenuBar menuBar = new JMenuBar();

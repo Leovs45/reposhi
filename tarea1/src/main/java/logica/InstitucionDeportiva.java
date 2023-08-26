@@ -1,13 +1,14 @@
 package logica;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class InstitucionDeportiva {
 	private String nombre;
 	private String descripcion;
 	private String url;
-	ArrayList<Profesor> arrayProfesor;
-	ArrayList<ActividadDeportiva> arrayActividadDeportiva;
+	private List<Profesor> profesores = new ArrayList<>();
+	private List<ActividadDeportiva> actividades = new ArrayList<>();
 	
 	//Constructor
 	public InstitucionDeportiva (String nombre, String descripcion, String url)
@@ -43,20 +44,81 @@ public class InstitucionDeportiva {
 		this.url = url;
 	}
 
-	public ArrayList<Profesor> getArrayProfesor() {
-		return arrayProfesor;
+	public List<Profesor> getArrayProfesor() {
+		return profesores;
 	}
 
-	public void setArrayProfesor(ArrayList<Profesor> arrayProfesor) {
-		this.arrayProfesor = arrayProfesor;
+	public void setArrayProfesor(List<Profesor> arrayProfesor) {
+		this.profesores = arrayProfesor;
 	}
 
-	public ArrayList<ActividadDeportiva> getArrayActividadDeportiva() {
-		return arrayActividadDeportiva;
+	public List<ActividadDeportiva> getArrayActividadDeportiva() {
+		return actividades;
 	}
 
-	public void setArrayActividadDeportiva(ArrayList<ActividadDeportiva> arrayActividadDeportiva) {
-		this.arrayActividadDeportiva = arrayActividadDeportiva;
+	public void setArrayActividadDeportiva(List<ActividadDeportiva> arrayActividadDeportiva) {
+		this.actividades = arrayActividadDeportiva;
 	}
 	
+	public void listarActividades() {
+		if(actividades.size() == 0) {
+			System.out.println("  ERROR - No existe ninguna actividad");
+		} else {
+			int contador = 1;
+			for(ActividadDeportiva a: actividades) {
+				System.out.println("  " + contador + " - " + a.getNombre());
+				contador++;
+			}
+		}
+	}
+	
+	public ActividadDeportiva obtenerActividad(int opt) {
+		ActividadDeportiva ad = null;
+		if (actividades.size() == 0) {
+			return ad;
+		} else {
+			if (opt > actividades.size()) {
+				return ad;
+			} else {
+				ad = actividades.get(opt - 1);
+			}
+		}
+		return ad;
+	}
+	
+	public ActividadDeportiva buscarActividadDeportiva(String nombreActividad) {
+		ActividadDeportiva actividad = null;
+		if (actividades.size() == 0) {
+			actividad = null;
+		} else {
+			for(ActividadDeportiva a: actividades) {
+				if (a.getNombre().equals(nombreActividad)) {
+					actividad = a;
+				}
+			}
+		}
+		return actividad;
+	}
+	
+	public void agregarActividadDeportiva(ActividadDeportiva actividad) {
+		actividades.add(actividad);
+	}
+	
+	public boolean existenActividades() {
+		return actividades.size() > 0;
+	}
+	
+	public void listarActividadesClases() {
+		if(actividades.size() == 0) {
+			System.out.println("  ERROR - No existe ninguna actividad");
+		} else {
+			for(ActividadDeportiva a: actividades) {
+				System.out.println(" - " + a.getNombre());
+				if(a.existenClases()) {
+					a.listarClases();
+				}
+			}
+		}
+	}
+
 }

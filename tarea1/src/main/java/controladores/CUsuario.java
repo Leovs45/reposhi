@@ -1,7 +1,7 @@
 package controladores;
 import logica.*;
-import java.util.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import interfaces.IUsuario;
 
@@ -10,23 +10,24 @@ public class CUsuario implements IUsuario{
 	
 	private static CUsuario instancia = null;
 
-	
 	public static CUsuario getInstancia() {
 		if (instancia == null)
 			instancia = new CUsuario();
 		return instancia;
 	}
 	
-	
 	@Override
 	public void altaUsuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento, InstitucionDeportiva institucion, String descripcionGeneral, String biografia, String sitioWeb){
-					Usuario profe = new Profesor(nickname, nombre, apellido, correoElectronico, fechaNacimiento, institucion, descripcionGeneral, biografia, sitioWeb);
-					usuarios.add(profe);
+		Usuario profe = new Profesor(nickname, nombre, apellido, correoElectronico, fechaNacimiento, institucion, descripcionGeneral, biografia, sitioWeb);
+		usuarios.add(profe);
 	}
+	
 	public void altaUsuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento) {
-			Usuario socio = new Socio(nickname, nombre, apellido, correoElectronico, fechaNacimiento);
-			usuarios.add(socio);
+		Usuario socio = new Socio(nickname, nombre, apellido, correoElectronico, fechaNacimiento);
+		usuarios.add(socio);
 	}	
+	
+	@Override
 	public Usuario buscarUsuario(String nickname) {
 		Usuario usuario = null;
 		if (usuarios.size() == 0) {
@@ -41,32 +42,106 @@ public class CUsuario implements IUsuario{
 
 		return usuario;
 	}
-	@Override
-	public void consultaUsuario() {
-		// TODO Auto-generated method stub
-		
+	
+	public boolean esProfesor(Usuario u) {
+		if(u instanceof Profesor) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 	
-	/**********************************/
-	// OPCIONALES
-	/**********************************/
+	@Override
+	public void consultaUsuario(String nickname) {
+		Usuario usuario = buscarUsuario(nickname);
+		
+		if(usuario == null) {
+			System.out.println("  ERROR - No existe un usuario con el nickname " + nickname);
+		} else {
+			if (usuario instanceof Socio) {
+				Socio socio = (Socio) usuario;
+				System.out.println("SOCIO: " + socio.getNickname());
+				System.out.println("Nombre: " + socio.getNombre() + " " + socio.getApellido());
+				System.out.println("Correo electronico: " + socio.getCorreoElectronico());
+				System.out.println("Fecha de Nacimiento: " + socio.getFechaNacimiento());
+				System.out.println("Clases a las que se registro: ");
+				socio.listarRegistros();
+			} else {
+				Profesor profe = (Profesor) usuario;
+				System.out.println("PROFESOR: " + usuario.getNickname());
+				System.out.println("Nombre: " + usuario.getNombre() + " " + usuario.getApellido());
+				System.out.println("Correo electronico: " + usuario.getCorreoElectronico());
+				System.out.println("Fecha de Nacimiento: " + usuario.getFechaNacimiento());
+				System.out.println("Clases que dicta: ");
+				profe.listarClases();
+			}
+		}
+		
+	}
 
 	@Override
 	public void modificarNombre(String nickname, String nuevoNombre) {
-		// TODO Auto-generated method stub
-		
+		Usuario user = buscarUsuario(nickname);
+		user.setNombre(nuevoNombre);
 	}
 
 	@Override
 	public void modificarApellido(String nickname, String nuevoApellido) {
-		// TODO Auto-generated method stub
-		
+		Usuario user = buscarUsuario(nickname);
+		user.setApellido(nuevoApellido);
 	}
 
 	@Override
 	public void modificarFechaNacimiento(String nickname, Date nuevaFecha) {
-		// TODO Auto-generated method stub
-		
+		Usuario user = buscarUsuario(nickname);
+		user.setFechaNacimiento(nuevaFecha);
+	}
+	
+	@Override
+	public void listarUsuarios() {
+		if(usuarios.size() == 0) {
+			System.out.println("  ERROR - No existe ningun usuario creado");
+		} else {
+			for(Usuario u: usuarios) {
+				System.out.println(u.getNickname());
+			}
+		}
+	}
+	
+	@Override
+	public void listarSocios() {
+		if(usuarios.size() == 0) {
+			System.out.println("  ERROR - No existe ningun usuario creado");
+		} else {
+			for(Usuario u: usuarios) {
+				if(u instanceof Socio) {
+					System.out.println(u.getNickname());
+				}
+			}
+		}
+	}
+	
+	@Override
+	public Usuario buscarSocio(String nickname) {
+		Usuario socio = null;
+		if (usuarios.size() == 0) {
+			return socio;
+		} else {
+			for(Usuario u: usuarios) {
+				if (u.getNickname().equals(nickname)) {
+					if(u instanceof Socio) {
+						socio = u;
+					}
+				}
+			}
+		}
+
+		return socio;
+	}
+	
+	@Override
+	public boolean existenUsuarios() {
+		return usuarios.size() != 0;
 	}
 
 

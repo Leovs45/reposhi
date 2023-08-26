@@ -9,8 +9,8 @@ public class Profesor extends Usuario {
     private String descripcionGeneral;
     private String biografia;
     private String sitioWeb;
-	private List<Clase> clases = new ArrayList<>();
-
+    private List<Clase> clases = new ArrayList<>();
+    
     //Constructor
     public Profesor(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento,
     		InstitucionDeportiva institucion, String descripcionGeneral, String biografia, String sitioWeb) {
@@ -28,6 +28,10 @@ public class Profesor extends Usuario {
 
 	public void setInstitucion(InstitucionDeportiva institucion) {
 		this.institucion = institucion;
+	}
+	
+	public String getNombreInstitucion() {
+		return institucion.getNombre();
 	}
 
 	public String getDescripcionGeneral() {
@@ -53,6 +57,35 @@ public class Profesor extends Usuario {
 	public void setSitioWeb(String sitioWeb) {
 		this.sitioWeb = sitioWeb;
 	}
+	
+	public void agregarClase(Clase c) {
+		clases.add(c);
+	}
+	
+	public Clase buscarClase(String nombre) {
+		Clase clase = null;
+		if (clases.size() == 0) {
+			return clase;
+		} else {
+			for(Clase c: clases) {
+				if (c.getNombreClase().equals(nombre)) {
+					clase = c;
+				}
+			}
+		}
 
+		return clase;
+	}
+
+	public void listarClases() {
+		if (clases.size() == 0) {
+			System.out.println("  - No hay clases para este profesor");
+		} else {
+			for(Clase c: clases) {
+				System.out.println("- " + c.getNombreClase() + "\n  Fecha: " + c.getFechaClase() + "\n  Horario: " + c.getHoraInicio());
+				System.out.println("  Actividad: " + c.getActividadDeportiva().getNombre() + "\n  Institucion: " + c.getActividadDeportiva().getInstitucion() + "\n");
+			}
+		}
+	}
     
 }

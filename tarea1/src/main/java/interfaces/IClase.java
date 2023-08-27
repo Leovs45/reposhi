@@ -1,6 +1,7 @@
 package interfaces;
 
 import java.util.Date;
+import java.util.List;
 
 import logica.ActividadDeportiva;
 import logica.Clase;
@@ -14,4 +15,6 @@ public interface IClase {
 	// Opcionales
 	public void rankingDictadoClase();
 	public void consultarDictadoClase(Clase clase);
+	public void agregarClase(Clase clase);
+	public List<Clase> getRankingClases();
 }

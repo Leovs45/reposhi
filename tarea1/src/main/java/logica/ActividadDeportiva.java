@@ -2,6 +2,10 @@ package logica;
 
 import java.util.Date;
 import java.util.List;
+
+import interfaces.Fabrica;
+import interfaces.IActividadDeportiva;
+
 import java.util.ArrayList;
 
 public class ActividadDeportiva {
@@ -125,6 +129,10 @@ public class ActividadDeportiva {
 	
 	public boolean existenClases() {
 		return clases.size() > 0;
+	}
+	
+	public int getCantidadClases() {
+		return clases.size();
 	}
    
 }

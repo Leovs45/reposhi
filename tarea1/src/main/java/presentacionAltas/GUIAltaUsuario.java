@@ -259,6 +259,7 @@ public class GUIAltaUsuario extends JInternalFrame {
 							lblError1.setVisible(false);
 							lblError2.setVisible(false);					
 							lblUsuarioIngresado.setVisible(true);
+							iUsuario.altaUsuario(nickname, nombre, apellido, email, fechaNac);
 						}
 						
 					}

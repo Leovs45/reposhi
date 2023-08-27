@@ -127,6 +127,14 @@ public class GUIPrincipal {
 		modificarUsuarioInternalFrame.setVisible(false);
 		frame.getContentPane().add(modificarUsuarioInternalFrame);
 		
+		//Crea frame de modificar institucion
+		modificarInstitucionInternalFrame = new GUIModificarInstitucion(iInstitucion);
+		jInternalFrameSize = modificarInstitucionInternalFrame.getSize();
+		modificarInstitucionInternalFrame.setLocation((desktopSize.width - jInternalFrameSize.width)/2
+				,(desktopSize.height - jInternalFrameSize.height)/2);
+		modificarInstitucionInternalFrame.setVisible(false);
+		modificarInstitucionInternalFrame.getContentPane().setLayout(null);
+		frame.getContentPane().add(modificarInstitucionInternalFrame);
 		
 	}
 
@@ -154,6 +162,7 @@ public class GUIPrincipal {
 				consultaActividadInternalFrame.doDefaultCloseAction();
 				registroDictadoClaseInternalFrame.doDefaultCloseAction();
 				modificarUsuarioInternalFrame.doDefaultCloseAction();
+				modificarInstitucionInternalFrame.doDefaultCloseAction();
 			}
 		});
 		menuAltas.add(menuAltaUsuario);
@@ -170,6 +179,7 @@ public class GUIPrincipal {
 				consultaActividadInternalFrame.doDefaultCloseAction();
 				registroDictadoClaseInternalFrame.doDefaultCloseAction();
 				modificarUsuarioInternalFrame.doDefaultCloseAction();
+				modificarInstitucionInternalFrame.doDefaultCloseAction();
 			}
 		});
 		menuAltas.add(menuItemAltaItDeportiva);
@@ -186,6 +196,7 @@ public class GUIPrincipal {
 				consultaActividadInternalFrame.doDefaultCloseAction();
 				registroDictadoClaseInternalFrame.doDefaultCloseAction();
 				modificarUsuarioInternalFrame.doDefaultCloseAction();
+				modificarInstitucionInternalFrame.doDefaultCloseAction();
 			}
 		});
 		menuAltas.add(menuItemAltaActDeportiva);
@@ -202,6 +213,7 @@ public class GUIPrincipal {
 				consultaActividadInternalFrame.doDefaultCloseAction();
 				registroDictadoClaseInternalFrame.doDefaultCloseAction();
 				modificarUsuarioInternalFrame.doDefaultCloseAction();
+				modificarInstitucionInternalFrame.doDefaultCloseAction();
 			}
 		});
 		menuAltas.add(menuItemAltaClase);
@@ -218,6 +230,7 @@ public class GUIPrincipal {
 				consultaActividadInternalFrame.doDefaultCloseAction();
 				registroDictadoClaseInternalFrame.setVisible(true);
 				modificarUsuarioInternalFrame.doDefaultCloseAction();
+				modificarInstitucionInternalFrame.doDefaultCloseAction();
 			}
 		});
 		menuAltas.add(mntmRegistroDeDictado);
@@ -237,6 +250,7 @@ public class GUIPrincipal {
 				consultaActividadInternalFrame.doDefaultCloseAction();
 				registroDictadoClaseInternalFrame.doDefaultCloseAction();
 				modificarUsuarioInternalFrame.doDefaultCloseAction();
+				modificarInstitucionInternalFrame.doDefaultCloseAction();
 			}
 		});
 		menuConsultas.add(menuItemConsultaUsuario);
@@ -253,6 +267,7 @@ public class GUIPrincipal {
 				consultaActividadInternalFrame.setVisible(true);
 				registroDictadoClaseInternalFrame.doDefaultCloseAction();
 				modificarUsuarioInternalFrame.doDefaultCloseAction();
+				modificarInstitucionInternalFrame.doDefaultCloseAction();
 			}
 		});
 		menuConsultas.add(menuItemConsultaActividad);
@@ -277,6 +292,7 @@ public class GUIPrincipal {
 				consultaActividadInternalFrame.doDefaultCloseAction();
 				registroDictadoClaseInternalFrame.doDefaultCloseAction();
 				modificarUsuarioInternalFrame.setVisible(true);
+				modificarInstitucionInternalFrame.doDefaultCloseAction();
 			}
 		});
 		
@@ -287,6 +303,19 @@ public class GUIPrincipal {
 		// MODIFICAR INSTITUCION
 		JMenuItem menuItemModificarInstitucion = new JMenuItem("Modificar Institución Deportiva");
 		menuModificaciones.add(menuItemModificarInstitucion);
+		menuItemModificarInstitucion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				altaClaseInternalFrame.doDefaultCloseAction();
+				altaActividadInternalFrame.doDefaultCloseAction();
+				altaInstitucionInternalFrame.doDefaultCloseAction();
+				altaUsuarioInternalFrame.doDefaultCloseAction();
+				consultaUsuarioInternalFrame.doDefaultCloseAction();
+				consultaActividadInternalFrame.doDefaultCloseAction();
+				registroDictadoClaseInternalFrame.doDefaultCloseAction();
+				modificarUsuarioInternalFrame.doDefaultCloseAction();
+				modificarInstitucionInternalFrame.setVisible(true);
+			}
+		});
 		
 		JMenuItem mntmSalir = new JMenuItem("Salir");
 		mntmSalir.addActionListener(new ActionListener() {

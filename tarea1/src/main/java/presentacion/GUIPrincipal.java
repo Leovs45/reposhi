@@ -85,7 +85,7 @@ public class GUIPrincipal {
 		frame.getContentPane().add(altaInstitucionInternalFrame);
 		
 		// Crea frame de alta actividad
-		altaActividadInternalFrame = new GUIAltaActividad(iActividad); 
+		altaActividadInternalFrame = new GUIAltaActividad(iActividad, iInstitucion); 
 		jInternalFrameSize = altaActividadInternalFrame.getSize();
 		altaActividadInternalFrame.setLocation((desktopSize.width - jInternalFrameSize.width)/2
 				,(desktopSize.height - jInternalFrameSize.height)/2);

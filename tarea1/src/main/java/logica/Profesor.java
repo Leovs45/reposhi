@@ -62,6 +62,10 @@ public class Profesor extends Usuario {
 		clases.add(c);
 	}
 	
+	public List<Clase> getArrayClases() {
+		return clases;
+	}
+	
 	public Clase buscarClase(String nombre) {
 		Clase clase = null;
 		if (clases.size() == 0) {

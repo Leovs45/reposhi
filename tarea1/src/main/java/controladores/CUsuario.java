@@ -52,6 +52,11 @@ public class CUsuario implements IUsuario{
 	}
 	
 	@Override
+	public List<Usuario> getUsuarios() {
+		return usuarios;
+	}
+	
+	@Override
 	public void consultaUsuario(String nickname) {
 		Usuario usuario = buscarUsuario(nickname);
 		
@@ -142,11 +147,6 @@ public class CUsuario implements IUsuario{
 	@Override
 	public boolean existenUsuarios() {
 		return usuarios.size() != 0;
-	}
-
-
-	public List<Usuario> getUsuarios() {
-		return usuarios;
 	}
 	
 }

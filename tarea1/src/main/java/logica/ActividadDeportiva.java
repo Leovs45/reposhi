@@ -106,6 +106,7 @@ public class ActividadDeportiva {
 			}
 		}
 	}
+
 	
 	public void agregarClase(Clase c) {
 		clases.add(c);

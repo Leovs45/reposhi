@@ -11,11 +11,11 @@ public interface IActividadDeportiva {
 	public List<ActividadDeportiva> actividades = new ArrayList<>();
 	public void altaActividadDeportiva(InstitucionDeportiva institucion, String nombreActividad, String descripcion, int duracionMinutos,
 			double costo, Date fechaAlta);
-	public void consultaActividadDeportiva(String institucion);
 	
 	//Opcionales
 	public void modificarDescripcion(ActividadDeportiva actividad, String nuevaDescripcion);
 	public void modificarDuracion(ActividadDeportiva actividad, int nuevaDuracion);
 	public void modificarCosto(ActividadDeportiva actividad, double nuevoCosto);
-	public void rankingActividades();
+	public List<ActividadDeportiva> getRankingActividades();
+	public void agregarActividad(ActividadDeportiva actividad);
 }

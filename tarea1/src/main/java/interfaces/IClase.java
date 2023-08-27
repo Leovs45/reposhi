@@ -1,8 +1,10 @@
 package interfaces;
 
 import java.util.Date;
+import java.util.List;
 
 import logica.ActividadDeportiva;
+import logica.Clase;
 import logica.Profesor;
 
 public interface IClase {
@@ -11,6 +13,8 @@ public interface IClase {
 	public void registroClase(String institucion, String actividadDeportiva, String clase, String nickname);
 	
 	// Opcionales
-	public void consultarDictadoClase(String institucion, String clase);
 	public void rankingDictadoClase();
+	public void consultarDictadoClase(Clase clase);
+	public void agregarClase(Clase clase);
+	public List<Clase> getRankingClases();
 }

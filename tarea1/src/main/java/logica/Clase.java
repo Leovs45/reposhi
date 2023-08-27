@@ -98,5 +98,9 @@ public class Clase {
 		registros.add(registro);
 		socio.agregarRegistro(registro);
 	}
+	
+	public int getCantidadRegistros() {
+		return registros.size();
+	}
 
 }

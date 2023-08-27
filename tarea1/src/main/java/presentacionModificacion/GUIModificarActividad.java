@@ -4,7 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 
-public class GUIModificarInstitucionDescripcion extends JInternalFrame {
+public class GUIModificarActividad extends JInternalFrame {
 
 	/**
 	 * Launch the application.
@@ -13,7 +13,7 @@ public class GUIModificarInstitucionDescripcion extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GUIModificarInstitucionDescripcion frame = new GUIModificarInstitucionDescripcion();
+					GUIModificarActividad frame = new GUIModificarActividad();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -25,7 +25,7 @@ public class GUIModificarInstitucionDescripcion extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public GUIModificarInstitucionDescripcion() {
+	public GUIModificarActividad() {
 		setBounds(100, 100, 450, 300);
 
 	}

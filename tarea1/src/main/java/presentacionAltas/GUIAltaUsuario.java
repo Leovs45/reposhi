@@ -29,6 +29,7 @@ import java.awt.Color;
 import javax.swing.DefaultListModel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.border.BevelBorder;
 
 public class GUIAltaUsuario extends JInternalFrame {
 	private JTextField textFieldNickname;
@@ -104,16 +105,6 @@ public class GUIAltaUsuario extends JInternalFrame {
 		
 		//PRUEBA PARA INGRESAR ARRAYLIST A UNA LIST
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBounds(206, 210, 137, 103);
-		getContentPane().add(scrollPane);
-		JList listaInstitucion = new JList();
-		scrollPane.setViewportView(listaInstitucion);
-		
-		
-		listaInstitucion.setEnabled(false);
-		List<InstitucionDeportiva> instituciones = iInstitucion.getInstituciones();
 		iInstitucion.altaInstitucionDeportiva("Institucion 1", "Es la institucion numero 1", "institucion1.com");
 		iInstitucion.altaInstitucionDeportiva("Institucion 2", "Es la institucion numero 2", "institucion2.com");
 		iInstitucion.altaInstitucionDeportiva("Institucion 3", "Es la institucion numero 3", "institucion3.com");
@@ -124,17 +115,23 @@ public class GUIAltaUsuario extends JInternalFrame {
 		iInstitucion.altaInstitucionDeportiva("Institucion 8", "Es la institucion numero 8", "institucion8.com");
 		iInstitucion.altaInstitucionDeportiva("Institucion 9", "Es la institucion numero 9", "institucion9.com");
 		iInstitucion.altaInstitucionDeportiva("Institucion 10", "Es la institucion numero 10", "institucion10.com");
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setViewportBorder(null);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBounds(206, 210, 137, 103);
+		getContentPane().add(scrollPane);
+		JList listaInstitucion = new JList();
+		scrollPane.setViewportView(listaInstitucion);
+		listaInstitucion.setEnabled(false);
+		
+		List<InstitucionDeportiva> instituciones = iInstitucion.getInstituciones();
 
 		DefaultListModel<String> milista = new DefaultListModel<String>();
 		for(InstitucionDeportiva id: instituciones) {
 			milista.addElement(id.getNombre());
 		}
 		listaInstitucion.setModel(milista);
-		
-		listaInstitucion.setEnabled(false);
-		listaInstitucion.setBounds(206, 211, 137, 104);
-		getContentPane().add(listaInstitucion);
-		
 		JLabel lblDescripcion = new JLabel("Descripcion: ");
 		lblDescripcion.setEnabled(false);
 		lblDescripcion.setBounds(32, 332, 104, 15);

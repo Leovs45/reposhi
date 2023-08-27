@@ -46,9 +46,8 @@ public class CClase implements IClase {
 	/**********************************/
 
 	@Override
-	public void consultarDictadoClase(String institucion, String clase) {
-		// TODO Auto-generated method stub
-		
+	public void consultarDictadoClase(Clase clase) {
+		System.out.println(clase.getNombreClase() + " " + clase.getActividadDeportiva().getNombre() + " " + clase.getFechaClase() + " " + clase.getHoraInicio() + " " + clase.getProfesor().getNombre() + " ");
 	}
 
 	@Override

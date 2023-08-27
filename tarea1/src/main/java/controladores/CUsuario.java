@@ -33,7 +33,7 @@ public class CUsuario implements IUsuario{
 			usuarios.add(socio);
 		}
 	}	
-	public Usuario buscarUsuario(String nickname) {
+	/*public Usuario buscarUsuario(String nickname) {
 		Usuario usuario = null;
 		if (usuarios.size() == 0) {
 			return usuario;
@@ -46,7 +46,19 @@ public class CUsuario implements IUsuario{
 		}
 
 		return usuario;
+	}*/
+	public Usuario buscarUsuario(String nickname) {
+	    Usuario usuario = null;
+	    for (Usuario i : usuarios) {
+	        if (i.getNickname().equals(nickname)) {
+	            usuario = i;
+	            break; // Se puede salir del bucle una vez que se encuentra el usuario
+	        }
+	    }
+	    return usuario; // Retornar null si no se encontró, o el usuario encontrado
 	}
+
+
 	@Override
 	public void consultaUsuario(String nickname) {
 	    Usuario usuario = buscarUsuario(nickname);

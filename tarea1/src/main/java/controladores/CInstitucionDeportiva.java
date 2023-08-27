@@ -7,7 +7,7 @@ import interfaces.IInstitucionDeportiva;
 import logica.ActividadDeportiva;
 import logica.InstitucionDeportiva;
 
-public class CInstitucionDeportiva implements IInstitucionDeportiva {
+public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 	
 	private List<InstitucionDeportiva> instituciones = new ArrayList<>();
 	
@@ -49,6 +49,8 @@ public class CInstitucionDeportiva implements IInstitucionDeportiva {
 		unaInstitucion.setAgregarActividad(unaActividad);
 		
 	}
+	
+
 	/**********************************/
 	// OPCIONALES
 	/**********************************/

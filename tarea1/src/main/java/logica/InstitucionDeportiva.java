@@ -1,13 +1,14 @@
 package logica;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class InstitucionDeportiva {
 	private String nombre;
 	private String descripcion;
 	private String url;
-	ArrayList<Profesor> arrayProfesor;
-	ArrayList<ActividadDeportiva> arrayActividadDeportiva;
+	private List<Profesor> profesores = new ArrayList<>();
+	private List<ActividadDeportiva> actividades = new ArrayList<>();
 	
 	//Constructor
 	public InstitucionDeportiva (String nombre, String descripcion, String url)
@@ -43,25 +44,41 @@ public class InstitucionDeportiva {
 		this.url = url;
 	}
 
-	public ArrayList<Profesor> getArrayProfesor() {
-		return arrayProfesor;
+	public List<Profesor> getArrayProfesor() {
+		return profesores;
 	}
 
 	public void setArrayProfesor(ArrayList<Profesor> arrayProfesor) {
-		this.arrayProfesor = arrayProfesor;
+		this.profesores = arrayProfesor;
 	}
 
-	public ArrayList<ActividadDeportiva> getArrayActividadDeportiva() {
-		return arrayActividadDeportiva;
+	public List<ActividadDeportiva> getArrayActividadDeportiva() {
+		return actividades;
 	}
 
 	public void setArrayActividadDeportiva(ArrayList<ActividadDeportiva> arrayActividadDeportiva) {
-		this.arrayActividadDeportiva = arrayActividadDeportiva;
+		this.actividades = arrayActividadDeportiva;
 	}
 
 	public void setAgregarActividad(ActividadDeportiva ad) {
-		this.arrayActividadDeportiva.add(ad);
+		this.actividades.add(ad);
 		
 	}
+	public ActividadDeportiva buscarActividadDeportiva(String nombreActividad) {
+		ActividadDeportiva actividad = null;
+		if (actividades.size() == 0) {
+			actividad = null;
+		} else {
+			for(ActividadDeportiva a: actividades) {
+				if (a.getNombre().equals(nombreActividad)) {
+					actividad = a;
+				}
+			}
+		}
+		return actividad;
+	}
 	
+	public void agregarActividadDeportiva(ActividadDeportiva actividad) {
+		actividades.add(actividad);
+	}
 }

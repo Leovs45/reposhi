@@ -1,11 +1,11 @@
 package presentacionConsultas;
+
 import java.util.List;
-import interfaces.Fabrica;
 import interfaces.IActividadDeportiva;
 import interfaces.IInstitucionDeportiva;
-import logica.InstitucionDeportiva;//esta mal esto no??
-import logica.ActividadDeportiva;//esta mal esto no??
+import logica.ActividadDeportiva;
 import logica.Clase;
+import logica.InstitucionDeportiva;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -17,7 +17,8 @@ import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTable;
-
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class GUIConsultaActividadDeportiva extends JInternalFrame {
 
@@ -30,16 +31,13 @@ public class GUIConsultaActividadDeportiva extends JInternalFrame {
     private JLabel lblDuracion;
     private JTable tabla;
 
-    public GUIConsultaActividadDeportiva(IActividadDeportiva iActividad) {
-        initializeUI(iActividad);
-    }
-
-    private void initializeUI(IActividadDeportiva iActividad) {
+    public GUIConsultaActividadDeportiva(IActividadDeportiva iActividad, IInstitucionDeportiva iInstitucion) {
+  
         setTitle("Consulta Actividad Deportiva");
         setClosable(true);
         setSize(600, 500);
         getContentPane().setLayout(null);
-
+//======================================================================
         lblNombre = new JLabel("Nombre: ");
         lblNombre.setBounds(23, 136, 500, 15);
         getContentPane().add(lblNombre);
@@ -69,8 +67,13 @@ public class GUIConsultaActividadDeportiva extends JInternalFrame {
         getContentPane().add(cmbActividades);
 
         tabla = new JTable();
+    
+        DefaultTableModel tableModel = (DefaultTableModel) tabla.getModel();
+        tableModel.addColumn("Nombre de Clase");
+        tableModel.addColumn("URL de Clase");
         JScrollPane scrollPane = new JScrollPane(tabla);
         scrollPane.setBounds(23, 270, 550, 150);
+        
         getContentPane().add(scrollPane);
 
         JLabel lblInstitucionDep = new JLabel("Institucion Deportiva:");
@@ -80,91 +83,91 @@ public class GUIConsultaActividadDeportiva extends JInternalFrame {
         JLabel lblNewLabel = new JLabel("Actividades :");
         lblNewLabel.setBounds(23, 83, 108, 14);
         getContentPane().add(lblNewLabel);
-
-        populateComboBoxes(iActividad);
-
-        cmbInstituciones.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String selectedItemInstituciones = (String) cmbInstituciones.getSelectedItem();
-                populateActivityComboBox(iActividad, selectedItemInstituciones);
-            }
-        });
-
-        cmbActividades.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String selectedItemActividades = (String) cmbActividades.getSelectedItem();
-                handleActivitySelection(iActividad, selectedItemActividades);
-            }
-        });
-    }
-
-    private void populateComboBoxes(IActividadDeportiva iActividad) {
+ //==========================Cargo combo institucion deportiva ============================================
         try {
-            Fabrica f = Fabrica.getInstancia();
-            IInstitucionDeportiva iInstitucion = f.getIInstitucionDeportiva();
-
             List<InstitucionDeportiva> ins = iInstitucion.getListaInstituciones();
             for (InstitucionDeportiva i : ins) {
                 cmbInstituciones.addItem(i.getNombre());
             }
         } catch (Exception e) {
-            showErrorDialog("Error al cargar las instituciones: " + e.getMessage());
+            e.printStackTrace();
         }
-    }
-
-    private void populateActivityComboBox(IActividadDeportiva iActividad, String institucion) {
-        try {
-            cmbActividades.removeAllItems();
-            List<ActividadDeportiva> actividades = iActividad.consultaActividadDeportiva(institucion);
-            for (ActividadDeportiva actividad : actividades) {
-                cmbActividades.addItem(actividad.getNombre());
-            }
-            lblNombre.setText("Nombre: ");
-            lblFecha.setText("Fecha: ");
-            lblDescrip.setText("Descripcion: ");
-            lblCosto.setText("Costo: ");
-            lblDuracion.setText("Duracion: ");
-            DefaultTableModel tableModel = new DefaultTableModel(new Object[]{"Clase", "URL Clase"}, 0);
-            tabla.setModel(tableModel);
-        } catch (Exception e) {
-            showErrorDialog("Error al cargar las actividades: " + e.getMessage());
-        }
-    }
-
-    private void handleActivitySelection(IActividadDeportiva iActividad, String selectedItem) {
-        try {
-            if (selectedItem != null) {
-                ActividadDeportiva activity = iActividad.buscarActividadDeportiva(selectedItem);
-                if (activity != null) {
-                    lblNombre.setText("Nombre: " + activity.getNombre());
-                    //formateando fecha
-                    SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yy"); 
-                    String fecha = dt.format(activity.getFechaRegistro());
+  
+//==================================Evento para click en la tabla ==================================== 
+        tabla.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        
+                    int filaSeleccionada = tabla.getSelectedRow();
+                    int columnaSeleccionada = tabla.getSelectedColumn();
                     
-                    lblFecha.setText("Fecha: " + fecha);
-                    lblDescrip.setText("Descripcion: " + activity.getDescripcion());
-                    //formateando un double
-                    DecimalFormat decimal = new DecimalFormat("#.00");
-                    String costo = decimal.format(activity.getCosto());
+                    if (filaSeleccionada != -1 && columnaSeleccionada != -1) {
+                        Object valorCelda = tabla.getValueAt(filaSeleccionada, columnaSeleccionada);
+                        JOptionPane.showMessageDialog(null, "Aca llamo a Consulta dicatado de clase y muestro datos" + valorCelda, "Celda Clickeada", JOptionPane.INFORMATION_MESSAGE);
                     
-                    lblCosto.setText("Costo: " + costo);
-                    lblDuracion.setText("Duracion: " + activity.getDuracionMinutos());
-                    List<Clase> clases = activity.getArrayClase();
-                    DefaultTableModel tableModel = (DefaultTableModel) tabla.getModel();
-                    tableModel.setRowCount(0); // Clear existing rows
-                    for (Clase cls : clases) {
-                        tableModel.addRow(new Object[]{cls.getNombreClase(), cls.getUrlClase()});
                     }
-                } else {
-                    showErrorDialog("La actividad seleccionada no fue encontrada.");
+        	}
+        });
+        
+        
+//====================================================================== 
+                
+        //TODO instituciones action Listener
+        cmbInstituciones.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                String institucion = (String) cmbInstituciones.getSelectedItem();
+                InstitucionDeportiva iD = iInstitucion.buscarInstitucionDeportiva(institucion);
+                cmbActividades.removeAllItems();
+                try {
+                	//TODO Cargo combo de actividades
+                    List<ActividadDeportiva> actividades = iD.getArrayActividadDeportiva();
+                    for (ActividadDeportiva a : actividades) {
+                        cmbActividades.addItem(a.getNombre());
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
             }
-        } catch (Exception ex) {
-            showErrorDialog("Error al consultar actividades: " + ex.getMessage());
-        }
-    }
+        });
+//TODO actividades action listener
+        cmbActividades.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String selectedItemActividades = (String) cmbActividades.getSelectedItem();
+                try {
+                   if (selectedItemActividades != null) {
+                	   String institucion = (String) cmbInstituciones.getSelectedItem();
+                	   InstitucionDeportiva  id = iInstitucion.buscarInstitucionDeportiva(institucion);
+                	   ActividadDeportiva actividadEncontrada = id.buscarActividadDeportiva(selectedItemActividades);
+                	   
+                        lblNombre.setText("Nombre: " + actividadEncontrada.getNombre());
+						// Formateando fecha
+						SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yy"); 
+						String fecha = dt.format(actividadEncontrada.getFechaRegistro());
+						lblFecha.setText("Fecha: " + fecha);
+						lblDescrip.setText("Descripción: " + actividadEncontrada.getDescripcion());
+						// Formateando un double
+						DecimalFormat decimal = new DecimalFormat("#.00");
+						String costo = decimal.format(actividadEncontrada.getCosto());
+						lblCosto.setText("Costo: " + costo);
+						lblDuracion.setText("Duración: " + actividadEncontrada.getDuracionMinutos());
 
-    private void showErrorDialog(String errorMessage) {
-        JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+						List<Clase> clases = actividadEncontrada.getArrayClase();
+						DefaultTableModel tableModel = (DefaultTableModel) tabla.getModel();
+						tableModel.setRowCount(0); // Limpiar las filas existentes
+
+						for (Clase cls : clases) {
+						    tableModel.addRow(new Object[]{cls.getNombreClase(), cls.getUrlClase()});
+						}
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Error al consultar actividades: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+    
+    //============================================================================================
+
     }
 }
+
+

@@ -43,8 +43,7 @@ public class GUIPrincipal {
 
 	public static void main(String[] args) {
 		
-		Tirando_datos td= new Tirando_datos();
-		td.rellenarDatos();
+	
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -99,7 +98,7 @@ public class GUIPrincipal {
 		frame.getContentPane().add(altaActividadInternalFrame);
 		
 		// Crea frame de alta clase
-		altaClaseInternalFrame = new GUIAltaDictadoClase(iClase); 
+		altaClaseInternalFrame = new GUIAltaDictadoClase(iClase,iInstitucion); 
 		jInternalFrameSize = altaClaseInternalFrame.getSize();
 		altaClaseInternalFrame.setLocation((desktopSize.width - jInternalFrameSize.width)/2
 				,(desktopSize.height - jInternalFrameSize.height)/2);
@@ -115,7 +114,7 @@ public class GUIPrincipal {
 		frame.getContentPane().add(consultaUsuarioInternalFrame);
 		
 		//Crea frame de Consulta Actividad Deportiva
-		consultaActividadInternalFrame = new GUIConsultaActividadDeportiva(iActividad);
+		consultaActividadInternalFrame = new GUIConsultaActividadDeportiva(iActividad, iInstitucion);
 		jInternalFrameSize = consultaActividadInternalFrame.getSize();
 		consultaActividadInternalFrame.setLocation((desktopSize.width - jInternalFrameSize.width)/2
 				,(desktopSize.height - jInternalFrameSize.height)/2);

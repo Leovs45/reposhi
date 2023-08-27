@@ -3,41 +3,41 @@ package logica;
 import java.util.Date;
 
 public class Registro {
-	private	Date fechaReg;
-	private Socio unSocio;
-	private Clase unaClase;
+	private	Date fechaRegistro;
+	private Socio socio;
+	private Clase clase;
 
 	//Constructor
-	public Registro(Date fechaReg, Socio unSocio, Clase unaClase) {
+	public Registro(Date fechaRegistro, Socio socio, Clase clase) {
 		super();
-		this.fechaReg = fechaReg;
-		this.unSocio = unSocio;
-		this.unaClase = unaClase;
+		this.fechaRegistro = fechaRegistro;
+		this.socio = socio;
+		this.clase = clase;
 	}
 	
 	//Getters & setters
-	public Date getFechaReg() {
-		return fechaReg;
+	public Date getfechaRegistro() {
+		return fechaRegistro;
 	}
 	
-	public void setFechaReg(Date fechaReg) {
-		this.fechaReg = fechaReg;
+	public void setfechaRegistro(Date fechaRegistro) {
+		this.fechaRegistro = fechaRegistro;
 	}
 	
-	public Socio getUnSocio() {
-		return unSocio;
+	public Socio getsocio() {
+		return socio;
 	}
 	
-	public void setUnSocio(Socio unSocio) {
-		this.unSocio = unSocio;
+	public void setsocio(Socio socio) {
+		this.socio = socio;
 	}
 	
-	public Clase getUnaClase() {
-		return unaClase;
+	public Clase getclase() {
+		return clase;
 	}
 	
-	public void setUnaClase(Clase unaClase) {
-		this.unaClase = unaClase;
+	public void setclase(Clase clase) {
+		this.clase = clase;
 	}
 	
 }

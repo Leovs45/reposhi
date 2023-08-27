@@ -5,6 +5,8 @@ import java.util.List;
 
 import interfaces.IActividadDeportiva;
 import logica.ActividadDeportiva;
+import logica.Clase;
+import logica.InstitucionDeportiva;
 
 
 public class CActividadDeportiva implements IActividadDeportiva {
@@ -18,13 +20,11 @@ public class CActividadDeportiva implements IActividadDeportiva {
 		return instancia;
 	}
 	
-	public void altaActividadDeportiva(String institucion, String nombreActividad, String descripcion, int duracionMinutos,
+	public void altaActividadDeportiva(InstitucionDeportiva institucion, String nombreActividad, String descripcion, int duracionMinutos,
 			double costo, Date fechaAlta) {
-		ActividadDeportiva ActividadDp = new ActividadDeportiva(institucion,nombreActividad,descripcion,duracionMinutos,costo,fechaAlta);
-		Actividades.add(ActividadDp);
-		//System.out.println("OK  -  La institucion fue creada correctamente");
-		// TODO Auto-generated method stub
-		
+		ActividadDeportiva actividad = new ActividadDeportiva(institucion, nombreActividad, descripcion, duracionMinutos, costo, fechaAlta);
+		institucion.agregarActividadDeportiva(actividad);
+		System.out.println("OK  -  La institucion fue creada correctamente");
 	}
 
 	public ActividadDeportiva buscarActividadDeportiva(String nombre){
@@ -54,7 +54,11 @@ public class CActividadDeportiva implements IActividadDeportiva {
 	    return actividadesEncontradas;
 	}
 
+	public Clase buscarClase(String nombre){
+		
+		return buscarClase(nombre);
 	
+	}
 	/**********************************/
 	// OPCIONALES
 	/**********************************/

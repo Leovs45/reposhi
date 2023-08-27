@@ -19,7 +19,7 @@ import interfaces.IInstitucionDeportiva;
 import logica.InstitucionDeportiva;
 import logica.ActividadDeportiva;
 import controladores.CInstitucionDeportiva;
-import presentacion.Tirando_datos;
+import presentacion.*;
 
 public class Principal {
 	static Fabrica f = Fabrica.getInstancia();
@@ -209,7 +209,7 @@ public class Principal {
 	            if (institucion == null) {
 	                System.out.println("La institucion deportiva no existe");
 	            } else {
-	                iActividad.altaActividadDeportiva(nombreInstitucion, nombre, descripcion, duracionMinutos, costo, fechaRegistro);
+	                iActividad.altaActividadDeportiva(institucion, nombre, descripcion, duracionMinutos, costo, fechaRegistro);
 	                ActividadDeportiva adRecienCreada = iActividad.buscarActividadDeportiva(nombreInstitucion);
 			        iInstitucion.agregarActividadDeportivaInstitucion(institucion, adRecienCreada);
 	            }

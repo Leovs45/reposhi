@@ -14,6 +14,7 @@ public interface IInstitucionDeportiva {
 	public void modificarUrl(String nombreInstitucion, String nuevoUrl);
 	public void agregarActividadDeportivaInstitucion(InstitucionDeportiva unaInstitucion, ActividadDeportiva unaActividad);
 	// Adicionales
+	
 	public InstitucionDeportiva buscarInstitucionDeportiva(String nombre);
 	public void listarInstituciones();
 }

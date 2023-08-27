@@ -126,7 +126,15 @@ public class GUIPrincipal {
 				,(desktopSize.height - jInternalFrameSize.height)/2);
 		modificarUsuarioInternalFrame.setVisible(false);
 		frame.getContentPane().add(modificarUsuarioInternalFrame);
-		modificarUsuarioInternalFrame.getContentPane().setLayout(null);
+		
+		//Crea frame de modificar institucion
+		modificarInstitucionInternalFrame = new GUIModificarInstitucion(iInstitucion);
+		jInternalFrameSize = modificarInstitucionInternalFrame.getSize();
+		modificarInstitucionInternalFrame.setLocation((desktopSize.width - jInternalFrameSize.width)/2
+				,(desktopSize.height - jInternalFrameSize.height)/2);
+		modificarInstitucionInternalFrame.setVisible(false);
+		modificarInstitucionInternalFrame.getContentPane().setLayout(null);
+		frame.getContentPane().add(modificarInstitucionInternalFrame);
 		
 		//Crea frame modificar actividad
 		modificarActividadInternalFrame = new GUIModificarActividad(iActividad);
@@ -136,7 +144,6 @@ public class GUIPrincipal {
 		modificarActividadInternalFrame.setVisible(false);
 		frame.getContentPane().add(modificarActividadInternalFrame);
 		modificarActividadInternalFrame.getContentPane().setLayout(null);
-		
 		
 	}
 
@@ -164,6 +171,7 @@ public class GUIPrincipal {
 				consultaActividadInternalFrame.doDefaultCloseAction();
 				registroDictadoClaseInternalFrame.doDefaultCloseAction();
 				modificarUsuarioInternalFrame.doDefaultCloseAction();
+				modificarInstitucionInternalFrame.doDefaultCloseAction();
 				modificarActividadInternalFrame.doDefaultCloseAction();
 			}
 		});
@@ -181,6 +189,7 @@ public class GUIPrincipal {
 				consultaActividadInternalFrame.doDefaultCloseAction();
 				registroDictadoClaseInternalFrame.doDefaultCloseAction();
 				modificarUsuarioInternalFrame.doDefaultCloseAction();
+				modificarInstitucionInternalFrame.doDefaultCloseAction();
 				modificarActividadInternalFrame.doDefaultCloseAction();
 			}
 		});
@@ -198,6 +207,7 @@ public class GUIPrincipal {
 				consultaActividadInternalFrame.doDefaultCloseAction();
 				registroDictadoClaseInternalFrame.doDefaultCloseAction();
 				modificarUsuarioInternalFrame.doDefaultCloseAction();
+				modificarInstitucionInternalFrame.doDefaultCloseAction();
 				modificarActividadInternalFrame.doDefaultCloseAction();
 			}
 		});
@@ -215,6 +225,7 @@ public class GUIPrincipal {
 				consultaActividadInternalFrame.doDefaultCloseAction();
 				registroDictadoClaseInternalFrame.doDefaultCloseAction();
 				modificarUsuarioInternalFrame.doDefaultCloseAction();
+				modificarInstitucionInternalFrame.doDefaultCloseAction();
 				modificarActividadInternalFrame.doDefaultCloseAction();
 			}
 		});
@@ -232,6 +243,7 @@ public class GUIPrincipal {
 				consultaActividadInternalFrame.doDefaultCloseAction();
 				registroDictadoClaseInternalFrame.setVisible(true);
 				modificarUsuarioInternalFrame.doDefaultCloseAction();
+				modificarInstitucionInternalFrame.doDefaultCloseAction();
 				modificarActividadInternalFrame.doDefaultCloseAction();
 			}
 		});
@@ -252,6 +264,7 @@ public class GUIPrincipal {
 				consultaActividadInternalFrame.doDefaultCloseAction();
 				registroDictadoClaseInternalFrame.doDefaultCloseAction();
 				modificarUsuarioInternalFrame.doDefaultCloseAction();
+				modificarInstitucionInternalFrame.doDefaultCloseAction();
 				modificarActividadInternalFrame.doDefaultCloseAction();
 			}
 		});
@@ -269,6 +282,7 @@ public class GUIPrincipal {
 				consultaActividadInternalFrame.setVisible(true);
 				registroDictadoClaseInternalFrame.doDefaultCloseAction();
 				modificarUsuarioInternalFrame.doDefaultCloseAction();
+				modificarInstitucionInternalFrame.doDefaultCloseAction();
 				modificarActividadInternalFrame.doDefaultCloseAction();
 			}
 		});
@@ -294,6 +308,7 @@ public class GUIPrincipal {
 				consultaActividadInternalFrame.doDefaultCloseAction();
 				registroDictadoClaseInternalFrame.doDefaultCloseAction();
 				modificarUsuarioInternalFrame.setVisible(true);
+				modificarInstitucionInternalFrame.doDefaultCloseAction();
 				modificarActividadInternalFrame.doDefaultCloseAction();
 			}
 		});
@@ -311,6 +326,7 @@ public class GUIPrincipal {
 				consultaActividadInternalFrame.doDefaultCloseAction();
 				registroDictadoClaseInternalFrame.doDefaultCloseAction();
 				modificarUsuarioInternalFrame.doDefaultCloseAction();
+				modificarInstitucionInternalFrame.doDefaultCloseAction();
 				modificarActividadInternalFrame.setVisible(true);
 			}
 		});
@@ -318,6 +334,20 @@ public class GUIPrincipal {
 		// MODIFICAR INSTITUCION
 		JMenuItem menuItemModificarInstitucion = new JMenuItem("Modificar Institución Deportiva");
 		menuModificaciones.add(menuItemModificarInstitucion);
+		menuItemModificarInstitucion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				altaClaseInternalFrame.doDefaultCloseAction();
+				altaActividadInternalFrame.doDefaultCloseAction();
+				altaInstitucionInternalFrame.doDefaultCloseAction();
+				altaUsuarioInternalFrame.doDefaultCloseAction();
+				consultaUsuarioInternalFrame.doDefaultCloseAction();
+				consultaActividadInternalFrame.doDefaultCloseAction();
+				registroDictadoClaseInternalFrame.doDefaultCloseAction();
+				modificarUsuarioInternalFrame.doDefaultCloseAction();
+				modificarInstitucionInternalFrame.setVisible(true);
+				modificarActividadInternalFrame.doDefaultCloseAction();
+			}
+		});
 		
 		JMenuItem mntmSalir = new JMenuItem("Salir");
 		mntmSalir.addActionListener(new ActionListener() {

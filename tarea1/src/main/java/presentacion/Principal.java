@@ -465,7 +465,11 @@ public class Principal {
 		
 		// Creo usuario
 		IUsuario iUsuario = f.getIUsuario();
-		iUsuario.altaUsuario("Mei", "Maite", "Martinez", "mail@false.com", new Date());
+		iUsuario.altaUsuario("User1", "Usuario", "1", "mail@false.com", new Date());
+		iUsuario.altaUsuario("User2", "Usuario", "1", "mail@false.com", new Date());
+		iUsuario.altaUsuario("User3", "Usuario", "1", "mail@false.com", new Date());
+		iUsuario.altaUsuario("User4", "Usuario", "1", "mail@false.com", new Date());
+		iUsuario.altaUsuario("User5", "Usuario", "1", "mail@false.com", new Date());
 		InstitucionDeportiva i1 = iInstitucion.buscarInstitucionDeportiva("i1");
 		InstitucionDeportiva i2 = iInstitucion.buscarInstitucionDeportiva("i2");
 		iUsuario.altaUsuario("Profe", "Profesor", "Profesoro", "otro@mail.com", new Date(), i1, "Descripcion", "Bio", "sitio web");
@@ -473,6 +477,13 @@ public class Principal {
 		
 		Usuario user1 = iUsuario.buscarUsuario("Profe");
 		Usuario user2 = iUsuario.buscarUsuario("Profa");
+		
+		Usuario u1 = iUsuario.buscarUsuario("User1");
+		Usuario u2 = iUsuario.buscarUsuario("User2");
+		Usuario u3 = iUsuario.buscarUsuario("User3");
+		Usuario u4 = iUsuario.buscarUsuario("User4");
+		Usuario u5 = iUsuario.buscarUsuario("User5");
+		
 		
 		Profesor profe1 = (Profesor) user1;
 		Profesor profe2 = (Profesor) user2;
@@ -496,6 +507,18 @@ public class Principal {
 		iClase.altaDictadoClase("c5", a3, new Date(), profe1.getNickname(), "12:00", "url", new Date());
 		iClase.altaDictadoClase("c2", a2, new Date(), profe2.getNickname(), "12:00", "url", new Date());
 		iClase.altaDictadoClase("c4", a4, new Date(), profe2.getNickname(), "12:00", "url", new Date());
+		
+		//Creo registros
+		// actividad.registroClase(nombreClase, socio);
+		a1.registroClase("c1", u1);
+		a1.registroClase("c1", u2);
+		a3.registroClase("c5", u1);
+		a3.registroClase("c5", u2);
+		a3.registroClase("c5", u3);
+		a3.registroClase("c5", u4);
+		a3.registroClase("c5", u5);
+		a4.registroClase("c4", u3);
+		
 	}
 
 	public static void consultarPerfilUsuario() {
@@ -600,6 +623,16 @@ public class Principal {
 		}
 	}
 	
+	public static void rankingDictadoClases() {
+		Fabrica f = Fabrica.getInstancia();
+		IClase iClase = f.getIClase();
+		List<Clase> clasesOrdenadas = iClase.getRankingClases();
+		
+		for(Clase c: clasesOrdenadas) {
+			System.out.println(c.getNombreClase() + " " + c.getCantidadRegistros());
+		}
+	}
+	
 	//**************************************************************************************
 	
 	public static void main(String[] args) {
@@ -646,7 +679,8 @@ public class Principal {
 			case 11:
 				modificarInstitucionDeportiva();
 				break;
-			case 12: // Ranking de dictado de clases
+			case 12: 
+				rankingDictadoClases();
 				break;
 			case 13: // Ranking de Actividades Deportivas
 				break;

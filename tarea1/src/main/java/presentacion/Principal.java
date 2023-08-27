@@ -591,6 +591,16 @@ public class Principal {
 		
 	}
 	
+	public static void rankingActividadesDeportivas() {
+		Fabrica f = Fabrica.getInstancia();
+		IActividadDeportiva iActividad = f.getIActividadDeportiva();
+		List<ActividadDeportiva> actividadesOrdenadas = iActividad.getRankingActividades();
+		
+		for(ActividadDeportiva a: actividadesOrdenadas) {
+			System.out.println(a.getNombre() + " " + a.getCantidadClases());
+		}
+	}
+	
 	public static void consultaRegistroClase() {
 		Fabrica f = Fabrica.getInstancia();
 		IInstitucionDeportiva iInstitucion = f.getIInstitucionDeportiva();
@@ -682,7 +692,8 @@ public class Principal {
 			case 12: 
 				rankingDictadoClases();
 				break;
-			case 13: // Ranking de Actividades Deportivas
+			case 13: 
+				rankingActividadesDeportivas();
 				break;
 			case 14:
 				listarInstituciones();

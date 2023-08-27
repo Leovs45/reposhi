@@ -3,6 +3,9 @@ package logica;
 import java.util.ArrayList;
 import java.util.List;
 
+import interfaces.Fabrica;
+import interfaces.IActividadDeportiva;
+
 public class InstitucionDeportiva {
 	private String nombre;
 	private String descripcion;
@@ -98,6 +101,9 @@ public class InstitucionDeportiva {
 	
 	public void agregarActividadDeportiva(ActividadDeportiva actividad) {
 		actividades.add(actividad);
+		Fabrica f = Fabrica.getInstancia();
+		IActividadDeportiva iActividad = f.getIActividadDeportiva();
+		iActividad.agregarActividad(actividad);
 	}
 	
 	public boolean existenActividades() {

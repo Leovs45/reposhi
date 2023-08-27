@@ -18,4 +18,6 @@ public interface IActividadDeportiva {
 	public void modificarCosto(ActividadDeportiva actividad, double nuevoCosto);
 	public List<ActividadDeportiva> getRankingActividades();
 	public void agregarActividad(ActividadDeportiva actividad);
+	List<ActividadDeportiva> getActividades();
+	ActividadDeportiva buscarActividadDeportiva(String nombreActividad);
 }

@@ -76,5 +76,25 @@ public class CActividadDeportiva implements IActividadDeportiva {
 
 	    return actividadesOrdenadas;
 	}
+	
+	@Override
+	public List<ActividadDeportiva> getActividades() {
+		return actividades;
+	}
+	
+	@Override
+	public ActividadDeportiva buscarActividadDeportiva(String nombreActividad) {
+		ActividadDeportiva actividad = null;
+		if (actividades.size() == 0) {
+			actividad = null;
+		} else {
+			for(ActividadDeportiva a: actividades) {
+				if (a.getNombre().equals(nombreActividad)) {
+					actividad = a;
+				}
+			}
+		}
+		return actividad;
+	}
 
 }

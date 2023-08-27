@@ -2,6 +2,11 @@ package logica;
 
 import java.util.Date;
 import java.util.List;
+
+import interfaces.Fabrica;
+import interfaces.IActividadDeportiva;
+import interfaces.IClase;
+
 import java.util.ArrayList;
 
 public class ActividadDeportiva {
@@ -110,6 +115,10 @@ public class ActividadDeportiva {
 	
 	public void agregarClase(Clase c) {
 		clases.add(c);
+
+		Fabrica f = Fabrica.getInstancia();
+		IClase iClase = f.getIClase();
+		iClase.agregarClase(c);
 	}
 	
 	public void registroClase(String nombreClase, Usuario usuario){
@@ -121,10 +130,15 @@ public class ActividadDeportiva {
 		} else {
 			clase.registroClase(socio, clase);
 		}
+		System.out.println("Registrado usuario " + usuario.getNickname() + " en la clase" + clase.getNombreClase());
 	}
 	
 	public boolean existenClases() {
 		return clases.size() > 0;
+	}
+	
+	public int getCantidadClases() {
+		return clases.size();
 	}
    
 }

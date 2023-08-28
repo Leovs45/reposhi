@@ -34,7 +34,19 @@ public class GUIAltaDictadoClase extends JInternalFrame {
     private JLabel lblNewLabel_3;
     private JLabel lblNewLabel_4;
     private JLabel lblNewLabel_5;
-
+    //======================================================================================================
+    public void pegarLimpieza() {//TODO funcion para limiar componetes
+        //cmbInstituciones.setSelectedIndex(0); // Esto restablece el JComboBox a su primer ítem (si lo deseas)
+       // cmbActividades.setSelectedIndex(0); // Esto restablece el JComboBox a su primer ítem (si lo deseas)
+        //activityPanel.removeAll(); // Esto elimina todos los componentes dentro del JPanel
+        
+        // Borra el contenido de los JTextFields
+        textNombre.setText("");
+        textHora.setText("");
+        textProfesor.setText("");
+        textUrl.setText("");
+    }
+//======================================================================================
     public GUIAltaDictadoClase(IClase iClase,IInstitucionDeportiva iInstitucion) {
         setTitle("Alta Dictado de Clases");
         setResizable(true);
@@ -45,10 +57,8 @@ public class GUIAltaDictadoClase extends JInternalFrame {
         Date fechaActual = new Date();
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yy");
         String fechaFormateada = formatoFecha.format(fechaActual);
-        Fabrica f = Fabrica.getInstancia();
-        //IInstitucionDeportiva iInstitucion = f.getIInstitucionDeportiva();
-       // IActividadDeportiva iActividad= f.getIActividadDeportiva();
-        IClase iClases= f.getIClase();
+        
+        
         
         //==============================================
 
@@ -91,52 +101,46 @@ public class GUIAltaDictadoClase extends JInternalFrame {
         activityPanel.add(textUrl);
 
         JButton btnCrear = new JButton("Crear");
-        
-        
+        //==============================================
         btnCrear.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) {
 
-        	    if (textNombre.getText().isEmpty() || textProfesor.getText().isEmpty() || textHora.getText().isEmpty() || textUrl.getText().isEmpty()) {
-        	        // Mostrar un mensaje de error o tomar alguna acción en caso de campos vacíos.
-        	        JOptionPane.showMessageDialog(null, "Por favor completa todos los campos.", "Campos vacíos", JOptionPane.ERROR_MESSAGE);
-        	        return; // Detener la ejecución debido a campos vacíos.
-        	    }
-        		//alta dictado de clases..
-        	    
-        	    String str =(String)cmbInstituciones.getSelectedItem();
-        	    
-        	    String str2=(String)cmbActividades.getSelectedItem();
-        	    InstitucionDeportiva id = iInstitucion.buscarInstitucionDeportiva(str);
-        		System.out.println(id.getNombre());
-        		System.out.println(str2);
-        		ActividadDeportiva ad = id.buscarActividadDeportiva(str2);
-        	  
-        	    if (ad.buscarClase(textNombre.getText().toString())== null) {
-                   
-        	    	iClase.altaDictadoClase(textNombre.getText().toString(), ad, fechaActual , textProfesor.getText(), textHora.getText(), textUrl.getText(),fechaActual);
+                if (textNombre.getText().isEmpty() || textProfesor.getText().isEmpty() || textHora.getText().isEmpty() || textUrl.getText().isEmpty()) {
+                    // Mostrar un mensaje de error o tomar alguna acción en caso de campos vacíos.
+                    JOptionPane.showMessageDialog(null, "Por favor completa todos los campos.", "Campos vacíos", JOptionPane.ERROR_MESSAGE);
+                    return; // Detener la ejecución debido a campos vacíos.
+                }
+
+                // Alta dictado de clases...
+                String str = (String) cmbInstituciones.getSelectedItem();
+                String str2 = (String) cmbActividades.getSelectedItem();
+                InstitucionDeportiva id = iInstitucion.buscarInstitucionDeportiva(str);
+                System.out.println(id.getNombre());
+                System.out.println(str2);
+                ActividadDeportiva ad = id.buscarActividadDeportiva(str2);
+
+                if (ad.buscarClase(textNombre.getText().toString()) == null) {
+                    iClase.altaDictadoClase(textNombre.getText().toString(), ad, fechaActual, textProfesor.getText(), textHora.getText(), textUrl.getText(), fechaActual);
                     JOptionPane.showMessageDialog(null, "Se creó la clase.", textNombre.getText(), JOptionPane.INFORMATION_MESSAGE);
-                    dispose();
-        	    } else {
-                	
-                	int result = JOptionPane.showConfirmDialog(null, "\"Ya existe una clase con ese nombre en la actividad seleccionada, ¿Desea Modificarla?", "Confirmación", JOptionPane.OK_CANCEL_OPTION);
-                    
+                    pegarLimpieza();
+                } else {
+                    int result = JOptionPane.showConfirmDialog(null, "¿Desea Modificarla?", "Confirmación", JOptionPane.OK_CANCEL_OPTION);
                     if (result == JOptionPane.OK_OPTION) {
-                    	
-                    	btnCrear.setText("Editar");
-                    	
-                    	textNombre.setText("Modificar Clase");
-                    	textHora.setText("Modificar hora");
-                    	textProfesor.setText("Modificar Profesor");
-                        textUrl.setText("Modiicar Url");
+                        // Realizar la edición ???
                         
+                        JOptionPane.showMessageDialog(null, "Se Editó la clase.", textNombre.getText(), JOptionPane.INFORMATION_MESSAGE);
+                        pegarLimpieza();
+                    
                     } else if (result == JOptionPane.CANCEL_OPTION) {
+                        // Cancelar la operación o realizar alguna otra acción.
+                    	//pegarLimpieza();
                     	dispose();
                     }
-                	
                 }
             }
-        	
         });
+
+       
         btnCrear.setBounds(160, 184, 80, 25);
         activityPanel.add(btnCrear);
         
@@ -199,5 +203,9 @@ public class GUIAltaDictadoClase extends JInternalFrame {
                 activityPanel.setVisible(true);
             }
         });
+        
+	  
     }
+    
 }
+    

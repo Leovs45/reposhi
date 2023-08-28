@@ -30,7 +30,7 @@ public class GUIPrincipal {
 	private GUIConsultaUsuario consultaUsuarioInternalFrame;
 	private GUIConsultaInstitucion consultaInstitucionInternalFrame;
 	private GUIConsultaActividadDeportiva consultaActividadInternalFrame;
-	private GUIRegistroDictadoClase registroDictadoClaseInternalFrame;
+	private GUIAltaRegistroDictadoClase registroDictadoClaseInternalFrame;
 	private GUIModificarUsuario modificarUsuarioInternalFrame;
 	private GUIModificarInstitucion modificarInstitucionInternalFrame;
 	private GUIModificarActividad modificarActividadInternalFrame;
@@ -112,7 +112,7 @@ public class GUIPrincipal {
 		frame.getContentPane().add(consultaActividadInternalFrame);
 		
 		//Crea frame de Registro Dictado de Clase
-		registroDictadoClaseInternalFrame = new GUIRegistroDictadoClase(iRegistro);
+		registroDictadoClaseInternalFrame = new GUIAltaRegistroDictadoClase(iRegistro);
 		jInternalFrameSize = registroDictadoClaseInternalFrame.getSize();
 		registroDictadoClaseInternalFrame.setLocation((desktopSize.width - jInternalFrameSize.width)/2
 				,(desktopSize.height - jInternalFrameSize.height)/2);

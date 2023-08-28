@@ -48,10 +48,6 @@ public class Tirando_datos{
 		System.out.println("alta de usuario profesor");
 		System.out.println("========================================");
 		//Profesor(String nickname, String nombre, String apellido, String correoElectronico, String fechaNacimiento,InstitucionDeportiva institucion, String descripcionGeneral, String biografia, String sitioWeb)
-		Profesor p1 = new Profesor("Profesor 1", "nombre1", "apellido1", "correo1",fecha.toString(),id1, "descripcion general 1", "biografia 1", "url 1");
-		Profesor p2 = new Profesor("Profesor 2", "nombre2", "apellido2", "correo2",fecha.toString(),id2, "descripcion general 2", "biografia 2", "url 2");
-		Profesor p3 = new Profesor("Profesor 3", "nombre3", "apellido3", "correo3",fecha.toString(),id3, "descripcion general 3", "biografia 3", "url 3");
-		Profesor p4= new Profesor("Profesor 4", "nombre4", "apellido4", "correo4",fecha.toString(),id4, "descripcion general 4", "biografia4", "url 4");
 		//Profesor profesor = (Profesor) usuario;
 		IUsuario iu = f.getIUsuario();
 		Usuario usuario = iu.buscarUsuario("Profesor 4");
@@ -71,10 +67,6 @@ public class Tirando_datos{
 		System.out.println("alta usuario comun");
 		System.out.println("========================================");
 		
-		Socio s1= new Socio("UComun 1", "nombre1", "apellido1", "correo1",fecha.toString());
-		Socio s2= new Socio("UComun 2", "nombre2", "apellido2", "correo2",fecha.toString());
-		Socio s3= new Socio("UComun 3", "nombre3", "apellido3", "correo3",fecha.toString());
-		Socio s4= new Socio("UComun 4", "nombre4", "apellido4", "correo4",fecha.toString());
 		//Socio s5= new Socio("UComun 5", "nombre5", "apellido5", "correo5",fecha.toString());
 		//Socio s6= new Socio("UComun 6", "nombre6", "apellido6", "correo6",fecha.toString());
 		
@@ -108,15 +100,6 @@ public class Tirando_datos{
 		//me esta faltando ConsultaUsuario() para probar hice esto:
 		//donde se esta guardando el tipo de usuario???
 		//if uc1 instaceof 
-		iUser.consultaUsuario(s1.getNickname());
-		iUser.consultaUsuario(s2.getNickname());
-		iUser.consultaUsuario(s3.getNickname());
-		iUser.consultaUsuario(s4.getNickname());
-		
-		iUser.consultaUsuario(p1.getNickname());
-		iUser.consultaUsuario(p2.getNickname());
-		iUser.consultaUsuario(p3.getNickname());
-		iUser.consultaUsuario(p4.getNickname());
 		
 		//Actividad Deportiva://¿1no hay coleccion de actividades?
 		
@@ -218,15 +201,6 @@ public class Tirando_datos{
 		
 		//TODO ojo que cuando creamos el ata de actividad depÃ³rtiva deberiamos agregar clases asociadas	
 		///Clase(String nombreClase, ActividadDeportiva actividadDeportiva, Date fechaClase, Profesor profesor,String horaInicio, String urlClase, Date fechaRegistro)
-				Clase c1 = new Clase("nombre Clase 1",ad1,fecha,p1,"14:00","String url",fecha);
-				Clase c2 = new Clase("nombre Clase 2",ad1,fecha,p1,"14:00","String url",fecha);
-				Clase c3 = new Clase("nombre Clase 3",ad2,fecha,p2,"14:00","String url",fecha);
-				Clase c4 = new Clase("nombre Clase 4",ad2,fecha,p2,"14:00","String url",fecha);
-				Clase c5 = new Clase("nombre Clase 5",ad3,fecha,p3,"14:00","String url",fecha);
-				Clase c6 = new Clase("nombre Clase 6",ad3,fecha,p3,"14:00","String url",fecha);
-				Clase c7 = new Clase("nombre Clase 7",ad4,fecha,p4,"14:00","String url",fecha);
-				Clase c8 = new Clase("nombre Clase 8",ad4,fecha,p4,"14:00","String url",fecha);
-				
 				
 				 ArrayList<Clase> clasesitas1= new ArrayList<>();
 				 ArrayList<Clase> clasesitas2 = new ArrayList<>();
@@ -236,24 +210,7 @@ public class Tirando_datos{
 				 ArrayList<Clase> clasesitas6 = new ArrayList<>();
 				 ArrayList<Clase> clasesitas7 = new ArrayList<>();
 				 ArrayList<Clase> clasesitas8 = new ArrayList<>();
-				
-				clasesitas1.add(c1);
-				clasesitas1.add(c1);
-				clasesitas2.add(c2);
-				clasesitas2.add(c2);
-				clasesitas3.add(c3);
-				clasesitas3.add(c3);
-				clasesitas4.add(c4);
-				clasesitas4.add(c4);
-				clasesitas5.add(c5);
-				clasesitas6.add(c6);
-				clasesitas7.add(c7);
-				clasesitas8.add(c8);
-			
-				ad1.agregarClase(c1);
-				ad2.agregarClase(c2);
-				ad3.agregarClase(c3);
-				ad4.agregarClase(c4);
+
 				/*ad4.setArrayClase(clasesitas4);
 				ad5.setArrayClase(clasesitas5);
 				ad6.setArrayClase(clasesitas6);
@@ -265,14 +222,7 @@ public class Tirando_datos{
 		//Registro a dictado de Clase del tipo asociativo  dede clase??
 		System.out.println("alta registro dictado de clases");
 		System.out.println("========================================");
-		iClase.registroClase(id1.getNombre(), ad1.getNombre(),"nombre Clase 1", s1.getNombre());//usuario comun  estoy tirando un socio
-		iClase.registroClase(id1.getNombre(), ad2.getNombre(),"nombre Clase 2", s2.getNombre());
-		iClase.registroClase(id2.getNombre(), ad3.getNombre(),"nombre Clase 1", s3.getNombre());
-		iClase.registroClase(id2.getNombre(), ad4.getNombre(),"nombre Clase 2", s4.getNombre());
-		iClase.registroClase(id3.getNombre(), ad5.getNombre(),"nombre Clase 1", s1.getNombre());
-		iClase.registroClase(id3.getNombre(), ad6.getNombre(),"nombre Clase 2", s2.getNombre());
-		iClase.registroClase(id4.getNombre(), ad7.getNombre(),"nombre Clase 1", s3.getNombre());
-		iClase.registroClase(id4.getNombre(), ad8.getNombre(),"nombre Clase 2", s4.getNombre());
+
 	}
 	
 

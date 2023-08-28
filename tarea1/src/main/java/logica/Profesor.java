@@ -12,7 +12,7 @@ public class Profesor extends Usuario {
     private List<Clase> clases = new ArrayList<>();
     
     //Constructor
-    public Profesor(String nickname, String nombre, String apellido, String correoElectronico, String fechaNacimiento,
+    public Profesor(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento,
     		InstitucionDeportiva institucion, String descripcionGeneral, String biografia, String sitioWeb) {
         super(nickname, nombre, apellido, correoElectronico, fechaNacimiento);
         this.institucion = institucion;
@@ -62,6 +62,11 @@ public class Profesor extends Usuario {
 		if (!clases.contains(c)) {
 	        clases.add(c);
 	    }
+		clases.add(c);
+	}
+	
+	public List<Clase> getArrayClases() {
+		return clases;
 	}
 	
 	public Clase buscarClase(String nombre) {

@@ -11,6 +11,7 @@ import logica.InstitucionDeportiva;
 
 public class CActividadDeportiva implements IActividadDeportiva {
 	
+	private List<ActividadDeportiva> clases = new ArrayList<>();
 
 	private static CActividadDeportiva instancia = null;
 	
@@ -28,24 +29,24 @@ public class CActividadDeportiva implements IActividadDeportiva {
 	}
 
 	public ActividadDeportiva buscarActividadDeportiva(String nombre){
-		ActividadDeportiva Actividad = null;
-		if (Actividades.size() == 0) {
-			return Actividad;
+		ActividadDeportiva actividad = null;
+		if (actividades.size() == 0) {
+			return actividad;
 		} else {
-			for(ActividadDeportiva ad: Actividades) {
+			for(ActividadDeportiva ad: actividades) {
 				if (ad.getNombre().equals(nombre)) {
-					Actividad = ad;
+					actividad = ad;
 				}
 			}
 		}
-
-		return Actividad;
+		return actividad;
 	}
+
 	@Override
 	public List<ActividadDeportiva> consultaActividadDeportiva(String institucion) {
 	    List<ActividadDeportiva> actividadesEncontradas = new ArrayList<>();
 	    
-	    for (ActividadDeportiva actividad : Actividades) {
+	    for (ActividadDeportiva actividad: actividades) {
 	        if (actividad.getInstitucion().equals(institucion)) {
 	            actividadesEncontradas.add(actividad);
 	        }
@@ -64,38 +65,54 @@ public class CActividadDeportiva implements IActividadDeportiva {
 	/**********************************/
 
 	@Override
-	public void modificarInstitucion(String nombreActividad, String nuevaInstitucion) {
-		// TODO Auto-generated method stub
-		ActividadDeportiva ad = buscarActividadDeportiva(nombreActividad);
-		ad.setInstitucion(nuevaInstitucion);
-		
+	public void modificarDescripcion(ActividadDeportiva actividad, String nuevaDescripcion) {
+		actividad.setDescripcion(nuevaDescripcion);
 	}
 
 	@Override
-	public void modificarDescripcion(String nombreActividad, String nuevaDescripcion) {
-		// TODO Auto-generated method stub
-		ActividadDeportiva ad = buscarActividadDeportiva(nombreActividad);
-		ad.setDescripcion(nuevaDescripcion);
+	public void modificarDuracion(ActividadDeportiva actividad, int nuevaDuracion) {
+		actividad.setDuracionMinutos(nuevaDuracion);
 	}
 
 	@Override
-	public void modificarDuracion(String nombreActividad, int nuevaDuracion) {
-		// TODO Auto-generated method stub
-		ActividadDeportiva ad = buscarActividadDeportiva(nombreActividad);
-		ad.setCosto(nuevaDuracion);
+	public void modificarCosto(ActividadDeportiva actividad, double nuevoCosto) {
+		actividad.setCosto(nuevoCosto);
+	}
+	
+	@Override
+	public void agregarActividad(ActividadDeportiva actividad) {
+		actividades.add(actividad);
 	}
 
 	@Override
-	public void modificarCosto(String nombreActividad, double nuevoCosto) {
-		// TODO Auto-generated method stub
-		ActividadDeportiva ad = buscarActividadDeportiva(nombreActividad);
-		ad.setCosto(nuevoCosto);
-	}
+	public List<ActividadDeportiva> getRankingActividades() {
+	    int i, j;
+	    boolean swapped;
+	    ActividadDeportiva temp;
+	    List<ActividadDeportiva> actividadesOrdenadas = new ArrayList<>(actividades);
 
+	    for (i = 0; i < actividadesOrdenadas.size() - 1; i++) {
+	        swapped = false;
+	        for (j = 0; j < actividadesOrdenadas.size() - 1 - i; j++) {
+	            if (actividadesOrdenadas.get(j).getCantidadClases() < actividadesOrdenadas.get(j + 1).getCantidadClases()) {
+	                temp = actividadesOrdenadas.get(j);
+	                actividadesOrdenadas.set(j, actividadesOrdenadas.get(j + 1));
+	                actividadesOrdenadas.set(j + 1, temp);
+	                swapped = true;
+	            }
+	        }
+
+	        if (!swapped) {
+	            break;
+	        }
+	    }
+
+	    return actividadesOrdenadas;
+	}
+	
 	@Override
-	public void rankingActividades() {
-		// TODO Auto-generated method stub
-		
+	public List<ActividadDeportiva> getActividades() {
+		return actividades;
 	}
 
 }

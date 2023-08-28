@@ -2,6 +2,11 @@ package logica;
 
 import java.util.Date;
 import java.util.List;
+
+import interfaces.Fabrica;
+import interfaces.IActividadDeportiva;
+import interfaces.IClase;
+
 import java.util.ArrayList;
 
 public class ActividadDeportiva {
@@ -11,10 +16,10 @@ public class ActividadDeportiva {
     private int duracionMinutos;
     private double costo;
     private Date fechaRegistro;
-    private List<Clase> clases= new ArrayList<>();
+    private List<Clase> clases = new ArrayList<>();
 
     //Constructor
-    public ActividadDeportiva(InstitucionDeportiva institucion2, String nombre, String descripcion, int duracionMinutos, double costo,
+	public ActividadDeportiva(InstitucionDeportiva institucion2, String nombre, String descripcion, int duracionMinutos, double costo,
 			Date fechaRegistro) {
 		super();
 		this.institucion = institucion2.getNombre();
@@ -77,11 +82,11 @@ public class ActividadDeportiva {
 	public List<Clase> getArrayClase() {
 		return clases;
 	}
-	
-	public void setArrayClase(ArrayList<Clase> arrayClase) {
+
+	public void setArrayClase(List<Clase> arrayClase) {
 		this.clases = arrayClase;
 	}
-
+	
 	public Clase buscarClase(String nombre) {
 		Clase clase = null;
 		if (clases.size() == 0) {
@@ -106,11 +111,14 @@ public class ActividadDeportiva {
 			}
 		}
 	}
+
 	
 	public void agregarClase(Clase c) {
-		if (!clases.contains(c)) {
-	        clases.add(c);
-	    }
+		clases.add(c);
+
+		Fabrica f = Fabrica.getInstancia();
+		IClase iClase = f.getIClase();
+		iClase.agregarClase(c);
 	}
 	
 	public void registroClase(String nombreClase, Usuario usuario){
@@ -122,9 +130,14 @@ public class ActividadDeportiva {
 		} else {
 			clase.registroClase(socio, clase);
 		}
+		System.out.println("Registrado usuario " + usuario.getNickname() + " en la clase" + clase.getNombreClase());
 	}
 	
 	public boolean existenClases() {
 		return clases.size() > 0;
+	}
+	
+	public int getCantidadClases() {
+		return clases.size();
 	}
 }

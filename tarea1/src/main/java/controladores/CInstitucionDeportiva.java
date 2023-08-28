@@ -51,6 +51,14 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 	}
 	
 
+	public ActividadDeportiva buscarActividadDeportiva(String nombreInstitucion, String nombreActividad){
+		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombreInstitucion);
+		
+		ActividadDeportiva actividad = institucion.buscarActividadDeportiva(nombreActividad);
+
+		return actividad;
+	}
+	
 	/**********************************/
 	// OPCIONALES
 	/**********************************/
@@ -82,5 +90,11 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 		
 		return instituciones;
 	} 
+
+	public List<InstitucionDeportiva> getInstituciones() {
+		return instituciones;
+	}
+	
+	
 	
 }

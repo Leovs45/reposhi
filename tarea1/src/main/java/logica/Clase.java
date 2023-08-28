@@ -15,7 +15,8 @@ public class Clase {
     private List<Registro> registros = new ArrayList<>();
     
     //Constructor
-	public Clase(String nombreClase, ActividadDeportiva actividadDeportiva, Date fechaClase, Profesor profesor,String horaInicio, String urlClase, Date fechaRegistro) {
+	public Clase(String nombreClase, ActividadDeportiva actividadDeportiva, Date fechaClase, Profesor profesor,
+			String horaInicio, String urlClase, Date fechaRegistro) {
 		super();
 		this.nombreClase = nombreClase;
 		this.actividadDeportiva = actividadDeportiva;
@@ -96,6 +97,10 @@ public class Clase {
 		Registro registro = new Registro(date, socio, clase);
 		registros.add(registro);
 		socio.agregarRegistro(registro);
+	}
+	
+	public int getCantidadRegistros() {
+		return registros.size();
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import interfaces.IActividadDeportiva;
 import logica.ActividadDeportiva;
+import logica.Clase;
 import logica.InstitucionDeportiva;
 
 
@@ -19,14 +20,46 @@ public class CActividadDeportiva implements IActividadDeportiva {
 			instancia = new CActividadDeportiva();
 		return instancia;
 	}
-
+	
 	public void altaActividadDeportiva(InstitucionDeportiva institucion, String nombreActividad, String descripcion, int duracionMinutos,
 			double costo, Date fechaAlta) {
 		ActividadDeportiva actividad = new ActividadDeportiva(institucion, nombreActividad, descripcion, duracionMinutos, costo, fechaAlta);
 		institucion.agregarActividadDeportiva(actividad);
 		System.out.println("OK  -  La institucion fue creada correctamente");
 	}
+
+	public ActividadDeportiva buscarActividadDeportiva(String nombre){
+		ActividadDeportiva actividad = null;
+		if (actividades.size() == 0) {
+			return actividad;
+		} else {
+			for(ActividadDeportiva ad: actividades) {
+				if (ad.getNombre().equals(nombre)) {
+					actividad = ad;
+				}
+			}
+		}
+		return actividad;
+	}
+
+	@Override
+	public List<ActividadDeportiva> consultaActividadDeportiva(String institucion) {
+	    List<ActividadDeportiva> actividadesEncontradas = new ArrayList<>();
+	    
+	    for (ActividadDeportiva actividad: actividades) {
+	        if (actividad.getInstitucion().equals(institucion)) {
+	            actividadesEncontradas.add(actividad);
+	        }
+	    }
+	    
+	    return actividadesEncontradas;
+	}
+
+	public Clase buscarClase(String nombre){
+		
+		return buscarClase(nombre);
 	
+	}
 	/**********************************/
 	// OPCIONALES
 	/**********************************/
@@ -80,21 +113,6 @@ public class CActividadDeportiva implements IActividadDeportiva {
 	@Override
 	public List<ActividadDeportiva> getActividades() {
 		return actividades;
-	}
-	
-	@Override
-	public ActividadDeportiva buscarActividadDeportiva(String nombreActividad) {
-		ActividadDeportiva actividad = null;
-		if (actividades.size() == 0) {
-			actividad = null;
-		} else {
-			for(ActividadDeportiva a: actividades) {
-				if (a.getNombre().equals(nombreActividad)) {
-					actividad = a;
-				}
-			}
-		}
-		return actividad;
 	}
 
 }

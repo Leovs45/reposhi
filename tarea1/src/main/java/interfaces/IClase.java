@@ -7,6 +7,8 @@ import logica.ActividadDeportiva;
 import logica.Clase;
 import logica.Profesor;
 
+import logica.ActividadDeportiva;
+
 public interface IClase {
 	public void altaDictadoClase(String nombreClase, ActividadDeportiva actividadDeportiva, Date fechaClase, String nombreProfesor,
 			String horaInicio, String urlClase, Date fechaRegistro);

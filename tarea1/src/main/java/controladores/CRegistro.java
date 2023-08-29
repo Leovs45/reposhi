@@ -1,4 +1,8 @@
 package controladores;
+import interfaces.*;
+import logica.Usuario;
+import logica.Clase;
+	
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

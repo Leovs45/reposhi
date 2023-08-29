@@ -58,6 +58,15 @@ public class InstitucionDeportiva {
 	public List<ActividadDeportiva> getArrayActividadDeportiva() {
 		return actividades;
 	}
+
+	public void setArrayActividadDeportiva(ArrayList<ActividadDeportiva> arrayActividadDeportiva) {
+		this.actividades = arrayActividadDeportiva;
+	}
+
+	public void setAgregarActividad(ActividadDeportiva ad) {
+		this.actividades.add(ad);
+		
+	}
 	
 	public void listarActividades() {
 		if(actividades.size() == 0) {

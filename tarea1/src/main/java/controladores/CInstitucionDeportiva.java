@@ -7,7 +7,7 @@ import interfaces.IInstitucionDeportiva;
 import logica.ActividadDeportiva;
 import logica.InstitucionDeportiva;
 
-public class CInstitucionDeportiva implements IInstitucionDeportiva {
+public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 	
 	private List<InstitucionDeportiva> instituciones = new ArrayList<>();
 	
@@ -44,6 +44,13 @@ public class CInstitucionDeportiva implements IInstitucionDeportiva {
 		return institucion;
 	}
 	
+	public void agregarActividadDeportivaInstitucion(InstitucionDeportiva unaInstitucion, ActividadDeportiva unaActividad){
+		
+		unaInstitucion.setAgregarActividad(unaActividad);
+		
+	}
+	
+
 	public ActividadDeportiva buscarActividadDeportiva(String nombreInstitucion, String nombreActividad){
 		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombreInstitucion);
 		
@@ -78,6 +85,11 @@ public class CInstitucionDeportiva implements IInstitucionDeportiva {
 			}
 		}
 	}
+	
+	public List<InstitucionDeportiva> getListaInstituciones(){
+		
+		return instituciones;
+	} 
 
 	public List<InstitucionDeportiva> getInstituciones() {
 		return instituciones;

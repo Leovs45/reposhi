@@ -28,10 +28,10 @@ import logica.ActividadDeportiva;
 import controladores.CClase;
 import logica.ActividadDeportiva;
 import controladores.CInstitucionDeportiva;
-
+import presentacion.*;
 
 public class Principal {
-	static Fabrica f = Fabrica.getInstancia();	
+	static Fabrica f = Fabrica.getInstancia();
 	static void menu() {
 		System.out.println("\nMENU\n"+
 		"1- Agregar Usuario\n" +
@@ -50,6 +50,7 @@ public class Principal {
 		"14- Listar instituciones deportivas\n" +
 		"15- Listar usuarios\n" +
 		"0- Salir");
+		
 	}
 	
 	static void agregarInstitucionDeportiva(){
@@ -646,9 +647,14 @@ public class Principal {
 	//**************************************************************************************
 	
 	public static void main(String[] args) {
-		Fabrica f = Fabrica.getInstancia();
-		Scanner input = new Scanner(System.in);
-		int op;
+		//Fabrica f = Fabrica.getInstancia();
+		//Scanner input = new Scanner(System.in);
+		
+		//Tirando_datos td= new Tirando_datos();
+		//td.rellenarDatos();
+		
+	/***
+	 int op;
 		
 		do {
 			menu();
@@ -709,6 +715,8 @@ public class Principal {
 				break;
 		}
 	  } while (op != 0);
-		
+		*/
 	}
+	
 }
+	

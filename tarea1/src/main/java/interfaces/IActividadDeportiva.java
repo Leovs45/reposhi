@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import logica.ActividadDeportiva;
+import logica.Clase;
 import logica.InstitucionDeportiva;
 
 
@@ -20,4 +21,6 @@ public interface IActividadDeportiva {
 	public void agregarActividad(ActividadDeportiva actividad);
 	List<ActividadDeportiva> getActividades();
 	ActividadDeportiva buscarActividadDeportiva(String nombreActividad);
+
+	List<ActividadDeportiva> consultaActividadDeportiva(String institucion);
 }

@@ -43,6 +43,31 @@ public class CUsuario implements IUsuario{
 		return usuario;
 	}
 	
+	@Override
+	public void consultaUsuario(String nickname) {
+	    Usuario usuario = buscarUsuario(nickname);
+	    
+	    if (usuario == null) {
+	        System.out.println("Usuario no encontrado.");
+	    } else {
+	        System.out.println("Detalles del usuario:");
+	       // System.out.println("Tipo de Usuario: " + usuario.getTipoUsuario());
+	        System.out.println("Nickname: " + usuario.getNickname());
+	        System.out.println("Nombre: " + usuario.getNombre());
+	        System.out.println("Apellido: " + usuario.getApellido());
+	        System.out.println("Correo Electrónico: " + usuario.getCorreoElectronico());
+	        System.out.println("Fecha de Nacimiento: " + usuario.getFechaNacimiento());
+	        
+	        if (usuario instanceof Profesor) {
+	            Profesor profesor = (Profesor) usuario;
+	            System.out.println("Institución: " + profesor.getInstitucion());
+	            System.out.println("Descripción General: " + profesor.getDescripcionGeneral());
+	            System.out.println("Biografía: " + profesor.getBiografia());
+	            System.out.println("Sitio Web: " + profesor.getSitioWeb());
+	        }
+	    }
+	}
+	
 	public boolean esProfesor(Usuario u) {
 		if(u instanceof Profesor) {
 			return true;
@@ -54,34 +79,6 @@ public class CUsuario implements IUsuario{
 	@Override
 	public List<Usuario> getUsuarios() {
 		return usuarios;
-	}
-	
-	@Override
-	public void consultaUsuario(String nickname) {
-		Usuario usuario = buscarUsuario(nickname);
-		
-		if(usuario == null) {
-			System.out.println("  ERROR - No existe un usuario con el nickname " + nickname);
-		} else {
-			if (usuario instanceof Socio) {
-				Socio socio = (Socio) usuario;
-				System.out.println("SOCIO: " + socio.getNickname());
-				System.out.println("Nombre: " + socio.getNombre() + " " + socio.getApellido());
-				System.out.println("Correo electronico: " + socio.getCorreoElectronico());
-				System.out.println("Fecha de Nacimiento: " + socio.getFechaNacimiento());
-				System.out.println("Clases a las que se registro: ");
-				socio.listarRegistros();
-			} else {
-				Profesor profe = (Profesor) usuario;
-				System.out.println("PROFESOR: " + usuario.getNickname());
-				System.out.println("Nombre: " + usuario.getNombre() + " " + usuario.getApellido());
-				System.out.println("Correo electronico: " + usuario.getCorreoElectronico());
-				System.out.println("Fecha de Nacimiento: " + usuario.getFechaNacimiento());
-				System.out.println("Clases que dicta: ");
-				profe.listarClases();
-			}
-		}
-		
 	}
 
 	@Override

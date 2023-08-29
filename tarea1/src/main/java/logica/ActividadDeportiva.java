@@ -140,5 +140,4 @@ public class ActividadDeportiva {
 	public int getCantidadClases() {
 		return clases.size();
 	}
-   
 }

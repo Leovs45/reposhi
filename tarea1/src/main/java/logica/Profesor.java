@@ -59,6 +59,9 @@ public class Profesor extends Usuario {
 	}
 	
 	public void agregarClase(Clase c) {
+		if (!clases.contains(c)) {
+	        clases.add(c);
+	    }
 		clases.add(c);
 	}
 	

@@ -31,16 +31,21 @@ public class GUIPrincipal {
 	private GUIConsultaInstitucion consultaInstitucionInternalFrame;
 	private GUIConsultaActividadDeportiva consultaActividadInternalFrame;
 	private GUIConsultaDictadoClase consultaDictadoClaseInternalFrame;
-	private GUIAltaRegistroDictadoClase registroDictadoClaseInternalFrame;
+	private GUIRegistroDictadoClase registroDictadoClaseInternalFrame;
 	private GUIModificarUsuario modificarUsuarioInternalFrame;
 	private GUIModificarInstitucion modificarInstitucionInternalFrame;
 	private GUIModificarActividad modificarActividadInternalFrame;
 	
 
 	public static void main(String[] args) {
+		
+	
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					Tirando_datos td= new Tirando_datos();
+					td.rellenarDatos();
 					GUIPrincipal window = new GUIPrincipal();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
@@ -89,7 +94,7 @@ public class GUIPrincipal {
 		frame.getContentPane().add(altaActividadInternalFrame);
 		
 		// Crea frame de alta clase
-		altaClaseInternalFrame = new GUIAltaDictadoClase(iClase); 
+		altaClaseInternalFrame = new GUIAltaDictadoClase(iClase,iInstitucion); 
 		jInternalFrameSize = altaClaseInternalFrame.getSize();
 		altaClaseInternalFrame.setLocation((desktopSize.width - jInternalFrameSize.width)/2
 				,(desktopSize.height - jInternalFrameSize.height)/2);
@@ -105,7 +110,7 @@ public class GUIPrincipal {
 		frame.getContentPane().add(consultaUsuarioInternalFrame);
 		
 		//Crea frame de Consulta Actividad Deportiva
-		consultaActividadInternalFrame = new GUIConsultaActividadDeportiva(iActividad);
+		consultaActividadInternalFrame = new GUIConsultaActividadDeportiva(iActividad, iInstitucion);
 		jInternalFrameSize = consultaActividadInternalFrame.getSize();
 		consultaActividadInternalFrame.setLocation((desktopSize.width - jInternalFrameSize.width)/2
 				,(desktopSize.height - jInternalFrameSize.height)/2);
@@ -113,7 +118,7 @@ public class GUIPrincipal {
 		frame.getContentPane().add(consultaActividadInternalFrame);
 		
 		//Crea frame de Registro Dictado de Clase
-		registroDictadoClaseInternalFrame = new GUIAltaRegistroDictadoClase(iRegistro);
+		registroDictadoClaseInternalFrame = new GUIRegistroDictadoClase(iRegistro);
 		jInternalFrameSize = registroDictadoClaseInternalFrame.getSize();
 		registroDictadoClaseInternalFrame.setLocation((desktopSize.width - jInternalFrameSize.width)/2
 				,(desktopSize.height - jInternalFrameSize.height)/2);

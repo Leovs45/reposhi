@@ -4,11 +4,11 @@ import java.awt.EventQueue;
 import interfaces.IRegistro;
 import javax.swing.JInternalFrame;
 
-public class GUIAltaRegistroDictadoClase extends JInternalFrame {
+public class GUIRegistroDictadoClase extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public GUIAltaRegistroDictadoClase(IRegistro iRegistro) {
+	public GUIRegistroDictadoClase(IRegistro iRegistro) {
 		setBounds(100, 100, 450, 300);
 
 	}

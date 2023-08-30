@@ -1,4 +1,4 @@
-package presentacion;
+/*package presentacion;
 
 import java.util.Date;
 import java.util.List;
@@ -138,17 +138,17 @@ public class Principal {
 								case 1:
 									System.out.println("Ingresar la nueva descripcion:");
 									descripcion = entrada.nextLine();
-									iActividad.modificarDescripcion(ad, descripcion);
+									iActividad.modificarDescripcion(ad.getNombre(), descripcion);
 									break;
 								case 2:
 									System.out.println("Ingresar la duracion en minutos de la actividad:");
 									duracionMinutos = entrada.nextInt();
-									iActividad.modificarDuracion(ad, duracionMinutos);
+									iActividad.modificarDuracion(ad.getNombre(), duracionMinutos);
 									break;
 								case 3:
 									System.out.println("Ingresar costo:");
 									costo = entrada.nextDouble();
-									iActividad.modificarCosto(ad, costo);
+									iActividad.modificarCosto(ad.getNombre(), costo);
 								break;
 							}
 
@@ -399,7 +399,7 @@ public class Principal {
 						Usuario unProfe = iUsuario.buscarUsuario(nomProfe);
 						if(unProfe != null) {
 							System.out.print("Este usuario ya existe");
-							if(!iUsuario.esProfesor(unProfe)) {
+							if(!iUsuario.esProfesor(unProfe.getNombre())) {
 								System.out.println(" y no es profesor.");
 							}
 						}
@@ -718,8 +718,8 @@ public class Principal {
 				break;
 		}
 	  } while (op != 0);
-		*/
+		
 	}
 	
 }
-	
+	*/

@@ -13,4 +13,5 @@ public interface IClase {
 	public void consultarDictadoClase(Clase clase);
 	public void agregarClase(Clase clase);
 	public List<Clase> getRankingClases();
+	public Clase buscarClase(String abuscar);
 }

@@ -21,17 +21,16 @@ public class GUIConsultaDictadoClase extends JInternalFrame {
 	JComboBox cmbInstituciones = new JComboBox();
 	JComboBox cmbActividades = new JComboBox();
 	JComboBox cmbClases = new JComboBox();
-	List<InstitucionDeportiva> instituciones = new ArrayList<>();
-	
 	private void setupActions(IInstitucionDeportiva iInstitucion) {
 		addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentShown(ComponentEvent e) {
 				cmbInstituciones.removeAllItems();
-				instituciones = iInstitucion.getInstituciones();
+				List<String> instituciones = iInstitucion.getListaNombreInstituciones();
 				
-				for (InstitucionDeportiva i: instituciones) {
-					cmbInstituciones.addItem(i.getNombre());
+				
+				for (String i: instituciones) {
+					cmbInstituciones.addItem(i);
 				}
 				
 				cmbInstituciones.setSelectedIndex(-1);
@@ -114,7 +113,7 @@ public class GUIConsultaDictadoClase extends JInternalFrame {
 				String nombreInstitucion = (String) cmbInstituciones.getSelectedItem();
 				InstitucionDeportiva institucion = iInstitucion.buscarInstitucionDeportiva(nombreInstitucion);
 				
-				if(institucion == null) {
+				if(!iInstitucion.existeInstitucion(nombreInstitucion)) {
 					labelActividades.setVisible(false);
 					cmbActividades.setVisible(false);
 					cmbActividades.setSelectedIndex(-1);
@@ -132,11 +131,12 @@ public class GUIConsultaDictadoClase extends JInternalFrame {
 					labelFechaRegistro.setVisible(false);
 					fechaRegistro.setText("");
 				} else {
-					List<ActividadDeportiva> actividades = institucion.getArrayActividadDeportiva();
+					//List<ActividadDeportiva> actividades = institucion.getArrayActividadDeportiva();
+					List<String> actividades = iInstitucion.obtenerActividadesDeUnaInstitucion(nombreInstitucion);
 					cmbActividades.removeAllItems();
 					
-					for(ActividadDeportiva a: actividades) {
-						cmbActividades.addItem(a.getNombre());
+					for(String a: actividades) {
+						cmbActividades.addItem(a);
 					}
 					
 					labelActividades.setVisible(true);

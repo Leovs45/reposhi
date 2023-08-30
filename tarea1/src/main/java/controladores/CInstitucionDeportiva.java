@@ -1,11 +1,13 @@
 package controladores;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import interfaces.IInstitucionDeportiva;
 import logica.ActividadDeportiva;
 import logica.InstitucionDeportiva;
+import datatypes.DtActividad;
 
 public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 	
@@ -40,7 +42,6 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 				}
 			}
 		}
-
 		return institucion;
 	}
 	
@@ -103,17 +104,26 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 
 		return existe;
 	}
+	public boolean existeActividadEnUnaInstitucion(String nombreInstitucion, String nombreActividad) {
+		boolean existe = false;
+		ActividadDeportiva act= buscarActividadDeportiva(nombreInstitucion, nombreActividad);
+		if(act != null)
+			existe = true;
+
+		return existe;
+	}
 	
 	public List<InstitucionDeportiva> getListaInstituciones(){
 		
 		return instituciones;
 	}
 	@Override
-	public ActividadDeportiva obtenerActividadDeUnaInstitucion(String nombreInstitucion, String nombreActividad) {
+	public DtActividad obtenerActividadDeUnaInstitucion(String nombreInstitucion, String nombreActividad) {
 		ActividadDeportiva act;
 		InstitucionDeportiva ins = buscarInstitucionDeportiva(nombreInstitucion);
 		act = ins.buscarActividadDeportiva(nombreActividad);
-		return act;
+		DtActividad dtAct = new	DtActividad(ins.getNombre(), act.getNombre(), act.getDescripcion() , act.getDuracionMinutos(), act.getCosto(), act.getFechaRegistro());
+		return dtAct;
 	}
 	
 

@@ -4,6 +4,8 @@ import java.util.List;
 
 import logica.ActividadDeportiva;
 import logica.InstitucionDeportiva;
+import datatypes.DtActividad;
+
 
 public interface IInstitucionDeportiva {
 	public void altaInstitucionDeportiva(String nombre, String descripcion, String url);
@@ -20,7 +22,8 @@ public interface IInstitucionDeportiva {
 	public void listarInstituciones();
 	public List<String> getListaNombreInstituciones();
 	public boolean existeInstitucion(String nombre);
-	public ActividadDeportiva obtenerActividadDeUnaInstitucion(String nombreInstitucion, String nombreActividad);
+	public boolean existeActividadEnUnaInstitucion(String nombreInstitucion, String nombreActividad);
+	public DtActividad obtenerActividadDeUnaInstitucion(String nombreInstitucion, String nombreActividad);
 	public List<String> obtenerActividadesDeUnaInstitucion(String nombre);
 	public ActividadDeportiva buscarActividadDeportiva(String nombreInstitucion, String nombreActividad);
 }

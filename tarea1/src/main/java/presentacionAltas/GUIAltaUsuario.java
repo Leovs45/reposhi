@@ -100,19 +100,6 @@ public class GUIAltaUsuario extends JInternalFrame {
 		lblInstitucion.setBounds(32, 212, 87, 15);
 		getContentPane().add(lblInstitucion);
 		
-		//PRUEBA PARA INGRESAR ARRAYLIST A UNA LIST
-		
-		iInstitucion.altaInstitucionDeportiva("Institucion 1", "Es la institucion numero 1", "institucion1.com");
-		iInstitucion.altaInstitucionDeportiva("Institucion 2", "Es la institucion numero 2", "institucion2.com");
-		iInstitucion.altaInstitucionDeportiva("Institucion 3", "Es la institucion numero 3", "institucion3.com");
-		iInstitucion.altaInstitucionDeportiva("Institucion 4", "Es la institucion numero 4", "institucion4.com");
-		iInstitucion.altaInstitucionDeportiva("Institucion 5", "Es la institucion numero 5", "institucion5.com");
-		iInstitucion.altaInstitucionDeportiva("Institucion 6", "Es la institucion numero 6", "institucion6.com");
-		iInstitucion.altaInstitucionDeportiva("Institucion 7", "Es la institucion numero 7", "institucion7.com");
-		iInstitucion.altaInstitucionDeportiva("Institucion 8", "Es la institucion numero 8", "institucion8.com");
-		iInstitucion.altaInstitucionDeportiva("Institucion 9", "Es la institucion numero 9", "institucion9.com");
-		iInstitucion.altaInstitucionDeportiva("Institucion 10", "Es la institucion numero 10", "institucion10.com");
-		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setViewportBorder(null);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);

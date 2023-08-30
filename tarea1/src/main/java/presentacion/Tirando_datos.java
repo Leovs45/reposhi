@@ -106,14 +106,14 @@ public class Tirando_datos{
 		System.out.println("alta Actividades deportivas");
 		System.out.println("========================================");
 		IActividadDeportiva iActividad = f.getIActividadDeportiva();
-		iActividad.altaActividadDeportiva(id1, "nombreActividad 1","descripcion actividad 1", '8',1.1f,fecha);//1.1f es un float
-		iActividad.altaActividadDeportiva(id1, "nombreActividad 2","descripcion actividad 2", '7',2.1f,fecha);
-		iActividad.altaActividadDeportiva(id2, "nombreActividad 3","descripcion actividad a", '6',3.1f,fecha);
-		iActividad.altaActividadDeportiva(id2, "nombreActividad 4","descripcion actividad b", '5',4.1f,fecha);
-		iActividad.altaActividadDeportiva(id3, "nombreActividad 5","descripcion actividad 1", '4',5.1f,fecha);
-		iActividad.altaActividadDeportiva(id3, "nombreActividad 6","descripcion actividad 2", '3',6.1f,fecha);
-		iActividad.altaActividadDeportiva(id4, "nombreActividad 7","descripcion actividad a", '2',7.1f,fecha);
-		iActividad.altaActividadDeportiva(id4, "nombreActividad 8","descripcion actividad b", '1',8.1f,fecha);
+		iActividad.altaActividadDeportiva(id1, "nombreActividad 1","descripcion actividad 1", 8,1.1f,fecha);//1.1f es un float
+		iActividad.altaActividadDeportiva(id1, "nombreActividad 2","descripcion actividad 2", 7,2.1f,fecha);
+		iActividad.altaActividadDeportiva(id2, "nombreActividad 3","descripcion actividad a", 6,3.1f,fecha);
+		iActividad.altaActividadDeportiva(id2, "nombreActividad 4","descripcion actividad b", 5,4.1f,fecha);
+		iActividad.altaActividadDeportiva(id3, "nombreActividad 5","descripcion actividad 1", 4,5.1f,fecha);
+		iActividad.altaActividadDeportiva(id3, "nombreActividad 6","descripcion actividad 2", 3,6.1f,fecha);
+		iActividad.altaActividadDeportiva(id4, "nombreActividad 7","descripcion actividad a", 2,7.1f,fecha);
+		iActividad.altaActividadDeportiva(id4, "nombreActividad 8","descripcion actividad b", 1,8.1f,fecha);
 		//TODO ojo que en alta de actividad deportiva debe rellenarse el array de clase
 		
 		System.out.println("buscar actividad deportiva");

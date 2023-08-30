@@ -3,6 +3,7 @@ package logica;
 import java.util.Date;
 import java.util.List;
 
+import datatypes.DtClase;
 import interfaces.Fabrica;
 import interfaces.IActividadDeportiva;
 import interfaces.IClase;
@@ -81,6 +82,14 @@ public class ActividadDeportiva {
 
 	public List<Clase> getArrayClase() {
 		return clases;
+	}
+	public List<DtClase> getDtArrayClase(){
+		List<DtClase> arrDtClase = new ArrayList<>();
+		for(Clase c: clases) {
+			DtClase dtC = new DtClase(c.getNombreClase(), c.getFechaClase(), c.getHoraInicio(), c.getUrlClase(), c.getFechaRegistro());
+			arrDtClase.add(dtC);
+		}
+		return arrDtClase;
 	}
 
 	public void setArrayClase(List<Clase> arrayClase) {

@@ -1,17 +1,17 @@
 package controladores;
 import java.util.Date;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import interfaces.Fabrica;
 import interfaces.IClase;
 import interfaces.IUsuario;
+import interfaces.IActividadDeportiva;
 import logica.ActividadDeportiva;
 import logica.Clase;
 import logica.Profesor;
 import logica.Usuario;
+import datatypes.DtActividad;
 
 public class CClase implements IClase {
 	
@@ -26,17 +26,19 @@ public class CClase implements IClase {
 	}
 
 	@Override
-	public void altaDictadoClase(String nombreClase, ActividadDeportiva actividadDeportiva, Date fechaClase, String nombreProfesor,
+	public void altaDictadoClase(String nombreClase, DtActividad actividadDeportiva, Date fechaClase, String nombreProfesor,
 			String horaInicio, String urlClase, Date fechaRegistro) {
 		Fabrica f = Fabrica.getInstancia();
 		IUsuario iUsuario = f.getIUsuario();
+		IActividadDeportiva iActividad = f.getIActividadDeportiva();
 
 		Usuario usuario = iUsuario.buscarUsuario(nombreProfesor);
 		Profesor profesor = (Profesor) usuario;
+		ActividadDeportiva act = iActividad.buscarActividadDeportiva(actividadDeportiva.getNombre());
 
-		Clase clase = new Clase(nombreClase, actividadDeportiva, fechaClase, profesor, horaInicio, urlClase, fechaRegistro);
+		Clase clase = new Clase(nombreClase, act, fechaClase, profesor, horaInicio, urlClase, fechaRegistro);
 		profesor.agregarClase(clase);
-		actividadDeportiva.agregarClase(clase);
+		act.agregarClase(clase);
 		System.out.println("OK - Clase Creada");
 	}
 

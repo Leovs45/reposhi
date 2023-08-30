@@ -19,6 +19,9 @@ import javax.swing.JInternalFrame;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+
+import datatypes.DtActividad;
+
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -123,14 +126,19 @@ public class GUIConsultaUsuario extends JInternalFrame {
 		ActividadDeportiva a3 = i1.buscarActividadDeportiva("a3");
 		ActividadDeportiva a2 = i2.buscarActividadDeportiva("a2");
 		ActividadDeportiva a4 = i2.buscarActividadDeportiva("a4");
-	
+		
+		DtActividad dtA1 = new DtActividad(i1.getNombre(), a1.getNombre(), a1.getDescripcion(), a1.getDuracionMinutos(), a1.getCosto(), a1.getFechaRegistro());
+		DtActividad dtA2 = new DtActividad(i2.getNombre(), a2.getNombre(), a2.getDescripcion(), a2.getDuracionMinutos(), a2.getCosto(), a2.getFechaRegistro());
+		DtActividad dtA3 = new DtActividad(i1.getNombre(), a3.getNombre(), a3.getDescripcion(), a3.getDuracionMinutos(), a3.getCosto(), a3.getFechaRegistro());
+		DtActividad dtA4 = new DtActividad(i2.getNombre(), a4.getNombre(), a4.getDescripcion(), a4.getDuracionMinutos(), a4.getCosto(), a4.getFechaRegistro());
+		
 		// Creo clases
 		IClase iClase = f.getIClase();
-		iClase.altaDictadoClase("c1", a1, new Date(), profe1.getNickname(), "12:00", "url", new Date());
-		iClase.altaDictadoClase("c3", a1, new Date(), profe1.getNickname(), "12:00", "url", new Date());
-		iClase.altaDictadoClase("c5", a3, new Date(), profe1.getNickname(), "12:00", "url", new Date());
-		iClase.altaDictadoClase("c2", a2, new Date(), profe2.getNickname(), "12:00", "url", new Date());
-		iClase.altaDictadoClase("c4", a4, new Date(), profe2.getNickname(), "12:00", "url", new Date());
+		iClase.altaDictadoClase("c1", dtA1, new Date(), profe1.getNickname(), "12:00", "url", new Date());
+		iClase.altaDictadoClase("c3", dtA1, new Date(), profe1.getNickname(), "12:00", "url", new Date());
+		iClase.altaDictadoClase("c5", dtA3, new Date(), profe1.getNickname(), "12:00", "url", new Date());
+		iClase.altaDictadoClase("c2", dtA2, new Date(), profe2.getNickname(), "12:00", "url", new Date());
+		iClase.altaDictadoClase("c4", dtA4, new Date(), profe2.getNickname(), "12:00", "url", new Date());
 		
 		DefaultListModel<String> lista = new DefaultListModel<String>();
 

@@ -10,7 +10,7 @@ import interfaces.IClase;
 import java.util.ArrayList;
 
 public class ActividadDeportiva {
-    private String institucion;
+    private InstitucionDeportiva institucion;
     private String nombre;
     private String descripcion;
     private int duracionMinutos;
@@ -22,7 +22,7 @@ public class ActividadDeportiva {
 	public ActividadDeportiva(InstitucionDeportiva institucion2, String nombre, String descripcion, int duracionMinutos, double costo,
 			Date fechaRegistro) {
 		super();
-		this.institucion = institucion2.getNombre();
+		this.institucion = institucion2;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.duracionMinutos = duracionMinutos;
@@ -31,11 +31,11 @@ public class ActividadDeportiva {
 	}
 	
 	//Getters & Setters
-	public String getInstitucion() {
+	public InstitucionDeportiva getInstitucion() {
 		return institucion;
 	}
 
-	public void setInstitucion(String institucion) {
+	public void setInstitucion(InstitucionDeportiva institucion) {
 		this.institucion = institucion;
 	}
 

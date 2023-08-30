@@ -18,5 +18,9 @@ public interface IInstitucionDeportiva {
 	// Adicionales
 	public InstitucionDeportiva buscarInstitucionDeportiva(String nombre);
 	public void listarInstituciones();
+	public List<String> getListaNombreInstituciones();
+	public boolean existeInstitucion(String nombre);
+	public ActividadDeportiva obtenerActividadDeUnaInstitucion(String nombreInstitucion, String nombreActividad);
+	public List<String> obtenerActividadesDeUnaInstitucion(String nombre);
 	public ActividadDeportiva buscarActividadDeportiva(String nombreInstitucion, String nombreActividad);
 }

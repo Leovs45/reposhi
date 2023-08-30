@@ -4,7 +4,6 @@ import javax.swing.JInternalFrame;
 
 import interfaces.IActividadDeportiva;
 import interfaces.IInstitucionDeportiva;
-import logica.InstitucionDeportiva;
 import java.util.Date;
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
@@ -41,10 +40,10 @@ public class GUIAltaActividad extends JInternalFrame {
 		JComboBox cmbInstituciones = new JComboBox();
 		cmbInstituciones.setBounds(137, 52, 130, 24);
 		
-        List<InstitucionDeportiva> ins = iInstitucion.getInstituciones();
+        List<String> ins = iInstitucion.getListaNombreInstituciones();
         try {
-        	for (InstitucionDeportiva i : ins) {
-                cmbInstituciones.addItem(i.getNombre());
+        	for (String i : ins) {
+                cmbInstituciones.addItem(i);
             }
 	    } catch (Exception e) {
 	    	JOptionPane.showMessageDialog(null, "Error al cargar las etc", "Error", JOptionPane.ERROR_MESSAGE);
@@ -122,7 +121,6 @@ public class GUIAltaActividad extends JInternalFrame {
 				}
 				else {
 					String nombreInstitucion = (String) cmbInstituciones.getSelectedItem();
-					InstitucionDeportiva institucion = iInstitucion.buscarInstitucionDeportiva(nombreInstitucion);
 					String nombre = textFieldNombre.getText();
 					String descripcion = textFieldDescripcion.getText();
 					//TO DO: Exception para los int
@@ -132,7 +130,7 @@ public class GUIAltaActividad extends JInternalFrame {
 					lblError2.setVisible(false);
 					lblActividadIngresada.setVisible(true);
 					
-					iActividad.altaActividadDeportiva(institucion, nombre, descripcion, duracion, costo, new Date());
+					iActividad.altaActividadDeportiva(iInstitucion.buscarInstitucionDeportiva(nombreInstitucion), nombre, descripcion, duracion, costo, new Date());
 				}
 				
 			}

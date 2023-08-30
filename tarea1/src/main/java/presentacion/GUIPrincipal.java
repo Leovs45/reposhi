@@ -94,7 +94,7 @@ public class GUIPrincipal {
 		frame.getContentPane().add(altaActividadInternalFrame);
 		
 		// Crea frame de alta clase
-		altaClaseInternalFrame = new GUIAltaDictadoClase(iClase,iInstitucion); 
+		altaClaseInternalFrame = new GUIAltaDictadoClase(iClase,iInstitucion, iActividad); 
 		jInternalFrameSize = altaClaseInternalFrame.getSize();
 		altaClaseInternalFrame.setLocation((desktopSize.width - jInternalFrameSize.width)/2
 				,(desktopSize.height - jInternalFrameSize.height)/2);

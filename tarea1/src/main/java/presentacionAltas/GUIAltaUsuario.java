@@ -3,33 +3,30 @@ package presentacionAltas;
 import java.awt.EventQueue;
 import interfaces.IUsuario;
 import interfaces.IInstitucionDeportiva;
-import logica.InstitucionDeportiva;
-
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import java.awt.Font;
 import javax.swing.JTextField;
-import com.toedter.calendar.JCalendar;
-import com.toedter.calendar.JDateChooser;
-import javax.swing.JRadioButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import javax.swing.JTable;
 import javax.swing.JList;
 import javax.swing.SwingConstants;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import java.awt.Color;
 import javax.swing.DefaultListModel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.BevelBorder;
+import javax.swing.JRadioButton;
+import java.awt.Font;
+import java.awt.Color;
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 
 public class GUIAltaUsuario extends JInternalFrame {
 	private JTextField textFieldNickname;
@@ -125,11 +122,11 @@ public class GUIAltaUsuario extends JInternalFrame {
 		scrollPane.setViewportView(listaInstitucion);
 		listaInstitucion.setEnabled(false);
 		
-		List<InstitucionDeportiva> instituciones = iInstitucion.getInstituciones();
+		List<String> instituciones = iInstitucion.getListaNombreInstituciones();
 
 		DefaultListModel<String> milista = new DefaultListModel<String>();
-		for(InstitucionDeportiva id: instituciones) {
-			milista.addElement(id.getNombre());
+		for(String id: instituciones) {
+			milista.addElement(id);
 		}
 		listaInstitucion.setModel(milista);
 		JLabel lblDescripcion = new JLabel("Descripcion: ");
@@ -278,16 +275,14 @@ public class GUIAltaUsuario extends JInternalFrame {
 							lblUsuarioIngresado.setVisible(false);
 						}
 						else {
-							String nombreInstitucion = listaInstitucion.getSelectedValue().toString();
-							InstitucionDeportiva institucionD = iInstitucion.buscarInstitucionDeportiva(nombreInstitucion);
-							
+							String nombreInstitucion = listaInstitucion.getSelectedValue().toString();							
 							String descripcion = textFieldDescripcion.getText();
 							String biografia = textFieldBiografia.getText();
 							String sitioweb = textFieldSitioWeb.getText();
 							lblError1.setVisible(false);
 							lblError2.setVisible(false);
 							lblUsuarioIngresado.setVisible(true);
-							iUsuario.altaUsuario( nickname, nombre, apellido, email, fechaNac , institucionD, descripcion, biografia, sitioweb);
+							iUsuario.altaUsuario( nickname, nombre, apellido, email, fechaNac , iInstitucion.buscarInstitucionDeportiva(nombreInstitucion), descripcion, biografia, sitioweb);
 	
 						}
 					}

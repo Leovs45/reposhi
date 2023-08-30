@@ -21,6 +21,6 @@ public interface IActividadDeportiva {
 	public void agregarActividad(ActividadDeportiva actividad);
 	List<ActividadDeportiva> getActividades();
 	ActividadDeportiva buscarActividadDeportiva(String nombreActividad);
-
+	public boolean existeClaseEnActividad(String nombreActividad, String nombreClase);
 	List<ActividadDeportiva> consultaActividadDeportiva(String institucion);
 }

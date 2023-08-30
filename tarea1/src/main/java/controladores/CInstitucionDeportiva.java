@@ -86,11 +86,45 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 		}
 	}
 	
+	public List<String> getListaNombreInstituciones() {
+		List<String> institucion = new ArrayList<>();
+		for(InstitucionDeportiva ins : instituciones) {
+			institucion.add(ins.getNombre());
+		}
+		return institucion;
+	}
+	
+	public boolean existeInstitucion(String nombre) {
+		boolean existe = false;
+		for(InstitucionDeportiva i: instituciones) {
+			if (nombre.equals(i.getNombre()))
+				existe=true;
+		}
+
+		return existe;
+	}
+	
 	public List<InstitucionDeportiva> getListaInstituciones(){
 		
 		return instituciones;
-	} 
+	}
+	@Override
+	public ActividadDeportiva obtenerActividadDeUnaInstitucion(String nombreInstitucion, String nombreActividad) {
+		ActividadDeportiva act;
+		InstitucionDeportiva ins = buscarInstitucionDeportiva(nombreInstitucion);
+		act = ins.buscarActividadDeportiva(nombreActividad);
+		return act;
+	}
+	
 
+	public List<String> obtenerActividadesDeUnaInstitucion(String nombre){
+		List<String> asd = new ArrayList<>();
+		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombre);
+		List<ActividadDeportiva> actividades = institucion.getArrayActividadDeportiva();
+		for(ActividadDeportiva act: actividades)
+			asd.add(act.getNombre());
+		return asd;
+	}
 	public List<InstitucionDeportiva> getInstituciones() {
 		return instituciones;
 	}

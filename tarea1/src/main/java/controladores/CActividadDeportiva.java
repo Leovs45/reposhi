@@ -60,6 +60,7 @@ public class CActividadDeportiva implements IActividadDeportiva {
 		return buscarClase(nombre);
 	
 	}
+	
 	/**********************************/
 	// OPCIONALES
 	/**********************************/
@@ -114,5 +115,14 @@ public class CActividadDeportiva implements IActividadDeportiva {
 	public List<ActividadDeportiva> getActividades() {
 		return actividades;
 	}
-
+	public boolean existeClaseEnActividad(String nombreActividad, String nombreClase) {
+		boolean coso = false;
+		ActividadDeportiva act = buscarActividadDeportiva(nombreActividad);
+		List<Clase>clases = act.getArrayClase();
+		for(Clase c : clases) {
+			if(nombreClase.equals(c.getNombreClase()))
+				coso=true;
+		}
+		return coso;
+	}
 }

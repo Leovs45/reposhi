@@ -8,25 +8,26 @@ import logica.Clase;
 import logica.InstitucionDeportiva;
 
 public class DtActividad{
-    private String institucion;
+    private InstitucionDeportiva institucion;
     private String nombre;
     private String descripcion;
     private int duracionMinutos;
     private double costo;
     private Date fechaRegistro;
-    private List<Clase> arrayClase;
+    private List<Clase> clases;
     
-    public DtActividad(String institucion, String nombre, String descripcion, int duracionMinutos, double costo, Date fechaRegistro){
+    public DtActividad(InstitucionDeportiva institucion, String nombre, String descripcion, int duracionMinutos, double costo, Date fechaRegistro, List<Clase> clases){
     	this.institucion = institucion;
     	this.nombre = nombre;
     	this.descripcion = descripcion;
     	this.duracionMinutos = duracionMinutos;
     	this.costo = costo;
     	this.fechaRegistro = fechaRegistro;
+    	this.clases = clases;
     }
 
-	public String getInstitucion() {
-		return institucion;
+	public DtInstitucion getInstitucion() {
+		return institucion.getDtInstitucion();
 	}
 
 	public String getNombre() {
@@ -48,6 +49,14 @@ public class DtActividad{
 	public Date getFechaRegistro() {
 		return fechaRegistro;
 	}
-    
-    
+	
+	public List<DtClase> getClases() {
+		List<DtClase> dtClases = new ArrayList<>();
+		
+		for(Clase clase: clases) {
+			dtClases.add(clase.getDtClase());
+		}
+		
+		return dtClases;
+	}
 }

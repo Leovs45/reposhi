@@ -16,12 +16,25 @@ public class DtClase {
 		this.url = url;
 		this.fechaRegistro = fechaRegistro;
 	}
+	
 	public String getNombre() {
 		return nombre;
 	}
 
 	public String getUrl() {
 		return url;
+	}
+	
+	public Date getFechaClase() {
+		return fechaClase;
+	}
+	
+	public String getHoraInicio() {
+		return horaInicio;
+	}
+
+	public Date getFechaRegistro() {
+		return fechaRegistro;
 	}
 
 }

@@ -3,9 +3,13 @@ import logica.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import datatypes.DtProfesor;
+import datatypes.DtSocio;
+import datatypes.DtUsuario;
 import interfaces.IUsuario;
 
-public class CUsuario implements IUsuario{
+public class CUsuario implements IUsuario {
 	private List<Usuario> usuarios = new ArrayList<>();
 	
 	private static CUsuario instancia = null;
@@ -87,8 +91,14 @@ public class CUsuario implements IUsuario{
 	}
 	
 	@Override
-	public List<Usuario> getUsuarios() {
-		return usuarios;
+	public List<DtUsuario> getUsuarios() {
+		List<DtUsuario> dtUsuarios = new ArrayList<>();
+		
+		for(Usuario u: usuarios) {
+			dtUsuarios.add(u.getDtUsuario());
+		}
+		
+		return dtUsuarios;
 	}
 
 	@Override
@@ -156,4 +166,62 @@ public class CUsuario implements IUsuario{
 		return usuarios.size() != 0;
 	}
 	
+	@Override 
+	public List<String> obtenerArrayNicknames() {
+		List nicknames = new ArrayList<>();
+			
+		for(Usuario u: usuarios) {
+			nicknames.add(u.getNickname());
+		}
+		
+		return nicknames;
+	}
+	
+	@Override
+	public DtUsuario getDtUsuario(String nickname) {
+		Usuario user = buscarUsuario(nickname);
+		
+		return new DtUsuario(user.getNickname(), user.getNombre(), user.getApellido(), user.getCorreoElectronico(), user.getFechaNacimiento());
+	}
+	
+	@Override
+	public boolean esSocio(String nickname) {
+		Usuario usuario = buscarUsuario(nickname);
+		boolean esSocio;
+		if(usuario instanceof Socio) {
+			esSocio = true;
+		} else {
+			esSocio = false;
+		}
+		return esSocio;
+	}
+	
+	@Override
+	public DtSocio getDtSocio(String nickname) {
+		Usuario user = buscarUsuario(nickname);
+		
+		Socio socio = (Socio) user;
+		
+		return socio.getDtSocio();
+	}
+	
+	@Override 
+	public DtProfesor getDtProfesor(String nickname) {
+		Usuario user = buscarUsuario(nickname);
+		
+		Profesor profesor = (Profesor) user;
+		
+		return profesor.getDtProfesor();
+	}
+	
+	@Override
+	public boolean existeUsuario(String nickname) {
+		Usuario user = buscarUsuario(nickname);
+		
+		if(user == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 }

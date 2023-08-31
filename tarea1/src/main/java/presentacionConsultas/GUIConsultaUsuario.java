@@ -7,13 +7,10 @@ import interfaces.IActividadDeportiva;
 import interfaces.IClase;
 import interfaces.IInstitucionDeportiva;
 import interfaces.IUsuario;
-import logica.ActividadDeportiva;
-import logica.Clase;
-import logica.InstitucionDeportiva;
-import logica.Profesor;
-import logica.Registro;
-import logica.Socio;
-import logica.Usuario;
+
+import datatypes.DtSocio;
+import datatypes.DtProfesor;
+import datatypes.DtRegistro;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JFormattedTextField;
@@ -21,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import datatypes.DtActividad;
+import datatypes.DtClase;
 
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -45,7 +43,7 @@ public class GUIConsultaUsuario extends JInternalFrame {
 	private JTable tablaClases;
 	private JTable tablaRegistro;
 	JComboBox cmbUsuarios = new JComboBox();
-	List<Usuario> usuarios = new ArrayList<>();
+	List<String> usuarios = new ArrayList<>();
 	JLabel labelNickname = new JLabel("Nickname:");
 	JLabel labelNombre = new JLabel("Nombre:");
 	JLabel labelApellido = new JLabel("Apellido:");
@@ -71,12 +69,10 @@ public class GUIConsultaUsuario extends JInternalFrame {
 			@Override
 			public void componentShown(ComponentEvent e) {
 				cmbUsuarios.removeAllItems();
-				List<Usuario> usuariosNuevos = new ArrayList<>();
-				usuariosNuevos = iUsuario.getUsuarios();
-				usuarios = usuariosNuevos;
+				usuarios = iUsuario.obtenerArrayNicknames();
 					
-				for(Usuario u: usuarios) {
-					cmbUsuarios.addItem(u.getNickname());
+				for(String u: usuarios) {
+					cmbUsuarios.addItem(u);
 				}
 				
 				cmbUsuarios.setSelectedIndex(-1);	
@@ -94,6 +90,9 @@ public class GUIConsultaUsuario extends JInternalFrame {
 		JLabel lblConsultarUsuario = new JLabel("Consultar usuario:");
 		lblConsultarUsuario.setBounds(31, 35, 132, 15);
 		getContentPane().add(lblConsultarUsuario);
+		
+		DefaultListModel<String> lista = new DefaultListModel<String>();
+
 
 		cmbUsuarios.setBounds(141, 32, 176, 21);
 		getContentPane().add(cmbUsuarios);
@@ -187,17 +186,18 @@ public class GUIConsultaUsuario extends JInternalFrame {
 		
 		cmbUsuarios.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				String nombreUsuario = (String) cmbUsuarios.getSelectedItem();
-				Usuario usuario = iUsuario.buscarUsuario(nombreUsuario);
-				if(usuario != null) {
-					nickname.setText(usuario.getNickname());
-					nombre.setText(usuario.getNombre());
-					apellido.setText(usuario.getApellido());
-					email.setText(usuario.getCorreoElectronico());
-					fechaNac.setText(usuario.getFechaNacimiento().toString());
+				String nicknameUsuario = (String) cmbUsuarios.getSelectedItem();
+				
+				if(nicknameUsuario != null) {
+					boolean esSocio = iUsuario.esSocio(nicknameUsuario);
 					
-					if(usuario instanceof Socio) {
-						Socio socio = (Socio) usuario;
+					if(esSocio) {
+						DtSocio socio = iUsuario.getDtSocio(nicknameUsuario);
+						nickname.setText(socio.getNickname());
+						nombre.setText(socio.getNombre());
+						apellido.setText(socio.getApellido());
+						email.setText(socio.getCorreoElectronico());
+						fechaNac.setText(socio.getFechaNacimiento().toString());
 						labelRegistros.setVisible(true);
 						labelDescripcion.setVisible(false);
 						labelBiografia.setVisible(false);
@@ -208,17 +208,19 @@ public class GUIConsultaUsuario extends JInternalFrame {
 						descripcion.setText("");
 						biografia.setText("");
 						sitioWeb.setText("");
-
+						
 						modelRegistro.setRowCount(0);
-						List<Registro> registros = socio.getArrayRegistro();
-						for (Registro r: registros) {
-							modelRegistro.addRow(new Object[] {r.getclase().getNombreClase(), r.getfechaRegistro().toString()});
+						
+						List<DtRegistro> registros = socio.getRegistros();
+						for (DtRegistro r: registros) {
+							modelRegistro.addRow(new Object[] {r.getClase().getNombre(), r.getFechaRegistro().toString()});
 						}
 
 						tablaRegistro.setVisible(true);
 						scrollPaneRegistros.setVisible(true);
 					} else {
-						Profesor profesor = (Profesor) usuario;
+						DtProfesor profesor = iUsuario.getDtProfesor(nicknameUsuario);
+						
 						labelRegistros.setVisible(false);
 						labelDescripcion.setVisible(true);
 						labelBiografia.setVisible(true);
@@ -231,14 +233,15 @@ public class GUIConsultaUsuario extends JInternalFrame {
 						sitioWeb.setText(profesor.getSitioWeb());
 						
 						modelClases.setRowCount(0);
-						List<Clase> clases = profesor.getArrayClases();
-						for(Clase c: clases) {
-							modelClases.addRow(new Object[] {c.getNombreClase(), c.getFechaClase().toString(), c.getHoraInicio()});
+						List<DtClase> clases = profesor.getClases();
+						for(DtClase c: clases) {
+							modelClases.addRow(new Object[] {c.getNombre(), c.getFechaClase().toString(), c.getHoraInicio()});
 						}
 
 						tablaClases.setVisible(true);
 						scrollPaneClases.setVisible(true);
 					}
+					
 				} else {
 					nickname.setText("");
 					nombre.setText("");

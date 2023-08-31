@@ -1,6 +1,5 @@
 package presentacionModificacion;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
@@ -12,7 +11,6 @@ import java.util.Date;
 import javax.swing.JInternalFrame;
 
 import interfaces.IUsuario;
-import logica.Usuario;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,6 +20,9 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
+
+import datatypes.DtUsuario;
+
 import java.awt.Button;
 import javax.swing.JButton;
 import java.awt.event.ItemListener;
@@ -30,7 +31,7 @@ import java.awt.event.ItemEvent;
 public class GUIModificarUsuario extends JInternalFrame {
 	private JTextField textField;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	List<Usuario> usuarios = new ArrayList<>();
+	List<DtUsuario> usuarios = new ArrayList<>();
 	JLabel labelUsuario = new JLabel("Usuario:");
 	JLabel labelModificar1 = new JLabel("¿Qué deseas");
 	JLabel labelModificar2 = new JLabel("modificar?");
@@ -54,11 +55,9 @@ public class GUIModificarUsuario extends JInternalFrame {
 			public void componentShown(ComponentEvent e) {
 				System.out.println("InternalFrame se hizo visible");
 				cmbUsuarios.removeAllItems();
-				List<Usuario> usuariosNuevos = new ArrayList<>();
-				usuariosNuevos = iUsuario.getUsuarios();
-				usuarios = usuariosNuevos;
+				usuarios = iUsuario.getUsuarios();
 					
-				for(Usuario u: usuarios) {
+				for(DtUsuario u: usuarios) {
 					cmbUsuarios.addItem(u.getNickname());
 				}
 				
@@ -145,9 +144,9 @@ public class GUIModificarUsuario extends JInternalFrame {
 		cmbUsuarios.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				String opcion = (String) cmbUsuarios.getSelectedItem();
-				String nombreUsuario = (String) cmbUsuarios.getSelectedItem();
-				Usuario usuario = iUsuario.buscarUsuario(nombreUsuario);
-				if(usuario == null || opcion == null) {
+				String nicknameUsuario = (String) cmbUsuarios.getSelectedItem();
+				
+				if(nicknameUsuario == null || opcion == null) {
 					nombre.setText("");
 					apellido.setText("");
 					fecha.setText("");
@@ -162,14 +161,33 @@ public class GUIModificarUsuario extends JInternalFrame {
 					btnAceptar.setVisible(false);
 					dateFecha.setVisible(false);
 				} else {
-					nombre.setText(usuario.getNombre());
-					apellido.setText(usuario.getApellido());
-					fecha.setText(usuario.getFechaNacimiento().toString());
-					rdbtnNombre.setVisible(true);
-					rdbtnApellido.setVisible(true);
-					rdbtnFecha.setVisible(true);
-					labelModificar1.setVisible(true);
-					labelModificar2.setVisible(true);
+					boolean existeUsuario = iUsuario.existeUsuario(nicknameUsuario);
+					
+					if(!existeUsuario) {
+						nombre.setText("");
+						apellido.setText("");
+						fecha.setText("");
+						rdbtnNombre.setVisible(false);
+						rdbtnApellido.setVisible(false);
+						rdbtnFecha.setVisible(false);
+						labelModificar1.setVisible(false);
+						labelModificar2.setVisible(false);
+						textField.setVisible(false);
+						textField.setText("");
+						labelModificar.setVisible(false);
+						btnAceptar.setVisible(false);
+						dateFecha.setVisible(false);
+					} else {
+						DtUsuario usuario = iUsuario.getDtUsuario(nicknameUsuario);
+						nombre.setText(usuario.getNombre());
+						apellido.setText(usuario.getApellido());
+						fecha.setText(usuario.getFechaNacimiento().toString());
+						rdbtnNombre.setVisible(true);
+						rdbtnApellido.setVisible(true);
+						rdbtnFecha.setVisible(true);
+						labelModificar1.setVisible(true);
+						labelModificar2.setVisible(true);
+					}
 				}
 			}
 		});
@@ -216,11 +234,10 @@ public class GUIModificarUsuario extends JInternalFrame {
 					if(textField.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Completa todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
 					} else {
-						String nickname = (String) cmbUsuarios.getSelectedItem();
-						Usuario usuario = iUsuario.buscarUsuario(nickname);
+						String nicknameUsuario = (String) cmbUsuarios.getSelectedItem();
 						String nuevoNombre = textField.getText();
-						iUsuario.modificarNombre(nickname, nuevoNombre);
-						nombre.setText(usuario.getNombre());
+						iUsuario.modificarNombre(nicknameUsuario, nuevoNombre);
+						nombre.setText(nuevoNombre);
 						JOptionPane.showMessageDialog(null, "El nombre fue modificado exitosamente", "Success", JOptionPane.INFORMATION_MESSAGE);
 					}
 				} else if (rdbtnApellido.isSelected()) {
@@ -228,10 +245,9 @@ public class GUIModificarUsuario extends JInternalFrame {
 						JOptionPane.showMessageDialog(null, "Completa todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
 					}else {
 						String nickname = (String) cmbUsuarios.getSelectedItem();
-						Usuario usuario = iUsuario.buscarUsuario(nickname);
 						String nuevoApellido = textField.getText();
 						iUsuario.modificarApellido(nickname, nuevoApellido);
-						apellido.setText(usuario.getApellido());
+						apellido.setText(nuevoApellido);
 						JOptionPane.showMessageDialog(null, "El apellido fue modificado exitosamente", "Success", JOptionPane.INFORMATION_MESSAGE);
 					}
 				} else if (rdbtnFecha.isSelected()) {
@@ -239,10 +255,9 @@ public class GUIModificarUsuario extends JInternalFrame {
 						JOptionPane.showMessageDialog(null, "Completa todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
 					} else {
 						String nickname = (String) cmbUsuarios.getSelectedItem();
-						Usuario usuario = iUsuario.buscarUsuario(nickname);
 						Date nuevaFecha = dateFecha.getDate();
 						iUsuario.modificarFechaNacimiento(nickname, nuevaFecha);
-						fecha.setText(usuario.getFechaNacimiento().toString());
+						fecha.setText(nuevaFecha.toString());
 						JOptionPane.showMessageDialog(null, "La fecha de nacimiento fue modificada exitosamente", "Success", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}

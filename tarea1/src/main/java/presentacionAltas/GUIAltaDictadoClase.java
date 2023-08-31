@@ -111,11 +111,8 @@ public class GUIAltaDictadoClase extends JInternalFrame {
                 String str2 = (String) cmbActividades.getSelectedItem();
 
                 if (!iActividad.existeClaseEnActividad(str2, textNombre.getText())) {
-                	System.out.println("test2");
                 	if(iUsuario.existeUsuario(textProfesor.getText())) {
-                		System.out.println("test3");
                 		if(iUsuario.esProfesor(textProfesor.getText())) {
-	                		System.out.println("test4");
 		                    iClase.altaDictadoClase(textNombre.getText().toString(), iInstitucion.obtenerActividadDeUnaInstitucion(str, str2), fechaActual, textProfesor.getText(), textHora.getText(), textUrl.getText(), fechaActual);
 		                    JOptionPane.showMessageDialog(null, "Se creó la clase.", textNombre.getText(), JOptionPane.INFORMATION_MESSAGE);
 		                    pegarLimpieza();

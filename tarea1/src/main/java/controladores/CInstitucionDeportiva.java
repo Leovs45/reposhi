@@ -8,6 +8,8 @@ import interfaces.IInstitucionDeportiva;
 import logica.ActividadDeportiva;
 import logica.InstitucionDeportiva;
 import datatypes.DtActividad;
+import datatypes.DtClase;
+import datatypes.DtInstitucion;
 
 public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 	
@@ -121,16 +123,16 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 		
 		return instituciones;
 	}
+
 	@Override
 	public DtActividad obtenerActividadDeUnaInstitucion(String nombreInstitucion, String nombreActividad) {
 		ActividadDeportiva act;
 		InstitucionDeportiva ins = buscarInstitucionDeportiva(nombreInstitucion);
 		act = ins.buscarActividadDeportiva(nombreActividad);
-		DtActividad dtAct = new	DtActividad(ins.getNombre(), act.getNombre(), act.getDescripcion() , act.getDuracionMinutos(), act.getCosto(), act.getFechaRegistro());
+		DtActividad dtAct = new	DtActividad(ins, act.getNombre(), act.getDescripcion(), act.getDuracionMinutos(), act.getCosto(), act.getFechaRegistro(), act.getArrayClase());
 		return dtAct;
 	}
 	
-
 	public List<String> obtenerActividadesDeUnaInstitucion(String nombre){
 		List<String> asd = new ArrayList<>();
 		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombre);
@@ -139,10 +141,68 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 			asd.add(act.getNombre());
 		return asd;
 	}
+	
 	public List<InstitucionDeportiva> getInstituciones() {
 		return instituciones;
 	}
 	
+	@Override
+	public List<String> obtenerActividadesDeUnaInstitucion(String nombre){
+		List<String> asd = new ArrayList<>();
+		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombre);
+		List<ActividadDeportiva> actividades = institucion.getArrayActividadDeportiva();
+		for(ActividadDeportiva act: actividades)
+			asd.add(act.getNombre());
+		return asd;
+	}
 	
+	@Override
+	public List<DtInstitucion> getInstituciones() {
+		List<DtInstitucion> dtInstituciones = new ArrayList<>();
+		
+		for(InstitucionDeportiva inst: instituciones) {
+			dtInstituciones.add(inst.getDtInstitucion());
+		}
+		
+		return dtInstituciones;
+	}
+	
+	@Override
+	public boolean existeActividadEnInstitucion(String nombreInstitucion, String nombreActividad) {
+		ActividadDeportiva actividad = buscarActividadDeportiva(nombreInstitucion, nombreActividad);
+		
+		if(actividad == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	@Override
+	public List<String> obtenerClasesDeActividad(String nombreInstitucion, String nombreActividad) {
+		List<String> nombresClases = new ArrayList<>();
+		ActividadDeportiva actividad = buscarActividadDeportiva(nombreInstitucion, nombreActividad);
+		return actividad.obtenerListaClases();
+	}
+	
+	@Override
+	public boolean existeClaseDeActividad(String nombreInstitucion, String nombreActividad, String nombreClase) {
+		ActividadDeportiva actividad = buscarActividadDeportiva(nombreInstitucion, nombreActividad);
+		return actividad.existeClase(nombreClase);
+		
+	}
+	
+	@Override 
+	public DtClase obtenerDtClase(String nombreInstitucion, String nombreActividad, String nombreClase) {
+		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombreInstitucion);
+		ActividadDeportiva actividad = institucion.buscarActividadDeportiva(nombreActividad);
+		return actividad.obtenerDtClase(nombreClase);
+	}
+	
+	@Override
+	public DtInstitucion getDtInstitucion(String nombreInstitucion) {
+		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombreInstitucion);
+		return institucion.getDtInstitucion();
+	}
 	
 }

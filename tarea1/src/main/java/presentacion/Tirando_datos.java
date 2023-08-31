@@ -224,20 +224,22 @@ public class Tirando_datos{
 		System.out.println("========================================");
 
 		
-		//TODO borrar
-				// Creo institucion
+		
+		//--------------------------------
+		// Creo institucion
 				iInstitucion.altaInstitucionDeportiva("i1", "descripcion", "url");
 				iInstitucion.altaInstitucionDeportiva("i2", "descripcion", "url");
 				
 				// Creo usuario
-				iu.altaUsuario("Mei", "Maite", "Martinez", "mail@false.com", new Date());
+				IUsuario iUsuario = f.getIUsuario();
+				iUsuario.altaUsuario("Mei", "Maite", "Martinez", "mail@false.com", new Date());
 				InstitucionDeportiva i1 = iInstitucion.buscarInstitucionDeportiva("i1");
 				InstitucionDeportiva i2 = iInstitucion.buscarInstitucionDeportiva("i2");
-				iu.altaUsuario("Profe", "Profesor", "Profesoro", "otro@mail.com", new Date(), i1, "Descripcion", "Bio", "sitio web");
-				iu.altaUsuario("Profa", "Profesora", "Profesorara", "otro@mail.com", new Date(), i2, "Descripcion", "Bio", "sitio web");
+				iUsuario.altaUsuario("Profe", "Profesor", "Profesoro", "otro@mail.com", new Date(), i1, "Descripcion", "Bio", "sitio web");
+				iUsuario.altaUsuario("Profa", "Profesora", "Profesorara", "otro@mail.com", new Date(), i2, "Descripcion", "Bio", "sitio web");
 				
-				Usuario user1 = iu.buscarUsuario("Profe");
-				Usuario user2 = iu.buscarUsuario("Profa");
+				Usuario user1 = iUsuario.buscarUsuario("Profe");
+				Usuario user2 = iUsuario.buscarUsuario("Profa");
 				
 				Profesor profe1 = (Profesor) user1;
 				Profesor profe2 = (Profesor) user2;
@@ -253,20 +255,17 @@ public class Tirando_datos{
 				ActividadDeportiva a2 = i2.buscarActividadDeportiva("a2");
 				ActividadDeportiva a4 = i2.buscarActividadDeportiva("a4");
 				
-				DtActividad dtA1 = new DtActividad(i1.getNombre(), a1.getNombre(), a1.getDescripcion(), a1.getDuracionMinutos(), a1.getCosto(), a1.getFechaRegistro());
-				DtActividad dtA2 = new DtActividad(i2.getNombre(), a2.getNombre(), a2.getDescripcion(), a2.getDuracionMinutos(), a2.getCosto(), a2.getFechaRegistro());
-				DtActividad dtA3 = new DtActividad(i1.getNombre(), a3.getNombre(), a3.getDescripcion(), a3.getDuracionMinutos(), a3.getCosto(), a3.getFechaRegistro());
-				DtActividad dtA4 = new DtActividad(i2.getNombre(), a4.getNombre(), a4.getDescripcion(), a4.getDuracionMinutos(), a4.getCosto(), a4.getFechaRegistro());
+				DtActividad dtA1 = a1.getDtActividad();
+				DtActividad dtA2 = a2.getDtActividad();
+				DtActividad dtA3 = a3.getDtActividad();
+				DtActividad dtA4 = a4.getDtActividad();
 				
 				// Creo clases
-				
 				iClase.altaDictadoClase("c1", dtA1, new Date(), profe1.getNickname(), "12:00", "url", new Date());
 				iClase.altaDictadoClase("c3", dtA1, new Date(), profe1.getNickname(), "12:00", "url", new Date());
 				iClase.altaDictadoClase("c5", dtA3, new Date(), profe1.getNickname(), "12:00", "url", new Date());
 				iClase.altaDictadoClase("c2", dtA2, new Date(), profe2.getNickname(), "12:00", "url", new Date());
 				iClase.altaDictadoClase("c4", dtA4, new Date(), profe2.getNickname(), "12:00", "url", new Date());
-						
-		
 	}
 	
 

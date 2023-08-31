@@ -1,6 +1,5 @@
 package presentacionModificacion;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
@@ -9,8 +8,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
-
-import logica.InstitucionDeportiva;
 
 import javax.swing.JInternalFrame;
 
@@ -23,11 +20,13 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
+import datatypes.DtInstitucion;
+
 public class GUIModificarInstitucion extends JInternalFrame {
 	JComboBox cmbInstituciones = new JComboBox();
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JTextField textField;
-	List<InstitucionDeportiva> instituciones = new ArrayList<>();
+	List<DtInstitucion> instituciones = new ArrayList<>();
 	
 	private void setupActions(IInstitucionDeportiva iInstitucion) {
 		addComponentListener(new ComponentAdapter() {
@@ -36,7 +35,7 @@ public class GUIModificarInstitucion extends JInternalFrame {
 				cmbInstituciones.removeAllItems();
 				instituciones = iInstitucion.getInstituciones();
 				
-				for (InstitucionDeportiva i: instituciones) {
+				for (DtInstitucion i: instituciones) {
 					cmbInstituciones.addItem(i.getNombre());
 				}
 				
@@ -125,9 +124,8 @@ public class GUIModificarInstitucion extends JInternalFrame {
 		cmbInstituciones.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				String nombreInstitucion = (String) cmbInstituciones.getSelectedItem();
-				InstitucionDeportiva institucion = iInstitucion.buscarInstitucionDeportiva(nombreInstitucion);
 				
-				if(institucion == null) {
+				if(nombreInstitucion == null) {
 					labelModificar1.setVisible(false);
 					labelModificar2.setVisible(false);
 					radioBtnDescripcion.setVisible(false);
@@ -138,13 +136,28 @@ public class GUIModificarInstitucion extends JInternalFrame {
 					url.setText("");
 					modificar.setText("");
 				} else {
-					nombre.setText(institucion.getNombre());
-					descripcion.setText(institucion.getDescripcion());
-					url.setText(institucion.getUrl());
-					labelModificar1.setVisible(true);
-					labelModificar2.setVisible(true);
-					radioBtnDescripcion.setVisible(true);
-					radioBtnUrl.setVisible(true);
+					boolean existeInstitucion = iInstitucion.existeInstitucion(nombreInstitucion);
+					
+					if(!existeInstitucion) {
+						labelModificar1.setVisible(false);
+						labelModificar2.setVisible(false);
+						radioBtnDescripcion.setVisible(false);
+						radioBtnUrl.setVisible(false);
+						textField.setVisible(false);
+						nombre.setText("");
+						descripcion.setText("");
+						url.setText("");
+						modificar.setText("");
+					} else {
+						DtInstitucion institucion = iInstitucion.getDtInstitucion(nombreInstitucion);
+						nombre.setText(institucion.getNombre());
+						descripcion.setText(institucion.getDescripcion());
+						url.setText(institucion.getUrl());
+						labelModificar1.setVisible(true);
+						labelModificar2.setVisible(true);
+						radioBtnDescripcion.setVisible(true);
+						radioBtnUrl.setVisible(true);
+					}
 				}
 			}
 		});

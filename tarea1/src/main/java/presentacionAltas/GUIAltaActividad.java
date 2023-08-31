@@ -6,7 +6,6 @@ import interfaces.IActividadDeportiva;
 import interfaces.IInstitucionDeportiva;
 import java.util.Date;
 import javax.swing.JLabel;
-import java.awt.BorderLayout;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JButton;

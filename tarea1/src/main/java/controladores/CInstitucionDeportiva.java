@@ -1,11 +1,13 @@
 package controladores;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import interfaces.IInstitucionDeportiva;
 import logica.ActividadDeportiva;
 import logica.InstitucionDeportiva;
+import datatypes.DtActividad;
 
 public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 	
@@ -40,7 +42,6 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 				}
 			}
 		}
-
 		return institucion;
 	}
 	
@@ -86,11 +87,54 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 		}
 	}
 	
+	public List<String> getListaNombreInstituciones() {
+		List<String> institucion = new ArrayList<>();
+		for(InstitucionDeportiva ins : instituciones) {
+			institucion.add(ins.getNombre());
+		}
+		return institucion;
+	}
+	
+	public boolean existeInstitucion(String nombre) {
+		boolean existe = false;
+		for(InstitucionDeportiva i: instituciones) {
+			if (nombre.equals(i.getNombre()))
+				existe=true;
+		}
+
+		return existe;
+	}
+	public boolean existeActividadEnUnaInstitucion(String nombreInstitucion, String nombreActividad) {
+		boolean existe = false;
+		ActividadDeportiva act= buscarActividadDeportiva(nombreInstitucion, nombreActividad);
+		if(act != null)
+			existe = true;
+
+		return existe;
+	}
+	
 	public List<InstitucionDeportiva> getListaInstituciones(){
 		
 		return instituciones;
-	} 
+	}
+	@Override
+	public DtActividad obtenerActividadDeUnaInstitucion(String nombreInstitucion, String nombreActividad) {
+		ActividadDeportiva act;
+		InstitucionDeportiva ins = buscarInstitucionDeportiva(nombreInstitucion);
+		act = ins.buscarActividadDeportiva(nombreActividad);
+		DtActividad dtAct = new	DtActividad(ins.getNombre(), act.getNombre(), act.getDescripcion() , act.getDuracionMinutos(), act.getCosto(), act.getFechaRegistro());
+		return dtAct;
+	}
+	
 
+	public List<String> obtenerActividadesDeUnaInstitucion(String nombre){
+		List<String> asd = new ArrayList<>();
+		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombre);
+		List<ActividadDeportiva> actividades = institucion.getArrayActividadDeportiva();
+		for(ActividadDeportiva act: actividades)
+			asd.add(act.getNombre());
+		return asd;
+	}
 	public List<InstitucionDeportiva> getInstituciones() {
 		return instituciones;
 	}

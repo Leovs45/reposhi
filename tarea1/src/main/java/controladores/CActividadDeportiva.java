@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import datatypes.DtClase;
 import interfaces.IActividadDeportiva;
 import logica.ActividadDeportiva;
 import logica.Clase;
@@ -60,6 +61,7 @@ public class CActividadDeportiva implements IActividadDeportiva {
 		return buscarClase(nombre);
 	
 	}
+	
 	/**********************************/
 	// OPCIONALES
 	/**********************************/
@@ -114,5 +116,20 @@ public class CActividadDeportiva implements IActividadDeportiva {
 	public List<ActividadDeportiva> getActividades() {
 		return actividades;
 	}
-
+	public boolean existeClaseEnActividad(String nombreActividad, String nombreClase) {
+		boolean existe = false;
+		ActividadDeportiva act = buscarActividadDeportiva(nombreActividad);
+		List<Clase>clases = act.getArrayClase();
+		for(Clase c : clases) {
+			if(nombreClase.equals(c.getNombreClase()))
+				existe=true;
+		}
+		return existe;
+	}
+	public List<DtClase> getarrDtClase(String nombreActividad) {
+		List<DtClase> asd = new ArrayList<>();
+		ActividadDeportiva a = buscarActividadDeportiva(nombreActividad);
+		asd = a.getDtArrayClase();
+		return asd;
+	}
 }

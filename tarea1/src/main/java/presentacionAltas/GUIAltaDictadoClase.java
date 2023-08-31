@@ -3,22 +3,15 @@ package presentacionAltas;
 import java.util.Date;
 import java.util.List;
 
-import javax.swing.JInternalFrame;
-
 import interfaces.Fabrica;
 import interfaces.IActividadDeportiva;
 import interfaces.IClase;
 import interfaces.IInstitucionDeportiva;
-import logica.ActividadDeportiva;
-import logica.Clase;
-import logica.InstitucionDeportiva;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
-import java.awt.event.ActionEvent;
-
 import javax.swing.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.text.SimpleDateFormat;
+
 
 
 public class GUIAltaDictadoClase extends JInternalFrame {
@@ -47,7 +40,7 @@ public class GUIAltaDictadoClase extends JInternalFrame {
         textUrl.setText("");
     }
 //======================================================================================
-    public GUIAltaDictadoClase(IClase iClase,IInstitucionDeportiva iInstitucion) {
+    public GUIAltaDictadoClase(IClase iClase,IInstitucionDeportiva iInstitucion, IActividadDeportiva iActividad) {
         setTitle("Alta Dictado de Clases");
         setResizable(true);
         setClosable(true);
@@ -114,13 +107,9 @@ public class GUIAltaDictadoClase extends JInternalFrame {
                 // Alta dictado de clases...
                 String str = (String) cmbInstituciones.getSelectedItem();
                 String str2 = (String) cmbActividades.getSelectedItem();
-                InstitucionDeportiva id = iInstitucion.buscarInstitucionDeportiva(str);
-                System.out.println(id.getNombre());
-                System.out.println(str2);
-                ActividadDeportiva ad = id.buscarActividadDeportiva(str2);
 
-                if (ad.buscarClase(textNombre.getText().toString()) == null) {
-                    iClase.altaDictadoClase(textNombre.getText().toString(), ad, fechaActual, textProfesor.getText(), textHora.getText(), textUrl.getText(), fechaActual);
+                if (iActividad.existeClaseEnActividad(str2, textNombre.getText())) {
+                    iClase.altaDictadoClase(textNombre.getText().toString(), iInstitucion.obtenerActividadDeUnaInstitucion(str, str2), fechaActual, textProfesor.getText(), textHora.getText(), textUrl.getText(), fechaActual);
                     JOptionPane.showMessageDialog(null, "Se creó la clase.", textNombre.getText(), JOptionPane.INFORMATION_MESSAGE);
                     pegarLimpieza();
                 } else {
@@ -173,9 +162,9 @@ public class GUIAltaDictadoClase extends JInternalFrame {
        
 //
         try {
-            List<InstitucionDeportiva> ins = iInstitucion.getListaInstituciones();
-            for (InstitucionDeportiva i : ins) {
-                cmbInstituciones.addItem(i.getNombre());
+            List<String> ins = iInstitucion.getListaNombreInstituciones();
+            for (String i : ins) {
+                cmbInstituciones.addItem(i);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -184,13 +173,13 @@ public class GUIAltaDictadoClase extends JInternalFrame {
         cmbInstituciones.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String institucion = (String) cmbInstituciones.getSelectedItem();
-                InstitucionDeportiva iD = iInstitucion.buscarInstitucionDeportiva(institucion);
+                //InstitucionDeportiva iD = iInstitucion.buscarInstitucionDeportiva(institucion);
                 cmbActividades.removeAllItems();
                 try {
                 	//TODO Actividades
-                    List<ActividadDeportiva> actividades = iD.getArrayActividadDeportiva();
-                    for (ActividadDeportiva a : actividades) {
-                        cmbActividades.addItem(a.getNombre());
+                    List<String> actividades = iInstitucion.obtenerActividadesDeUnaInstitucion(institucion);
+                    for (String a : actividades) {
+                        cmbActividades.addItem(a);
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();

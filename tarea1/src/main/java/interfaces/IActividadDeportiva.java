@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import datatypes.DtClase;
 import logica.ActividadDeportiva;
 import logica.Clase;
 import logica.InstitucionDeportiva;
@@ -19,8 +20,10 @@ public interface IActividadDeportiva {
 	public void modificarCosto(ActividadDeportiva actividad, double nuevoCosto);
 	public List<ActividadDeportiva> getRankingActividades();
 	public void agregarActividad(ActividadDeportiva actividad);
-	List<ActividadDeportiva> getActividades();
-	ActividadDeportiva buscarActividadDeportiva(String nombreActividad);
+	public List<ActividadDeportiva> getActividades();
+	public ActividadDeportiva buscarActividadDeportiva(String nombreActividad);
+	public boolean existeClaseEnActividad(String nombreActividad, String nombreClase);
+	public List<ActividadDeportiva> consultaActividadDeportiva(String institucion);
+	public List<DtClase> getarrDtClase(String nombreActividad) ;
 
-	List<ActividadDeportiva> consultaActividadDeportiva(String institucion);
 }

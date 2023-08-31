@@ -3,9 +3,6 @@ package presentacionConsultas;
 import java.util.List;
 import interfaces.IActividadDeportiva;
 import interfaces.IInstitucionDeportiva;
-import logica.ActividadDeportiva;
-import logica.Clase;
-import logica.InstitucionDeportiva;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -16,6 +13,10 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.table.DefaultTableModel;
+
+import datatypes.DtActividad;
+import datatypes.DtClase;
+
 import javax.swing.JTable;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -85,9 +86,9 @@ public class GUIConsultaActividadDeportiva extends JInternalFrame {
         getContentPane().add(lblNewLabel);
  //==========================Cargo combo institucion deportiva ============================================
         try {
-            List<InstitucionDeportiva> ins = iInstitucion.getListaInstituciones();
-            for (InstitucionDeportiva i : ins) {
-                cmbInstituciones.addItem(i.getNombre());
+        	List<String> ins = iInstitucion.getListaNombreInstituciones();
+            for (String i : ins) {
+                cmbInstituciones.addItem(i);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -116,13 +117,12 @@ public class GUIConsultaActividadDeportiva extends JInternalFrame {
         cmbInstituciones.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 String institucion = (String) cmbInstituciones.getSelectedItem();
-                InstitucionDeportiva iD = iInstitucion.buscarInstitucionDeportiva(institucion);
                 cmbActividades.removeAllItems();
                 try {
                 	//TODO Cargo combo de actividades
-                    List<ActividadDeportiva> actividades = iD.getArrayActividadDeportiva();
-                    for (ActividadDeportiva a : actividades) {
-                        cmbActividades.addItem(a.getNombre());
+                	List<String> act = iInstitucion.obtenerActividadesDeUnaInstitucion(institucion);
+                    for (String a : act) {
+                        cmbActividades.addItem(a);
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -135,29 +135,27 @@ public class GUIConsultaActividadDeportiva extends JInternalFrame {
                 String selectedItemActividades = (String) cmbActividades.getSelectedItem();
                 try {
                    if (selectedItemActividades != null) {
-                	   String institucion = (String) cmbInstituciones.getSelectedItem();
-                	   InstitucionDeportiva  id = iInstitucion.buscarInstitucionDeportiva(institucion);
-                	   ActividadDeportiva actividadEncontrada = id.buscarActividadDeportiva(selectedItemActividades);
-                	   
-                        lblNombre.setText("Nombre: " + actividadEncontrada.getNombre());
-						// Formateando fecha
-						SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yy"); 
-						String fecha = dt.format(actividadEncontrada.getFechaRegistro());
-						lblFecha.setText("Fecha: " + fecha);
-						lblDescrip.setText("Descripción: " + actividadEncontrada.getDescripcion());
-						// Formateando un double
-						DecimalFormat decimal = new DecimalFormat("#.00");
-						String costo = decimal.format(actividadEncontrada.getCosto());
-						lblCosto.setText("Costo: " + costo);
-						lblDuracion.setText("Duración: " + actividadEncontrada.getDuracionMinutos());
+                	   String institucion = (String) cmbInstituciones.getSelectedItem();                	   
+                	   DtActividad actividadEncontrada = iInstitucion.obtenerActividadDeUnaInstitucion(institucion, selectedItemActividades);
+                       lblNombre.setText("Nombre: " + actividadEncontrada.getNombre());
+                	   // Formateando fecha
+                	   SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yy"); 
+                	   String fecha = dt.format(actividadEncontrada.getFechaRegistro());
+                	   lblFecha.setText("Fecha: " + fecha);
+                	   lblDescrip.setText("Descripción: " + actividadEncontrada.getDescripcion());
+                	   // Formateando un double
+                	   DecimalFormat decimal = new DecimalFormat("#.00");
+                	   String costo = decimal.format(actividadEncontrada.getCosto());
+                	   lblCosto.setText("Costo: " + costo);
+                	   lblDuracion.setText("Duración: " + actividadEncontrada.getDuracionMinutos());
 
-						List<Clase> clases = actividadEncontrada.getArrayClase();
-						DefaultTableModel tableModel = (DefaultTableModel) tabla.getModel();
-						tableModel.setRowCount(0); // Limpiar las filas existentes
+                	   List<DtClase> clases = iActividad.getarrDtClase(selectedItemActividades);
+                	   DefaultTableModel tableModel = (DefaultTableModel) tabla.getModel();
+                	   tableModel.setRowCount(0); // Limpiar las filas existentes
 
-						for (Clase cls : clases) {
-						    tableModel.addRow(new Object[]{cls.getNombreClase(), cls.getUrlClase()});
-						}
+                	   for (DtClase cls : clases) {
+                		   tableModel.addRow(new Object[]{cls.getNombre(), cls.getUrl()});
+                	   }
                     }
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, "Error al consultar actividades: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

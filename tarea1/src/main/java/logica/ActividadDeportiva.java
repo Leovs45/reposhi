@@ -3,6 +3,7 @@ package logica;
 import java.util.Date;
 import java.util.List;
 
+import datatypes.DtClase;
 import interfaces.Fabrica;
 import interfaces.IActividadDeportiva;
 import interfaces.IClase;
@@ -10,7 +11,7 @@ import interfaces.IClase;
 import java.util.ArrayList;
 
 public class ActividadDeportiva {
-    private String institucion;
+    private InstitucionDeportiva institucion;
     private String nombre;
     private String descripcion;
     private int duracionMinutos;
@@ -22,7 +23,7 @@ public class ActividadDeportiva {
 	public ActividadDeportiva(InstitucionDeportiva institucion2, String nombre, String descripcion, int duracionMinutos, double costo,
 			Date fechaRegistro) {
 		super();
-		this.institucion = institucion2.getNombre();
+		this.institucion = institucion2;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.duracionMinutos = duracionMinutos;
@@ -31,11 +32,11 @@ public class ActividadDeportiva {
 	}
 	
 	//Getters & Setters
-	public String getInstitucion() {
+	public InstitucionDeportiva getInstitucion() {
 		return institucion;
 	}
 
-	public void setInstitucion(String institucion) {
+	public void setInstitucion(InstitucionDeportiva institucion) {
 		this.institucion = institucion;
 	}
 
@@ -81,6 +82,14 @@ public class ActividadDeportiva {
 
 	public List<Clase> getArrayClase() {
 		return clases;
+	}
+	public List<DtClase> getDtArrayClase(){
+		List<DtClase> arrDtClase = new ArrayList<>();
+		for(Clase c: clases) {
+			DtClase dtC = new DtClase(c.getNombreClase(), c.getFechaClase(), c.getHoraInicio(), c.getUrlClase(), c.getFechaRegistro());
+			arrDtClase.add(dtC);
+		}
+		return arrDtClase;
 	}
 
 	public void setArrayClase(List<Clase> arrayClase) {

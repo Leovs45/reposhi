@@ -1,16 +1,16 @@
 package presentacionAltas;
 
 import javax.swing.JInternalFrame;
-
-import interfaces.IInstitucionDeportiva;
-import logica.InstitucionDeportiva;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import interfaces.IInstitucionDeportiva;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
-import javax.swing.JLabel;
+
 
 public class GUIAltaInstitucion extends JInternalFrame {
 	private JTextField textFieldNombre;
@@ -82,10 +82,10 @@ public class GUIAltaInstitucion extends JInternalFrame {
 				if(nombre.isEmpty() || descripcion.isEmpty() || url.isEmpty()) {
 					lblError.setVisible(true);
 					lblInstitucionAgregada.setVisible(false);
+					lblInstitucionYaExiste.setVisible(false);
 				}
 				else {
-					InstitucionDeportiva institucion = iInstitucion.buscarInstitucionDeportiva(nombre);
-					if(institucion != null) {
+					if(iInstitucion.existeInstitucion(nombre)) {
 						lblInstitucionAgregada.setVisible(false);
 						lblError.setVisible(false);
 						lblInstitucionYaExiste.setVisible(true);
@@ -93,6 +93,7 @@ public class GUIAltaInstitucion extends JInternalFrame {
 						iInstitucion.altaInstitucionDeportiva(nombre, descripcion, url);
 						lblInstitucionAgregada.setVisible(true);
 						lblError.setVisible(false);
+						lblInstitucionYaExiste.setVisible(false);
 					}
 				}
 

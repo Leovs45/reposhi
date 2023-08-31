@@ -62,7 +62,7 @@ public class Profesor extends Usuario {
 		if (!clases.contains(c)) {
 	        clases.add(c);
 	    }
-		clases.add(c);
+		
 	}
 	
 	public List<Clase> getArrayClases() {

@@ -11,7 +11,7 @@ import datatypes.DtUsuario;
 public interface IUsuario {
 	public void altaUsuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento, InstitucionDeportiva institucion, String descripcionGeneral, String biografia, String sitioWeb);
 	public void altaUsuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento);
-	public List<Usuario> getUsuarios();
+	public List<DtUsuario> getUsuarios();
 	
 	// Opcionales
 	public void modificarNombre(String nickname, String nuevoNombre);
@@ -31,4 +31,5 @@ public interface IUsuario {
 	public boolean esSocio(String nickname);
 	public DtSocio getDtSocio(String nickname);
 	public DtProfesor getDtProfesor(String nickname);
+	boolean existeUsuario(String nickname);
 }

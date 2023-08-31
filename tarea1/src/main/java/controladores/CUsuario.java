@@ -81,8 +81,14 @@ public class CUsuario implements IUsuario {
 	}
 	
 	@Override
-	public List<Usuario> getUsuarios() {
-		return usuarios;
+	public List<DtUsuario> getUsuarios() {
+		List<DtUsuario> dtUsuarios = new ArrayList<>();
+		
+		for(Usuario u: usuarios) {
+			dtUsuarios.add(u.getDtUsuario());
+		}
+		
+		return dtUsuarios;
 	}
 
 	@Override
@@ -196,5 +202,16 @@ public class CUsuario implements IUsuario {
 		Profesor profesor = (Profesor) user;
 		
 		return profesor.getDtProfesor();
+	}
+	
+	@Override
+	public boolean existeUsuario(String nickname) {
+		Usuario user = buscarUsuario(nickname);
+		
+		if(user == null) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 }

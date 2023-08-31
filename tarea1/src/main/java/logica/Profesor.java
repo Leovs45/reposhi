@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import datatypes.DtProfesor;
+
 public class Profesor extends Usuario {
     private InstitucionDeportiva institucion;
     private String descripcionGeneral;
@@ -93,6 +95,10 @@ public class Profesor extends Usuario {
 				System.out.println("  Actividad: " + c.getActividadDeportiva().getNombre() + "\n  Institucion: " + c.getActividadDeportiva().getInstitucion() + "\n");
 			}
 		}
+	}
+	
+	public DtProfesor getDtProfesor() {
+		return new DtProfesor(getNickname(), getNombre(), getApellido(), getCorreoElectronico(), getFechaNacimiento(), institucion, biografia, biografia, biografia, clases);
 	}
     
 }

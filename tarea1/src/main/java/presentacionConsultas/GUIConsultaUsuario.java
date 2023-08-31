@@ -7,13 +7,10 @@ import interfaces.IActividadDeportiva;
 import interfaces.IClase;
 import interfaces.IInstitucionDeportiva;
 import interfaces.IUsuario;
-import logica.ActividadDeportiva;
-import logica.Clase;
-import logica.InstitucionDeportiva;
-import logica.Profesor;
-import logica.Registro;
-import logica.Socio;
-import logica.Usuario;
+
+import datatypes.DtSocio;
+import datatypes.DtProfesor;
+import datatypes.DtRegistro;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JFormattedTextField;
@@ -21,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import datatypes.DtActividad;
+import datatypes.DtClase;
 
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -45,7 +43,7 @@ public class GUIConsultaUsuario extends JInternalFrame {
 	private JTable tablaClases;
 	private JTable tablaRegistro;
 	JComboBox cmbUsuarios = new JComboBox();
-	List<Usuario> usuarios = new ArrayList<>();
+	List<String> usuarios = new ArrayList<>();
 	JLabel labelNickname = new JLabel("Nickname:");
 	JLabel labelNombre = new JLabel("Nombre:");
 	JLabel labelApellido = new JLabel("Apellido:");
@@ -71,12 +69,10 @@ public class GUIConsultaUsuario extends JInternalFrame {
 			@Override
 			public void componentShown(ComponentEvent e) {
 				cmbUsuarios.removeAllItems();
-				List<Usuario> usuariosNuevos = new ArrayList<>();
-				usuariosNuevos = iUsuario.getUsuarios();
-				usuarios = usuariosNuevos;
+				usuarios = iUsuario.obtenerArrayNicknames();
 					
-				for(Usuario u: usuarios) {
-					cmbUsuarios.addItem(u.getNickname());
+				for(String u: usuarios) {
+					cmbUsuarios.addItem(u);
 				}
 				
 				cmbUsuarios.setSelectedIndex(-1);	
@@ -94,51 +90,6 @@ public class GUIConsultaUsuario extends JInternalFrame {
 		JLabel lblConsultarUsuario = new JLabel("Consultar usuario:");
 		lblConsultarUsuario.setBounds(31, 35, 132, 15);
 		getContentPane().add(lblConsultarUsuario);
-		
-		//TODO borrar
-		Fabrica f = Fabrica.getInstancia();
-		// Creo institucion
-		IInstitucionDeportiva iInstitucion = f.getIInstitucionDeportiva();
-		iInstitucion.altaInstitucionDeportiva("i1", "descripcion", "url");
-		iInstitucion.altaInstitucionDeportiva("i2", "descripcion", "url");
-		
-		// Creo usuario
-		iUsuario.altaUsuario("Mei", "Maite", "Martinez", "mail@false.com", new Date());
-		InstitucionDeportiva i1 = iInstitucion.buscarInstitucionDeportiva("i1");
-		InstitucionDeportiva i2 = iInstitucion.buscarInstitucionDeportiva("i2");
-		iUsuario.altaUsuario("Profe", "Profesor", "Profesoro", "otro@mail.com", new Date(), i1, "Descripcion", "Bio", "sitio web");
-		iUsuario.altaUsuario("Profa", "Profesora", "Profesorara", "otro@mail.com", new Date(), i2, "Descripcion", "Bio", "sitio web");
-		
-		Usuario user1 = iUsuario.buscarUsuario("Profe");
-		Usuario user2 = iUsuario.buscarUsuario("Profa");
-		
-		Profesor profe1 = (Profesor) user1;
-		Profesor profe2 = (Profesor) user2;
-		
-		// Creo actividades
-		IActividadDeportiva iActividad = f.getIActividadDeportiva();
-		iActividad.altaActividadDeportiva(i1, "a1", "Descripcion", 120, 120, new Date());
-		iActividad.altaActividadDeportiva(i1, "a3", "Descripcion", 120, 120, new Date());
-		iActividad.altaActividadDeportiva(i2, "a2", "Descripcion", 120, 120, new Date());
-		iActividad.altaActividadDeportiva(i2, "a4", "Descripcion", 120, 120, new Date());
-
-		ActividadDeportiva a1 = i1.buscarActividadDeportiva("a1");
-		ActividadDeportiva a3 = i1.buscarActividadDeportiva("a3");
-		ActividadDeportiva a2 = i2.buscarActividadDeportiva("a2");
-		ActividadDeportiva a4 = i2.buscarActividadDeportiva("a4");
-		
-		DtActividad dtA1 = new DtActividad(i1.getNombre(), a1.getNombre(), a1.getDescripcion(), a1.getDuracionMinutos(), a1.getCosto(), a1.getFechaRegistro());
-		DtActividad dtA2 = new DtActividad(i2.getNombre(), a2.getNombre(), a2.getDescripcion(), a2.getDuracionMinutos(), a2.getCosto(), a2.getFechaRegistro());
-		DtActividad dtA3 = new DtActividad(i1.getNombre(), a3.getNombre(), a3.getDescripcion(), a3.getDuracionMinutos(), a3.getCosto(), a3.getFechaRegistro());
-		DtActividad dtA4 = new DtActividad(i2.getNombre(), a4.getNombre(), a4.getDescripcion(), a4.getDuracionMinutos(), a4.getCosto(), a4.getFechaRegistro());
-		
-		// Creo clases
-		IClase iClase = f.getIClase();
-		iClase.altaDictadoClase("c1", dtA1, new Date(), profe1.getNickname(), "12:00", "url", new Date());
-		iClase.altaDictadoClase("c3", dtA1, new Date(), profe1.getNickname(), "12:00", "url", new Date());
-		iClase.altaDictadoClase("c5", dtA3, new Date(), profe1.getNickname(), "12:00", "url", new Date());
-		iClase.altaDictadoClase("c2", dtA2, new Date(), profe2.getNickname(), "12:00", "url", new Date());
-		iClase.altaDictadoClase("c4", dtA4, new Date(), profe2.getNickname(), "12:00", "url", new Date());
 		
 		DefaultListModel<String> lista = new DefaultListModel<String>();
 
@@ -235,17 +186,18 @@ public class GUIConsultaUsuario extends JInternalFrame {
 		
 		cmbUsuarios.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				String nombreUsuario = (String) cmbUsuarios.getSelectedItem();
-				Usuario usuario = iUsuario.buscarUsuario(nombreUsuario);
-				if(usuario != null) {
-					nickname.setText(usuario.getNickname());
-					nombre.setText(usuario.getNombre());
-					apellido.setText(usuario.getApellido());
-					email.setText(usuario.getCorreoElectronico());
-					fechaNac.setText(usuario.getFechaNacimiento().toString());
+				String nicknameUsuario = (String) cmbUsuarios.getSelectedItem();
+				
+				if(nicknameUsuario != null) {
+					boolean esSocio = iUsuario.esSocio(nicknameUsuario);
 					
-					if(usuario instanceof Socio) {
-						Socio socio = (Socio) usuario;
+					if(esSocio) {
+						DtSocio socio = iUsuario.getDtSocio(nicknameUsuario);
+						nickname.setText(socio.getNickname());
+						nombre.setText(socio.getNombre());
+						apellido.setText(socio.getApellido());
+						email.setText(socio.getCorreoElectronico());
+						fechaNac.setText(socio.getFechaNacimiento().toString());
 						labelRegistros.setVisible(true);
 						labelDescripcion.setVisible(false);
 						labelBiografia.setVisible(false);
@@ -256,17 +208,19 @@ public class GUIConsultaUsuario extends JInternalFrame {
 						descripcion.setText("");
 						biografia.setText("");
 						sitioWeb.setText("");
-
+						
 						modelRegistro.setRowCount(0);
-						List<Registro> registros = socio.getArrayRegistro();
-						for (Registro r: registros) {
-							modelRegistro.addRow(new Object[] {r.getclase().getNombreClase(), r.getfechaRegistro().toString()});
+						
+						List<DtRegistro> registros = socio.getRegistros();
+						for (DtRegistro r: registros) {
+							modelRegistro.addRow(new Object[] {r.getClase().getNombre(), r.getFechaRegistro().toString()});
 						}
 
 						tablaRegistro.setVisible(true);
 						scrollPaneRegistros.setVisible(true);
 					} else {
-						Profesor profesor = (Profesor) usuario;
+						DtProfesor profesor = iUsuario.getDtProfesor(nicknameUsuario);
+						
 						labelRegistros.setVisible(false);
 						labelDescripcion.setVisible(true);
 						labelBiografia.setVisible(true);
@@ -279,14 +233,15 @@ public class GUIConsultaUsuario extends JInternalFrame {
 						sitioWeb.setText(profesor.getSitioWeb());
 						
 						modelClases.setRowCount(0);
-						List<Clase> clases = profesor.getArrayClases();
-						for(Clase c: clases) {
-							modelClases.addRow(new Object[] {c.getNombreClase(), c.getFechaClase().toString(), c.getHoraInicio()});
+						List<DtClase> clases = profesor.getClases();
+						for(DtClase c: clases) {
+							modelClases.addRow(new Object[] {c.getNombre(), c.getFechaClase().toString(), c.getHoraInicio()});
 						}
 
 						tablaClases.setVisible(true);
 						scrollPaneClases.setVisible(true);
 					}
+					
 				} else {
 					nickname.setText("");
 					nombre.setText("");

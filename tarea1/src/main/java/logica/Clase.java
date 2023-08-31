@@ -2,6 +2,9 @@ package logica;
 
 import java.util.Date;
 import java.util.List;
+
+import datatypes.DtClase;
+
 import java.util.ArrayList;
 
 public class Clase {
@@ -101,6 +104,10 @@ public class Clase {
 	
 	public int getCantidadRegistros() {
 		return registros.size();
+	}
+	
+	public DtClase getDtClase() {
+		return new DtClase(nombreClase, fechaClase, horaInicio, urlClase, fechaRegistro);
 	}
 
 }

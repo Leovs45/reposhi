@@ -28,7 +28,6 @@ public class GUIPrincipal {
 	private GUIAltaActividad altaActividadInternalFrame;
 	private GUIAltaDictadoClase altaClaseInternalFrame;
 	private GUIConsultaUsuario consultaUsuarioInternalFrame;
-	private GUIConsultaInstitucion consultaInstitucionInternalFrame;
 	private GUIConsultaActividadDeportiva consultaActividadInternalFrame;
 	private GUIConsultaDictadoClase consultaDictadoClaseInternalFrame;
 	private GUIRegistroDictadoClase registroDictadoClaseInternalFrame;

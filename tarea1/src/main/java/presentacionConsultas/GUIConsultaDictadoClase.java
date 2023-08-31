@@ -11,11 +11,9 @@ import java.util.List;
 import javax.swing.JInternalFrame;
 
 import interfaces.IInstitucionDeportiva;
-import logica.ActividadDeportiva;
-import logica.Clase;
-import logica.InstitucionDeportiva;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
+import datatypes.DtClase;
 
 public class GUIConsultaDictadoClase extends JInternalFrame {
 	JComboBox cmbInstituciones = new JComboBox();
@@ -111,9 +109,8 @@ public class GUIConsultaDictadoClase extends JInternalFrame {
 		cmbInstituciones.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				String nombreInstitucion = (String) cmbInstituciones.getSelectedItem();
-				InstitucionDeportiva institucion = iInstitucion.buscarInstitucionDeportiva(nombreInstitucion);
-				
-				if(!iInstitucion.existeInstitucion(nombreInstitucion)) {
+
+				if(nombreInstitucion == null) {
 					labelActividades.setVisible(false);
 					cmbActividades.setVisible(false);
 					cmbActividades.setSelectedIndex(-1);
@@ -131,7 +128,6 @@ public class GUIConsultaDictadoClase extends JInternalFrame {
 					labelFechaRegistro.setVisible(false);
 					fechaRegistro.setText("");
 				} else {
-					//List<ActividadDeportiva> actividades = institucion.getArrayActividadDeportiva();
 					List<String> actividades = iInstitucion.obtenerActividadesDeUnaInstitucion(nombreInstitucion);
 					cmbActividades.removeAllItems();
 					
@@ -149,11 +145,10 @@ public class GUIConsultaDictadoClase extends JInternalFrame {
 		cmbActividades.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				String nombreInstitucion = (String) cmbInstituciones.getSelectedItem();
-				InstitucionDeportiva institucion = iInstitucion.buscarInstitucionDeportiva(nombreInstitucion);
 				String nombreActividad = (String) cmbActividades.getSelectedItem();
-				ActividadDeportiva actividad = institucion.buscarActividadDeportiva(nombreActividad);
-				
-				if(actividad == null) {
+				boolean existeActividad = iInstitucion.existeActividadEnInstitucion(nombreInstitucion, nombreActividad);
+
+				if(!existeActividad) {
 					labelClases.setVisible(false);
 					cmbClases.setVisible(false);
 					cmbClases.setSelectedIndex(-1);
@@ -168,11 +163,11 @@ public class GUIConsultaDictadoClase extends JInternalFrame {
 					labelFechaRegistro.setVisible(false);
 					fechaRegistro.setText("");
 				} else {
-					List<Clase> clases = actividad.getArrayClase();
+					List<String> nombreClases = iInstitucion.obtenerClasesDeActividad(nombreInstitucion, nombreActividad);
 					cmbClases.removeAllItems();
 					
-					for(Clase c: clases) {
-						cmbClases.addItem(c.getNombreClase());
+					for(String c: nombreClases) {
+						cmbClases.addItem(c);
 					}
 					
 					labelClases.setVisible(true);
@@ -185,13 +180,37 @@ public class GUIConsultaDictadoClase extends JInternalFrame {
 		cmbClases.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				String nombreInstitucion = (String) cmbInstituciones.getSelectedItem();
-				InstitucionDeportiva institucion = iInstitucion.buscarInstitucionDeportiva(nombreInstitucion);
 				String nombreActividad = (String) cmbActividades.getSelectedItem();
-				ActividadDeportiva actividad = institucion.buscarActividadDeportiva(nombreActividad);
 				String nombreClase = (String) cmbClases.getSelectedItem();
-				Clase clase = actividad.buscarClase(nombreClase);
 				
-				if(clase == null) {
+				if(nombreClase != null) {
+					boolean existeClase = iInstitucion.existeClaseDeActividad(nombreInstitucion, nombreActividad, nombreClase);
+
+					if(!existeClase) {
+						labelNombre.setVisible(false);
+						nombre.setText("");
+						labelFechaClase.setVisible(false);
+						fechaClase.setText("");
+						labelHora.setVisible(false);
+						hora.setText("");
+						labelUrl.setVisible(false);
+						url.setText("");
+						labelFechaRegistro.setVisible(false);
+						fechaRegistro.setText("");
+					} else {
+						DtClase clase = iInstitucion.obtenerDtClase(nombreInstitucion, nombreActividad, nombreClase);
+						nombre.setText(clase.getNombre());
+						labelNombre.setVisible(true);
+						fechaClase.setText(clase.getFechaClase().toString());
+						labelFechaClase.setVisible(true);
+						hora.setText(clase.getHoraInicio());
+						labelHora.setVisible(true);
+						url.setText(clase.getUrl());
+						labelUrl.setVisible(true);
+						fechaRegistro.setText(clase.getFechaRegistro().toString());
+						labelFechaRegistro.setVisible(true);
+					}
+				} else {
 					labelNombre.setVisible(false);
 					nombre.setText("");
 					labelFechaClase.setVisible(false);
@@ -202,17 +221,6 @@ public class GUIConsultaDictadoClase extends JInternalFrame {
 					url.setText("");
 					labelFechaRegistro.setVisible(false);
 					fechaRegistro.setText("");
-				} else {
-					nombre.setText(clase.getNombreClase());
-					labelNombre.setVisible(true);
-					fechaClase.setText(clase.getFechaClase().toString());
-					labelFechaClase.setVisible(true);
-					hora.setText(clase.getHoraInicio());
-					labelHora.setVisible(true);
-					url.setText(clase.getUrlClase());
-					labelUrl.setVisible(true);
-					fechaRegistro.setText(clase.getFechaRegistro().toString());
-					labelFechaRegistro.setVisible(true);
 				}
 			}
 		});

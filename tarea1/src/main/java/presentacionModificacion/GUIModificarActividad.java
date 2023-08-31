@@ -1,8 +1,5 @@
 package presentacionModificacion;
 
-import logica.ActividadDeportiva;
-
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
@@ -19,19 +16,19 @@ import javax.swing.JOptionPane;
 import interfaces.IActividadDeportiva;
 
 import javax.swing.JComboBox;
-import javax.swing.SwingConstants;
-
-import com.toedter.calendar.JDateChooser;
 
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+
+import datatypes.DtActividad;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 
 public class GUIModificarActividad extends JInternalFrame {
 	private JTextField textField;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	List<ActividadDeportiva> actividades = new ArrayList<>();
+	List<DtActividad> actividades = new ArrayList<>();
 	JComboBox cmbActividades = new JComboBox();
 	JLabel labelActividades = new JLabel("Actividades: ");
 	JLabel labelNombre = new JLabel("Nombre:");
@@ -57,12 +54,11 @@ public class GUIModificarActividad extends JInternalFrame {
 			@Override
 			public void componentShown(ComponentEvent e) {
 				cmbActividades.removeAllItems();
-				List<ActividadDeportiva> actividadesNuevas = new ArrayList<>();
-				actividadesNuevas = iActividad.getActividades();
-				actividades = actividadesNuevas;
+				actividades = iActividad.getActividades();
 					
-				for(ActividadDeportiva a: actividades) {
+				for(DtActividad a: actividades) {
 					cmbActividades.addItem(a.getNombre());
+					System.out.println(a.getNombre());
 				}
 				
 				cmbActividades.setSelectedIndex(-1);	
@@ -152,8 +148,7 @@ public class GUIModificarActividad extends JInternalFrame {
 		cmbActividades.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				String nombreActividad = (String) cmbActividades.getSelectedItem();
-				ActividadDeportiva actividad = iActividad.buscarActividadDeportiva(nombreActividad);
-				if(actividad == null) {
+				if(nombreActividad == null) {
 					nombre.setText("");
 					duracion.setText("");
 					descripcion.setText("");
@@ -167,16 +162,34 @@ public class GUIModificarActividad extends JInternalFrame {
 					radiobtnDuracion.setVisible(false);
 					btnAceptar.setVisible(false);
 				} else {
-					nombre.setText(actividad.getNombre());
-					descripcion.setText(actividad.getDescripcion());
-					duracion.setText(String.valueOf(actividad.getDuracionMinutos()));
-					costo.setText(String.valueOf(actividad.getCosto()));
-					fecha.setText(actividad.getFechaRegistro().toString());
-					labelModificar1.setVisible(true);
-					labelModificar2.setVisible(true);
-					radiobtnDescripcion.setVisible(true);
-					radiobtnCosto.setVisible(true);
-					radiobtnDuracion.setVisible(true);
+					boolean existeActividad = iActividad.existeActividad(nombreActividad);
+
+					if(!existeActividad) {
+						nombre.setText("");
+						duracion.setText("");
+						descripcion.setText("");
+						costo.setText("");
+						fecha.setText("");
+						labelModificar.setText("");
+						labelModificar1.setVisible(false);
+						labelModificar2.setVisible(false);
+						radiobtnDescripcion.setVisible(false);
+						radiobtnCosto.setVisible(false);
+						radiobtnDuracion.setVisible(false);
+						btnAceptar.setVisible(false);
+					} else {
+						DtActividad actividad = iActividad.getDtActividad(nombreActividad);
+						nombre.setText(actividad.getNombre());
+						descripcion.setText(actividad.getDescripcion());
+						duracion.setText(String.valueOf(actividad.getDuracionMinutos()));
+						costo.setText(String.valueOf(actividad.getCosto()));
+						fecha.setText(actividad.getFechaRegistro().toString());
+						labelModificar1.setVisible(true);
+						labelModificar2.setVisible(true);
+						radiobtnDescripcion.setVisible(true);
+						radiobtnCosto.setVisible(true);
+						radiobtnDuracion.setVisible(true);
+					}
 				}
 			}
 		});
@@ -217,14 +230,13 @@ public class GUIModificarActividad extends JInternalFrame {
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String nombreActividad = (String) cmbActividades.getSelectedItem();
-				ActividadDeportiva actividad = iActividad.buscarActividadDeportiva(nombreActividad);
 				
 				if(radiobtnDescripcion.isSelected()) {
 					if(textField.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Completa todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
 					} else {
 						String nuevaDescripcion = textField.getText();
-						iActividad.modificarDescripcion(actividad, nuevaDescripcion);
+						iActividad.modificarDescripcion(nombreActividad, nuevaDescripcion);
 						descripcion.setText(nuevaDescripcion);
 						JOptionPane.showMessageDialog(null, "La descripción fue modificada exitosamente", "Success", JOptionPane.INFORMATION_MESSAGE);
 					}
@@ -234,7 +246,7 @@ public class GUIModificarActividad extends JInternalFrame {
 					} else {
 						try {
 							int nuevoCosto = Integer.parseInt(textField.getText());
-							iActividad.modificarCosto(actividad, nuevoCosto);
+							iActividad.modificarCosto(nombreActividad, nuevoCosto);
 							costo.setText(String.valueOf(nuevoCosto));
 							JOptionPane.showMessageDialog(null, "El costo fue modificada exitosamente", "Success", JOptionPane.INFORMATION_MESSAGE);
 						} catch (Exception exc) {
@@ -247,7 +259,7 @@ public class GUIModificarActividad extends JInternalFrame {
 					} else {
 						try {
 							int nuevaDuracion = Integer.parseInt(textField.getText());
-							iActividad.modificarDuracion(actividad, nuevaDuracion);
+							iActividad.modificarDuracion(nombreActividad, nuevaDuracion);
 							duracion.setText(String.valueOf(nuevaDuracion));
 							JOptionPane.showMessageDialog(null, "La duracion fue modificada exitosamente", "Success", JOptionPane.INFORMATION_MESSAGE);
 						} catch (Exception exc) {

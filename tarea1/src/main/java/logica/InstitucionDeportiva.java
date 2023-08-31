@@ -3,6 +3,7 @@ package logica;
 import java.util.ArrayList;
 import java.util.List;
 
+import datatypes.DtInstitucion;
 import interfaces.Fabrica;
 import interfaces.IActividadDeportiva;
 
@@ -130,6 +131,10 @@ public class InstitucionDeportiva {
 				}
 			}
 		}
+	}
+	
+	public DtInstitucion getDtInstitucion() {
+		return new DtInstitucion(nombre, descripcion, url, profesores, actividades);
 	}
 
 }

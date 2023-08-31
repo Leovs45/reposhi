@@ -6,11 +6,12 @@ import logica.ActividadDeportiva;
 import logica.InstitucionDeportiva;
 import datatypes.DtActividad;
 import datatypes.DtClase;
+import datatypes.DtInstitucion;
 
 
 public interface IInstitucionDeportiva {
 	public void altaInstitucionDeportiva(String nombre, String descripcion, String url);
-	public List<InstitucionDeportiva> getInstituciones();
+	public List<DtInstitucion> getInstituciones();
 	public List<InstitucionDeportiva> getListaInstituciones();
 
 	// Opcionales
@@ -31,4 +32,5 @@ public interface IInstitucionDeportiva {
 	List<String> obtenerClasesDeActividad(String nombreInstitucion, String nombreActividad);
 	boolean existeClaseDeActividad(String nombreInstitucion, String nombreActividad, String nombreClase);
 	DtClase obtenerDtClase(String nombreInstitucion, String nombreActividad, String nombreClase);
+	DtInstitucion getDtInstitucion(String nombreInstitucion);
 }

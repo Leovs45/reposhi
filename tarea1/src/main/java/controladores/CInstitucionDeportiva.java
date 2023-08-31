@@ -9,6 +9,7 @@ import logica.ActividadDeportiva;
 import logica.InstitucionDeportiva;
 import datatypes.DtActividad;
 import datatypes.DtClase;
+import datatypes.DtInstitucion;
 
 public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 	
@@ -139,8 +140,14 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 	}
 	
 	@Override
-	public List<InstitucionDeportiva> getInstituciones() {
-		return instituciones;
+	public List<DtInstitucion> getInstituciones() {
+		List<DtInstitucion> dtInstituciones = new ArrayList<>();
+		
+		for(InstitucionDeportiva inst: instituciones) {
+			dtInstituciones.add(inst.getDtInstitucion());
+		}
+		
+		return dtInstituciones;
 	}
 	
 	@Override
@@ -173,6 +180,12 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombreInstitucion);
 		ActividadDeportiva actividad = institucion.buscarActividadDeportiva(nombreActividad);
 		return actividad.obtenerDtClase(nombreClase);
+	}
+	
+	@Override
+	public DtInstitucion getDtInstitucion(String nombreInstitucion) {
+		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombreInstitucion);
+		return institucion.getDtInstitucion();
 	}
 	
 }

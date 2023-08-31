@@ -11,8 +11,6 @@ import logica.InstitucionDeportiva;
 
 
 public class CActividadDeportiva implements IActividadDeportiva {
-	
-	private List<ActividadDeportiva> clases = new ArrayList<>();
 
 	private static CActividadDeportiva instancia = null;
 	

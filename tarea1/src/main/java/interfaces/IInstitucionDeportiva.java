@@ -5,6 +5,7 @@ import java.util.List;
 import logica.ActividadDeportiva;
 import logica.InstitucionDeportiva;
 import datatypes.DtActividad;
+import datatypes.DtClase;
 
 
 public interface IInstitucionDeportiva {
@@ -26,4 +27,8 @@ public interface IInstitucionDeportiva {
 	public DtActividad obtenerActividadDeUnaInstitucion(String nombreInstitucion, String nombreActividad);
 	public List<String> obtenerActividadesDeUnaInstitucion(String nombre);
 	public ActividadDeportiva buscarActividadDeportiva(String nombreInstitucion, String nombreActividad);
+	boolean existeActividadEnInstitucion(String nombreInstitucion, String nombreActividad);
+	List<String> obtenerClasesDeActividad(String nombreInstitucion, String nombreActividad);
+	boolean existeClaseDeActividad(String nombreInstitucion, String nombreActividad, String nombreClase);
+	DtClase obtenerDtClase(String nombreInstitucion, String nombreActividad, String nombreClase);
 }

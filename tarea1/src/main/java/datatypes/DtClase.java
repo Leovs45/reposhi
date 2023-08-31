@@ -23,5 +23,29 @@ public class DtClase {
 	public String getUrl() {
 		return url;
 	}
+	public Date getFechaClase() {
+		return fechaClase;
+	}
+	public void setFechaClase(Date fechaClase) {
+		this.fechaClase = fechaClase;
+	}
+	public String getHoraInicio() {
+		return horaInicio;
+	}
+	public void setHoraInicio(String horaInicio) {
+		this.horaInicio = horaInicio;
+	}
+	public Date getFechaRegistro() {
+		return fechaRegistro;
+	}
+	public void setFechaRegistro(Date fechaRegistro) {
+		this.fechaRegistro = fechaRegistro;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
 }

@@ -121,7 +121,6 @@ public class ActividadDeportiva {
 		}
 	}
 
-	
 	public void agregarClase(Clase c) {
 		clases.add(c);
 
@@ -148,5 +147,31 @@ public class ActividadDeportiva {
 	
 	public int getCantidadClases() {
 		return clases.size();
+	}
+	
+	public List<String> obtenerListaClases() {
+		List<String> nombresClases = new ArrayList<>();
+		
+		for(Clase clase: clases) {
+			nombresClases.add(clase.getNombreClase());
+		}
+		
+		return nombresClases;
+	}
+	
+	public boolean existeClase(String nombreClase) {
+		
+		for (Clase c: clases) {
+			if(nombreClase.equals(c.getNombreClase())) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public DtClase obtenerDtClase(String nombreClase) {
+		Clase clase = buscarClase(nombreClase);
+		return clase.getDtClase();
 	}
 }

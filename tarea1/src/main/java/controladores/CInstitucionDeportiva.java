@@ -8,6 +8,7 @@ import interfaces.IInstitucionDeportiva;
 import logica.ActividadDeportiva;
 import logica.InstitucionDeportiva;
 import datatypes.DtActividad;
+import datatypes.DtClase;
 
 public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 	
@@ -126,7 +127,7 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 		return dtAct;
 	}
 	
-
+	@Override
 	public List<String> obtenerActividadesDeUnaInstitucion(String nombre){
 		List<String> asd = new ArrayList<>();
 		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombre);
@@ -135,8 +136,42 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 			asd.add(act.getNombre());
 		return asd;
 	}
+	
+	@Override
 	public List<InstitucionDeportiva> getInstituciones() {
 		return instituciones;
+	}
+	
+	@Override
+	public boolean existeActividadEnInstitucion(String nombreInstitucion, String nombreActividad) {
+		ActividadDeportiva actividad = buscarActividadDeportiva(nombreInstitucion, nombreActividad);
+		
+		if(actividad == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	@Override
+	public List<String> obtenerClasesDeActividad(String nombreInstitucion, String nombreActividad) {
+		List<String> nombresClases = new ArrayList<>();
+		ActividadDeportiva actividad = buscarActividadDeportiva(nombreInstitucion, nombreActividad);
+		return actividad.obtenerListaClases();
+	}
+	
+	@Override
+	public boolean existeClaseDeActividad(String nombreInstitucion, String nombreActividad, String nombreClase) {
+		ActividadDeportiva actividad = buscarActividadDeportiva(nombreInstitucion, nombreActividad);
+		return actividad.existeClase(nombreClase);
+		
+	}
+	
+	@Override 
+	public DtClase obtenerDtClase(String nombreInstitucion, String nombreActividad, String nombreClase) {
+		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombreInstitucion);
+		ActividadDeportiva actividad = institucion.buscarActividadDeportiva(nombreActividad);
+		return actividad.obtenerDtClase(nombreClase);
 	}
 	
 	

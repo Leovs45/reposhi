@@ -118,12 +118,13 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 		
 		return instituciones;
 	}
+
 	@Override
 	public DtActividad obtenerActividadDeUnaInstitucion(String nombreInstitucion, String nombreActividad) {
 		ActividadDeportiva act;
 		InstitucionDeportiva ins = buscarInstitucionDeportiva(nombreInstitucion);
 		act = ins.buscarActividadDeportiva(nombreActividad);
-		DtActividad dtAct = new	DtActividad(ins.getNombre(), act.getNombre(), act.getDescripcion() , act.getDuracionMinutos(), act.getCosto(), act.getFechaRegistro());
+		DtActividad dtAct = new	DtActividad(ins, act.getNombre(), act.getDescripcion(), act.getDuracionMinutos(), act.getCosto(), act.getFechaRegistro(), act.getArrayClase());
 		return dtAct;
 	}
 	
@@ -173,7 +174,5 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 		ActividadDeportiva actividad = institucion.buscarActividadDeportiva(nombreActividad);
 		return actividad.obtenerDtClase(nombreClase);
 	}
-	
-	
 	
 }

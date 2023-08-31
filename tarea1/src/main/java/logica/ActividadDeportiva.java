@@ -3,6 +3,7 @@ package logica;
 import java.util.Date;
 import java.util.List;
 
+import datatypes.DtActividad;
 import datatypes.DtClase;
 import interfaces.Fabrica;
 import interfaces.IActividadDeportiva;
@@ -173,5 +174,9 @@ public class ActividadDeportiva {
 	public DtClase obtenerDtClase(String nombreClase) {
 		Clase clase = buscarClase(nombreClase);
 		return clase.getDtClase();
+	}
+	
+	public DtActividad getDtActividad() {
+		return new DtActividad(institucion, nombre, descripcion, duracionMinutos, costo, fechaRegistro, clases);
 	}
 }

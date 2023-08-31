@@ -255,10 +255,10 @@ public class Tirando_datos{
 				ActividadDeportiva a2 = i2.buscarActividadDeportiva("a2");
 				ActividadDeportiva a4 = i2.buscarActividadDeportiva("a4");
 				
-				DtActividad dtA1 = new DtActividad(i1.getNombre(), a1.getNombre(), a1.getDescripcion(), a1.getDuracionMinutos(), a1.getCosto(), a1.getFechaRegistro());
-				DtActividad dtA2 = new DtActividad(i2.getNombre(), a2.getNombre(), a2.getDescripcion(), a2.getDuracionMinutos(), a2.getCosto(), a2.getFechaRegistro());
-				DtActividad dtA3 = new DtActividad(i1.getNombre(), a3.getNombre(), a3.getDescripcion(), a3.getDuracionMinutos(), a3.getCosto(), a3.getFechaRegistro());
-				DtActividad dtA4 = new DtActividad(i2.getNombre(), a4.getNombre(), a4.getDescripcion(), a4.getDuracionMinutos(), a4.getCosto(), a4.getFechaRegistro());
+				DtActividad dtA1 = a1.getDtActividad();
+				DtActividad dtA2 = a2.getDtActividad();
+				DtActividad dtA3 = a3.getDtActividad();
+				DtActividad dtA4 = a4.getDtActividad();
 				
 				// Creo clases
 				iClase.altaDictadoClase("c1", dtA1, new Date(), profe1.getNickname(), "12:00", "url", new Date());

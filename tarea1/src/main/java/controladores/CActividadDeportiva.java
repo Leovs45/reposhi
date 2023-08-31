@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import datatypes.DtActividad;
 import datatypes.DtClase;
 import interfaces.IActividadDeportiva;
 import logica.ActividadDeportiva;
@@ -11,6 +12,8 @@ import logica.InstitucionDeportiva;
 
 
 public class CActividadDeportiva implements IActividadDeportiva {
+	
+	public List<ActividadDeportiva> actividades = new ArrayList<>();
 
 	private static CActividadDeportiva instancia = null;
 	
@@ -20,13 +23,14 @@ public class CActividadDeportiva implements IActividadDeportiva {
 		return instancia;
 	}
 	
+	@Override
 	public void altaActividadDeportiva(InstitucionDeportiva institucion, String nombreActividad, String descripcion, int duracionMinutos,
 			double costo, Date fechaAlta) {
 		ActividadDeportiva actividad = new ActividadDeportiva(institucion, nombreActividad, descripcion, duracionMinutos, costo, fechaAlta);
 		institucion.agregarActividadDeportiva(actividad);
-		System.out.println("OK  -  La institucion fue creada correctamente");
 	}
 
+	@Override
 	public ActividadDeportiva buscarActividadDeportiva(String nombre){
 		ActividadDeportiva actividad = null;
 		if (actividades.size() == 0) {
@@ -53,29 +57,32 @@ public class CActividadDeportiva implements IActividadDeportiva {
 	    
 	    return actividadesEncontradas;
 	}
-
-	public Clase buscarClase(String nombre){
-		
-		return buscarClase(nombre);
 	
+	@Override
+	public ActividadDeportiva buscarActividad(String nombreActividad) {
+		for(ActividadDeportiva act: actividades) {
+			if(nombreActividad.equals(act.getNombre())) {
+				return act;
+			}
+		}
+		return null;
 	}
-	
-	/**********************************/
-	// OPCIONALES
-	/**********************************/
 
 	@Override
-	public void modificarDescripcion(ActividadDeportiva actividad, String nuevaDescripcion) {
+	public void modificarDescripcion(String nombreActividad, String nuevaDescripcion) {
+		ActividadDeportiva actividad = buscarActividadDeportiva(nombreActividad);
 		actividad.setDescripcion(nuevaDescripcion);
 	}
 
 	@Override
-	public void modificarDuracion(ActividadDeportiva actividad, int nuevaDuracion) {
+	public void modificarDuracion(String nombreActividad, int nuevaDuracion) {
+		ActividadDeportiva actividad = buscarActividadDeportiva(nombreActividad);
 		actividad.setDuracionMinutos(nuevaDuracion);
 	}
 
 	@Override
-	public void modificarCosto(ActividadDeportiva actividad, double nuevoCosto) {
+	public void modificarCosto(String nombreActividad, double nuevoCosto) {
+		ActividadDeportiva actividad = buscarActividadDeportiva(nombreActividad);
 		actividad.setCosto(nuevoCosto);
 	}
 	
@@ -111,9 +118,18 @@ public class CActividadDeportiva implements IActividadDeportiva {
 	}
 	
 	@Override
-	public List<ActividadDeportiva> getActividades() {
-		return actividades;
+	public List<DtActividad> getActividades() {
+		List<DtActividad> dtActividades = new ArrayList<>();
+		
+		for(ActividadDeportiva act: actividades) {
+			dtActividades.add(act.getDtActividad());
+		}
+		
+		return dtActividades;
+		
 	}
+
+	@Override
 	public boolean existeClaseEnActividad(String nombreActividad, String nombreClase) {
 		boolean existe = false;
 		ActividadDeportiva act = buscarActividadDeportiva(nombreActividad);
@@ -124,10 +140,29 @@ public class CActividadDeportiva implements IActividadDeportiva {
 		}
 		return existe;
 	}
+
+	@Override
 	public List<DtClase> getarrDtClase(String nombreActividad) {
 		List<DtClase> asd = new ArrayList<>();
 		ActividadDeportiva a = buscarActividadDeportiva(nombreActividad);
 		asd = a.getDtArrayClase();
 		return asd;
+	}
+	
+	@Override
+	public boolean existeActividad(String nombreActividad) {
+		for(ActividadDeportiva act: actividades) {
+			if(nombreActividad.equals(act.getNombre())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	public DtActividad getDtActividad(String nombreActividad) {
+		ActividadDeportiva actividad = buscarActividad(nombreActividad);
+		
+		return actividad.getDtActividad();
 	}
 }

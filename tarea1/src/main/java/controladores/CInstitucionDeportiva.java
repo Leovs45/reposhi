@@ -23,9 +23,13 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 
 	@Override
 	public void altaInstitucionDeportiva(String nombre, String descripcion, String url) {
-		InstitucionDeportiva institucion = new InstitucionDeportiva(nombre, descripcion, url);
-		instituciones.add(institucion);
-		System.out.println("OK  -  La institucion fue creada correctamente");
+		if(buscarInstitucionDeportiva(nombre) == null) {
+			InstitucionDeportiva institucion = new InstitucionDeportiva(nombre, descripcion, url);
+			instituciones.add(institucion);
+			System.out.println("OK  -  La institucion fue creada correctamente");
+		}
+		else
+			System.out.println("Institucion ya existente");
 	}
 	
 	// Recibe un string y devuelve una institución deportiva con ese nombre

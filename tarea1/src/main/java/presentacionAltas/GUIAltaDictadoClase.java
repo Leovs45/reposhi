@@ -7,6 +7,7 @@ import interfaces.Fabrica;
 import interfaces.IActividadDeportiva;
 import interfaces.IClase;
 import interfaces.IInstitucionDeportiva;
+import interfaces.IUsuario;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -40,7 +41,7 @@ public class GUIAltaDictadoClase extends JInternalFrame {
         textUrl.setText("");
     }
 //======================================================================================
-    public GUIAltaDictadoClase(IClase iClase,IInstitucionDeportiva iInstitucion, IActividadDeportiva iActividad) {
+    public GUIAltaDictadoClase(IClase iClase,IInstitucionDeportiva iInstitucion, IActividadDeportiva iActividad, IUsuario iUsuario) {
         setTitle("Alta Dictado de Clases");
         setResizable(true);
         setClosable(true);
@@ -94,7 +95,8 @@ public class GUIAltaDictadoClase extends JInternalFrame {
         activityPanel.add(textUrl);
 
         JButton btnCrear = new JButton("Crear");
-        //==============================================
+        btnCrear.setBounds(160, 184, 80, 25);
+        activityPanel.add(btnCrear);
         btnCrear.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
@@ -103,15 +105,23 @@ public class GUIAltaDictadoClase extends JInternalFrame {
                     JOptionPane.showMessageDialog(null, "Por favor completa todos los campos.", "Campos vacíos", JOptionPane.ERROR_MESSAGE);
                     return; // Detener la ejecución debido a campos vacíos.
                 }
-
+                System.out.println("test1");
                 // Alta dictado de clases...
                 String str = (String) cmbInstituciones.getSelectedItem();
                 String str2 = (String) cmbActividades.getSelectedItem();
 
                 if (!iActividad.existeClaseEnActividad(str2, textNombre.getText())) {
-                    iClase.altaDictadoClase(textNombre.getText().toString(), iInstitucion.obtenerActividadDeUnaInstitucion(str, str2), fechaActual, textProfesor.getText(), textHora.getText(), textUrl.getText(), fechaActual);
-                    JOptionPane.showMessageDialog(null, "Se creó la clase.", textNombre.getText(), JOptionPane.INFORMATION_MESSAGE);
-                    pegarLimpieza();
+                	System.out.println("test2");
+                	if(iUsuario.existeUsuario(textProfesor.getText())) {
+                		System.out.println("test3");
+                		if(iUsuario.esProfesor(textProfesor.getText())) {
+	                		System.out.println("test4");
+		                    iClase.altaDictadoClase(textNombre.getText().toString(), iInstitucion.obtenerActividadDeUnaInstitucion(str, str2), fechaActual, textProfesor.getText(), textHora.getText(), textUrl.getText(), fechaActual);
+		                    JOptionPane.showMessageDialog(null, "Se creó la clase.", textNombre.getText(), JOptionPane.INFORMATION_MESSAGE);
+		                    pegarLimpieza();
+                		}
+                	}
+                	 //^^Agregar una excepcion si no existe o si no es profesor
                 } else {
                     int result = JOptionPane.showConfirmDialog(null, "¿Desea Modificarla?", "Confirmación", JOptionPane.OK_CANCEL_OPTION);
                     if (result == JOptionPane.OK_OPTION) {
@@ -130,8 +140,7 @@ public class GUIAltaDictadoClase extends JInternalFrame {
         });
 
        
-        btnCrear.setBounds(160, 184, 80, 25);
-        activityPanel.add(btnCrear);
+
         
         lblNewLabel_2 = new JLabel("Nombre  Clase:");
         lblNewLabel_2.setBounds(10, 13, 100, 14);

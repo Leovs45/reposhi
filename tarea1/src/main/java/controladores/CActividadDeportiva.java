@@ -26,7 +26,7 @@ public class CActividadDeportiva implements IActividadDeportiva {
 			double costo, Date fechaAlta) {
 		ActividadDeportiva actividad = new ActividadDeportiva(institucion, nombreActividad, descripcion, duracionMinutos, costo, fechaAlta);
 		institucion.agregarActividadDeportiva(actividad);
-		System.out.println("OK  -  La institucion fue creada correctamente");
+		System.out.println("OK  -  La actividad fue creada correctamente");
 	}
 
 	public ActividadDeportiva buscarActividadDeportiva(String nombre){

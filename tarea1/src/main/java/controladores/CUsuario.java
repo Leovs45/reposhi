@@ -72,7 +72,17 @@ public class CUsuario implements IUsuario {
 	    }
 	}
 	
-	public boolean esProfesor(Usuario u) {
+	public boolean existeUsuario(String nombre) {
+		boolean existe = false;
+		for(Usuario u : usuarios) {
+			if(nombre.equals(u.getNickname()))
+				existe = true;
+		}
+		return existe;
+	}
+	
+	public boolean esProfesor(String nombre) {
+		Usuario u = buscarUsuario(nombre);
 		if(u instanceof Profesor) {
 			return true;
 		}else {

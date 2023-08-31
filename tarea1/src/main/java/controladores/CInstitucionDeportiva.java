@@ -25,9 +25,13 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 
 	@Override
 	public void altaInstitucionDeportiva(String nombre, String descripcion, String url) {
-		InstitucionDeportiva institucion = new InstitucionDeportiva(nombre, descripcion, url);
-		instituciones.add(institucion);
-		System.out.println("OK  -  La institucion fue creada correctamente");
+		if(buscarInstitucionDeportiva(nombre) == null) {
+			InstitucionDeportiva institucion = new InstitucionDeportiva(nombre, descripcion, url);
+			instituciones.add(institucion);
+			System.out.println("OK  -  La institucion fue creada correctamente");
+		}
+		else
+			System.out.println("Institucion ya existente");
 	}
 	
 	// Recibe un string y devuelve una institución deportiva con ese nombre
@@ -127,6 +131,19 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 		act = ins.buscarActividadDeportiva(nombreActividad);
 		DtActividad dtAct = new	DtActividad(ins, act.getNombre(), act.getDescripcion(), act.getDuracionMinutos(), act.getCosto(), act.getFechaRegistro(), act.getArrayClase());
 		return dtAct;
+	}
+	
+	public List<String> obtenerActividadesDeUnaInstitucion(String nombre){
+		List<String> asd = new ArrayList<>();
+		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombre);
+		List<ActividadDeportiva> actividades = institucion.getArrayActividadDeportiva();
+		for(ActividadDeportiva act: actividades)
+			asd.add(act.getNombre());
+		return asd;
+	}
+	
+	public List<InstitucionDeportiva> getInstituciones() {
+		return instituciones;
 	}
 	
 	@Override

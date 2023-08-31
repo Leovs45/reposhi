@@ -133,6 +133,7 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 		return dtAct;
 	}
 	
+	/*
 	public List<String> obtenerActividadesDeUnaInstitucion(String nombre){
 		List<String> asd = new ArrayList<>();
 		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombre);
@@ -145,6 +146,8 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 	public List<InstitucionDeportiva> getInstituciones() {
 		return instituciones;
 	}
+	*/
+	
 	
 	@Override
 	public List<String> obtenerActividadesDeUnaInstitucion(String nombre){

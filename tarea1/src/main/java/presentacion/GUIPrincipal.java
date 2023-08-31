@@ -19,6 +19,7 @@ import javax.swing.JTextPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JInternalFrame;
 
 public class GUIPrincipal {
 
@@ -34,6 +35,8 @@ public class GUIPrincipal {
 	private GUIModificarUsuario modificarUsuarioInternalFrame;
 	private GUIModificarInstitucion modificarInstitucionInternalFrame;
 	private GUIModificarActividad modificarActividadInternalFrame;
+	private GUIRankingActividadDeportiva rankingActividadInternalFrame;
+	private GUIRankingDictadoClase rankingClaseInternalFrame;
 	
 
 	public static void main(String[] args) {
@@ -158,6 +161,35 @@ public class GUIPrincipal {
 		consultaDictadoClaseInternalFrame.setVisible(false);
 		frame.getContentPane().add(consultaDictadoClaseInternalFrame);
 		consultaDictadoClaseInternalFrame.getContentPane().setLayout(null);
+		
+		//Crea fram ranking Actividad
+		
+		rankingActividadInternalFrame = new GUIRankingActividadDeportiva(iActividad);
+		jInternalFrameSize = rankingActividadInternalFrame.getSize();
+		rankingActividadInternalFrame.setLocation((desktopSize.width - jInternalFrameSize.width)/2
+				,(desktopSize.height - jInternalFrameSize.height)/2);
+		rankingActividadInternalFrame.setVisible(false);
+		frame.getContentPane().add(rankingActividadInternalFrame);
+		rankingActividadInternalFrame.getContentPane().setLayout(null);
+		
+		/*
+		JInternalFrame rankingActividadInternalFrame = new JInternalFrame("New JInternalFrame");
+		frame.getContentPane().add(rankingActividadInternalFrame, BorderLayout.SOUTH);
+		rankingActividadInternalFrame.setVisible(true);
+		*/
+		//Crea fram ranking Clase
+		rankingClaseInternalFrame = new GUIRankingDictadoClase(iInstitucion);
+		jInternalFrameSize = rankingClaseInternalFrame.getSize();
+		rankingClaseInternalFrame.setLocation((desktopSize.width - jInternalFrameSize.width)/2
+				,(desktopSize.height - jInternalFrameSize.height)/2);
+		rankingClaseInternalFrame.setVisible(false);
+		frame.getContentPane().add(rankingClaseInternalFrame);
+		rankingClaseInternalFrame.getContentPane().setLayout(null);
+		
+		
+		JInternalFrame rankingClaseInternalFrame = new JInternalFrame("New JInternalFrame");
+		frame.getContentPane().add(rankingClaseInternalFrame, BorderLayout.NORTH);
+		rankingClaseInternalFrame.setVisible(true);
 		
 	}
 
@@ -312,6 +344,12 @@ public class GUIPrincipal {
 		// CONSULTA DICTADO DE CLASE
 		JMenuItem menuItemConsultaDictadoClase = new JMenuItem("Consultar Dictado de Clase");
 		menuConsultas.add(menuItemConsultaDictadoClase);
+		
+		JMenuItem mntmConsultarRanking = new JMenuItem("Consultar Ranking de dictados clase");
+		menuConsultas.add(mntmConsultarRanking);
+		
+		JMenuItem mntmConsultarRankingDe = new JMenuItem("Consultar Ranking de actividades deportivas");
+		menuConsultas.add(mntmConsultarRankingDe);
 		menuItemConsultaDictadoClase.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				altaClaseInternalFrame.doDefaultCloseAction();

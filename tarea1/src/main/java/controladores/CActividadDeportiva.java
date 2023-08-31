@@ -68,7 +68,7 @@ public class CActividadDeportiva implements IActividadDeportiva {
 		return null;
 	}
 
-	@Override
+	
 	public void modificarDescripcion(String nombreActividad, String nuevaDescripcion) {
 		ActividadDeportiva actividad = buscarActividadDeportiva(nombreActividad);
 		actividad.setDescripcion(nuevaDescripcion);

@@ -4,7 +4,9 @@ import logica.*;
 import java.util.Date;
 import java.util.List;
 
-import controladores.CUsuario;
+import datatypes.DtProfesor;
+import datatypes.DtSocio;
+import datatypes.DtUsuario;
 
 public interface IUsuario {
 	public void altaUsuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento, InstitucionDeportiva institucion, String descripcionGeneral, String biografia, String sitioWeb);
@@ -24,4 +26,9 @@ public interface IUsuario {
 	public Usuario buscarSocio(String nickname);
 	public void listarSocios();
 	public void consultaUsuario(String nickname);
+	public List<String> obtenerArrayNicknames();
+	public DtUsuario getDtUsuario(String nickname);
+	public boolean esSocio(String nickname);
+	public DtSocio getDtSocio(String nickname);
+	public DtProfesor getDtProfesor(String nickname);
 }

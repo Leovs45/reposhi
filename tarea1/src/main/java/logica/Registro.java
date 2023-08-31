@@ -2,6 +2,8 @@ package logica;
 
 import java.util.Date;
 
+import datatypes.DtRegistro;
+
 public class Registro {
 	private	Date fechaRegistro;
 	private Socio socio;
@@ -38,6 +40,10 @@ public class Registro {
 	
 	public void setclase(Clase clase) {
 		this.clase = clase;
+	}
+	
+	public DtRegistro getDtRegistro() {
+		return new DtRegistro(fechaRegistro, socio.getDtSocio(), clase.getDtClase());
 	}
 	
 }

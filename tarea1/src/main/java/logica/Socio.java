@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import datatypes.DtSocio;
+
 public class Socio extends Usuario {
 	private List<Registro> registros = new ArrayList<>();
 	
@@ -31,6 +33,10 @@ public class Socio extends Usuario {
 				System.out.println("- " + r.getclase().getNombreClase() + "\n  Fecha de registro: " + r.getfechaRegistro());
 			}
 		}
+	}
+	
+	public DtSocio getDtSocio() {
+		return new DtSocio(getNickname(), getNombre(), getApellido(), getCorreoElectronico(), getFechaNacimiento(), registros);
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import logica.Clase;
+import logica.ActividadDeportiva;
 import logica.InstitucionDeportiva;
 
 public class DtActividad{
@@ -24,6 +25,12 @@ public class DtActividad{
     	this.costo = costo;
     	this.fechaRegistro = fechaRegistro;
     	this.clases = clases;
+    }
+    
+    public DtActividad(String nombre, double costo, String descripcion) {
+    	this.nombre = nombre;
+    	this.costo = costo;
+    	this.descripcion = descripcion;
     }
 
 	public DtInstitucion getInstitucion() {
@@ -48,6 +55,11 @@ public class DtActividad{
 
 	public Date getFechaRegistro() {
 		return fechaRegistro;
+	}
+	
+	public int getCantidadDeClases() {
+		return clases.size();
+		
 	}
 	
 	public List<DtClase> getClases() {

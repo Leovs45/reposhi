@@ -170,27 +170,16 @@ public class GUIPrincipal {
 				,(desktopSize.height - jInternalFrameSize.height)/2);
 		rankingActividadInternalFrame.setVisible(false);
 		frame.getContentPane().add(rankingActividadInternalFrame);
-		rankingActividadInternalFrame.getContentPane().setLayout(null);
-		
-		/*
-		JInternalFrame rankingActividadInternalFrame = new JInternalFrame("New JInternalFrame");
-		frame.getContentPane().add(rankingActividadInternalFrame, BorderLayout.SOUTH);
-		rankingActividadInternalFrame.setVisible(true);
-		*/
+		rankingActividadInternalFrame.getContentPane().setLayout(null);	
+			
 		//Crea fram ranking Clase
-		rankingClaseInternalFrame = new GUIRankingDictadoClase(iInstitucion);
+		rankingClaseInternalFrame = new GUIRankingDictadoClase(iClase);
 		jInternalFrameSize = rankingClaseInternalFrame.getSize();
 		rankingClaseInternalFrame.setLocation((desktopSize.width - jInternalFrameSize.width)/2
 				,(desktopSize.height - jInternalFrameSize.height)/2);
 		rankingClaseInternalFrame.setVisible(false);
 		frame.getContentPane().add(rankingClaseInternalFrame);
-		rankingClaseInternalFrame.getContentPane().setLayout(null);
-		
-		
-		JInternalFrame rankingClaseInternalFrame = new JInternalFrame("New JInternalFrame");
-		frame.getContentPane().add(rankingClaseInternalFrame, BorderLayout.NORTH);
-		rankingClaseInternalFrame.setVisible(true);
-		
+		rankingClaseInternalFrame.getContentPane().setLayout(null);	
 	}
 
 	private void initialize() {
@@ -220,6 +209,9 @@ public class GUIPrincipal {
 				modificarInstitucionInternalFrame.doDefaultCloseAction();
 				modificarActividadInternalFrame.doDefaultCloseAction();
 				consultaDictadoClaseInternalFrame.doDefaultCloseAction();
+				rankingActividadInternalFrame.doDefaultCloseAction();
+				rankingClaseInternalFrame.doDefaultCloseAction();
+			
 			}
 		});
 		menuAltas.add(menuAltaUsuario);
@@ -239,6 +231,8 @@ public class GUIPrincipal {
 				modificarInstitucionInternalFrame.doDefaultCloseAction();
 				modificarActividadInternalFrame.doDefaultCloseAction();
 				consultaDictadoClaseInternalFrame.doDefaultCloseAction();
+				rankingActividadInternalFrame.doDefaultCloseAction();
+				rankingClaseInternalFrame.doDefaultCloseAction();
 			}
 		});
 		menuAltas.add(menuItemAltaItDeportiva);
@@ -258,6 +252,8 @@ public class GUIPrincipal {
 				modificarInstitucionInternalFrame.doDefaultCloseAction();
 				modificarActividadInternalFrame.doDefaultCloseAction();
 				consultaDictadoClaseInternalFrame.doDefaultCloseAction();
+				rankingActividadInternalFrame.doDefaultCloseAction();
+				rankingClaseInternalFrame.doDefaultCloseAction();
 			}
 		});
 		menuAltas.add(menuItemAltaActDeportiva);
@@ -277,6 +273,8 @@ public class GUIPrincipal {
 				modificarInstitucionInternalFrame.doDefaultCloseAction();
 				modificarActividadInternalFrame.doDefaultCloseAction();
 				consultaDictadoClaseInternalFrame.doDefaultCloseAction();
+				rankingActividadInternalFrame.doDefaultCloseAction();
+				rankingClaseInternalFrame.doDefaultCloseAction();
 			}
 		});
 		menuAltas.add(menuItemAltaClase);
@@ -296,6 +294,9 @@ public class GUIPrincipal {
 				modificarInstitucionInternalFrame.doDefaultCloseAction();
 				modificarActividadInternalFrame.doDefaultCloseAction();
 				consultaDictadoClaseInternalFrame.doDefaultCloseAction();
+				rankingActividadInternalFrame.doDefaultCloseAction();
+				rankingClaseInternalFrame.doDefaultCloseAction();
+				
 			}
 		});
 		menuAltas.add(mntmRegistroDeDictado);
@@ -318,6 +319,8 @@ public class GUIPrincipal {
 				modificarInstitucionInternalFrame.doDefaultCloseAction();
 				modificarActividadInternalFrame.doDefaultCloseAction();
 				consultaDictadoClaseInternalFrame.doDefaultCloseAction();
+				rankingActividadInternalFrame.doDefaultCloseAction();
+				rankingClaseInternalFrame.doDefaultCloseAction();
 			}
 		});
 		menuConsultas.add(menuItemConsultaUsuario);
@@ -337,6 +340,8 @@ public class GUIPrincipal {
 				modificarInstitucionInternalFrame.doDefaultCloseAction();
 				modificarActividadInternalFrame.doDefaultCloseAction();
 				consultaDictadoClaseInternalFrame.doDefaultCloseAction();
+				rankingActividadInternalFrame.doDefaultCloseAction();
+				rankingClaseInternalFrame.doDefaultCloseAction();
 			}
 		});
 		menuConsultas.add(menuItemConsultaActividad);
@@ -344,12 +349,6 @@ public class GUIPrincipal {
 		// CONSULTA DICTADO DE CLASE
 		JMenuItem menuItemConsultaDictadoClase = new JMenuItem("Consultar Dictado de Clase");
 		menuConsultas.add(menuItemConsultaDictadoClase);
-		
-		JMenuItem mntmConsultarRanking = new JMenuItem("Consultar Ranking de dictados clase");
-		menuConsultas.add(mntmConsultarRanking);
-		
-		JMenuItem mntmConsultarRankingDe = new JMenuItem("Consultar Ranking de actividades deportivas");
-		menuConsultas.add(mntmConsultarRankingDe);
 		menuItemConsultaDictadoClase.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				altaClaseInternalFrame.doDefaultCloseAction();
@@ -363,8 +362,55 @@ public class GUIPrincipal {
 				modificarInstitucionInternalFrame.doDefaultCloseAction();
 				modificarActividadInternalFrame.doDefaultCloseAction();
 				consultaDictadoClaseInternalFrame.setVisible(true);
+				rankingActividadInternalFrame.doDefaultCloseAction();
+				rankingClaseInternalFrame.doDefaultCloseAction();
 			}
 		});
+		
+		// RANKING CLASE
+		
+		JMenuItem menuConsultarRankingClase = new JMenuItem("Consultar Ranking de dictados clase");
+		menuConsultas.add(menuConsultarRankingClase);
+		menuConsultarRankingClase.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				altaClaseInternalFrame.doDefaultCloseAction();
+				altaActividadInternalFrame.doDefaultCloseAction();
+				altaInstitucionInternalFrame.doDefaultCloseAction();
+				altaUsuarioInternalFrame.doDefaultCloseAction();
+				consultaUsuarioInternalFrame.doDefaultCloseAction();
+				consultaActividadInternalFrame.doDefaultCloseAction();
+				registroDictadoClaseInternalFrame.doDefaultCloseAction();
+				modificarUsuarioInternalFrame.doDefaultCloseAction();
+				modificarInstitucionInternalFrame.doDefaultCloseAction();
+				modificarActividadInternalFrame.doDefaultCloseAction();
+				consultaDictadoClaseInternalFrame.doDefaultCloseAction();
+				rankingActividadInternalFrame.doDefaultCloseAction();
+				rankingClaseInternalFrame.setVisible(true);
+			}
+		});
+		
+		//RANKING ACTIVIDADES
+		
+		JMenuItem menuConsultarRankingAct = new JMenuItem("Consultar Ranking de actividades deportivas");
+		menuConsultas.add(menuConsultarRankingAct);
+		menuConsultarRankingAct.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				altaClaseInternalFrame.doDefaultCloseAction();
+				altaActividadInternalFrame.doDefaultCloseAction();
+				altaInstitucionInternalFrame.doDefaultCloseAction();
+				altaUsuarioInternalFrame.doDefaultCloseAction();
+				consultaUsuarioInternalFrame.doDefaultCloseAction();
+				consultaActividadInternalFrame.doDefaultCloseAction();
+				registroDictadoClaseInternalFrame.doDefaultCloseAction();
+				modificarUsuarioInternalFrame.doDefaultCloseAction();
+				modificarInstitucionInternalFrame.doDefaultCloseAction();
+				modificarActividadInternalFrame.doDefaultCloseAction();
+				consultaDictadoClaseInternalFrame.doDefaultCloseAction();
+				rankingActividadInternalFrame.setVisible(true);
+				rankingClaseInternalFrame.doDefaultCloseAction();
+			}
+		});
+		
 		
 		JMenu menuModificaciones = new JMenu("Modificaciones");
 		menuBar.add(menuModificaciones);
@@ -385,6 +431,10 @@ public class GUIPrincipal {
 				modificarInstitucionInternalFrame.doDefaultCloseAction();
 				modificarActividadInternalFrame.doDefaultCloseAction();
 				consultaDictadoClaseInternalFrame.doDefaultCloseAction();
+				rankingActividadInternalFrame.doDefaultCloseAction();
+				rankingClaseInternalFrame.doDefaultCloseAction();
+				
+				
 			}
 		});
 		
@@ -404,9 +454,11 @@ public class GUIPrincipal {
 				modificarInstitucionInternalFrame.doDefaultCloseAction();
 				modificarActividadInternalFrame.setVisible(true);
 				consultaDictadoClaseInternalFrame.doDefaultCloseAction();
+				rankingActividadInternalFrame.doDefaultCloseAction();
+				rankingClaseInternalFrame.doDefaultCloseAction();
 			}
 		});
-		
+			
 		// MODIFICAR INSTITUCION
 		JMenuItem menuItemModificarInstitucion = new JMenuItem("Modificar Institución Deportiva");
 		menuModificaciones.add(menuItemModificarInstitucion);
@@ -423,6 +475,8 @@ public class GUIPrincipal {
 				modificarInstitucionInternalFrame.setVisible(true);
 				modificarActividadInternalFrame.doDefaultCloseAction();
 				consultaDictadoClaseInternalFrame.doDefaultCloseAction();
+				rankingActividadInternalFrame.doDefaultCloseAction();
+				rankingClaseInternalFrame.doDefaultCloseAction();
 			}
 		});
 		

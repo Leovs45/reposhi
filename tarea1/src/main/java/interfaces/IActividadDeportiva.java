@@ -19,7 +19,8 @@ public interface IActividadDeportiva {
 	public void modificarDescripcion(String nombreActividad, String nuevaDescripcion);
 	public void modificarDuracion(String nombreActividad, int nuevaDuracion);
 	public void modificarCosto(String nombreActividad, double nuevoCosto);
-	public List<ActividadDeportiva> getRankingActividades();
+	//public List<ActividadDeportiva> getRankingActividades();
+	public List<DtActividad> getRankingActividades();
 	public void agregarActividad(ActividadDeportiva actividad);
 	public List<DtActividad> getActividades();
 	public ActividadDeportiva buscarActividadDeportiva(String nombreActividad);

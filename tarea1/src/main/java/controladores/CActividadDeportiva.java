@@ -1,7 +1,6 @@
 package controladores;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.stream.Collectors;
 import java.util.List;
 
 import datatypes.DtActividad;
@@ -118,8 +117,11 @@ public class CActividadDeportiva implements IActividadDeportiva {
 
 	    return actividadesOrdenadas;
 	}
-	*/
 	
+	/*
+	
+	
+	/*
 	@Override
 	public List<DtActividad> getRankingActividades() {
 	    int i, j;
@@ -146,6 +148,40 @@ public class CActividadDeportiva implements IActividadDeportiva {
 	    }
 
 	    return actividadesOrdenadas;
+	}
+	*/
+	
+	@Override
+	public List<DtActividad> getRankingActividades() {
+	    int i, j;
+	    boolean swapped;
+	    ActividadDeportiva temp;
+	    List<ActividadDeportiva> actividadesOrdenadas = new ArrayList<>(actividades);
+
+	    for (i = 0; i < actividadesOrdenadas.size() - 1; i++) {
+	        swapped = false;
+	        for (j = 0; j < actividadesOrdenadas.size() - 1 - i; j++) {
+	            if (actividadesOrdenadas.get(j).getCantidadClases() < actividadesOrdenadas.get(j + 1).getCantidadClases()) {
+	                temp = actividadesOrdenadas.get(j);
+	                actividadesOrdenadas.set(j, actividadesOrdenadas.get(j + 1));
+	                actividadesOrdenadas.set(j + 1, temp);
+	                swapped = true;
+	            }
+	        }
+
+	        if (!swapped) {
+	            break;
+	        }
+	    }
+
+	    List<DtActividad> rankingDtActividades = new ArrayList<>();
+	    for (ActividadDeportiva actividad : actividadesOrdenadas) {
+	        List<Clase> claseActividad = actividad.getArrayClase();
+	        DtActividad dt = new DtActividad(claseActividad,actividad.getNombre(),actividad.getCosto(),actividad.getDescripcion());
+	        rankingDtActividades.add(dt);
+	    }
+
+	    return rankingDtActividades;
 	}
 
 	

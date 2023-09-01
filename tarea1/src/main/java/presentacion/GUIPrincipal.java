@@ -369,7 +369,7 @@ public class GUIPrincipal {
 		
 		// RANKING CLASE
 		
-		JMenuItem menuConsultarRankingClase = new JMenuItem("Consultar Ranking de dictados clase");
+		JMenuItem menuConsultarRankingClase = new JMenuItem("Ranking de Dictados de Clase");
 		menuConsultas.add(menuConsultarRankingClase);
 		menuConsultarRankingClase.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -391,7 +391,7 @@ public class GUIPrincipal {
 		
 		//RANKING ACTIVIDADES
 		
-		JMenuItem menuConsultarRankingAct = new JMenuItem("Consultar Ranking de actividades deportivas");
+		JMenuItem menuConsultarRankingAct = new JMenuItem("Ranking de Actividades Deportivas");
 		menuConsultas.add(menuConsultarRankingAct);
 		menuConsultarRankingAct.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

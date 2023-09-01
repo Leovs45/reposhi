@@ -15,7 +15,7 @@ public class DtSocio extends DtUsuario {
     }
 
     public List<DtRegistro> getRegistros() {
-        List dtRegistros = new ArrayList<>();
+        List<DtRegistro> dtRegistros = new ArrayList<>();
         
         for(Registro r: registros) {
         	dtRegistros.add(r.getDtRegistro());

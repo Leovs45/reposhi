@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import logica.Clase;
-import logica.ActividadDeportiva;
 import logica.InstitucionDeportiva;
 
 public class DtActividad{
@@ -15,7 +14,7 @@ public class DtActividad{
     private int duracionMinutos;
     private double costo;
     private Date fechaRegistro;
-    private List<Clase> clases;
+    private List<Clase> clases = new ArrayList<>();
     
     public DtActividad(InstitucionDeportiva institucion, String nombre, String descripcion, int duracionMinutos, double costo, Date fechaRegistro, List<Clase> clases){
     	this.institucion = institucion;
@@ -27,10 +26,11 @@ public class DtActividad{
     	this.clases = clases;
     }
     
-    public DtActividad(String nombre, double costo, String descripcion) {
+    public DtActividad(List<Clase> clases,String nombre, double costo, String descripcion) {
     	this.nombre = nombre;
     	this.costo = costo;
     	this.descripcion = descripcion;
+    	this.clases = clases;
     }
 
 	public DtInstitucion getInstitucion() {
@@ -61,6 +61,10 @@ public class DtActividad{
 		return clases.size();
 		
 	}
+	
+	public int getCantidadClases() {
+        return (clases != null) ? clases.size() : 0;
+    }
 	
 	public List<DtClase> getClases() {
 		List<DtClase> dtClases = new ArrayList<>();

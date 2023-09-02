@@ -10,6 +10,8 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
@@ -20,9 +22,28 @@ public class GUIAltaActividad extends JInternalFrame {
 	private JTextField textFieldDescripcion;
 	private JTextField textFieldDuracion;
 	private JTextField textFieldCosto;
+	JComboBox cmbInstituciones = new JComboBox();
+	List<String> instituciones;
+	
+	private void setupActions(IInstitucionDeportiva iInstitucion) {
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				cmbInstituciones.removeAllItems();
+				instituciones = iInstitucion.getListaNombreInstituciones();
+					
+				for (String i: instituciones) {
+	                cmbInstituciones.addItem(i);
+	            }
+				
+				cmbInstituciones.setSelectedIndex(-1);	
+			}
+		});
+	}
 
-	/*  Create the frame. */
+	
 	public GUIAltaActividad(IActividadDeportiva iActividad, IInstitucionDeportiva iInstitucion) {
+		setupActions(iInstitucion);
 		setResizable(true);
 		setClosable(true);
 		setBounds(100, 100, 450, 400);
@@ -36,17 +57,7 @@ public class GUIAltaActividad extends JInternalFrame {
 		lblInstitucion.setBounds(28, 59, 84, 15);
 		getContentPane().add(lblInstitucion);
 		
-		JComboBox cmbInstituciones = new JComboBox();
 		cmbInstituciones.setBounds(137, 52, 130, 24);
-		
-        List<String> ins = iInstitucion.getListaNombreInstituciones();
-        try {
-        	for (String i : ins) {
-                cmbInstituciones.addItem(i);
-            }
-	    } catch (Exception e) {
-	    	JOptionPane.showMessageDialog(null, "Error al cargar las etc", "Error", JOptionPane.ERROR_MESSAGE);
-        }
         getContentPane().add(cmbInstituciones);
         
         

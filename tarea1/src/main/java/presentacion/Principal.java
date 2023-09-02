@@ -30,10 +30,8 @@ import logica.ActividadDeportiva;
 import controladores.CInstitucionDeportiva;
 import presentacion.*;
 
-
- public class Principal {
- /*
-	static Fabrica f = Fabrica.getInstancia();
+public class Principal {
+	/* static Fabrica f = Fabrica.getInstancia();
 	static void menu() {
 		System.out.println("\nMENU\n"+
 		"1- Agregar Usuario\n" +
@@ -414,7 +412,7 @@ import presentacion.*;
 						System.out.println("Ingresar url: ");
 						String urlClase = entrada.nextLine();
 						
-						iClase.altaDictadoClase(nombreClase, ad.getDtActividad(), fechaClase, nomProfe, horaInicio, urlClase, fechaRegistro);
+						//iClase.altaDictadoClase(nombreClase, ad, fechaClase, nomProfe, horaInicio, urlClase, fechaRegistro);
 	        }
 		   
 		 } while (opt == 1);
@@ -458,7 +456,7 @@ import presentacion.*;
 		}
 	}
 	*/
-	static void precargarDatos() {
+	/* static void precargarDatos() {
 		Fabrica f = Fabrica.getInstancia();
 		
 		// Creo institucion
@@ -505,14 +503,15 @@ import presentacion.*;
 	
 		// Creo clases
 		IClase iClase = f.getIClase();
-		iClase.altaDictadoClase("c1", a1.getDtActividad(), new Date(), profe1.getNickname(), "12:00", "url", new Date());
-		iClase.altaDictadoClase("c3", a1.getDtActividad(), new Date(), profe1.getNickname(), "12:00", "url", new Date());
-		iClase.altaDictadoClase("c5", a3.getDtActividad(), new Date(), profe1.getNickname(), "12:00", "url", new Date());
-		iClase.altaDictadoClase("c2", a2.getDtActividad(), new Date(), profe2.getNickname(), "12:00", "url", new Date());
-		iClase.altaDictadoClase("c4", a4.getDtActividad(), new Date(), profe2.getNickname(), "12:00", "url", new Date());
+		//iClase.altaDictadoClase("c1", a1, new Date(), profe1.getNickname(), "12:00", "url", new Date());
+		//iClase.altaDictadoClase("c3", a1, new Date(), profe1.getNickname(), "12:00", "url", new Date());
+		//iClase.altaDictadoClase("c5", a3, new Date(), profe1.getNickname(), "12:00", "url", new Date());
+		//iClase.altaDictadoClase("c2", a2, new Date(), profe2.getNickname(), "12:00", "url", new Date());
+		//iClase.altaDictadoClase("c4", a4, new Date(), profe2.getNickname(), "12:00", "url", new Date());
 		
 		//Creo registros
 		// actividad.registroClase(nombreClase, socio);
+		
 		a1.registroClase("c1", u1);
 		a1.registroClase("c1", u2);
 		a3.registroClase("c5", u1);
@@ -601,6 +600,7 @@ import presentacion.*;
 		
 		for(ActividadDeportiva a: actividadesOrdenadas) {
 			System.out.println(a.getNombre() + " " + a.getCantidadClases());
+			//getCosto, getDescripcion
 		}
 	}
 	
@@ -643,16 +643,16 @@ import presentacion.*;
 		
 		for(Clase c: clasesOrdenadas) {
 			System.out.println(c.getNombreClase() + " " + c.getCantidadRegistros());
+			//getFechaClase getURL
 		}
 	}
 	*/
 	//**************************************************************************************
-	
 	public static void main(String[] args) {
 		
 
 		
-		Fabrica f = Fabrica.getInstancia();
+		/* Fabrica f = Fabrica.getInstancia();
 		//Institucion deportiva;
 		System.out.println("precargarDatos()");
 		System.out.println("========================================");
@@ -670,7 +670,15 @@ import presentacion.*;
 		//Tirando_datos td= new Tirando_datos();
 		//td.rellenarDatos();
 		
-	
+		Fabrica f = Fabrica.getInstancia();
+		//Institucion deportiva;
+		System.out.println("precargarDatos()");
+		System.out.println("========================================");
+		//precargarDatos();
+		IInstitucionDeportiva iInstitucion = f.getIInstitucionDeportiva();
+		iInstitucion.altaInstitucionDeportiva("Instituto 1","descripcion inistitucion 1", "url Insitucion 1");
+		
+	/***
 	 int op;
 		
 		do {

@@ -13,7 +13,6 @@ import javax.persistence.Table;
 import datatypes.DtActividad;
 import datatypes.DtClase;
 import interfaces.Fabrica;
-import interfaces.IActividadDeportiva;
 import interfaces.IClase;
 
 import java.util.ArrayList;

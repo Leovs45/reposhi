@@ -10,6 +10,8 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
@@ -20,9 +22,28 @@ public class GUIAltaActividad extends JInternalFrame {
 	private JTextField textFieldDescripcion;
 	private JTextField textFieldDuracion;
 	private JTextField textFieldCosto;
+	JComboBox cmbInstituciones = new JComboBox();
+	List<String> instituciones;
+	
+	private void setupActions(IInstitucionDeportiva iInstitucion) {
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				cmbInstituciones.removeAllItems();
+				instituciones = iInstitucion.getListaNombreInstituciones();
+					
+				for (String i: instituciones) {
+	                cmbInstituciones.addItem(i);
+	            }
+				
+				cmbInstituciones.setSelectedIndex(-1);	
+			}
+		});
+	}
 
-	/*  Create the frame. */
+	
 	public GUIAltaActividad(IActividadDeportiva iActividad, IInstitucionDeportiva iInstitucion) {
+		setupActions(iInstitucion);
 		setResizable(true);
 		setClosable(true);
 		setBounds(100, 100, 450, 400);
@@ -36,17 +57,7 @@ public class GUIAltaActividad extends JInternalFrame {
 		lblInstitucion.setBounds(28, 59, 84, 15);
 		getContentPane().add(lblInstitucion);
 		
-		JComboBox cmbInstituciones = new JComboBox();
 		cmbInstituciones.setBounds(137, 52, 130, 24);
-		
-        List<String> ins = iInstitucion.getListaNombreInstituciones();
-        try {
-        	for (String i : ins) {
-                cmbInstituciones.addItem(i);
-            }
-	    } catch (Exception e) {
-	    	JOptionPane.showMessageDialog(null, "Error al cargar las etc", "Error", JOptionPane.ERROR_MESSAGE);
-        }
         getContentPane().add(cmbInstituciones);
         
         
@@ -114,22 +125,22 @@ public class GUIAltaActividad extends JInternalFrame {
 						|| textFieldDuracion.getText().isEmpty() 
 						|| textFieldCosto.getText().isEmpty()
 						|| cmbInstituciones.getSelectedIndex() == -1){
-					lblError1.setVisible(true);
-					lblError2.setVisible(true);
-					lblActividadIngresada.setVisible(false);
+					JOptionPane.showMessageDialog(null, "Completa todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 				else {
 					String nombreInstitucion = (String) cmbInstituciones.getSelectedItem();
 					String nombre = textFieldNombre.getText();
-					String descripcion = textFieldDescripcion.getText();
-					//TO DO: Exception para los int
-					int duracion = Integer.parseInt(textFieldDuracion.getText());
-					double costo = Double.parseDouble(textFieldCosto.getText());
-					lblError1.setVisible(false);
-					lblError2.setVisible(false);
-					lblActividadIngresada.setVisible(true);
-					
-					iActividad.altaActividadDeportiva(iInstitucion.buscarInstitucionDeportiva(nombreInstitucion), nombre, descripcion, duracion, costo, new Date());
+					try {
+						String descripcion = textFieldDescripcion.getText();
+						int duracion = Integer.parseInt(textFieldDuracion.getText());
+						double costo = Double.parseDouble(textFieldCosto.getText());
+						lblError1.setVisible(false);
+						lblError2.setVisible(false);
+						iActividad.altaActividadDeportiva(iInstitucion.buscarInstitucionDeportiva(nombreInstitucion), nombre, descripcion, duracion, costo, new Date());
+						JOptionPane.showMessageDialog(null, "La actividad fue creada correctamente", "Success", JOptionPane.INFORMATION_MESSAGE);
+					} catch (Exception exc) {
+						JOptionPane.showMessageDialog(null, "Duracion y costo debe ser un valores numéricos", "Error", JOptionPane.ERROR_MESSAGE);
+					}
 				}
 				
 			}

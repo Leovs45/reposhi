@@ -6,7 +6,6 @@ import java.util.List;
 import datatypes.DtActividad;
 import datatypes.DtClase;
 import logica.ActividadDeportiva;
-import logica.Clase;
 import logica.InstitucionDeportiva;
 
 
@@ -14,12 +13,10 @@ public interface IActividadDeportiva {
 	public List<ActividadDeportiva> actividades = new ArrayList<>();
 	public void altaActividadDeportiva(InstitucionDeportiva institucion, String nombreActividad, String descripcion, int duracionMinutos,
 			double costo, Date fechaAlta);
-	
-	//Opcionales
 	public void modificarDescripcion(String nombreActividad, String nuevaDescripcion);
 	public void modificarDuracion(String nombreActividad, int nuevaDuracion);
 	public void modificarCosto(String nombreActividad, double nuevoCosto);
-	public List<ActividadDeportiva> getRankingActividades();
+	public List<DtActividad> getRankingActividades();
 	public void agregarActividad(ActividadDeportiva actividad);
 	public List<DtActividad> getActividades();
 	public ActividadDeportiva buscarActividadDeportiva(String nombreActividad);

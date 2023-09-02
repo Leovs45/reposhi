@@ -79,7 +79,7 @@ public class CActividadDeportiva implements IActividadDeportiva {
 		return null;
 	}
 
-	@Override
+	
 	public void modificarDescripcion(String nombreActividad, String nuevaDescripcion) {
 		ActividadDeportiva actividad = buscarActividadDeportiva(nombreActividad);
 		actividad.setDescripcion(nuevaDescripcion);
@@ -101,7 +101,8 @@ public class CActividadDeportiva implements IActividadDeportiva {
 	public void agregarActividad(ActividadDeportiva actividad) {
 		actividades.add(actividad);
 	}
-
+	
+	/*
 	@Override
 	public List<ActividadDeportiva> getRankingActividades() {
 	    int i, j;
@@ -127,6 +128,75 @@ public class CActividadDeportiva implements IActividadDeportiva {
 
 	    return actividadesOrdenadas;
 	}
+	
+	/*
+	
+	
+	/*
+	@Override
+	public List<DtActividad> getRankingActividades() {
+	    int i, j;
+	    boolean swapped;
+	    DtActividad temp;
+	    List<DtActividad> actividadesOrdenadas = actividades.stream()
+	                                    .map(a -> new DtActividad(a.getNombre(), a.getCosto(),a.getDescripcion()))
+	                                    .collect(Collectors.toList());
+
+	    for (i = 0; i < actividadesOrdenadas.size() - 1; i++) {
+	        swapped = false;
+	        for (j = 0; j < actividadesOrdenadas.size() - 1 - i; j++) {
+	            if (actividadesOrdenadas.get(j).getCantidadDeClases() < actividadesOrdenadas.get(j + 1).getCantidadDeClases()) {
+	                temp = actividadesOrdenadas.get(j);
+	                actividadesOrdenadas.set(j, actividadesOrdenadas.get(j + 1));
+	                actividadesOrdenadas.set(j + 1, temp);
+	                swapped = true;
+	            }
+	        }
+
+	        if (!swapped) {
+	            break;
+	        }
+	    }
+
+	    return actividadesOrdenadas;
+	}
+	*/
+	
+	@Override
+	public List<DtActividad> getRankingActividades() {
+	    int i, j;
+	    boolean swapped;
+	    ActividadDeportiva temp;
+	    List<ActividadDeportiva> actividadesOrdenadas = new ArrayList<>(actividades);
+
+	    for (i = 0; i < actividadesOrdenadas.size() - 1; i++) {
+	        swapped = false;
+	        for (j = 0; j < actividadesOrdenadas.size() - 1 - i; j++) {
+	            if (actividadesOrdenadas.get(j).getCantidadClases() < actividadesOrdenadas.get(j + 1).getCantidadClases()) {
+	                temp = actividadesOrdenadas.get(j);
+	                actividadesOrdenadas.set(j, actividadesOrdenadas.get(j + 1));
+	                actividadesOrdenadas.set(j + 1, temp);
+	                swapped = true;
+	            }
+	        }
+
+	        if (!swapped) {
+	            break;
+	        }
+	    }
+
+	    List<DtActividad> rankingDtActividades = new ArrayList<>();
+	    for (ActividadDeportiva actividad : actividadesOrdenadas) {
+	        List<Clase> claseActividad = actividad.getArrayClase();
+	        DtActividad dt = new DtActividad(claseActividad,actividad.getNombre(),actividad.getCosto(),actividad.getDescripcion());
+	        rankingDtActividades.add(dt);
+	    }
+
+	    return rankingDtActividades;
+	}
+
+	
+	
 	
 	@Override
 	public List<DtActividad> getActividades() {

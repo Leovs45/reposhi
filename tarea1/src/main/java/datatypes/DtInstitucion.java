@@ -46,7 +46,7 @@ public class DtInstitucion {
     }
 
     public List<DtProfesor> getProfesores() {
-        List dtProfesores = new ArrayList<>();
+        List<DtProfesor> dtProfesores = new ArrayList<>();
         
         for(Profesor profesor: profesores) {
         	dtProfesores.add(profesor.getDtProfesor());
@@ -56,7 +56,7 @@ public class DtInstitucion {
     }
 
     public List<DtActividad> getActividades() {
-    	List dtActividades = new ArrayList<>();
+    	List<DtActividad> dtActividades = new ArrayList<>();
         
         for(ActividadDeportiva actividad: actividades) {
         	dtActividades.add(actividad.getDtActividad());

@@ -94,16 +94,19 @@ public class CUsuario implements IUsuario {
 	    }
 	}
 	
-	/*public boolean existeUsuario(String nombre) {
+	
+	@Override
+	public boolean existeUsuario(String nombre) {
 		boolean existe = false;
 		for(Usuario u : usuarios) {
 			if(nombre.equals(u.getNickname()))
 				existe = true;
 		}
 		return existe;
-	}*/
+	}
 	
 	
+	@Override
 	public boolean esProfesor(String nombre) {
 		Usuario u = buscarUsuario(nombre);
 		if(u instanceof Profesor) {
@@ -191,7 +194,7 @@ public class CUsuario implements IUsuario {
 	
 	@Override 
 	public List<String> obtenerArrayNicknames() {
-		List nicknames = new ArrayList<>();
+		List<String> nicknames = new ArrayList<>();
 			
 		for(Usuario u: usuarios) {
 			nicknames.add(u.getNickname());
@@ -238,13 +241,16 @@ public class CUsuario implements IUsuario {
 	}
 	
 	@Override
-	public boolean existeUsuario(String nickname) {
-		Usuario user = buscarUsuario(nickname);
-		
-		if(user == null) {
-			return false;
-		} else {
-			return true;
-		}
+	public List<DtProfesor> getListaProfesores() {
+		List<DtProfesor> profesores = new ArrayList<>();
+			
+			for(Usuario u: usuarios) {
+				if(u instanceof Profesor) {
+					profesores.add(getDtProfesor(u.getNickname()));
+				}
+			}
+			
+		return profesores;
 	}
+	
 }

@@ -9,11 +9,11 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-
 import interfaces.*;
 import logica.*;
-
-public class CRegistro implements IRegistro{
+	
+public class CRegistro implements IRegistro {
+	
 	private List<Registro> registros = new ArrayList<>();
 	private static CRegistro instancia = null;
 

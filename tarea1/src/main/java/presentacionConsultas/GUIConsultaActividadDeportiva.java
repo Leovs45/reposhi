@@ -9,6 +9,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
@@ -22,18 +24,34 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class GUIConsultaActividadDeportiva extends JInternalFrame {
-
-    private JComboBox<String> cmbInstituciones;
-    private JComboBox<String> cmbActividades;
+    JComboBox cmbInstituciones = new JComboBox<>();
+    JComboBox cmbActividades = new JComboBox<>();
     private JLabel lblNombre;
     private JLabel lblFecha;
     private JLabel lblDescrip;
     private JLabel lblCosto;
     private JLabel lblDuracion;
     private JTable tabla;
+    List<String> instituciones;
+    
+    private void setupActions(IInstitucionDeportiva iInstitucion) {
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				cmbInstituciones.removeAllItems();
+				instituciones = iInstitucion.getListaNombreInstituciones();
+					
+				for (String i: instituciones) {
+	                cmbInstituciones.addItem(i);
+	            }
+				
+				cmbInstituciones.setSelectedIndex(-1);	
+			}
+		});
+	}
 
     public GUIConsultaActividadDeportiva(IActividadDeportiva iActividad, IInstitucionDeportiva iInstitucion) {
-  
+    	setupActions(iInstitucion);
         setTitle("Consulta Actividad Deportiva");
         setClosable(true);
         setSize(600, 500);
@@ -59,7 +77,6 @@ public class GUIConsultaActividadDeportiva extends JInternalFrame {
         lblDuracion.setBounds(23, 240, 500, 15);
         getContentPane().add(lblDuracion);
 
-        cmbInstituciones = new JComboBox<>();
         cmbInstituciones.setBounds(185, 32, 189, 22);
         getContentPane().add(cmbInstituciones);
 
@@ -84,18 +101,9 @@ public class GUIConsultaActividadDeportiva extends JInternalFrame {
         JLabel lblNewLabel = new JLabel("Actividades :");
         lblNewLabel.setBounds(23, 83, 108, 14);
         getContentPane().add(lblNewLabel);
- //==========================Cargo combo institucion deportiva ============================================
-        try {
-        	List<String> ins = iInstitucion.getListaNombreInstituciones();
-            for (String i : ins) {
-                cmbInstituciones.addItem(i);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
   
 //==================================Evento para click en la tabla ==================================== 
-        tabla.addMouseListener(new MouseAdapter() {
+        /* tabla.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
         
@@ -108,28 +116,25 @@ public class GUIConsultaActividadDeportiva extends JInternalFrame {
                     
                     }
         	}
-        });
+        }); */
         
         
 //====================================================================== 
-                
-        //TODO instituciones action Listener
         cmbInstituciones.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 String institucion = (String) cmbInstituciones.getSelectedItem();
                 cmbActividades.removeAllItems();
-                try {
-                	//TODO Cargo combo de actividades
+                cmbActividades.setSelectedIndex(-1);
+
+                if(institucion != null) {
                 	List<String> act = iInstitucion.obtenerActividadesDeUnaInstitucion(institucion);
                     for (String a : act) {
                         cmbActividades.addItem(a);
                     }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
                 }
             }
         });
-//TODO actividades action listener
+
         cmbActividades.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String selectedItemActividades = (String) cmbActividades.getSelectedItem();

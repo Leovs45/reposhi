@@ -25,6 +25,8 @@ import java.awt.Color;
 import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.ActionEvent;
 
 
@@ -37,12 +39,26 @@ public class GUIAltaUsuario extends JInternalFrame {
 	private JTextField textFieldBiografia;
 	private JTextField textFieldSitioWeb;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	/**
-	 * Create the frame.
-	 */
+	List<String> instituciones;
+	DefaultListModel<String> milista = new DefaultListModel<String>();
+	
+	private void setupActions(IInstitucionDeportiva iInstitucion) {
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				instituciones = iInstitucion.getListaNombreInstituciones();
+				
+				for(String id: instituciones) {
+					milista.addElement(id);
+				}
+			}
+		});
+	}
+	
 	public GUIAltaUsuario(IUsuario iUsuario, IInstitucionDeportiva iInstitucion) {
 		setClosable(true);
 		setResizable(true);
+		setupActions(iInstitucion);
 		setBounds(100, 100, 550, 500);
 		getContentPane().setLayout(null);
 		
@@ -108,13 +124,7 @@ public class GUIAltaUsuario extends JInternalFrame {
 		JList listaInstitucion = new JList();
 		scrollPane.setViewportView(listaInstitucion);
 		listaInstitucion.setEnabled(false);
-		
-		List<String> instituciones = iInstitucion.getListaNombreInstituciones();
 
-		DefaultListModel<String> milista = new DefaultListModel<String>();
-		for(String id: instituciones) {
-			milista.addElement(id);
-		}
 		listaInstitucion.setModel(milista);
 		JLabel lblDescripcion = new JLabel("Descripcion: ");
 		lblDescripcion.setEnabled(false);

@@ -33,4 +33,5 @@ public interface IUsuario {
 	public DtSocio getDtSocio(String nickname);
 	public DtProfesor getDtProfesor(String nickname);
 	boolean existeUsuario(String nickname);
+	List<DtProfesor> getListaProfesores();
 }

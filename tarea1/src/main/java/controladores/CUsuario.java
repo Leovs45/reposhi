@@ -216,4 +216,17 @@ public class CUsuario implements IUsuario {
 		return profesor.getDtProfesor();
 	}
 	
+	@Override
+	public List<DtProfesor> getListaProfesores() {
+		List<DtProfesor> profesores = new ArrayList<>();
+			
+			for(Usuario u: usuarios) {
+				if(u instanceof Profesor) {
+					profesores.add(getDtProfesor(u.getNickname()));
+				}
+			}
+			
+		return profesores;
+	}
+	
 }

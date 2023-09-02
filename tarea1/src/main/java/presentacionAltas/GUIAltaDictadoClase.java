@@ -12,15 +12,17 @@ import datatypes.DtProfesor;
 import datatypes.DtActividad;
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.ActionEvent;
 import java.text.SimpleDateFormat;
 
 
 
 public class GUIAltaDictadoClase extends JInternalFrame {
-
-    private JComboBox<String> cmbInstituciones;
-    private JComboBox<String> cmbActividades;
+	private JComboBox cmbInstituciones = new JComboBox();
+    private JComboBox cmbActividades = new JComboBox();
+    private JComboBox cmbProfesor = new JComboBox();
     private JPanel activityPanel;
     private JTextField textNombre;
     private JTextField textHora;
@@ -29,7 +31,23 @@ public class GUIAltaDictadoClase extends JInternalFrame {
     private JLabel lblNewLabel_3;
     private JLabel lblNewLabel_4;
     private JLabel lblNewLabel_5;
-    JComboBox cmbProfesor = new JComboBox();
+    List<String> instituciones;
+    
+    private void setupActions(IInstitucionDeportiva iInstitucion) {
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				cmbInstituciones.removeAllItems();
+				instituciones = iInstitucion.getListaNombreInstituciones();
+					
+				for (String i: instituciones) {
+	                cmbInstituciones.addItem(i);
+	            }
+				
+				cmbInstituciones.setSelectedIndex(-1);	
+			}
+		});
+	}
 
     public void pegarLimpieza() {
         textNombre.setText("");
@@ -39,7 +57,8 @@ public class GUIAltaDictadoClase extends JInternalFrame {
     }
 
     public GUIAltaDictadoClase(IClase iClase,IInstitucionDeportiva iInstitucion, IActividadDeportiva iActividad, IUsuario iUsuario) {
-        setTitle("Alta Dictado de Clases");
+        setupActions(iInstitucion);
+    	setTitle("Alta Dictado de Clases");
         setResizable(true);
         setClosable(true);
         setBounds(100, 100, 450, 400);
@@ -49,7 +68,6 @@ public class GUIAltaDictadoClase extends JInternalFrame {
         String fechaFormateada = formatoFecha.format(fechaActual);
 
 
-        cmbInstituciones = new JComboBox<>();
         cmbInstituciones.setBounds(145, 36, 200, 22);
         getContentPane().add(cmbInstituciones);
 
@@ -156,35 +174,25 @@ public class GUIAltaDictadoClase extends JInternalFrame {
         activityPanel.add(Lblfecha);
 
 
-        try {
-            List<String> ins = iInstitucion.getListaNombreInstituciones();
-            for (String i : ins) {
-                cmbInstituciones.addItem(i);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         cmbInstituciones.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	cmbActividades.setSelectedIndex(-1);
                 String institucion = (String) cmbInstituciones.getSelectedItem();
                 cmbActividades.removeAllItems();
-                try {
-                    List<String> actividades = iInstitucion.obtenerActividadesDeUnaInstitucion(institucion);
+                if(institucion != null) {
+                	List<String> actividades = iInstitucion.obtenerActividadesDeUnaInstitucion(institucion);
                     for (String a : actividades) {
                         cmbActividades.addItem(a);
                     }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
                 }
             }
         });
 
         cmbActividades.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	cmbProfesor.setSelectedIndex(-1);
                 activityPanel.setVisible(true);
                 cmbProfesor.removeAllItems();
-                cmbProfesor.setSelectedIndex(-1);
                 	
                 List<DtProfesor> profesores = iUsuario.getListaProfesores();
                 

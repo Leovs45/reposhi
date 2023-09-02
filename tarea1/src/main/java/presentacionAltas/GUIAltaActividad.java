@@ -125,22 +125,22 @@ public class GUIAltaActividad extends JInternalFrame {
 						|| textFieldDuracion.getText().isEmpty() 
 						|| textFieldCosto.getText().isEmpty()
 						|| cmbInstituciones.getSelectedIndex() == -1){
-					lblError1.setVisible(true);
-					lblError2.setVisible(true);
-					lblActividadIngresada.setVisible(false);
+					JOptionPane.showMessageDialog(null, "Completa todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 				else {
 					String nombreInstitucion = (String) cmbInstituciones.getSelectedItem();
 					String nombre = textFieldNombre.getText();
-					String descripcion = textFieldDescripcion.getText();
-					//TO DO: Exception para los int
-					int duracion = Integer.parseInt(textFieldDuracion.getText());
-					double costo = Double.parseDouble(textFieldCosto.getText());
-					lblError1.setVisible(false);
-					lblError2.setVisible(false);
-					lblActividadIngresada.setVisible(true);
-					
-					iActividad.altaActividadDeportiva(iInstitucion.buscarInstitucionDeportiva(nombreInstitucion), nombre, descripcion, duracion, costo, new Date());
+					try {
+						String descripcion = textFieldDescripcion.getText();
+						int duracion = Integer.parseInt(textFieldDuracion.getText());
+						double costo = Double.parseDouble(textFieldCosto.getText());
+						lblError1.setVisible(false);
+						lblError2.setVisible(false);
+						iActividad.altaActividadDeportiva(iInstitucion.buscarInstitucionDeportiva(nombreInstitucion), nombre, descripcion, duracion, costo, new Date());
+						JOptionPane.showMessageDialog(null, "La actividad fue creada correctamente", "Success", JOptionPane.INFORMATION_MESSAGE);
+					} catch (Exception exc) {
+						JOptionPane.showMessageDialog(null, "Duracion y costo debe ser un valores numéricos", "Error", JOptionPane.ERROR_MESSAGE);
+					}
 				}
 				
 			}

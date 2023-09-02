@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import interfaces.IInstitucionDeportiva;
 import logica.ActividadDeportiva;
 import logica.InstitucionDeportiva;
+import persistencia.Conexion;
 import datatypes.DtActividad;
 import datatypes.DtClase;
 import datatypes.DtInstitucion;
@@ -29,6 +32,13 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 			InstitucionDeportiva institucion = new InstitucionDeportiva(nombre, descripcion, url);
 			instituciones.add(institucion);
 			System.out.println("OK  -  La institucion fue creada correctamente");
+//=====================================================================			
+			Conexion conexion = Conexion.getInstancia();
+			EntityManager em = conexion.getEntityManager();
+			em.getTransaction().begin();
+			em.persist(institucion);
+			em.getTransaction().commit();
+//=====================================================================
 		}
 		else
 			System.out.println("Institucion ya existente");
@@ -132,7 +142,7 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 		DtActividad dtAct = new	DtActividad(ins, act.getNombre(), act.getDescripcion(), act.getDuracionMinutos(), act.getCosto(), act.getFechaRegistro(), act.getArrayClase());
 		return dtAct;
 	}
-	
+	/*
 	public List<String> obtenerActividadesDeUnaInstitucion(String nombre){
 		List<String> asd = new ArrayList<>();
 		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombre);
@@ -145,7 +155,7 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 	public List<InstitucionDeportiva> getInstituciones() {
 		return instituciones;
 	}
-	
+	*/
 	@Override
 	public List<String> obtenerActividadesDeUnaInstitucion(String nombre){
 		List<String> asd = new ArrayList<>();

@@ -1,8 +1,12 @@
 package controladores;
 import logica.*;
+import persistencia.Conexion;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import datatypes.DtProfesor;
 import datatypes.DtSocio;
@@ -20,15 +24,33 @@ public class CUsuario implements IUsuario {
 		return instancia;
 	}
 	
+
 	@Override
 	public void altaUsuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento, InstitucionDeportiva institucion, String descripcionGeneral, String biografia, String sitioWeb){
 		Usuario profe = new Profesor(nickname, nombre, apellido, correoElectronico, fechaNacimiento, institucion, descripcionGeneral, biografia, sitioWeb);
 		usuarios.add(profe);
+		//=====================================================================			
+		Conexion conexion = Conexion.getInstancia();
+		EntityManager em = conexion.getEntityManager();
+		em.getTransaction().begin();
+		em.persist(profe);
+		em.getTransaction().commit();
+//=====================================================================
+		
+				
 	}
 	
 	public void altaUsuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento) {
 		Usuario socio = new Socio(nickname, nombre, apellido, correoElectronico, fechaNacimiento);
 		usuarios.add(socio);
+		//=====================================================================			
+		Conexion conexion = Conexion.getInstancia();
+		EntityManager em = conexion.getEntityManager();
+		em.getTransaction().begin();
+		em.persist(socio);
+		em.getTransaction().commit();
+//=====================================================================
+		
 	}	
 	
 	@Override
@@ -72,14 +94,15 @@ public class CUsuario implements IUsuario {
 	    }
 	}
 	
-	public boolean existeUsuario(String nombre) {
+	/*public boolean existeUsuario(String nombre) {
 		boolean existe = false;
 		for(Usuario u : usuarios) {
 			if(nombre.equals(u.getNickname()))
 				existe = true;
 		}
 		return existe;
-	}
+	}*/
+	
 	
 	public boolean esProfesor(String nombre) {
 		Usuario u = buscarUsuario(nombre);

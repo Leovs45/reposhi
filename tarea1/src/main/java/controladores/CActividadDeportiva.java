@@ -3,12 +3,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import datatypes.DtActividad;
 import datatypes.DtClase;
 import interfaces.IActividadDeportiva;
 import logica.ActividadDeportiva;
 import logica.Clase;
 import logica.InstitucionDeportiva;
+import persistencia.Conexion;
 
 
 public class CActividadDeportiva implements IActividadDeportiva {
@@ -28,6 +31,14 @@ public class CActividadDeportiva implements IActividadDeportiva {
 			double costo, Date fechaAlta) {
 		ActividadDeportiva actividad = new ActividadDeportiva(institucion, nombreActividad, descripcion, duracionMinutos, costo, fechaAlta);
 		institucion.agregarActividadDeportiva(actividad);
+		//=====================================================================			
+		Conexion conexion = Conexion.getInstancia();
+		EntityManager em = conexion.getEntityManager();
+		em.getTransaction().begin();
+		em.persist(institucion);
+		em.getTransaction().commit();
+//=====================================================================
+		
 	}
 
 	@Override

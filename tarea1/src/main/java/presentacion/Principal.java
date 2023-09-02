@@ -30,7 +30,9 @@ import logica.ActividadDeportiva;
 import controladores.CInstitucionDeportiva;
 import presentacion.*;
 
-public class Principal {
+
+ public class Principal {
+ /*
 	static Fabrica f = Fabrica.getInstancia();
 	static void menu() {
 		System.out.println("\nMENU\n"+
@@ -138,17 +140,17 @@ public class Principal {
 								case 1:
 									System.out.println("Ingresar la nueva descripcion:");
 									descripcion = entrada.nextLine();
-									iActividad.modificarDescripcion(ad, descripcion);
+									iActividad.modificarDescripcion(ad.getNombre(), descripcion);
 									break;
 								case 2:
 									System.out.println("Ingresar la duracion en minutos de la actividad:");
 									duracionMinutos = entrada.nextInt();
-									iActividad.modificarDuracion(ad, duracionMinutos);
+									iActividad.modificarDuracion(ad.getNombre(), duracionMinutos);
 									break;
 								case 3:
 									System.out.println("Ingresar costo:");
 									costo = entrada.nextDouble();
-									iActividad.modificarCosto(ad, costo);
+									iActividad.modificarCosto(ad.getNombre(), costo);
 								break;
 							}
 
@@ -399,7 +401,7 @@ public class Principal {
 						Usuario unProfe = iUsuario.buscarUsuario(nomProfe);
 						if(unProfe != null) {
 							System.out.print("Este usuario ya existe");
-							if(!iUsuario.esProfesor(unProfe)) {
+							if(!iUsuario.esProfesor(unProfe.getNickname())) {
 								System.out.println(" y no es profesor.");
 							}
 						}
@@ -412,7 +414,7 @@ public class Principal {
 						System.out.println("Ingresar url: ");
 						String urlClase = entrada.nextLine();
 						
-						iClase.altaDictadoClase(nombreClase, ad, fechaClase, nomProfe, horaInicio, urlClase, fechaRegistro);
+						iClase.altaDictadoClase(nombreClase, ad.getDtActividad(), fechaClase, nomProfe, horaInicio, urlClase, fechaRegistro);
 	        }
 		   
 		 } while (opt == 1);
@@ -455,7 +457,7 @@ public class Principal {
 			}
 		}
 	}
-	
+	*/
 	static void precargarDatos() {
 		Fabrica f = Fabrica.getInstancia();
 		
@@ -503,11 +505,11 @@ public class Principal {
 	
 		// Creo clases
 		IClase iClase = f.getIClase();
-		iClase.altaDictadoClase("c1", a1, new Date(), profe1.getNickname(), "12:00", "url", new Date());
-		iClase.altaDictadoClase("c3", a1, new Date(), profe1.getNickname(), "12:00", "url", new Date());
-		iClase.altaDictadoClase("c5", a3, new Date(), profe1.getNickname(), "12:00", "url", new Date());
-		iClase.altaDictadoClase("c2", a2, new Date(), profe2.getNickname(), "12:00", "url", new Date());
-		iClase.altaDictadoClase("c4", a4, new Date(), profe2.getNickname(), "12:00", "url", new Date());
+		iClase.altaDictadoClase("c1", a1.getDtActividad(), new Date(), profe1.getNickname(), "12:00", "url", new Date());
+		iClase.altaDictadoClase("c3", a1.getDtActividad(), new Date(), profe1.getNickname(), "12:00", "url", new Date());
+		iClase.altaDictadoClase("c5", a3.getDtActividad(), new Date(), profe1.getNickname(), "12:00", "url", new Date());
+		iClase.altaDictadoClase("c2", a2.getDtActividad(), new Date(), profe2.getNickname(), "12:00", "url", new Date());
+		iClase.altaDictadoClase("c4", a4.getDtActividad(), new Date(), profe2.getNickname(), "12:00", "url", new Date());
 		
 		//Creo registros
 		// actividad.registroClase(nombreClase, socio);
@@ -521,7 +523,7 @@ public class Principal {
 		a4.registroClase("c4", u3);
 		
 	}
-
+/*
 	public static void consultarPerfilUsuario() {
 		Fabrica f = Fabrica.getInstancia();
 		IUsuario iUsuario = f.getIUsuario();
@@ -643,17 +645,32 @@ public class Principal {
 			System.out.println(c.getNombreClase() + " " + c.getCantidadRegistros());
 		}
 	}
-	
+	*/
 	//**************************************************************************************
 	
 	public static void main(String[] args) {
+		
+
+		
+		Fabrica f = Fabrica.getInstancia();
+		//Institucion deportiva;
+		System.out.println("precargarDatos()");
+		System.out.println("========================================");
+		//precargarDatos();
+		IInstitucionDeportiva iInstitucion = f.getIInstitucionDeportiva();
+		iInstitucion.altaInstitucionDeportiva("Instituto 1","descripcion inistitucion 1", "url Insitucion 1");
+		//InstitucionDeportiva i1 = iInstitucion.buscarInstitucionDeportiva("i1");
+		//IActividadDeportiva iActividad = f.getIActividadDeportiva();
+		//altaActividadDeportiva(i1, "a1", "Descripcion", 120, 120, new Date());
+		
+		/***	
 		//Fabrica f = Fabrica.getInstancia();
 		//Scanner input = new Scanner(System.in);
 		
 		//Tirando_datos td= new Tirando_datos();
 		//td.rellenarDatos();
 		
-	/***
+	
 	 int op;
 		
 		do {

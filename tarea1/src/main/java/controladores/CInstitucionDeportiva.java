@@ -133,19 +133,6 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 		return dtAct;
 	}
 	
-	public List<String> obtenerActividadesDeUnaInstitucion(String nombre){
-		List<String> asd = new ArrayList<>();
-		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombre);
-		List<ActividadDeportiva> actividades = institucion.getArrayActividadDeportiva();
-		for(ActividadDeportiva act: actividades)
-			asd.add(act.getNombre());
-		return asd;
-	}
-	
-	public List<InstitucionDeportiva> getInstituciones() {
-		return instituciones;
-	}
-	
 	@Override
 	public List<String> obtenerActividadesDeUnaInstitucion(String nombre){
 		List<String> asd = new ArrayList<>();

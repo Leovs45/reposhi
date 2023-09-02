@@ -72,6 +72,7 @@ public class CUsuario implements IUsuario {
 	    }
 	}
 	
+	@Override
 	public boolean existeUsuario(String nombre) {
 		boolean existe = false;
 		for(Usuario u : usuarios) {
@@ -214,14 +215,4 @@ public class CUsuario implements IUsuario {
 		return profesor.getDtProfesor();
 	}
 	
-	@Override
-	public boolean existeUsuario(String nickname) {
-		Usuario user = buscarUsuario(nickname);
-		
-		if(user == null) {
-			return false;
-		} else {
-			return true;
-		}
-	}
 }

@@ -412,7 +412,7 @@ public class Principal {
 						System.out.println("Ingresar url: ");
 						String urlClase = entrada.nextLine();
 						
-						iClase.altaDictadoClase(nombreClase, ad, fechaClase, nomProfe, horaInicio, urlClase, fechaRegistro);
+						//iClase.altaDictadoClase(nombreClase, ad, fechaClase, nomProfe, horaInicio, urlClase, fechaRegistro);
 	        }
 		   
 		 } while (opt == 1);
@@ -503,14 +503,15 @@ public class Principal {
 	
 		// Creo clases
 		IClase iClase = f.getIClase();
-		iClase.altaDictadoClase("c1", a1, new Date(), profe1.getNickname(), "12:00", "url", new Date());
-		iClase.altaDictadoClase("c3", a1, new Date(), profe1.getNickname(), "12:00", "url", new Date());
-		iClase.altaDictadoClase("c5", a3, new Date(), profe1.getNickname(), "12:00", "url", new Date());
-		iClase.altaDictadoClase("c2", a2, new Date(), profe2.getNickname(), "12:00", "url", new Date());
-		iClase.altaDictadoClase("c4", a4, new Date(), profe2.getNickname(), "12:00", "url", new Date());
+		//iClase.altaDictadoClase("c1", a1, new Date(), profe1.getNickname(), "12:00", "url", new Date());
+		//iClase.altaDictadoClase("c3", a1, new Date(), profe1.getNickname(), "12:00", "url", new Date());
+		//iClase.altaDictadoClase("c5", a3, new Date(), profe1.getNickname(), "12:00", "url", new Date());
+		//iClase.altaDictadoClase("c2", a2, new Date(), profe2.getNickname(), "12:00", "url", new Date());
+		//iClase.altaDictadoClase("c4", a4, new Date(), profe2.getNickname(), "12:00", "url", new Date());
 		
 		//Creo registros
 		// actividad.registroClase(nombreClase, socio);
+		
 		a1.registroClase("c1", u1);
 		a1.registroClase("c1", u2);
 		a3.registroClase("c5", u1);
@@ -599,6 +600,7 @@ public class Principal {
 		
 		for(ActividadDeportiva a: actividadesOrdenadas) {
 			System.out.println(a.getNombre() + " " + a.getCantidadClases());
+			//getCosto, getDescripcion
 		}
 	}
 	
@@ -641,6 +643,7 @@ public class Principal {
 		
 		for(Clase c: clasesOrdenadas) {
 			System.out.println(c.getNombreClase() + " " + c.getCantidadRegistros());
+			//getFechaClase getURL
 		}
 	}
 	

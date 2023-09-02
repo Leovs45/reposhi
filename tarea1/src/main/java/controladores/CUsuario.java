@@ -82,6 +82,7 @@ public class CUsuario implements IUsuario {
 		return existe;
 	}
 	
+	@Override
 	public boolean esProfesor(String nombre) {
 		Usuario u = buscarUsuario(nombre);
 		if(u instanceof Profesor) {
@@ -169,7 +170,7 @@ public class CUsuario implements IUsuario {
 	
 	@Override 
 	public List<String> obtenerArrayNicknames() {
-		List nicknames = new ArrayList<>();
+		List<String> nicknames = new ArrayList<>();
 			
 		for(Usuario u: usuarios) {
 			nicknames.add(u.getNickname());

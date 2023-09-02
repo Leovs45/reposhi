@@ -1,7 +1,6 @@
 package controladores;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import interfaces.IInstitucionDeportiva;
@@ -132,6 +131,22 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 		DtActividad dtAct = new	DtActividad(ins, act.getNombre(), act.getDescripcion(), act.getDuracionMinutos(), act.getCosto(), act.getFechaRegistro(), act.getArrayClase());
 		return dtAct;
 	}
+	
+	/*
+	public List<String> obtenerActividadesDeUnaInstitucion(String nombre){
+		List<String> asd = new ArrayList<>();
+		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombre);
+		List<ActividadDeportiva> actividades = institucion.getArrayActividadDeportiva();
+		for(ActividadDeportiva act: actividades)
+			asd.add(act.getNombre());
+		return asd;
+	}
+	
+	public List<InstitucionDeportiva> getInstituciones() {
+		return instituciones;
+	}
+	*/
+	
 	
 	@Override
 	public List<String> obtenerActividadesDeUnaInstitucion(String nombre){

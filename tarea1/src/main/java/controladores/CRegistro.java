@@ -1,12 +1,10 @@
 package controladores;
 import interfaces.*;
-import logica.Usuario;
 import logica.Clase;
 	
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import interfaces.*;
 import logica.*;
 
 public class CRegistro implements IRegistro{

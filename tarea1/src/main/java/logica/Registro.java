@@ -2,12 +2,27 @@ package logica;
 
 import java.util.Date;
 
-import datatypes.DtRegistro;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
+import datatypes.DtRegistro;
+@Entity
+@Table(name = "Registro")
 public class Registro {
+	@Id
 	private	Date fechaRegistro;
+	@ManyToOne
 	private Socio socio;
+	@ManyToOne
 	private Clase clase;
+	
+//costructor vacio
+public Registro(){};
 
 	//Constructor
 	public Registro(Date fechaRegistro, Socio socio, Clase clase) {

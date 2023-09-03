@@ -2,6 +2,9 @@ package controladores;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+
 import interfaces.Fabrica;
 import interfaces.IClase;
 import interfaces.IUsuario;
@@ -10,6 +13,7 @@ import logica.ActividadDeportiva;
 import logica.Clase;
 import logica.Profesor;
 import logica.Usuario;
+import persistencia.Conexion;
 import datatypes.DtActividad;
 
 public class CClase implements IClase {
@@ -39,6 +43,13 @@ public class CClase implements IClase {
 		profesor.agregarClase(clase);
 		act.agregarClase(clase);
 		System.out.println("OK - Clase Creada");
+		//=====================================================================			
+				Conexion conexion = Conexion.getInstancia();
+				EntityManager em = conexion.getEntityManager();
+				em.getTransaction().begin();
+				em.persist(clase);
+				em.getTransaction().commit();
+		//=====================================================================
 	}
 
 	@Override

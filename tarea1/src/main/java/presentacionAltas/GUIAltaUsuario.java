@@ -3,6 +3,8 @@ package presentacionAltas;
 import java.awt.EventQueue;
 import interfaces.IUsuario;
 import interfaces.IInstitucionDeportiva;
+import excepciones.EmailRepetidoException;
+import excepciones.NicknameRepetidoException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -227,6 +229,85 @@ public class GUIAltaUsuario extends JInternalFrame {
 		
 		JButton btnAgregar = new JButton("Agregar");
 		btnAgregar.addActionListener(new ActionListener() {
+			    public void actionPerformed(ActionEvent e) {
+			        try {
+			            String nickname = textFieldNickname.getText();
+
+			            if (iUsuario.buscarUsuario(nickname) != null) {
+			                lblError1.setVisible(false);
+			                lblError2.setVisible(false);
+			                lblUsuarioIngresado.setVisible(false);
+			                lblUsuarioExistente.setVisible(true);
+			            } else {
+			                String nombre = textFieldNombre.getText();
+			                String apellido = textFieldApellido.getText();
+			                String email = textFieldCorreoElectronico.getText();
+			                Date fechaNac = dateFechaNac.getDate();
+
+			                if (rdbtnSocio.isSelected()) {
+			                    if (textFieldNickname.getText().isEmpty()
+			                            || textFieldNombre.getText().isEmpty()
+			                            || textFieldApellido.getText().isEmpty()
+			                            || textFieldCorreoElectronico.getText().isEmpty()
+			                            || dateFechaNac.getDate() == null) {
+			                        lblError1.setVisible(true);
+			                        lblError2.setVisible(true);
+			                        lblUsuarioIngresado.setVisible(false);
+			                    } else {
+			                        lblError1.setVisible(false);
+			                        lblError2.setVisible(false);
+			                        lblUsuarioIngresado.setVisible(true);
+			                        iUsuario.altaUsuario(nickname, nombre, apellido, email, fechaNac);
+			                    }
+
+			                } else if (rdbtnProfesor.isSelected()) {
+			                    if (textFieldNickname.getText().isEmpty()
+			                            || textFieldNombre.getText().isEmpty()
+			                            || textFieldApellido.getText().isEmpty()
+			                            || textFieldCorreoElectronico.getText().isEmpty()
+			                            || listaInstitucion.getSelectedIndex() == -1
+			                            || dateFechaNac.getDate() == null
+			                            || textFieldDescripcion.getText().isEmpty()
+			                            || textFieldBiografia.getText().isEmpty()
+			                            || textFieldSitioWeb.getText().isEmpty()) {
+			                        lblError1.setVisible(true);
+			                        lblError2.setVisible(true);
+			                        lblUsuarioIngresado.setVisible(false);
+			                    } else {
+			                        String nombreInstitucion = listaInstitucion.getSelectedValue().toString();
+			                        String descripcion = textFieldDescripcion.getText();
+			                        String biografia = textFieldBiografia.getText();
+			                        String sitioweb = textFieldSitioWeb.getText();
+
+			                        lblError1.setVisible(false);
+			                        lblError2.setVisible(false);
+			                        lblUsuarioIngresado.setVisible(true);
+			                        iUsuario.altaUsuario(nickname, nombre, apellido, email, fechaNac, iInstitucion.buscarInstitucionDeportiva(nombreInstitucion), descripcion, biografia, sitioweb);
+			                    }
+			                }
+			            }
+			        } catch (NicknameRepetidoException ex) {
+			            lblError1.setVisible(false);
+			            lblError2.setVisible(false);
+			            lblUsuarioIngresado.setVisible(false);
+			            lblUsuarioExistente.setVisible(true);
+			            lblUsuarioExistente.setText("Error: Nickname ya registrado");
+			        } catch (EmailRepetidoException ex) {
+			            lblError1.setVisible(false);
+			            lblError2.setVisible(false);
+			            lblUsuarioIngresado.setVisible(false);
+			            lblUsuarioExistente.setVisible(true);
+			            lblUsuarioExistente.setText("Error: Email ya registrado");
+			        }
+			    }
+			});
+		
+		btnAgregar.setBounds(395, 327, 117, 25);
+		getContentPane().add(btnAgregar);
+	}
+			
+			
+			/*
 			public void actionPerformed(ActionEvent e) {
 				String nickname = textFieldNickname.getText();
 				if (iUsuario.buscarUsuario(nickname) != null) {
@@ -284,10 +365,8 @@ public class GUIAltaUsuario extends JInternalFrame {
 						}
 					}
 				}
-			}
-		});
-		btnAgregar.setBounds(395, 327, 117, 25);
-		getContentPane().add(btnAgregar);
-	}
+			}	
+		});*/
+		
 }
 

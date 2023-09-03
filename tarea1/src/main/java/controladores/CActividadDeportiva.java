@@ -2,6 +2,7 @@ package controladores;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import datatypes.DtActividad;
 import datatypes.DtClase;
@@ -9,6 +10,7 @@ import interfaces.IActividadDeportiva;
 import logica.ActividadDeportiva;
 import logica.Clase;
 import logica.InstitucionDeportiva;
+import excepciones.ExisteActividadDepException;
 
 
 public class CActividadDeportiva implements IActividadDeportiva {
@@ -25,14 +27,24 @@ public class CActividadDeportiva implements IActividadDeportiva {
 	
 	@Override
 	public void altaActividadDeportiva(InstitucionDeportiva institucion, String nombreActividad, String descripcion, int duracionMinutos,
-			double costo, Date fechaAlta) {
+			double costo, Date fechaAlta) throws ExisteActividadDepException {
+		/*if (buscarActividadDeportiva(nombreActividad) != null) {
+		    throw new IllegalArgumentException("La actividad deportiva con el nombre " + nombreActividad + " ya existe.");
+		}*/
+		
+		if (buscarActividadDeportiva(nombreActividad) != null) {
+			throw new ExisteActividadDepException("La actividad deportiva con nombre " + nombreActividad + " ya existe.");
+		}
+		
 		ActividadDeportiva actividad = new ActividadDeportiva(institucion, nombreActividad, descripcion, duracionMinutos, costo, fechaAlta);
 		institucion.agregarActividadDeportiva(actividad);
 	}
-
+	
+	
 	@Override
 	public ActividadDeportiva buscarActividadDeportiva(String nombre){
 		ActividadDeportiva actividad = null;
+		
 		if (actividades.size() == 0) {
 			return actividad;
 		} else {
@@ -44,7 +56,8 @@ public class CActividadDeportiva implements IActividadDeportiva {
 		}
 		return actividad;
 	}
-
+	
+	
 	@Override
 	public List<ActividadDeportiva> consultaActividadDeportiva(String institucion) {
 	    List<ActividadDeportiva> actividadesEncontradas = new ArrayList<>();

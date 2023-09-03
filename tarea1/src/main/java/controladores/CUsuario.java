@@ -8,6 +8,9 @@ import datatypes.DtProfesor;
 import datatypes.DtSocio;
 import datatypes.DtUsuario;
 import interfaces.IUsuario;
+import excepciones.EmailRepetidoException;
+import excepciones.NicknameRepetidoException;
+
 
 public class CUsuario implements IUsuario {
 	private List<Usuario> usuarios = new ArrayList<>();
@@ -20,16 +23,54 @@ public class CUsuario implements IUsuario {
 		return instancia;
 	}
 	
-	@Override
+	
+	/*
+	 @Override
 	public void altaUsuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento, InstitucionDeportiva institucion, String descripcionGeneral, String biografia, String sitioWeb){
 		Usuario profe = new Profesor(nickname, nombre, apellido, correoElectronico, fechaNacimiento, institucion, descripcionGeneral, biografia, sitioWeb);
 		usuarios.add(profe);
 	}
+	*/
 	
+	/*
 	public void altaUsuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento) {
 		Usuario socio = new Socio(nickname, nombre, apellido, correoElectronico, fechaNacimiento);
 		usuarios.add(socio);
 	}	
+	*/
+	
+	public void altaUsuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento, InstitucionDeportiva institucion, String descripcionGeneral, String biografia, String sitioWeb) throws NicknameRepetidoException, EmailRepetidoException {
+	    
+	    for (Usuario u : usuarios) {
+	        if (u.getNickname().equals(nickname)) {
+	            throw new NicknameRepetidoException("El nickname '" + nickname + "' ya está en uso.");
+	        }
+	        if (u.getCorreoElectronico().equals(correoElectronico)) {
+	            throw new EmailRepetidoException("El correo electrónico '" + correoElectronico + "' ya está registrado.");
+	        }
+	    }
+
+	    Usuario profe = new Profesor(nickname, nombre, apellido, correoElectronico, fechaNacimiento, institucion, descripcionGeneral, biografia, sitioWeb);
+	    usuarios.add(profe);
+	}
+
+	public void altaUsuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento) throws NicknameRepetidoException, EmailRepetidoException {
+	    
+	    for (Usuario u : usuarios) {
+	        if (u.getNickname().equals(nickname)) {
+	            throw new NicknameRepetidoException("El nickname '" + nickname + "' ya está en uso.");
+	        }
+	        if (u.getCorreoElectronico().equals(correoElectronico)) {
+	            throw new EmailRepetidoException("El correo electrónico '" + correoElectronico + "' ya está registrado.");
+	        }
+	    }
+
+	    Usuario socio = new Socio(nickname, nombre, apellido, correoElectronico, fechaNacimiento);
+	    usuarios.add(socio);
+	}
+
+	
+	
 	
 	@Override
 	public Usuario buscarUsuario(String nickname) {

@@ -11,7 +11,8 @@ import datatypes.*;
 
 public class Tirando_datos{
 
-
+}
+/*
 	public void rellenarDatos() {
 		
 		Date fecha =new Date();
@@ -127,6 +128,7 @@ public class Tirando_datos{
 		ActividadDeportiva actividadEncontrada4 = iActividad.buscarActividadDeportiva("nombreActividad 4");
 		System.out.println(actividadEncontrada4.getNombre());
 		*/
+/*
 		System.out.println("Consulta(lista de) Actividades Deportivas");
 		System.out.println("========================================");
 		List<ActividadDeportiva>lad1 = iActividad.consultaActividadDeportiva(id1.getNombre()); //esta no hacia  nada porque no esta?
@@ -184,7 +186,7 @@ public class Tirando_datos{
 		iActividad.altaActividadDeportiva(id4, "nombreActividad 8","descripcion actividad b", '1',8.1f,fecha);
 
 	*/
-		
+		/*
 		//Alta Dictado de clases
 		System.out.println("alta dicatado de clases");
 		System.out.println("========================================");
@@ -201,7 +203,7 @@ public class Tirando_datos{
 		
 		//TODO ojo que cuando creamos el ata de actividad depÃ³rtiva deberiamos agregar clases asociadas	
 		///Clase(String nombreClase, ActividadDeportiva actividadDeportiva, Date fechaClase, Profesor profesor,String horaInicio, String urlClase, Date fechaRegistro)
-				
+			/*	
 				 ArrayList<Clase> clasesitas1= new ArrayList<>();
 				 ArrayList<Clase> clasesitas2 = new ArrayList<>();
 				 ArrayList<Clase> clasesitas3 = new ArrayList<>();
@@ -218,13 +220,13 @@ public class Tirando_datos{
 				ad8.setArrayClase(clasesitas8);
 				*/
 
-	
+	/*
 		//Registro a dictado de Clase del tipo asociativo  dede clase??
 		System.out.println("alta registro dictado de clases");
 		System.out.println("========================================");
 
 		
-		
+		/*
 		//--------------------------------
 		// Creo institucion
 				iInstitucion.altaInstitucionDeportiva("i1", "descripcion", "url");
@@ -270,3 +272,4 @@ public class Tirando_datos{
 	
 
 }
+*/

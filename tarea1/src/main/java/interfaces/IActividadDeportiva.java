@@ -7,12 +7,13 @@ import datatypes.DtActividad;
 import datatypes.DtClase;
 import logica.ActividadDeportiva;
 import logica.InstitucionDeportiva;
+import excepciones.ExisteActividadDepException;
 
 
 public interface IActividadDeportiva {
 	public List<ActividadDeportiva> actividades = new ArrayList<>();
 	public void altaActividadDeportiva(InstitucionDeportiva institucion, String nombreActividad, String descripcion, int duracionMinutos,
-			double costo, Date fechaAlta);
+			double costo, Date fechaAlta) throws ExisteActividadDepException;
 	public void modificarDescripcion(String nombreActividad, String nuevaDescripcion);
 	public void modificarDuracion(String nombreActividad, int nuevaDuracion);
 	public void modificarCosto(String nombreActividad, double nuevoCosto);

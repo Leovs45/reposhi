@@ -7,10 +7,13 @@ import java.util.List;
 import datatypes.DtProfesor;
 import datatypes.DtSocio;
 import datatypes.DtUsuario;
+import excepciones.EmailRepetidoException;
+import excepciones.NicknameRepetidoException;
 
 public interface IUsuario {
-	public void altaUsuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento, InstitucionDeportiva institucion, String descripcionGeneral, String biografia, String sitioWeb);
-	public void altaUsuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento);
+	public void altaUsuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento, InstitucionDeportiva institucion, 
+			String descripcionGeneral, String biografia, String sitioWeb) throws NicknameRepetidoException, EmailRepetidoException;
+	public void altaUsuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento) throws NicknameRepetidoException, EmailRepetidoException;
 	public List<DtUsuario> getUsuarios();
 	
 	// Opcionales

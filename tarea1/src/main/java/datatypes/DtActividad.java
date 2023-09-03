@@ -75,7 +75,6 @@ public class DtActividad{
 		
 		return dtClases;
 	}
-	
 	public DtClase buscarDtClase(String nombre) {
 		DtClase clase = null;
 		if (clases.size() == 0) {
@@ -89,7 +88,6 @@ public class DtActividad{
 		}
 		return clase;
 	}
-	
 	public DtClase obtenerDtClase(String nombreClase) {
 		DtClase clase = buscarDtClase(nombreClase);
 		return clase;

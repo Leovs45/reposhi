@@ -141,10 +141,6 @@ public class ActividadDeportiva {
 
 	public void agregarClase(Clase c) {
 		clases.add(c);
-
-		Fabrica f = Fabrica.getInstancia();
-		IClase iClase = f.getIClase();
-		iClase.agregarClase(c);
 	}
 	
 	public void registroClase(String nombreClase, Usuario usuario){

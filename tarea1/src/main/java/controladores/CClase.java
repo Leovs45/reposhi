@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import interfaces.Fabrica;
 import interfaces.IClase;
@@ -19,8 +20,8 @@ import datatypes.DtActividad;
 import datatypes.DtClase;
 
 public class CClase implements IClase {
-	
-	private List<Clase> clases = new ArrayList<>();
+	Conexion conexion = Conexion.getInstancia();
+	EntityManager em = conexion.getEntityManager();
 	
 	private static CClase instancia = null;
 	
@@ -30,6 +31,13 @@ public class CClase implements IClase {
 		return instancia;
 	}
 
+	
+
+	@Override
+	public Clase buscarClase(String abuscar) {
+		Clase clas = em.find(Clase.class, abuscar);
+		return clas;
+	}	
 	@Override
 	public void altaDictadoClase(String nombreClase, DtActividad actividadDeportiva, Date fechaClase, String nombreProfesor,
 			String horaInicio, String urlClase, Date fechaRegistro) {
@@ -53,32 +61,10 @@ public class CClase implements IClase {
 				em.getTransaction().commit();
 		//=====================================================================
 	}
-
-	@Override
-	public void registroClase(String institucion, String actividadDeportiva, String clase, String nickname) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	/**********************************/
 	// OPCIONALES
 	/**********************************/
-
-	@Override
-	public void consultarDictadoClase(Clase clase) {
-		System.out.println(clase.getNombreClase() + " " + clase.getActividadDeportiva().getNombre() + " " + clase.getFechaClase() + " " + clase.getHoraInicio() + " " + clase.getProfesor().getNombre() + " ");
-	}
-
-	@Override
-	public void rankingDictadoClase() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void agregarClase(Clase clase) {
-		clases.add(clase);
-	}
 	
 	/*
 	@Override
@@ -86,7 +72,10 @@ public class CClase implements IClase {
 	    int i, j;
 	    boolean swapped;
 	    Clase temp;
-	    List<Clase> clasesOrdenadas = new ArrayList<>(clases);
+	    String consultaClases = "SELECT c FROM Clase c";
+		TypedQuery<Clase> queryClase = em.createQuery(consultaClases, Clase.class);
+	    List<Clase> clasesOrdenadas = new ArrayList<>(queryClase.getResultList());
+		
 
 	    for (i = 0; i < clasesOrdenadas.size() - 1; i++) {
 	        swapped = false;

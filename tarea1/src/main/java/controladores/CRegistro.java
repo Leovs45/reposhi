@@ -14,7 +14,6 @@ import logica.*;
 	
 public class CRegistro implements IRegistro {
 	
-	private List<Registro> registros = new ArrayList<>();
 	private static CRegistro instancia = null;
 
 	
@@ -31,7 +30,6 @@ public class CRegistro implements IRegistro {
 		IClase cclase = f.getIClase();
 		Clase clas = cclase.buscarClase(unaClase);
 		Registro unRegistro = new Registro(FechaRegistro,unSocio,unaClase);
-		registros.add(unRegistro);
 		soc.agregarRegistro(unRegistro);
 		//=====================================================================			
 				Conexion conexion = Conexion.getInstancia();

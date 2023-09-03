@@ -1,6 +1,13 @@
 package datatypes;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import logica.Clase;
+import logica.Registro;
 
 public class DtClase {
 	private String nombre;
@@ -8,6 +15,7 @@ public class DtClase {
 	private String horaInicio;
 	private String url;
 	private Date fechaRegistro;
+    private List<Registro> registros = new ArrayList<>();
 	
 	public DtClase(String nombre, Date fechaClase, String horaInicio,String url, Date fechaRegistro) {
 		this.nombre = nombre;
@@ -16,6 +24,13 @@ public class DtClase {
 		this.url = url;
 		this.fechaRegistro = fechaRegistro;
 	}
+	
+	public DtClase(List<Registro> registros,String nombre, Date fechaClase, String url) {
+    	this.nombre = nombre;
+    	this.fechaClase = fechaClase;
+    	this.url = url;
+    	this.registros = registros;
+    }
 	
 	public String getNombre() {
 		return nombre;
@@ -36,5 +51,10 @@ public class DtClase {
 	public Date getFechaRegistro() {
 		return fechaRegistro;
 	}
+	
+	public int getCantidadClases() {
+        return (registros != null) ? registros.size() : 0;
+    }
+	
 
 }

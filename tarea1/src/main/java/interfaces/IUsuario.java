@@ -20,18 +20,13 @@ public interface IUsuario {
 	
 	// Adicionales
 	public Usuario buscarUsuario(String nombre);
-	public void listarUsuarios();
-	public boolean existeUsuario(String nombre);
-	
 	public boolean esProfesor(String nombre);
 	public boolean existenUsuarios();
 	public Usuario buscarSocio(String nickname);
-	public void listarSocios();
-	public void consultaUsuario(String nickname);
 	public List<String> obtenerArrayNicknames();
 	public DtUsuario getDtUsuario(String nickname);
 	public boolean esSocio(String nickname);
 	public DtSocio getDtSocio(String nickname);
 	public DtProfesor getDtProfesor(String nickname);
-	//public boolean existeUsuario(String nickname);
-}
+	boolean existeUsuario(String nickname);
+	List<DtProfesor> getListaProfesores();

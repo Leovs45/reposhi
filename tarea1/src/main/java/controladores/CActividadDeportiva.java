@@ -10,6 +10,8 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import javax.persistence.EntityManager;
+
 import datatypes.DtActividad;
 import datatypes.DtClase;
 import interfaces.IActividadDeportiva;
@@ -42,13 +44,10 @@ public class CActividadDeportiva implements IActividadDeportiva {
 	public void altaActividadDeportiva(InstitucionDeportiva institucion, String nombreActividad, String descripcion, int duracionMinutos,
 			double costo, Date fechaAlta) {
 		ActividadDeportiva actividad = new ActividadDeportiva(institucion, nombreActividad, descripcion, duracionMinutos, costo, fechaAlta);
-		//institucion.agregarActividadDeportiva(actividad);
 		
 		em.getTransaction().begin();
-		em.persist(institucion);
-		em.getTransaction().commit();
-		
-		
+		em.persist(actividad);
+		em.getTransaction().commit();		
 	}
 	
 //=========================Hibernate buscarActividadDeportiva============================================
@@ -62,13 +61,11 @@ public class CActividadDeportiva implements IActividadDeportiva {
 //========================= Hibernate consultaActividadDeportiva============================================	 
 	
 	public List<ActividadDeportiva> consultaActividadDeportiva(String institucion) {
-		
-		
-	        String jpql = "SELECT a FROM ActividadDeportiva a WHERE a.institucion = :institucion";
-	        TypedQuery<ActividadDeportiva> query = em.createQuery(jpql, ActividadDeportiva.class);
-	        query.setParameter("institucion", institucion);
+		String jpql = "SELECT a FROM ActividadDeportiva a WHERE a.institucion = :institucion";
+		TypedQuery<ActividadDeportiva> query = em.createQuery(jpql, ActividadDeportiva.class);
+		query.setParameter("institucion", institucion);
 
-	        return query.getResultList();
+		return query.getResultList();
 	}
 	
 
@@ -111,21 +108,14 @@ public class CActividadDeportiva implements IActividadDeportiva {
 		
 	}
 	
-	
-
-
 //========================= Hibernate getRankingActividades============================================
 	   
-	public List<ActividadDeportiva> getRankingActividades() {
+	@Override
+	public List<DtActividad> getRankingActividades() {
 	    int i, j;
 	    boolean swapped;
 	    ActividadDeportiva temp;
-	    
-	    String consultaActividades = "SELECT a FROM ActividadDeportiva a";
-		TypedQuery<ActividadDeportiva> queryActividad = em.createQuery(consultaActividades, ActividadDeportiva.class);
-	    List<ActividadDeportiva> actividadesOrdenadas = new ArrayList<>(queryActividad.getResultList());
-	    
-	    //List<ActividadDeportiva> actividadesOrdenadas = new ArrayList<>(actividades);
+	    List<ActividadDeportiva> actividadesOrdenadas = new ArrayList<>(actividades);
 
 	    for (i = 0; i < actividadesOrdenadas.size() - 1; i++) {
 	        swapped = false;
@@ -143,7 +133,14 @@ public class CActividadDeportiva implements IActividadDeportiva {
 	        }
 	    }
 
-	    return actividadesOrdenadas;
+	    List<DtActividad> rankingDtActividades = new ArrayList<>();
+	    for (ActividadDeportiva actividad : actividadesOrdenadas) {
+	        List<Clase> claseActividad = actividad.getArrayClase();
+	        DtActividad dt = new DtActividad(claseActividad,actividad.getNombre(),actividad.getCosto(),actividad.getDescripcion());
+	        rankingDtActividades.add(dt);
+	    }
+
+	    return rankingDtActividades;
 	}
 	
 	

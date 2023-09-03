@@ -1,10 +1,10 @@
 package controladores;
 import java.util.Date;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import interfaces.Fabrica;
 import interfaces.IClase;
@@ -13,13 +13,15 @@ import interfaces.IActividadDeportiva;
 import logica.ActividadDeportiva;
 import logica.Clase;
 import logica.Profesor;
+import logica.Registro;
 import logica.Usuario;
 import persistencia.Conexion;
 import datatypes.DtActividad;
+import datatypes.DtClase;
 
 public class CClase implements IClase {
-	
-	private List<Clase> clases = new ArrayList<>();
+	Conexion conexion = Conexion.getInstancia();
+	EntityManager em = conexion.getEntityManager();
 	
 	private static CClase instancia = null;
 	
@@ -29,6 +31,13 @@ public class CClase implements IClase {
 		return instancia;
 	}
 
+	
+
+	@Override
+	public Clase buscarClase(String abuscar) {
+		Clase clas = em.find(Clase.class, abuscar);
+		return clas;
+	}	
 	@Override
 	public void altaDictadoClase(String nombreClase, DtActividad actividadDeportiva, Date fechaClase, String nombreProfesor,
 			String horaInicio, String urlClase, Date fechaRegistro) {
@@ -52,35 +61,13 @@ public class CClase implements IClase {
 				em.getTransaction().commit();
 		//=====================================================================
 	}
-
-	@Override
-	public void registroClase(String institucion, String actividadDeportiva, String clase, String nickname) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	/**********************************/
 	// OPCIONALES
 	/**********************************/
-
-	@Override
-	public void consultarDictadoClase(Clase clase) {
-		System.out.println(clase.getNombreClase() + " " + clase.getActividadDeportiva().getNombre() + " " + clase.getFechaClase() + " " + clase.getHoraInicio() + " " + clase.getProfesor().getNombre() + " ");
-	}
-
-	@Override
-	public void rankingDictadoClase() {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	@Override
-	public void agregarClase(Clase clase) {
-		clases.add(clase);
-	}
-	
-	@Override
-	public List<Clase> getRankingClases() {
+	public List<DtClase> getRankingClases() {
 	    int i, j;
 	    boolean swapped;
 	    Clase temp;
@@ -102,7 +89,30 @@ public class CClase implements IClase {
 	        }
 	    }
 
-	    return clasesOrdenadas;
+	    List<DtClase> rankingDtClases = new ArrayList<>();
+	    for (Clase clase : clasesOrdenadas) {
+	        List<Registro> claseRegistro = clase.getArrayRegistro();
+	        DtClase dt = new DtClase(claseRegistro,clase.getNombreClase(),clase.getFechaClase(),clase.getUrlClase());
+	        rankingDtClases.add(dt);
+	    }
+
+	    return rankingDtClases;
+	}
+	
+	@Override
+	public Clase buscarClase(String abuscar) {
+		Clase clas = null;
+		if (clases.size() == 0) {
+			return clas;
+		} else {
+			for(Clase c: clases) {
+				if (c.getNombreClase().equals(abuscar)) {
+					clas = c;
+				}
+			}
+		}
+
+		return clas;
 	}
 
 	

@@ -29,10 +29,10 @@ public class Profesor extends Usuario {
     private String biografia;
 	@Column
     private String sitioWeb;
-	@ManyToOne(targetEntity = Profesor.class)
-	//@OneToMany(mappedBy = "profesor")
-    @JoinColumn(name = "profesor_id")
+	@OneToMany(mappedBy = "profesor")
     private List<Clase> clases = new ArrayList<>();
+		
+
     //Constructor vacio
     public Profesor() {}
     
@@ -121,7 +121,7 @@ public class Profesor extends Usuario {
 	}
 	
 	public DtProfesor getDtProfesor() {
-		return new DtProfesor(getNickname(), getNombre(), getApellido(), getCorreoElectronico(), getFechaNacimiento(), institucion, biografia, biografia, biografia, clases);
+		return new DtProfesor(getNickname(), getNombre(), getApellido(), getCorreoElectronico(), getFechaNacimiento(), getInstitucion(), getDescripcionGeneral(),getBiografia(), getSitioWeb(), getArrayClases());
 	}
     
 }

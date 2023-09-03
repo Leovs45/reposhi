@@ -7,9 +7,9 @@
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <hibernate.version>5.4.0.final</hibernate.version>
-    
-  </properties>
+
+    <hibernate.version>5.4.4.Final</hibernate.version>
+	</properties>
    <dependencies>
 	   
 	<!-- https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api -->
@@ -19,6 +19,22 @@
 	    <version>2.2</version>
 	</dependency>
 
+    <!-- Otras dependencias -->
+    <dependency>
+		<groupId>org.postgresql</groupId>
+		<artifactId>postgresql</artifactId>
+		<version>42.6.0</version> <!--https://jdbc.postgresql.org/download/-->
+	</dependency>
+	<dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-entitymanager</artifactId>
+		<version>${hibernate.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-core</artifactId>
+		<version>${hibernate.version}</version>
+	</dependency>
     <!-- Otras dependencias -->
     <dependency>
       <groupId>com.toedter</groupId>
@@ -44,7 +60,12 @@
         <artifactId>hibernate-core</artifactId>
         <version>5.4.21.Final</version>
     </dependency>
-   
- 
-  </dependencies> 
+
+    <dependency>
+    	<groupId>com.gimnasiopap</groupId>
+    	<artifactId>gymswing</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </dependency>
+   </dependencies> 
 </project>
+        

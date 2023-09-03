@@ -9,7 +9,6 @@ import datatypes.DtUsuario;
 
 
 @MappedSuperclass
-@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "Usuario")
 public abstract class Usuario {
 	
@@ -55,6 +54,7 @@ public abstract class Usuario {
 	}
 
 	public void setNombre(String nombre) {
+		
 		this.nombre = nombre;
 	}
 

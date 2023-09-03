@@ -1,9 +1,12 @@
 package datatypes;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import logica.ActividadDeportiva;
+import logica.Clase;
+import logica.InstitucionDeportiva;
 import logica.Profesor;
 
 public class DtInstitucion {
@@ -46,7 +49,7 @@ public class DtInstitucion {
     }
 
     public List<DtProfesor> getProfesores() {
-        List dtProfesores = new ArrayList<>();
+        List<DtProfesor> dtProfesores = new ArrayList<>();
         
         for(Profesor profesor: profesores) {
         	dtProfesores.add(profesor.getDtProfesor());
@@ -56,7 +59,7 @@ public class DtInstitucion {
     }
 
     public List<DtActividad> getActividades() {
-    	List dtActividades = new ArrayList<>();
+    	List<DtActividad> dtActividades = new ArrayList<>();
         
         for(ActividadDeportiva actividad: actividades) {
         	dtActividades.add(actividad.getDtActividad());
@@ -64,6 +67,34 @@ public class DtInstitucion {
         
         return dtActividades;
     }
+    
+    public DtActividad buscarDtActividad (String nombreActividad) {
+		DtActividad dtAct = null;
+		if (actividades.size() == 0) {
+			dtAct = null;
+		} else {
+			for(ActividadDeportiva a: actividades) {
+				if (a.getNombre().equals(nombreActividad)) {
+					dtAct = new DtActividad(a.getInstitucion(),a.getNombre(),a.getDescripcion(),a.getDuracionMinutos(),a.getCosto(),a.getFechaRegistro(),a.getArrayClase());
+				}
+			}
+		}
+		return dtAct;
+	}
 
+    public DtActividad buscarDtActividad (String nombreActividad) {
+		DtActividad dtAct = null;
+		if (actividades.size() == 0) {
+			dtAct = null;
+		} else {
+			for(ActividadDeportiva a: actividades) {
+				if (a.getNombre().equals(nombreActividad)) {
+					dtAct = new DtActividad(a.getInstitucion(),a.getNombre(),a.getDescripcion(),a.getDuracionMinutos(),a.getCosto(),a.getFechaRegistro(),a.getArrayClase());
+				}
+			}
+		}
+		return dtAct;
+	}
+    
 }
 

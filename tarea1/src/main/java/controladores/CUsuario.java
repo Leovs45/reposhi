@@ -7,14 +7,17 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import datatypes.DtProfesor;
 import datatypes.DtSocio;
 import datatypes.DtUsuario;
+import interfaces.Fabrica;
 import interfaces.IUsuario;
 
 public class CUsuario implements IUsuario {
-	private List<Usuario> usuarios = new ArrayList<>();
+	Conexion conexion = Conexion.getInstancia();
+	EntityManager em = conexion.getEntityManager();
 	
 	private static CUsuario instancia = null;
 
@@ -28,10 +31,7 @@ public class CUsuario implements IUsuario {
 	@Override
 	public void altaUsuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento, InstitucionDeportiva institucion, String descripcionGeneral, String biografia, String sitioWeb){
 		Usuario profe = new Profesor(nickname, nombre, apellido, correoElectronico, fechaNacimiento, institucion, descripcionGeneral, biografia, sitioWeb);
-		usuarios.add(profe);
 		//=====================================================================			
-		Conexion conexion = Conexion.getInstancia();
-		EntityManager em = conexion.getEntityManager();
 		em.getTransaction().begin();
 		em.persist(profe);
 		em.getTransaction().commit();
@@ -42,10 +42,8 @@ public class CUsuario implements IUsuario {
 	
 	public void altaUsuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento) {
 		Usuario socio = new Socio(nickname, nombre, apellido, correoElectronico, fechaNacimiento);
-		usuarios.add(socio);
+		//usuarios.add(socio);
 		//=====================================================================			
-		Conexion conexion = Conexion.getInstancia();
-		EntityManager em = conexion.getEntityManager();
 		em.getTransaction().begin();
 		em.persist(socio);
 		em.getTransaction().commit();
@@ -54,59 +52,32 @@ public class CUsuario implements IUsuario {
 	}	
 	
 	@Override
-	public Usuario buscarUsuario(String nickname) {
-		Usuario usuario = null;
-		if (usuarios.size() == 0) {
-			return usuario;
-		} else {
-			for(Usuario i: usuarios) {
-				if (i.getNickname().equals(nickname)) {
-					usuario = i;
-				}
-			}
+	public boolean existeUsuario(String nombre) {
+		Socio socio = em.find(Socio.class, nombre);
+		if(socio != null)
+			return true;
+		else {
+			Profesor profesor = em.find(Profesor.class, nombre);
+			if(profesor != null)
+				return true;
+			else
+				return false;
 		}
-
-		return usuario;
 	}
 	
 	@Override
-	public void consultaUsuario(String nickname) {
-	    Usuario usuario = buscarUsuario(nickname);
-	    
-	    if (usuario == null) {
-	        System.out.println("Usuario no encontrado.");
-	    } else {
-	        System.out.println("Detalles del usuario:");
-	       // System.out.println("Tipo de Usuario: " + usuario.getTipoUsuario());
-	        System.out.println("Nickname: " + usuario.getNickname());
-	        System.out.println("Nombre: " + usuario.getNombre());
-	        System.out.println("Apellido: " + usuario.getApellido());
-	        System.out.println("Correo Electrónico: " + usuario.getCorreoElectronico());
-	        System.out.println("Fecha de Nacimiento: " + usuario.getFechaNacimiento());
-	        
-	        if (usuario instanceof Profesor) {
-	            Profesor profesor = (Profesor) usuario;
-	            System.out.println("Institución: " + profesor.getInstitucion());
-	            System.out.println("Descripción General: " + profesor.getDescripcionGeneral());
-	            System.out.println("Biografía: " + profesor.getBiografia());
-	            System.out.println("Sitio Web: " + profesor.getSitioWeb());
-	        }
-	    }
+	public boolean esSocio(String nickname) {
+		Socio usuario = em.find(Socio.class, nickname);
+		if(usuario == null) 
+			return false;
+		 else 
+			return true;
 	}
 	
-	/*public boolean existeUsuario(String nombre) {
-		boolean existe = false;
-		for(Usuario u : usuarios) {
-			if(nombre.equals(u.getNickname()))
-				existe = true;
-		}
-		return existe;
-	}*/
-	
-	
+	@Override
 	public boolean esProfesor(String nombre) {
-		Usuario u = buscarUsuario(nombre);
-		if(u instanceof Profesor) {
+		Profesor profesor = em.find(Profesor.class, nombre);
+		if(profesor == null) {
 			return true;
 		}else {
 			return false;
@@ -116,9 +87,19 @@ public class CUsuario implements IUsuario {
 	@Override
 	public List<DtUsuario> getUsuarios() {
 		List<DtUsuario> dtUsuarios = new ArrayList<>();
-		
-		for(Usuario u: usuarios) {
-			dtUsuarios.add(u.getDtUsuario());
+		String consultaProfes = "SELECT p FROM Profesor p";
+		TypedQuery<Profesor> queryProfes = em.createQuery(consultaProfes, Profesor.class);
+		List <Profesor> profesores = queryProfes.getResultList();
+		for(Profesor u: profesores) {
+			DtUsuario dtP = new DtUsuario(u.getNickname(), u.getNombre(), u.getApellido(), u.getCorreoElectronico(), u.getFechaNacimiento());
+			dtUsuarios.add(dtP);
+		}
+		String consultaSocios = "SELECT s FROM Socio s";
+		TypedQuery<Socio> querySocios = em.createQuery(consultaSocios, Socio.class);
+		List <Socio> socios = querySocios.getResultList();
+		for(Socio u: socios) {
+			DtUsuario dtS = new DtUsuario(u.getNickname(), u.getNombre(), u.getApellido(), u.getCorreoElectronico(), u.getFechaNacimiento());
+			dtUsuarios.add(dtS);
 		}
 		
 		return dtUsuarios;
@@ -127,79 +108,81 @@ public class CUsuario implements IUsuario {
 	@Override
 	public void modificarNombre(String nickname, String nuevoNombre) {
 		Usuario user = buscarUsuario(nickname);
+		em.getTransaction().begin();
 		user.setNombre(nuevoNombre);
+		em.merge(user);
+		em.getTransaction().commit();
 	}
 
 	@Override
 	public void modificarApellido(String nickname, String nuevoApellido) {
 		Usuario user = buscarUsuario(nickname);
+		em.getTransaction().begin();
 		user.setApellido(nuevoApellido);
+		em.merge(user);
+		em.getTransaction().commit();
 	}
 
 	@Override
 	public void modificarFechaNacimiento(String nickname, Date nuevaFecha) {
 		Usuario user = buscarUsuario(nickname);
+		em.getTransaction().begin();
 		user.setFechaNacimiento(nuevaFecha);
-	}
-	
-	@Override
-	public void listarUsuarios() {
-		if(usuarios.size() == 0) {
-			System.out.println("  ERROR - No existe ningun usuario creado");
-		} else {
-			for(Usuario u: usuarios) {
-				System.out.println(u.getNickname());
-			}
-		}
-	}
-	
-	@Override
-	public void listarSocios() {
-		if(usuarios.size() == 0) {
-			System.out.println("  ERROR - No existe ningun usuario creado");
-		} else {
-			for(Usuario u: usuarios) {
-				if(u instanceof Socio) {
-					System.out.println(u.getNickname());
-				}
-			}
-		}
+		em.merge(user);
+		em.getTransaction().commit();
 	}
 	
 	@Override
 	public Usuario buscarSocio(String nickname) {
-		Usuario socio = null;
-		if (usuarios.size() == 0) {
+		Usuario socio = em.find(Socio.class, nickname);
 			return socio;
-		} else {
-			for(Usuario u: usuarios) {
-				if (u.getNickname().equals(nickname)) {
-					if(u instanceof Socio) {
-						socio = u;
-					}
-				}
-			}
-		}
-
-		return socio;
 	}
 	
 	@Override
 	public boolean existenUsuarios() {
-		return usuarios.size() != 0;
+		List<String> nicknames = new ArrayList<>();
+		String consultaProfes = "SELECT p FROM Profesor p";
+		TypedQuery<Profesor> queryProfes = em.createQuery(consultaProfes, Profesor.class);
+		List <Profesor> profesores = queryProfes.getResultList();
+		
+		String consultaSocios = "SELECT s FROM Socio s";
+		TypedQuery<Socio> querySocios = em.createQuery(consultaSocios, Socio.class);
+		List <Socio> socios = querySocios.getResultList();
+		if(profesores.size() == 0 && socios.size() == 0)
+			return false;
+		else
+			return true;
 	}
 	
 	@Override 
 	public List<String> obtenerArrayNicknames() {
-		List nicknames = new ArrayList<>();
-			
-		for(Usuario u: usuarios) {
+		List<String> nicknames = new ArrayList<>();
+		String consultaProfes = "SELECT p FROM Profesor p";
+		TypedQuery<Profesor> queryProfes = em.createQuery(consultaProfes, Profesor.class);
+		List <Profesor> profesores = queryProfes.getResultList();
+		for(Profesor u: profesores) {
 			nicknames.add(u.getNickname());
 		}
-		
+		String consultaSocios = "SELECT s FROM Socio s";
+		TypedQuery<Socio> querySocios = em.createQuery(consultaSocios, Socio.class);
+		List <Socio> socios = querySocios.getResultList();
+		for(Socio u: socios) {
+			nicknames.add(u.getNickname());
+		}
 		return nicknames;
 	}
-	
+	public Usuario buscarUsuario(String nickname) {
+		Profesor p = em.find(Profesor.class, nickname);
+		if (p != null)
+			return p;
+		else {
+			Socio s = em.find(Socio.class, nickname);
+			if(s !=null)
+				return s;
+			else
+				return null;
+		}
+	}
 	@Override
 	public DtUsuario getDtUsuario(String nickname) {
 		Usuario user = buscarUsuario(nickname);
@@ -208,23 +191,8 @@ public class CUsuario implements IUsuario {
 	}
 	
 	@Override
-	public boolean esSocio(String nickname) {
-		Usuario usuario = buscarUsuario(nickname);
-		boolean esSocio;
-		if(usuario instanceof Socio) {
-			esSocio = true;
-		} else {
-			esSocio = false;
-		}
-		return esSocio;
-	}
-	
-	@Override
 	public DtSocio getDtSocio(String nickname) {
-		Usuario user = buscarUsuario(nickname);
-		
-		Socio socio = (Socio) user;
-		
+		Socio socio = em.find(Socio.class, nickname);
 		return socio.getDtSocio();
 	}
 	
@@ -238,13 +206,17 @@ public class CUsuario implements IUsuario {
 	}
 	
 	@Override
-	public boolean existeUsuario(String nickname) {
-		Usuario user = buscarUsuario(nickname);
+	public List<DtProfesor> getListaProfesores() {
+		List<DtProfesor> dtProfesores = new ArrayList<>();
 		
-		if(user == null) {
-			return false;
-		} else {
-			return true;
+		String consultaProfes = "SELECT p FROM Profesor p";
+		TypedQuery<Profesor> queryProfes = em.createQuery(consultaProfes, Profesor.class);
+		List <Profesor> profesores = queryProfes.getResultList();
+		for (Profesor p : profesores) {
+			DtProfesor dtP = new DtProfesor(p.getNickname(), p.getNombre(), p.getApellido(), p.getCorreoElectronico(), p.getFechaNacimiento(), p.getInstitucion(), p.getDescripcionGeneral(), p.getBiografia(), p.getSitioWeb(), p.getArrayClases());
+			dtProfesores.add(dtP);
 		}
+		return dtProfesores;
 	}
+	
 }

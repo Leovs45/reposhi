@@ -13,7 +13,6 @@ import javax.persistence.Table;
 import datatypes.DtActividad;
 import datatypes.DtClase;
 import interfaces.Fabrica;
-import interfaces.IActividadDeportiva;
 import interfaces.IClase;
 
 import java.util.ArrayList;
@@ -142,10 +141,6 @@ public class ActividadDeportiva {
 
 	public void agregarClase(Clase c) {
 		clases.add(c);
-
-		Fabrica f = Fabrica.getInstancia();
-		IClase iClase = f.getIClase();
-		iClase.agregarClase(c);
 	}
 	
 	public void registroClase(String nombreClase, Usuario usuario){

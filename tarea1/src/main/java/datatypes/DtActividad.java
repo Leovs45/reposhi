@@ -14,7 +14,7 @@ public class DtActividad{
     private int duracionMinutos;
     private double costo;
     private Date fechaRegistro;
-    private List<Clase> clases;
+    private List<Clase> clases = new ArrayList<>();
     
     public DtActividad(InstitucionDeportiva institucion, String nombre, String descripcion, int duracionMinutos, double costo, Date fechaRegistro, List<Clase> clases){
     	this.institucion = institucion;
@@ -23,6 +23,13 @@ public class DtActividad{
     	this.duracionMinutos = duracionMinutos;
     	this.costo = costo;
     	this.fechaRegistro = fechaRegistro;
+    	this.clases = clases;
+    }
+    
+    public DtActividad(List<Clase> clases,String nombre, double costo, String descripcion) {
+    	this.nombre = nombre;
+    	this.costo = costo;
+    	this.descripcion = descripcion;
     	this.clases = clases;
     }
 
@@ -50,6 +57,15 @@ public class DtActividad{
 		return fechaRegistro;
 	}
 	
+	public int getCantidadDeClases() {
+		return clases.size();
+		
+	}
+	
+	public int getCantidadClases() {
+        return (clases != null) ? clases.size() : 0;
+    }
+	
 	public List<DtClase> getClases() {
 		List<DtClase> dtClases = new ArrayList<>();
 		
@@ -58,5 +74,22 @@ public class DtActividad{
 		}
 		
 		return dtClases;
+	}
+	public DtClase buscarDtClase(String nombre) {
+		DtClase clase = null;
+		if (clases.size() == 0) {
+			return clase;
+		} else {
+			for(Clase c: clases) {
+				if (c.getNombreClase().equals(nombre)) {
+					clase = new DtClase(c.getNombreClase(),c.getFechaClase(),c.getHoraInicio(),c.getUrlClase(),c.getFechaRegistro());
+				}
+			}
+		}
+		return clase;
+	}
+	public DtClase obtenerDtClase(String nombreClase) {
+		DtClase clase = buscarDtClase(nombreClase);
+		return clase;
 	}
 }

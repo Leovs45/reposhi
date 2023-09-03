@@ -40,7 +40,7 @@ public class DtProfesor extends DtUsuario {
     }
 
     public List<DtClase> getClases() {
-    	List dtClases = new ArrayList<>();
+    	List<DtClase> dtClases = new ArrayList<>();
     	
     	for(Clase c: clases) {
     		dtClases.add(c.getDtClase());

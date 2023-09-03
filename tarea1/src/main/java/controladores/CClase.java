@@ -17,6 +17,8 @@ import logica.Usuario;
 import persistencia.Conexion;
 import datatypes.DtActividad;
 import datatypes.DtClase;
+import excepciones.ClaseRepetidaException;
+import excepciones.UsuarioNoEsProfesorException;
 
 public class CClase implements IClase {
 	
@@ -32,26 +34,39 @@ public class CClase implements IClase {
 
 	@Override
 	public void altaDictadoClase(String nombreClase, DtActividad actividadDeportiva, Date fechaClase, String nombreProfesor,
-			String horaInicio, String urlClase, Date fechaRegistro) {
+			String horaInicio, String urlClase, Date fechaRegistro) throws ClaseRepetidaException, UsuarioNoEsProfesorException {
 		Fabrica f = Fabrica.getInstancia();
 		IUsuario iUsuario = f.getIUsuario();
 		IActividadDeportiva iActividad = f.getIActividadDeportiva();
+		
+		
+		ActividadDeportiva act = iActividad.buscarActividadDeportiva(actividadDeportiva.getNombre());
+		Clase claseExistente = act.buscarClase(nombreClase);
+		
+		if(claseExistente != null) {
+			throw new ClaseRepetidaException("Ya existe una clase con el  nombre " + nombreClase);
+		}
 
 		Usuario usuario = iUsuario.buscarUsuario(nombreProfesor);
-		Profesor profesor = (Profesor) usuario;
-		ActividadDeportiva act = iActividad.buscarActividadDeportiva(actividadDeportiva.getNombre());
+		
+		if(usuario instanceof Profesor) {
+			Profesor profesor = (Profesor) usuario;
+			Clase clase = new Clase(nombreClase, act, fechaClase, profesor, horaInicio, urlClase, fechaRegistro);
+			profesor.agregarClase(clase);
+			act.agregarClase(clase);
+			System.out.println("OK - Clase Creada");
 
-		Clase clase = new Clase(nombreClase, act, fechaClase, profesor, horaInicio, urlClase, fechaRegistro);
-		profesor.agregarClase(clase);
-		act.agregarClase(clase);
-		System.out.println("OK - Clase Creada");
-		//=====================================================================			
+			//=====================================================================			
 				Conexion conexion = Conexion.getInstancia();
 				EntityManager em = conexion.getEntityManager();
 				em.getTransaction().begin();
 				em.persist(clase);
 				em.getTransaction().commit();
-		//=====================================================================
+			//=====================================================================
+
+		} else {
+			throw new UsuarioNoEsProfesorException("El usuario " + usuario.getNickname() + " no es un Profesor");
+		}
 	}
 
 	@Override
@@ -67,17 +82,6 @@ public class CClase implements IClase {
 	@Override
 	public void consultarDictadoClase(Clase clase) {
 		System.out.println(clase.getNombreClase() + " " + clase.getActividadDeportiva().getNombre() + " " + clase.getFechaClase() + " " + clase.getHoraInicio() + " " + clase.getProfesor().getNombre() + " ");
-	}
-
-	@Override
-	public void rankingDictadoClase() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public void agregarClase(Clase clase) {
-		clases.add(clase);
 	}
 	
 	/*
@@ -139,6 +143,18 @@ public class CClase implements IClase {
 	    }
 
 	    return rankingDtClases;
+	}
+
+	@Override
+	public void rankingDictadoClase() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void agregarClase(Clase clase) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

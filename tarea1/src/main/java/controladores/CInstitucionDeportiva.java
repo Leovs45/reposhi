@@ -12,6 +12,8 @@ import persistencia.Conexion;
 import datatypes.DtActividad;
 import datatypes.DtClase;
 import datatypes.DtInstitucion;
+import excepciones.InstitucionRepetidaException;
+import excepciones.NoExisteInstitucionException;
 
 public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 	
@@ -26,22 +28,23 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 	}
 
 	@Override
-	public void altaInstitucionDeportiva(String nombre, String descripcion, String url) {
+	public void altaInstitucionDeportiva(String nombre, String descripcion, String url) throws InstitucionRepetidaException {
 		if(buscarInstitucionDeportiva(nombre) == null) {
 			InstitucionDeportiva institucion = new InstitucionDeportiva(nombre, descripcion, url);
 			instituciones.add(institucion);
 			System.out.println("OK  -  La institucion fue creada correctamente");
-//=====================================================================			
+
+		//=====================================================================			
 			Conexion conexion = Conexion.getInstancia();
 			EntityManager em = conexion.getEntityManager();
 			em.getTransaction().begin();
 			em.persist(institucion);
 			em.getTransaction().commit();
-//=====================================================================
+		//=====================================================================
 		}
 		else
-			System.out.println("Institucion ya existente");
-	}
+			throw new InstitucionRepetidaException("Ya existe la institución con nombre " + nombre);
+		}
 	
 	// Recibe un string y devuelve una institución deportiva con ese nombre
 	// Si no existe una institución deportiva con ese nombre devuelve null
@@ -74,21 +77,26 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 
 		return actividad;
 	}
-	
-	/**********************************/
-	// OPCIONALES
-	/**********************************/
 
 	@Override
-	public void modificarDescripcion(String nombreInstitucion, String nuevaDescripcion) {
+	public void modificarDescripcion(String nombreInstitucion, String nuevaDescripcion) throws NoExisteInstitucionException {
 		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombreInstitucion);
-		institucion.setDescripcion(nuevaDescripcion);
+
+		if(institucion == null) {
+			throw new NoExisteInstitucionException("No existe una institucion con el nombre " + nombreInstitucion);
+		} else {
+			institucion.setDescripcion(nuevaDescripcion);
+		}
 	}
 
 	@Override
-	public void modificarUrl(String nombreInstitucion, String nuevoUrl) {
+	public void modificarUrl(String nombreInstitucion, String nuevoUrl) throws NoExisteInstitucionException {
 		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombreInstitucion);
-		institucion.setUrl(nuevoUrl);
+		if(institucion == null) {
+			throw new NoExisteInstitucionException("No existe una institucion con el nombre " + nombreInstitucion);
+		} else {
+			institucion.setUrl(nuevoUrl);
+		}
 	}
 	
 	@Override
@@ -129,7 +137,6 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 	}
 	
 	public List<InstitucionDeportiva> getListaInstituciones(){
-		
 		return instituciones;
 	}
 
@@ -155,6 +162,7 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 		return instituciones;
 	}
 	*/
+
 	@Override
 	public List<String> obtenerActividadesDeUnaInstitucion(String nombre){
 		List<String> asd = new ArrayList<>();

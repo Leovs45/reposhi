@@ -7,14 +7,16 @@ import logica.InstitucionDeportiva;
 import datatypes.DtActividad;
 import datatypes.DtClase;
 import datatypes.DtInstitucion;
+import excepciones.InstitucionRepetidaException;
+import excepciones.NoExisteInstitucionException;
 
 
 public interface IInstitucionDeportiva {
-	public void altaInstitucionDeportiva(String nombre, String descripcion, String url);
+	public void altaInstitucionDeportiva(String nombre, String descripcion, String url) throws InstitucionRepetidaException;
 	public List<DtInstitucion> getInstituciones();
 	public List<InstitucionDeportiva> getListaInstituciones();
-	public void modificarDescripcion(String nombreInstitucion, String nuevaDescripcion);
-	public void modificarUrl(String nombreInstitucion, String nuevoUrl);
+	public void modificarDescripcion(String nombreInstitucion, String nuevaDescripcion) throws NoExisteInstitucionException;
+	public void modificarUrl(String nombreInstitucion, String nuevoUrl) throws NoExisteInstitucionException;
 	public void agregarActividadDeportivaInstitucion(InstitucionDeportiva unaInstitucion, ActividadDeportiva unaActividad);
 	public InstitucionDeportiva buscarInstitucionDeportiva(String nombre);
 	public void listarInstituciones();

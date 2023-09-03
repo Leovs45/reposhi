@@ -37,8 +37,7 @@ public class CActividadDeportiva implements IActividadDeportiva {
 		em.getTransaction().begin();
 		em.persist(actividad);
 		em.getTransaction().commit();
-//=====================================================================
-		
+		//=====================================================================
 	}
 
 	@Override

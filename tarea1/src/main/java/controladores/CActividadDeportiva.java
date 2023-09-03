@@ -1,9 +1,14 @@
 package controladores;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import datatypes.DtActividad;
 import datatypes.DtClase;
@@ -11,6 +16,7 @@ import interfaces.IActividadDeportiva;
 import logica.ActividadDeportiva;
 import logica.Clase;
 import logica.InstitucionDeportiva;
+import logica.Socio;
 import persistencia.Conexion;
 
 
@@ -25,89 +31,89 @@ public class CActividadDeportiva implements IActividadDeportiva {
 			instancia = new CActividadDeportiva();
 		return instancia;
 	}
-	
+//==========================EntityManager =============================		
+			Conexion conexion = Conexion.getInstancia();
+			EntityManager em = conexion.getEntityManager();
+//=====================================================================	
+
+
+//=========================Hibernate altaActividadDeportiva============================================
 	@Override
 	public void altaActividadDeportiva(InstitucionDeportiva institucion, String nombreActividad, String descripcion, int duracionMinutos,
 			double costo, Date fechaAlta) {
 		ActividadDeportiva actividad = new ActividadDeportiva(institucion, nombreActividad, descripcion, duracionMinutos, costo, fechaAlta);
-		institucion.agregarActividadDeportiva(actividad);
-		//=====================================================================			
-		Conexion conexion = Conexion.getInstancia();
-		EntityManager em = conexion.getEntityManager();
+		//institucion.agregarActividadDeportiva(actividad);
+		
 		em.getTransaction().begin();
 		em.persist(institucion);
 		em.getTransaction().commit();
-//=====================================================================
+		
 		
 	}
+	
+//=========================Hibernate buscarActividadDeportiva============================================
+	
+	public ActividadDeportiva buscarActividadDeportiva(String nombre) {
+        // Utiliza el método find del EntityManager para buscar la actividad por su nombre
+        return em.find(ActividadDeportiva.class, nombre);
+    }
 
-	@Override
-	public ActividadDeportiva buscarActividadDeportiva(String nombre){
-		ActividadDeportiva actividad = null;
-		if (actividades.size() == 0) {
-			return actividad;
-		} else {
-			for(ActividadDeportiva ad: actividades) {
-				if (ad.getNombre().equals(nombre)) {
-					actividad = ad;
-				}
-			}
-		}
-		return actividad;
-	}
-
-	@Override
+		
+//========================= Hibernate consultaActividadDeportiva============================================	 
+	
 	public List<ActividadDeportiva> consultaActividadDeportiva(String institucion) {
-	    List<ActividadDeportiva> actividadesEncontradas = new ArrayList<>();
-	    
-	    for (ActividadDeportiva actividad: actividades) {
-	        if (actividad.getInstitucion().equals(institucion)) {
-	            actividadesEncontradas.add(actividad);
-	        }
-	    }
-	    
-	    return actividadesEncontradas;
+		
+		
+	        String jpql = "SELECT a FROM ActividadDeportiva a WHERE a.institucion = :institucion";
+	        TypedQuery<ActividadDeportiva> query = em.createQuery(jpql, ActividadDeportiva.class);
+	        query.setParameter("institucion", institucion);
+
+	        return query.getResultList();
 	}
 	
-	@Override
-	public ActividadDeportiva buscarActividad(String nombreActividad) {
-		for(ActividadDeportiva act: actividades) {
-			if(nombreActividad.equals(act.getNombre())) {
-				return act;
-			}
-		}
-		return null;
-	}
 
-	@Override
+	
+//========================= Hibernate buscarActividad============================================
+	// Utiliza el método find del EntityManager para buscar la actividad por su nombre
+	public ActividadDeportiva buscarActividad(String nombreActividad) {
+		return em.find(ActividadDeportiva.class, nombreActividad);
+		}
+	
+//=====================================================================	
 	public void modificarDescripcion(String nombreActividad, String nuevaDescripcion) {
 		ActividadDeportiva actividad = buscarActividadDeportiva(nombreActividad);
 		actividad.setDescripcion(nuevaDescripcion);
 	}
 
-	@Override
+//=====================================================================	
+
 	public void modificarDuracion(String nombreActividad, int nuevaDuracion) {
 		ActividadDeportiva actividad = buscarActividadDeportiva(nombreActividad);
 		actividad.setDuracionMinutos(nuevaDuracion);
 	}
 
-	@Override
+//=====================================================================	
+
 	public void modificarCosto(String nombreActividad, double nuevoCosto) {
 		ActividadDeportiva actividad = buscarActividadDeportiva(nombreActividad);
 		actividad.setCosto(nuevoCosto);
 	}
 	
-	@Override
-	public void agregarActividad(ActividadDeportiva actividad) {
-		actividades.add(actividad);
-	}
+	
 
-	@Override
+
+//========================= Hibernate getRankingActividades============================================
+	   
 	public List<ActividadDeportiva> getRankingActividades() {
 	    int i, j;
 	    boolean swapped;
 	    ActividadDeportiva temp;
-	    List<ActividadDeportiva> actividadesOrdenadas = new ArrayList<>(actividades);
+	    
+	    String consultaActividades = "SELECT a FROM ActividadDeportiva a";
+		TypedQuery<ActividadDeportiva> queryActividad = em.createQuery(consultaActividades, ActividadDeportiva.class);
+	    List<ActividadDeportiva> actividadesOrdenadas = new ArrayList<>(queryActividad.getResultList());
+	    
+	    //List<ActividadDeportiva> actividadesOrdenadas = new ArrayList<>(actividades);
 
 	    for (i = 0; i < actividadesOrdenadas.size() - 1; i++) {
 	        swapped = false;
@@ -128,19 +134,28 @@ public class CActividadDeportiva implements IActividadDeportiva {
 	    return actividadesOrdenadas;
 	}
 	
-	@Override
+	
+//========================= Hibernate getActividades============================================
+   
 	public List<DtActividad> getActividades() {
-		List<DtActividad> dtActividades = new ArrayList<>();
-		
-		for(ActividadDeportiva act: actividades) {
-			dtActividades.add(act.getDtActividad());
-		}
-		
-		return dtActividades;
-		
-	}
+        // Consulta para obtener todas las actividades deportivas
+        String jpql = "SELECT a FROM ActividadDeportiva a";
+        TypedQuery<ActividadDeportiva> query = em.createQuery(jpql, ActividadDeportiva.class);
 
-	@Override
+        // Ejecuta la consulta y obtén una lista de actividades deportivas
+        List<ActividadDeportiva> actividades = query.getResultList();
+        // Mapea las actividades a DtActividad y devuelve la lista resultante
+        List<DtActividad> dtActividades = actividades.stream()
+            .map(ActividadDeportiva::getDtActividad)
+            .collect(Collectors.toList());
+
+        return dtActividades;
+    }
+
+	
+
+//=====================================================================	
+	
 	public boolean existeClaseEnActividad(String nombreActividad, String nombreClase) {
 		boolean existe = false;
 		ActividadDeportiva act = buscarActividadDeportiva(nombreActividad);
@@ -152,6 +167,8 @@ public class CActividadDeportiva implements IActividadDeportiva {
 		return existe;
 	}
 
+//=====================================================================	
+
 	@Override
 	public List<DtClase> getarrDtClase(String nombreActividad) {
 		List<DtClase> asd = new ArrayList<>();
@@ -160,17 +177,16 @@ public class CActividadDeportiva implements IActividadDeportiva {
 		return asd;
 	}
 	
-	@Override
+//========================= Hibernate existeActividad ============================================
 	public boolean existeActividad(String nombreActividad) {
-		for(ActividadDeportiva act: actividades) {
-			if(nombreActividad.equals(act.getNombre())) {
-				return true;
-			}
-		}
-		return false;
-	}
+        // Utiliza el método find del EntityManager para buscar la actividad por su nombre
+        ActividadDeportiva actividad = em.find(ActividadDeportiva.class, nombreActividad);
+        // Devuelve true si la actividad se encontró (actividad != null), de lo contrario, devuelve false
+        return actividad != null;
+    }
+
+//=====================================================================	
 	
-	@Override
 	public DtActividad getDtActividad(String nombreActividad) {
 		ActividadDeportiva actividad = buscarActividad(nombreActividad);
 		

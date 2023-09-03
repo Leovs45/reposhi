@@ -8,12 +8,6 @@ import java.util.List;
 import interfaces.IRegistro;
 import interfaces.IInstitucionDeportiva;
 import interfaces.IUsuario;
-import logica.ActividadDeportiva;
-import logica.Clase;
-import logica.InstitucionDeportiva;
-import logica.Registro;
-import logica.Usuario;
-import logica.Socio;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -23,6 +17,8 @@ import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
 import datatypes.DtUsuario;
+import datatypes.DtActividad;
+import datatypes.DtClase;
 import datatypes.DtInstitucion;
 
 import java.awt.Font;
@@ -153,7 +149,7 @@ public class GUIRegistroDictadoClase extends JInternalFrame {
 				//si elijo una institucion, habilito y lleno activiades deportivas
 				if(cmb_instituciones.getSelectedIndex() != -1) {
 					String nombreInstitucion = (String) cmb_instituciones.getSelectedItem();
-					InstitucionDeportiva institucion = iInstitucion.buscarInstitucionDeportiva(nombreInstitucion);
+					DtInstitucion institucion = iInstitucion.getDtInstitucion(nombreInstitucion);
 					//aca entraria solo si no hay institucion seleccionada, porque la institucion siempre va a existir.
 					if(institucion == null || cmb_instituciones.getSelectedIndex() == -1) {
 						cmb_actsdeps.setEnabled(false);
@@ -167,9 +163,9 @@ public class GUIRegistroDictadoClase extends JInternalFrame {
 					} 
 					//si no tengo seleccionada la nada misma, busco las actividades deportivas correspondientes a la institucion seleccionada
 					else {
-						List<ActividadDeportiva> actividades = institucion.getArrayActividadDeportiva();
+						List<DtActividad> actividades = institucion.getActividades();
 						cmb_actsdeps.removeAllItems();
-						for(ActividadDeportiva a: actividades) {
+						for(DtActividad a: actividades) {
 							cmb_actsdeps.addItem(a.getNombre());
 						}
 						//Dejo en teoría el combobox seleccionando la nada misma, pero activado
@@ -182,38 +178,19 @@ public class GUIRegistroDictadoClase extends JInternalFrame {
 		});
         
         cmb_actsdeps.addItemListener(new ItemListener() {
-        	//cuando se habilita actividad deportiva o si cambio de actividad seleccionada
-        	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        	//Creo que el problema es que itemStateChanged no toma cuando se setea a enabled o disabled el combobox     /////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         	public void itemStateChanged(ItemEvent e) {
 				String nombreInstitucion = (String) cmb_instituciones.getSelectedItem();
-				InstitucionDeportiva institucion = iInstitucion.buscarInstitucionDeportiva(nombreInstitucion);
-				//veo que item fue seleccionado
+				DtInstitucion institucion = iInstitucion.getDtInstitucion(nombreInstitucion);
 				String nombreActividad = (String) cmb_actsdeps.getSelectedItem();
-				//Si el item seleccionado es distinto de -1
 				if(cmb_actsdeps.getSelectedIndex() != -1) {
-					//busco la actividad con ese nombre
-					ActividadDeportiva actividad = institucion.buscarActividadDeportiva(nombreActividad);
-					//Si actividad es null (imposible porque llegué hasta acá) o si el índice es -1 (también imposible porque lo filtré arriba 
-					//así que todo este if es una mierda al pedo
-					if(actividad == null || cmb_actsdeps.getSelectedIndex() == -1) {
-						cmb_clases.setEnabled(false);
-						cmb_clases.setSelectedIndex(-1);
-						cmb_socios.setEnabled(false);
-						cmb_socios.setSelectedIndex(-1);
-					} //sino (que es siempre que entré acá, porque de nuevo, creo que el if de arriba no hace nada
-					//vacío y lleno el combobox, seteo el index en -1 y lo habilito
-					else {
-						List<Clase> clases = actividad.getArrayClase();
-						cmb_clases.removeAllItems();
-						for(Clase c: clases) {
-							cmb_clases.addItem(c.getNombreClase());
-						}
-						cmb_clases.setSelectedIndex(-1);
-						cmb_clases.setEnabled(true);
+					DtActividad actividad = institucion.buscarDtActividad(nombreActividad);
+					List<DtClase> clases = actividad.getClases();
+					cmb_clases.removeAllItems();
+					for(DtClase c: clases) {
+						cmb_clases.addItem(c.getNombre());
 					}
-					//esto lo puse al darme cuenta que el if de arriba era al pedo, a ver si cambia algo
+					cmb_clases.setSelectedIndex(-1);
+					cmb_clases.setEnabled(true);
 				} else {
 					cmb_clases.setEnabled(false);
 					cmb_clases.setSelectedIndex(-1);
@@ -226,29 +203,21 @@ public class GUIRegistroDictadoClase extends JInternalFrame {
         cmb_clases.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				String nombreInstitucion = (String) cmb_instituciones.getSelectedItem();
-				InstitucionDeportiva institucion = iInstitucion.buscarInstitucionDeportiva(nombreInstitucion);
+				DtInstitucion institucion = iInstitucion.getDtInstitucion(nombreInstitucion);
 				String nombreActividad = (String) cmb_actsdeps.getSelectedItem();
-				ActividadDeportiva actividad = institucion.buscarActividadDeportiva(nombreActividad);
+				DtActividad actividad = institucion.buscarDtActividad(nombreActividad);
 				String clasesel = (String) cmb_clases.getSelectedItem();
-				Clase clase = actividad.buscarClase(clasesel);
+				DtClase clase = actividad.buscarDtClase(clasesel);
 				if(cmb_clases.getSelectedIndex() != -1) {
-					//está al pedo
-					/*if(clase == null || cmb_clases.getSelectedIndex() == -1) {
-						cmb_socios.setEnabled(false);
-						cmb_socios.setSelectedIndex(-1);
-					} else {
-						*/
-						List<DtUsuario> usuarios = iUsuario.getUsuarios();
-						cmb_socios.removeAllItems();
-						for(DtUsuario u: usuarios) {
-							if (iUsuario.esSocio(u.getNickname())) {
-								cmb_socios.addItem(u.getNickname());
-							}
+					List<DtUsuario> usuarios = iUsuario.getUsuarios();
+					cmb_socios.removeAllItems();
+					for(DtUsuario u: usuarios) {
+						if (iUsuario.esSocio(u.getNickname())) {
+							cmb_socios.addItem(u.getNickname());
 						}
-						cmb_socios.setEnabled(true);
-						cmb_socios.setSelectedIndex(-1);
-						
-					//}
+					}
+					cmb_socios.setEnabled(true);
+					cmb_socios.setSelectedIndex(-1);
 				} else {
 					cmb_socios.setEnabled(false);
 					cmb_socios.setSelectedIndex(-1);

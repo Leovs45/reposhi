@@ -27,8 +27,8 @@ public class GUIRankingActividadDeportiva extends JInternalFrame {
 		@Override
 			public void componentShown(ComponentEvent e) {
 				DefaultTableModel tableModel = new DefaultTableModel();
-				tableModel.addColumn("Cantidad");
 				tableModel.addColumn("Nombre actividad");
+				tableModel.addColumn("Cantidad de inscriptos");
 		        tableModel.addColumn("Costo");
 		        tableModel.addColumn("Descripción");
 		        
@@ -38,7 +38,6 @@ public class GUIRankingActividadDeportiva extends JInternalFrame {
 		        
 		        tablaRankingActividad.setModel(tableModel);
 		        
-				System.out.println("se ejecuto");
 				actividadesOrdenadas = iActividad.getRankingActividades();
 				
 				if (actividadesOrdenadas.isEmpty()) {

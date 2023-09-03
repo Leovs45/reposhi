@@ -228,46 +228,45 @@ public class Tirando_datos{
 		
 		//--------------------------------
 		// Creo institucion
-				iInstitucion.altaInstitucionDeportiva("i1", "descripcion", "url");
-				iInstitucion.altaInstitucionDeportiva("i2", "descripcion", "url");
-				
-				// Creo usuario
-				IUsuario iUsuario = f.getIUsuario();
-				iUsuario.altaUsuario("Mei", "Maite", "Martinez", "mail@false.com", new Date());
-				InstitucionDeportiva i1 = iInstitucion.buscarInstitucionDeportiva("i1");
-				InstitucionDeportiva i2 = iInstitucion.buscarInstitucionDeportiva("i2");
-				iUsuario.altaUsuario("Profe", "Profesor", "Profesoro", "otro@mail.com", new Date(), i1, "Descripcion", "Bio", "sitio web");
-				iUsuario.altaUsuario("Profa", "Profesora", "Profesorara", "otro@mail.com", new Date(), i2, "Descripcion", "Bio", "sitio web");
-				
-				Usuario user1 = iUsuario.buscarUsuario("Profe");
-				Usuario user2 = iUsuario.buscarUsuario("Profa");
-				
-				Profesor profe1 = (Profesor) user1;
-				Profesor profe2 = (Profesor) user2;
-				
-				// Creo actividades
-				iActividad.altaActividadDeportiva(i1, "a1", "Descripcion", 120, 120, new Date());
-				iActividad.altaActividadDeportiva(i1, "a3", "Descripcion", 120, 120, new Date());
-				iActividad.altaActividadDeportiva(i2, "a2", "Descripcion", 120, 120, new Date());
-				iActividad.altaActividadDeportiva(i2, "a4", "Descripcion", 120, 120, new Date());
+			iInstitucion.altaInstitucionDeportiva("i1", "descripcion", "url");
+			iInstitucion.altaInstitucionDeportiva("i2", "descripcion", "url");
+			
+			// Creo usuario
+			IUsuario iUsuario = f.getIUsuario();
+			iUsuario.altaUsuario("Mei", "Maite", "Martinez", "mail@false.com", new Date());
+			InstitucionDeportiva i1 = iInstitucion.buscarInstitucionDeportiva("i1");
+			InstitucionDeportiva i2 = iInstitucion.buscarInstitucionDeportiva("i2");
+			iUsuario.altaUsuario("Profe", "Profesor", "Profesoro", "otro@mail.com", new Date(), i1, "Descripcion", "Bio", "sitio web");
+			iUsuario.altaUsuario("Profa", "Profesora", "Profesorara", "otro@mail.com", new Date(), i2, "Descripcion", "Bio", "sitio web");
+			
+			Usuario user1 = iUsuario.buscarUsuario("Profe");
+			Usuario user2 = iUsuario.buscarUsuario("Profa");
+			
+			Profesor profe1 = (Profesor) user1;
+			Profesor profe2 = (Profesor) user2;
+			
+			// Creo actividades
+			iActividad.altaActividadDeportiva(i1, "a1", "Descripcion", 120, 120, new Date());
+			iActividad.altaActividadDeportiva(i1, "a3", "Descripcion", 120, 120, new Date());
+			iActividad.altaActividadDeportiva(i2, "a2", "Descripcion", 120, 120, new Date());
+			iActividad.altaActividadDeportiva(i2, "a4", "Descripcion", 120, 120, new Date());
 
-				ActividadDeportiva a1 = i1.buscarActividadDeportiva("a1");
-				ActividadDeportiva a3 = i1.buscarActividadDeportiva("a3");
-				ActividadDeportiva a2 = i2.buscarActividadDeportiva("a2");
-				ActividadDeportiva a4 = i2.buscarActividadDeportiva("a4");
-				
-				DtActividad dtA1 = a1.getDtActividad();
-				DtActividad dtA2 = a2.getDtActividad();
-				DtActividad dtA3 = a3.getDtActividad();
-				DtActividad dtA4 = a4.getDtActividad();
-				
-				// Creo clases
-				iClase.altaDictadoClase("c1", dtA1, new Date(), profe1.getNickname(), "12:00", "url", new Date());
-				iClase.altaDictadoClase("c3", dtA1, new Date(), profe1.getNickname(), "12:00", "url", new Date());
-				iClase.altaDictadoClase("c5", dtA3, new Date(), profe1.getNickname(), "12:00", "url", new Date());
-				iClase.altaDictadoClase("c2", dtA2, new Date(), profe2.getNickname(), "12:00", "url", new Date());
-				iClase.altaDictadoClase("c4", dtA4, new Date(), profe2.getNickname(), "12:00", "url", new Date());
-	*/
+			ActividadDeportiva a1 = i1.buscarActividadDeportiva("a1");
+			ActividadDeportiva a3 = i1.buscarActividadDeportiva("a3");
+			ActividadDeportiva a2 = i2.buscarActividadDeportiva("a2");
+			ActividadDeportiva a4 = i2.buscarActividadDeportiva("a4");
+			
+			DtActividad dtA1 = a1.getDtActividad();
+			DtActividad dtA2 = a2.getDtActividad();
+			DtActividad dtA3 = a3.getDtActividad();
+			DtActividad dtA4 = a4.getDtActividad();
+			
+			// Creo clases
+			iClase.altaDictadoClase("c1", dtA1, new Date(), profe1.getNickname(), "12:00", "url", new Date());
+			iClase.altaDictadoClase("c3", dtA1, new Date(), profe1.getNickname(), "12:00", "url", new Date());
+			iClase.altaDictadoClase("c5", dtA3, new Date(), profe1.getNickname(), "12:00", "url", new Date());
+			iClase.altaDictadoClase("c2", dtA2, new Date(), profe2.getNickname(), "12:00", "url", new Date());
+			iClase.altaDictadoClase("c4", dtA4, new Date(), profe2.getNickname(), "12:00", "url", new Date());
 	}
 	
 

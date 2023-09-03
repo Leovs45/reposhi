@@ -94,7 +94,7 @@ public class GUIConsultaUsuario extends JInternalFrame {
 		DefaultListModel<String> lista = new DefaultListModel<String>();
 
 
-		cmbUsuarios.setBounds(141, 32, 176, 21);
+		cmbUsuarios.setBounds(181, 32, 176, 21);
 		getContentPane().add(cmbUsuarios);
 		
 		labelNickname.setBounds(31, 78, 105, 13);
@@ -187,6 +187,7 @@ public class GUIConsultaUsuario extends JInternalFrame {
 		cmbUsuarios.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				String nicknameUsuario = (String) cmbUsuarios.getSelectedItem();
+				
 				
 				if(nicknameUsuario != null) {
 					boolean esSocio = iUsuario.esSocio(nicknameUsuario);

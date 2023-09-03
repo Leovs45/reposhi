@@ -4,17 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import interfaces.IInstitucionDeportiva;
 import logica.ActividadDeportiva;
 import logica.InstitucionDeportiva;
+import logica.Profesor;
 import persistencia.Conexion;
 import datatypes.DtActividad;
 import datatypes.DtClase;
 import datatypes.DtInstitucion;
 
 public  class CInstitucionDeportiva implements IInstitucionDeportiva {
-	
+	Conexion conexion = Conexion.getInstancia();
+	EntityManager em = conexion.getEntityManager();
 	private List<InstitucionDeportiva> instituciones = new ArrayList<>();
 	
 	private static CInstitucionDeportiva instancia = null;
@@ -32,8 +35,6 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 			instituciones.add(institucion);
 			System.out.println("OK  -  La institucion fue creada correctamente");
 //=====================================================================			
-			Conexion conexion = Conexion.getInstancia();
-			EntityManager em = conexion.getEntityManager();
 			em.getTransaction().begin();
 			em.persist(institucion);
 			em.getTransaction().commit();
@@ -47,16 +48,7 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 	// Si no existe una institución deportiva con ese nombre devuelve null
 	@Override
 	public InstitucionDeportiva buscarInstitucionDeportiva(String nombre) {
-		InstitucionDeportiva institucion = null;
-		if (instituciones.size() == 0) {
-			return institucion;
-		} else {
-			for(InstitucionDeportiva i: instituciones) {
-				if (i.getNombre().equals(nombre)) {
-					institucion = i;
-				}
-			}
-		}
+		InstitucionDeportiva institucion = em.find(InstitucionDeportiva.class, nombre);
 		return institucion;
 	}
 	
@@ -68,6 +60,7 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 	
 
 	public ActividadDeportiva buscarActividadDeportiva(String nombreInstitucion, String nombreActividad){
+		
 		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombreInstitucion);
 		
 		ActividadDeportiva actividad = institucion.buscarActividadDeportiva(nombreActividad);
@@ -103,11 +96,16 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 	}
 	
 	public List<String> getListaNombreInstituciones() {
-		List<String> institucion = new ArrayList<>();
-		for(InstitucionDeportiva ins : instituciones) {
-			institucion.add(ins.getNombre());
+		Conexion conexion = Conexion.getInstancia();
+		EntityManager em = conexion.getEntityManager();
+		List<String> instituciones = new ArrayList<>();
+		String consultaInstituciones = "SELECT i FROM InstitucionDeportiva i";
+		TypedQuery<InstitucionDeportiva> queryInstitucion = em.createQuery(consultaInstituciones, InstitucionDeportiva.class);
+		List <InstitucionDeportiva> institucion = queryInstitucion.getResultList();
+		for(InstitucionDeportiva i: institucion) {
+			instituciones.add(i.getNombre());
 		}
-		return institucion;
+		return instituciones;
 	}
 	
 	public boolean existeInstitucion(String nombre) {
@@ -135,9 +133,8 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 
 	@Override
 	public DtActividad obtenerActividadDeUnaInstitucion(String nombreInstitucion, String nombreActividad) {
-		ActividadDeportiva act;
 		InstitucionDeportiva ins = buscarInstitucionDeportiva(nombreInstitucion);
-		act = ins.buscarActividadDeportiva(nombreActividad);
+		ActividadDeportiva act = ins.buscarActividadDeportiva(nombreActividad);
 		DtActividad dtAct = new	DtActividad(ins, act.getNombre(), act.getDescripcion(), act.getDuracionMinutos(), act.getCosto(), act.getFechaRegistro(), act.getArrayClase());
 		return dtAct;
 	}
@@ -157,12 +154,12 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 	*/
 	@Override
 	public List<String> obtenerActividadesDeUnaInstitucion(String nombre){
-		List<String> asd = new ArrayList<>();
+		List<String> actDep = new ArrayList<>();
 		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombre);
 		List<ActividadDeportiva> actividades = institucion.getArrayActividadDeportiva();
 		for(ActividadDeportiva act: actividades)
-			asd.add(act.getNombre());
-		return asd;
+			actDep.add(act.getNombre());
+		return actDep;
 	}
 	
 	@Override

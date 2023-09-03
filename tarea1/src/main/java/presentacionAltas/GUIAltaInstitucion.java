@@ -101,12 +101,6 @@ public class GUIAltaInstitucion extends JInternalFrame {
 		});
 		btnAgregar.setBounds(160, 213, 117, 25);
 		getContentPane().add(btnAgregar);
-		
-
-		
-
-		
-		
-
 	}
+	
 }

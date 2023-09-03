@@ -14,7 +14,9 @@ public class Tirando_datos{
 
 	public void rellenarDatos() {
 		
-		Date fecha =new Date();
+	/*	
+	 * Date fecha =new Date();
+	 
 		
 		Fabrica f = Fabrica.getInstancia();
 		//Institucion deportiva
@@ -118,7 +120,7 @@ public class Tirando_datos{
 		
 		System.out.println("buscar actividad deportiva");
 		System.out.println("========================================");
-		/*ActividadDeportiva actividadEncontrada1 = iActividad.buscarActividadDeportiva("nombreActividad 1");
+		ActividadDeportiva actividadEncontrada1 = iActividad.buscarActividadDeportiva("nombreActividad 1");
 		System.out.println(actividadEncontrada1.getNombre());
 		ActividadDeportiva actividadEncontrada2 = iActividad.buscarActividadDeportiva("nombreActividad 2");
 		System.out.println(actividadEncontrada2.getNombre());
@@ -126,7 +128,7 @@ public class Tirando_datos{
 		System.out.println(actividadEncontrada3.getNombre());
 		ActividadDeportiva actividadEncontrada4 = iActividad.buscarActividadDeportiva("nombreActividad 4");
 		System.out.println(actividadEncontrada4.getNombre());
-		*/
+		
 		System.out.println("Consulta(lista de) Actividades Deportivas");
 		System.out.println("========================================");
 		List<ActividadDeportiva>lad1 = iActividad.consultaActividadDeportiva(id1.getNombre()); //esta no hacia  nada porque no esta?
@@ -174,7 +176,7 @@ public class Tirando_datos{
 		
 		
 		
-		/*iActividad.altaActividadDeportiva(id1, "nombreActividad 1","descripcion actividad 1", '8',1.1f,fecha);//1.1f es un float
+		iActividad.altaActividadDeportiva(id1, "nombreActividad 1","descripcion actividad 1", '8',1.1f,fecha);//1.1f es un float
 		iActividad.altaActividadDeportiva(id1, "nombreActividad 2","descripcion actividad 2", '7',2.1f,fecha);
 		iActividad.altaActividadDeportiva(id2, "nombreActividad 3","descripcion actividad a", '6',3.1f,fecha);
 		iActividad.altaActividadDeportiva(id2, "nombreActividad 4","descripcion actividad b", '5',4.1f,fecha);
@@ -183,12 +185,11 @@ public class Tirando_datos{
 		iActividad.altaActividadDeportiva(id4, "nombreActividad 7","descripcion actividad a", '2',7.1f,fecha);
 		iActividad.altaActividadDeportiva(id4, "nombreActividad 8","descripcion actividad b", '1',8.1f,fecha);
 
-	*/
 		
 		//Alta Dictado de clases
 		System.out.println("alta dicatado de clases");
 		System.out.println("========================================");
-		IClase iClase= f.getIClase();/*
+		IClase iClase= f.getIClase();
 		iClase.altaDictadoClase(id1.getNombre(), "nombre Clase 1", fecha, "14:00", "Profesor 1","String url", fecha);
 		iClase.altaDictadoClase(id1.getNombre(), "nombre Clase 2", fecha, "15:00", "Profesor 1","String url", fecha);
 		iClase.altaDictadoClase(id2.getNombre(), "nombre Clase 3", fecha, "14:00", "Profesor 2","String url", fecha);
@@ -197,7 +198,7 @@ public class Tirando_datos{
 		iClase.altaDictadoClase(id3.getNombre(), "nombre Clase 6", fecha, "15:00", "Profesor 3","String url", fecha);
 		iClase.altaDictadoClase(id4.getNombre(), "nombre Clase 7", fecha, "14:00", "Profesor 4","String url", fecha);
 		iClase.altaDictadoClase(id4.getNombre(), "nombre Clase 8", fecha, "15:00", "Profesor 4","String url", fecha);
-		*/
+	
 		
 		//TODO ojo que cuando creamos el ata de actividad depÃ³rtiva deberiamos agregar clases asociadas	
 		///Clase(String nombreClase, ActividadDeportiva actividadDeportiva, Date fechaClase, Profesor profesor,String horaInicio, String urlClase, Date fechaRegistro)
@@ -211,12 +212,12 @@ public class Tirando_datos{
 				 ArrayList<Clase> clasesitas7 = new ArrayList<>();
 				 ArrayList<Clase> clasesitas8 = new ArrayList<>();
 
-				/*ad4.setArrayClase(clasesitas4);
+				ad4.setArrayClase(clasesitas4);
 				ad5.setArrayClase(clasesitas5);
 				ad6.setArrayClase(clasesitas6);
 				ad7.setArrayClase(clasesitas7);
 				ad8.setArrayClase(clasesitas8);
-				*/
+				
 
 	
 		//Registro a dictado de Clase del tipo asociativo  dede clase??

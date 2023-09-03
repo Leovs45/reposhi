@@ -3,20 +3,39 @@ package logica;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import datatypes.DtClase;
 
 import java.util.ArrayList;
-
+@Entity
+@Table(name = "Clase")
 public class Clase {
+	@Id
     private String nombreClase;
+	@ManyToOne
     private ActividadDeportiva actividadDeportiva;
-    private Date fechaClase;
+    @Column
+	private Date fechaClase;
+    @ManyToOne(targetEntity = Profesor.class)
+    @JoinColumn(name = "profesor_id")
     private Profesor profesor;
+    @Column
     private String horaInicio;
+    @Column
     private String urlClase;
+    @Column
     private Date fechaRegistro;
+    @OneToMany
     private List<Registro> registros = new ArrayList<>();
-    
+    // constructor vacio
+    public Clase() {}
     //Constructor
 	public Clase(String nombreClase, ActividadDeportiva actividadDeportiva, Date fechaClase, Profesor profesor,
 			String horaInicio, String urlClase, Date fechaRegistro) {

@@ -3,17 +3,30 @@ package logica;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import datatypes.DtInstitucion;
 import interfaces.Fabrica;
 import interfaces.IActividadDeportiva;
-
+@Entity
+@Table(name = "Institucion_Deportiva")
 public class InstitucionDeportiva {
+	@Id
 	private String nombre;
+	@Column
 	private String descripcion;
+	@Column
 	private String url;
+	@OneToMany
 	private List<Profesor> profesores = new ArrayList<>();
+	@OneToMany
 	private List<ActividadDeportiva> actividades = new ArrayList<>();
 	
+		
 	//Constructor
 	public InstitucionDeportiva (String nombre, String descripcion, String url)
 	{
@@ -21,6 +34,13 @@ public class InstitucionDeportiva {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.url = url;
+	}
+
+	//consturctor vacio
+
+	public InstitucionDeportiva ()
+	{
+	
 	}
 
 	//Getters & Setters
@@ -48,9 +68,9 @@ public class InstitucionDeportiva {
 		this.url = url;
 	}
 
-	public List<Profesor> getArrayProfesor() {
-		return profesores;
-	}
+	//public List<Profesor> getArrayProfesor() {
+	////	return profesores;
+//	}
 
 	public void setArrayProfesor(List<Profesor> arrayProfesor) {
 		this.profesores = arrayProfesor;

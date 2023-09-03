@@ -3,6 +3,13 @@ package logica;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import datatypes.DtActividad;
 import datatypes.DtClase;
 import interfaces.Fabrica;
@@ -10,15 +17,26 @@ import interfaces.IClase;
 
 import java.util.ArrayList;
 
+@Entity
+@Table(name = "Actividad_Deportiva")
 public class ActividadDeportiva {
+	@ManyToOne
     private InstitucionDeportiva institucion;
+	@Id
     private String nombre;
+    @Column
     private String descripcion;
+    @Column
     private int duracionMinutos;
+    @Column
     private double costo;
+    @Column
     private Date fechaRegistro;
+    @OneToMany
     private List<Clase> clases = new ArrayList<>();
-
+    //contructor vacio para hibernate
+    
+    public ActividadDeportiva() {}
     //Constructor
 	public ActividadDeportiva(InstitucionDeportiva institucion2, String nombre, String descripcion, int duracionMinutos, double costo,
 			Date fechaRegistro) {
@@ -178,4 +196,5 @@ public class ActividadDeportiva {
 	public DtActividad getDtActividad() {
 		return new DtActividad(institucion, nombre, descripcion, duracionMinutos, costo, fechaRegistro, clases);
 	}
+	
 }

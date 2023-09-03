@@ -1,14 +1,20 @@
 package controladores;
 import interfaces.*;
+import logica.Usuario;
+import persistencia.Conexion;
 import logica.Clase;
 	
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import logica.*;
 
-public class CRegistro implements IRegistro{
-//	private List<Registro> registros = new ArrayList<>();
+import javax.persistence.EntityManager;
+import interfaces.*;
+import logica.*;
+	
+public class CRegistro implements IRegistro {
+	
+	private List<Registro> registros = new ArrayList<>();
 	private static CRegistro instancia = null;
 
 	
@@ -25,7 +31,14 @@ public class CRegistro implements IRegistro{
 		IClase cclase = f.getIClase();
 		Clase clas = cclase.buscarClase(unaClase);
 		Registro unRegistro = new Registro(FechaRegistro,unSocio,unaClase);
-		System.out.println("mira como anoto");
+		registros.add(unRegistro);
 		soc.agregarRegistro(unRegistro);
+		//=====================================================================			
+				Conexion conexion = Conexion.getInstancia();
+				EntityManager em = conexion.getEntityManager();
+				em.getTransaction().begin();
+				em.persist(unRegistro);
+				em.getTransaction().commit();
+		//=====================================================================
 	}
 }

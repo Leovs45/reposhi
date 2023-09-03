@@ -2,6 +2,9 @@ package controladores;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+
 import interfaces.Fabrica;
 import interfaces.IClase;
 import interfaces.IUsuario;
@@ -9,8 +12,11 @@ import interfaces.IActividadDeportiva;
 import logica.ActividadDeportiva;
 import logica.Clase;
 import logica.Profesor;
+import logica.Registro;
 import logica.Usuario;
+import persistencia.Conexion;
 import datatypes.DtActividad;
+import datatypes.DtClase;
 
 public class CClase implements IClase {
 	
@@ -39,6 +45,13 @@ public class CClase implements IClase {
 		profesor.agregarClase(clase);
 		act.agregarClase(clase);
 		System.out.println("OK - Clase Creada");
+		//=====================================================================			
+				Conexion conexion = Conexion.getInstancia();
+				EntityManager em = conexion.getEntityManager();
+				em.getTransaction().begin();
+				em.persist(clase);
+				em.getTransaction().commit();
+		//=====================================================================
 	}
 
 	@Override
@@ -67,6 +80,7 @@ public class CClase implements IClase {
 		clases.add(clase);
 	}
 	
+	/*
 	@Override
 	public List<Clase> getRankingClases() {
 	    int i, j;
@@ -91,6 +105,40 @@ public class CClase implements IClase {
 	    }
 
 	    return clasesOrdenadas;
+	}*/
+	
+	
+	@Override
+	public List<DtClase> getRankingClases() {
+	    int i, j;
+	    boolean swapped;
+	    Clase temp;
+	    List<Clase> clasesOrdenadas = new ArrayList<>(clases);
+
+	    for (i = 0; i < clasesOrdenadas.size() - 1; i++) {
+	        swapped = false;
+	        for (j = 0; j < clasesOrdenadas.size() - 1 - i; j++) {
+	            if (clasesOrdenadas.get(j).getCantidadRegistros() < clasesOrdenadas.get(j + 1).getCantidadRegistros()) {
+	                temp = clasesOrdenadas.get(j);
+	                clasesOrdenadas.set(j, clasesOrdenadas.get(j + 1));
+	                clasesOrdenadas.set(j + 1, temp);
+	                swapped = true;
+	            }
+	        }
+
+	        if (!swapped) {
+	            break;
+	        }
+	    }
+
+	    List<DtClase> rankingDtClases = new ArrayList<>();
+	    for (Clase clase : clasesOrdenadas) {
+	        List<Registro> claseRegistro = clase.getArrayRegistro();
+	        DtClase dt = new DtClase(claseRegistro,clase.getNombreClase(),clase.getFechaClase(),clase.getUrlClase());
+	        rankingDtClases.add(dt);
+	    }
+
+	    return rankingDtClases;
 	}
 	
 	@Override

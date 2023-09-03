@@ -1,15 +1,35 @@
 package logica;
+import javax.persistence.*;
+
 
 import java.util.Date;
 
 import datatypes.DtUsuario;
 
+
+
+@MappedSuperclass
+//@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "Usuario")
 public abstract class Usuario {
+	
+	@Id
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "nickname_id")
     private String nickname;
+	@Column
     private String nombre;
+	@Column
     private String apellido;
+	@Column
     private String correoElectronico;
+	@Column
     private Date fechaNacimiento;
+    
+    //cosntructor vacio
+    public Usuario() {};
+    
+    
     
     //Constructor
     public Usuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento) {

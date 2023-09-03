@@ -136,6 +136,7 @@ public class GUIAltaActividad extends JInternalFrame {
 						double costo = Double.parseDouble(textFieldCosto.getText());
 						lblError1.setVisible(false);
 						lblError2.setVisible(false);
+						System.out.println(duracion +"  " +costo);
 						iActividad.altaActividadDeportiva(iInstitucion.buscarInstitucionDeportiva(nombreInstitucion), nombre, descripcion, duracion, costo, new Date());
 						JOptionPane.showMessageDialog(null, "La actividad fue creada correctamente", "Success", JOptionPane.INFORMATION_MESSAGE);
 					} catch (Exception exc) {

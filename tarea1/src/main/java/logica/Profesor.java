@@ -4,14 +4,37 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import datatypes.DtProfesor;
 
+@Entity
+@Table(name = "Profesor")
 public class Profesor extends Usuario {
+
+	@ManyToOne
     private InstitucionDeportiva institucion;
+	@Column
     private String descripcionGeneral;
+	@Column
     private String biografia;
+	@Column
     private String sitioWeb;
+	//@ManyToOne(targetEntity = Profesor.class)
+	@OneToMany(mappedBy = "profesor")
+    //@JoinColumn(name = "profesor_id")
     private List<Clase> clases = new ArrayList<>();
+    //Constructor vacio
+    public Profesor() {}
     
     //Constructor
     public Profesor(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento,

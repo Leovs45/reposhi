@@ -61,7 +61,6 @@
         <version>5.4.21.Final</version>
     </dependency>
 
-
     <dependency>
     	<groupId>com.gimnasiopap</groupId>
     	<artifactId>gymswing</artifactId>

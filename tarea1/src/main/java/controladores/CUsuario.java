@@ -74,7 +74,6 @@ public class CUsuario implements IUsuario {
 			return true;
 	}
 	
-	
 	@Override
 	public boolean esProfesor(String nombre) {
 		Profesor profesor = em.find(Profesor.class, nombre);

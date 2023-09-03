@@ -66,37 +66,6 @@ public class CClase implements IClase {
 	// OPCIONALES
 	/**********************************/
 	
-	/*
-	@Override
-	public List<Clase> getRankingClases() {
-	    int i, j;
-	    boolean swapped;
-	    Clase temp;
-	    String consultaClases = "SELECT c FROM Clase c";
-		TypedQuery<Clase> queryClase = em.createQuery(consultaClases, Clase.class);
-	    List<Clase> clasesOrdenadas = new ArrayList<>(queryClase.getResultList());
-		
-
-	    for (i = 0; i < clasesOrdenadas.size() - 1; i++) {
-	        swapped = false;
-	        for (j = 0; j < clasesOrdenadas.size() - 1 - i; j++) {
-	            if (clasesOrdenadas.get(j).getCantidadRegistros() < clasesOrdenadas.get(j + 1).getCantidadRegistros()) {
-	                temp = clasesOrdenadas.get(j);
-	                clasesOrdenadas.set(j, clasesOrdenadas.get(j + 1));
-	                clasesOrdenadas.set(j + 1, temp);
-	                swapped = true;
-	            }
-	        }
-
-	        if (!swapped) {
-	            break;
-	        }
-	    }
-
-	    return clasesOrdenadas;
-	}*/
-	
-	
 	@Override
 	public List<DtClase> getRankingClases() {
 	    int i, j;

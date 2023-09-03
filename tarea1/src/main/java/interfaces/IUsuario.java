@@ -30,4 +30,3 @@ public interface IUsuario {
 	public DtProfesor getDtProfesor(String nickname);
 	boolean existeUsuario(String nickname);
 	List<DtProfesor> getListaProfesores();
-}

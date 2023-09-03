@@ -29,10 +29,10 @@ public class Profesor extends Usuario {
     private String biografia;
 	@Column
     private String sitioWeb;
-	//@ManyToOne(targetEntity = Profesor.class)
 	@OneToMany(mappedBy = "profesor")
-    //@JoinColumn(name = "profesor_id")
     private List<Clase> clases = new ArrayList<>();
+		
+
     //Constructor vacio
     public Profesor() {}
     

@@ -123,6 +123,7 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 		DtActividad dtAct = new	DtActividad(ins, act.getNombre(), act.getDescripcion(), act.getDuracionMinutos(), act.getCosto(), act.getFechaRegistro(), act.getArrayClase());
 		return dtAct;
 	}
+	
 	@Override
 	public List<String> obtenerActividadesDeUnaInstitucion(String nombre){
 		List<String> asd = new ArrayList<>();

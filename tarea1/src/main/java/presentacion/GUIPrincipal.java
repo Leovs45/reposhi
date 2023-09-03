@@ -120,7 +120,7 @@ public class GUIPrincipal {
 		frame.getContentPane().add(consultaActividadInternalFrame);
 		
 		//Crea frame de Registro Dictado de Clase
-		registroDictadoClaseInternalFrame = new GUIRegistroDictadoClase(iRegistro);
+		registroDictadoClaseInternalFrame = new GUIRegistroDictadoClase(iRegistro, iUsuario, iInstitucion);
 		jInternalFrameSize = registroDictadoClaseInternalFrame.getSize();
 		registroDictadoClaseInternalFrame.setLocation((desktopSize.width - jInternalFrameSize.width)/2
 				,(desktopSize.height - jInternalFrameSize.height)/2);

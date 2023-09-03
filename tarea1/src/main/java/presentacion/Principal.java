@@ -1,4 +1,4 @@
-package presentacion;
+/*package presentacion;
 
 import java.util.Date;
 import java.util.List;
@@ -399,7 +399,7 @@ public class Principal {
 						Usuario unProfe = iUsuario.buscarUsuario(nomProfe);
 						if(unProfe != null) {
 							System.out.print("Este usuario ya existe");
-							if(!iUsuario.esProfesor(unProfe.getNickname())) {
+							if(!iUsuario.esProfesor(unProfe.getNombre())) {
 								System.out.println(" y no es profesor.");
 							}
 						}
@@ -740,8 +740,8 @@ public class Principal {
 				break;
 		}
 	  } while (op != 0);
-		*/
+		
 	}
 	
 }
-	
+	*/

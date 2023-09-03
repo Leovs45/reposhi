@@ -15,5 +15,6 @@ public interface IClase {
 	public List<DtClase> getRankingClases();
 	public void consultarDictadoClase(Clase clase);
 	public void agregarClase(Clase clase);
-	//public List<Clase> getRankingClases();
+	public List<Clase> getRankingClases();
+	public Clase buscarClase(String abuscar);
 }

@@ -140,6 +140,22 @@ public class CClase implements IClase {
 
 	    return rankingDtClases;
 	}
+	
+	@Override
+	public Clase buscarClase(String abuscar) {
+		Clase clas = null;
+		if (clases.size() == 0) {
+			return clas;
+		} else {
+			for(Clase c: clases) {
+				if (c.getNombreClase().equals(abuscar)) {
+					clas = c;
+				}
+			}
+		}
+
+		return clas;
+	}
 
 	
 }

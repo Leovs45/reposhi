@@ -75,4 +75,23 @@ public class DtActividad{
 		
 		return dtClases;
 	}
+	
+	public DtClase buscarDtClase(String nombre) {
+		DtClase clase = null;
+		if (clases.size() == 0) {
+			return clase;
+		} else {
+			for(Clase c: clases) {
+				if (c.getNombreClase().equals(nombre)) {
+					clase = new DtClase(c.getNombreClase(),c.getFechaClase(),c.getHoraInicio(),c.getUrlClase(),c.getFechaRegistro());
+				}
+			}
+		}
+		return clase;
+	}
+	
+	public DtClase obtenerDtClase(String nombreClase) {
+		DtClase clase = buscarDtClase(nombreClase);
+		return clase;
+	}
 }

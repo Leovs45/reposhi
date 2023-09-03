@@ -35,7 +35,7 @@ public class CActividadDeportiva implements IActividadDeportiva {
 		Conexion conexion = Conexion.getInstancia();
 		EntityManager em = conexion.getEntityManager();
 		em.getTransaction().begin();
-		em.persist(institucion);
+		em.persist(actividad);
 		em.getTransaction().commit();
 //=====================================================================
 		

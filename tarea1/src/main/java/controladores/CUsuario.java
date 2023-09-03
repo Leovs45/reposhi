@@ -42,7 +42,7 @@ public class CUsuario implements IUsuario {
 	
 	public void altaUsuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento) {
 		Usuario socio = new Socio(nickname, nombre, apellido, correoElectronico, fechaNacimiento);
-		usuarios.add(socio);
+		//usuarios.add(socio);
 		//=====================================================================			
 		Conexion conexion = Conexion.getInstancia();
 		EntityManager em = conexion.getEntityManager();

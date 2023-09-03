@@ -95,7 +95,9 @@ public class GUIConsultaUsuario extends JInternalFrame {
 
 
 		cmbUsuarios.setBounds(181, 32, 176, 21);
+		cmbUsuarios.setSelectedIndex(-1);
 		getContentPane().add(cmbUsuarios);
+		
 		
 		labelNickname.setBounds(31, 78, 105, 13);
 		getContentPane().add(labelNickname);
@@ -222,6 +224,11 @@ public class GUIConsultaUsuario extends JInternalFrame {
 					} else {
 						DtProfesor profesor = iUsuario.getDtProfesor(nicknameUsuario);
 						
+						nickname.setText(profesor.getNickname());
+						nombre.setText(profesor.getNombre());
+						apellido.setText(profesor.getApellido());
+						email.setText(profesor.getCorreoElectronico());
+						fechaNac.setText(profesor.getFechaNacimiento().toString());
 						labelRegistros.setVisible(false);
 						labelDescripcion.setVisible(true);
 						labelBiografia.setVisible(true);
@@ -249,6 +256,9 @@ public class GUIConsultaUsuario extends JInternalFrame {
 					apellido.setText("");
 					email.setText("");
 					fechaNac.setText("");
+					descripcion.setText("");
+					biografia.setText("");
+					sitioWeb.setText("");
 					labelDescripcion.setVisible(false);
 					labelBiografia.setVisible(false);
 					labelSitioWeb.setVisible(false);

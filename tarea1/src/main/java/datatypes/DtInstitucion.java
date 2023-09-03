@@ -65,5 +65,19 @@ public class DtInstitucion {
         return dtActividades;
     }
 
+    public DtActividad buscarDtActividad (String nombreActividad) {
+		DtActividad dtAct = null;
+		if (actividades.size() == 0) {
+			dtAct = null;
+		} else {
+			for(ActividadDeportiva a: actividades) {
+				if (a.getNombre().equals(nombreActividad)) {
+					dtAct = new DtActividad(a.getInstitucion(),a.getNombre(),a.getDescripcion(),a.getDuracionMinutos(),a.getCosto(),a.getFechaRegistro(),a.getArrayClase());
+				}
+			}
+		}
+		return dtAct;
+	}
+    
 }
 

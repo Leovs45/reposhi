@@ -121,7 +121,7 @@ public class Profesor extends Usuario {
 	}
 	
 	public DtProfesor getDtProfesor() {
-		return new DtProfesor(getNickname(), getNombre(), getApellido(), getCorreoElectronico(), getFechaNacimiento(), institucion, biografia, biografia, biografia, clases);
+		return new DtProfesor(getNickname(), getNombre(), getApellido(), getCorreoElectronico(), getFechaNacimiento(), getInstitucion(), getDescripcionGeneral(),getBiografia(), getSitioWeb(), getArrayClases());
 	}
     
 }

@@ -12,12 +12,10 @@ import datatypes.DtInstitucion;
 public interface IInstitucionDeportiva {
 	public void altaInstitucionDeportiva(String nombre, String descripcion, String url);
 	public List<DtInstitucion> getInstituciones();
-	public List<InstitucionDeportiva> getListaInstituciones();
 	public void modificarDescripcion(String nombreInstitucion, String nuevaDescripcion);
 	public void modificarUrl(String nombreInstitucion, String nuevoUrl);
 	public void agregarActividadDeportivaInstitucion(InstitucionDeportiva unaInstitucion, ActividadDeportiva unaActividad);
 	public InstitucionDeportiva buscarInstitucionDeportiva(String nombre);
-	public void listarInstituciones();
 	public List<String> getListaNombreInstituciones();
 	public boolean existeInstitucion(String nombre);
 	public boolean existeActividadEnUnaInstitucion(String nombreInstitucion, String nombreActividad);

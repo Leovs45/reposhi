@@ -11,6 +11,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import datatypes.DtRegistro;
+import interfaces.Fabrica;
+import interfaces.IClase;
+import interfaces.IUsuario;
 @Entity
 @Table(name = "Registro")
 public class Registro {
@@ -25,11 +28,14 @@ public class Registro {
 public Registro(){};
 
 	//Constructor
-	public Registro(Date fechaRegistro, Socio socio, Clase clase) {
+	public Registro(Date fechaRegistro, String socio, String clase) {
 		super();
 		this.fechaRegistro = fechaRegistro;
-		this.socio = socio;
-		this.clase = clase;
+		Fabrica f = Fabrica.getInstancia();
+		IUsuario iUsuario = f.getIUsuario();
+		this.socio = (Socio) iUsuario.buscarSocio(socio);
+		IClase iclase = f.getIClase();
+		this.clase = iclase.buscarClase(clase);		
 	}
 	
 	//Getters & setters

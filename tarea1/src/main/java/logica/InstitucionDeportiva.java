@@ -39,9 +39,7 @@ public class InstitucionDeportiva {
 	//consturctor vacio
 
 	public InstitucionDeportiva ()
-	{
-	
-	}
+	{}
 
 	//Getters & Setters
 	public String getNombre() {

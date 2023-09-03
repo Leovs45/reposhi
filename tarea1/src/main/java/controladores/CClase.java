@@ -29,6 +29,13 @@ public class CClase implements IClase {
 		return instancia;
 	}
 
+	
+
+	@Override
+	public Clase buscarClase(String abuscar) {
+		Clase clas = em.find(Clase.class, abuscar);
+		return clas;
+	}	
 	@Override
 	public void altaDictadoClase(String nombreClase, DtActividad actividadDeportiva, Date fechaClase, String nombreProfesor,
 			String horaInicio, String urlClase, Date fechaRegistro) {

@@ -18,7 +18,6 @@ import interfaces.IUsuario;
 public class CUsuario implements IUsuario {
 	Conexion conexion = Conexion.getInstancia();
 	EntityManager em = conexion.getEntityManager();
-	//private List<Usuario> usuarios = new ArrayList<>();
 	
 	private static CUsuario instancia = null;
 
@@ -110,19 +109,28 @@ public class CUsuario implements IUsuario {
 	@Override
 	public void modificarNombre(String nickname, String nuevoNombre) {
 		Usuario user = buscarUsuario(nickname);
+		em.getTransaction().begin();
 		user.setNombre(nuevoNombre);
+		em.merge(user);
+		em.getTransaction().commit();
 	}
 
 	@Override
 	public void modificarApellido(String nickname, String nuevoApellido) {
 		Usuario user = buscarUsuario(nickname);
+		em.getTransaction().begin();
 		user.setApellido(nuevoApellido);
+		em.merge(user);
+		em.getTransaction().commit();
 	}
 
 	@Override
 	public void modificarFechaNacimiento(String nickname, Date nuevaFecha) {
 		Usuario user = buscarUsuario(nickname);
+		em.getTransaction().begin();
 		user.setFechaNacimiento(nuevaFecha);
+		em.merge(user);
+		em.getTransaction().commit();
 	}
 	
 	@Override

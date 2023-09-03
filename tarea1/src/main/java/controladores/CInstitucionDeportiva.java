@@ -18,7 +18,7 @@ import datatypes.DtInstitucion;
 public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 	Conexion conexion = Conexion.getInstancia();
 	EntityManager em = conexion.getEntityManager();
-	private List<InstitucionDeportiva> instituciones = new ArrayList<>();
+	//private List<InstitucionDeportiva> instituciones = new ArrayList<>();
 	
 	private static CInstitucionDeportiva instancia = null;
 	
@@ -32,7 +32,6 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 	public void altaInstitucionDeportiva(String nombre, String descripcion, String url) {
 		if(buscarInstitucionDeportiva(nombre) == null) {
 			InstitucionDeportiva institucion = new InstitucionDeportiva(nombre, descripcion, url);
-			instituciones.add(institucion);
 			System.out.println("OK  -  La institucion fue creada correctamente");
 //=====================================================================			
 			em.getTransaction().begin();
@@ -60,8 +59,7 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 	
 
 	public ActividadDeportiva buscarActividadDeportiva(String nombreInstitucion, String nombreActividad){
-		
-		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombreInstitucion);
+		InstitucionDeportiva institucion = em.find(InstitucionDeportiva.class, nombreInstitucion);
 		
 		ActividadDeportiva actividad = institucion.buscarActividadDeportiva(nombreActividad);
 
@@ -74,25 +72,14 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 
 	@Override
 	public void modificarDescripcion(String nombreInstitucion, String nuevaDescripcion) {
-		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombreInstitucion);
+		InstitucionDeportiva institucion = em.find(InstitucionDeportiva.class, nombreInstitucion);
 		institucion.setDescripcion(nuevaDescripcion);
 	}
 
 	@Override
 	public void modificarUrl(String nombreInstitucion, String nuevoUrl) {
-		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombreInstitucion);
+		InstitucionDeportiva institucion = em.find(InstitucionDeportiva.class, nombreInstitucion);
 		institucion.setUrl(nuevoUrl);
-	}
-	
-	@Override
-	public void listarInstituciones() {
-		if(instituciones.size() == 0) {
-			System.out.println("  ERROR - No existe ninguna institucion deportiva creada");
-		} else {
-			for (InstitucionDeportiva i: instituciones) {
-				System.out.println(i.getNombre() + " " + i.getDescripcion() + " " + i.getUrl());
-			}
-		}
 	}
 	
 	public List<String> getListaNombreInstituciones() {
@@ -109,6 +96,9 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 	}
 	
 	public boolean existeInstitucion(String nombre) {
+		String consultaInstituciones = "SELECT i FROM InstitucionDeportiva i";
+		TypedQuery<InstitucionDeportiva> queryInstitucion = em.createQuery(consultaInstituciones, InstitucionDeportiva.class);
+		List <InstitucionDeportiva> instituciones = queryInstitucion.getResultList();
 		boolean existe = false;
 		for(InstitucionDeportiva i: instituciones) {
 			if (nombre.equals(i.getNombre()))
@@ -126,11 +116,6 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 		return existe;
 	}
 	
-	public List<InstitucionDeportiva> getListaInstituciones(){
-		
-		return instituciones;
-	}
-
 	@Override
 	public DtActividad obtenerActividadDeUnaInstitucion(String nombreInstitucion, String nombreActividad) {
 		InstitucionDeportiva ins = buscarInstitucionDeportiva(nombreInstitucion);
@@ -138,7 +123,7 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 		DtActividad dtAct = new	DtActividad(ins, act.getNombre(), act.getDescripcion(), act.getDuracionMinutos(), act.getCosto(), act.getFechaRegistro(), act.getArrayClase());
 		return dtAct;
 	}
-	/*
+	@Override
 	public List<String> obtenerActividadesDeUnaInstitucion(String nombre){
 		List<String> asd = new ArrayList<>();
 		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombre);
@@ -148,23 +133,12 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 		return asd;
 	}
 	
-	public List<InstitucionDeportiva> getInstituciones() {
-		return instituciones;
-	}
-	*/
-	@Override
-	public List<String> obtenerActividadesDeUnaInstitucion(String nombre){
-		List<String> actDep = new ArrayList<>();
-		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombre);
-		List<ActividadDeportiva> actividades = institucion.getArrayActividadDeportiva();
-		for(ActividadDeportiva act: actividades)
-			actDep.add(act.getNombre());
-		return actDep;
-	}
-	
 	@Override
 	public List<DtInstitucion> getInstituciones() {
 		List<DtInstitucion> dtInstituciones = new ArrayList<>();
+		String consultaInstituciones = "SELECT i FROM InstitucionDeportiva i";
+		TypedQuery<InstitucionDeportiva> queryInstitucion = em.createQuery(consultaInstituciones, InstitucionDeportiva.class);
+		List <InstitucionDeportiva> instituciones = queryInstitucion.getResultList();
 		
 		for(InstitucionDeportiva inst: instituciones) {
 			dtInstituciones.add(inst.getDtInstitucion());

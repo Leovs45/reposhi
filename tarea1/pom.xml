@@ -44,7 +44,12 @@
         <artifactId>hibernate-core</artifactId>
         <version>5.4.21.Final</version>
     </dependency>
-   
- 
-  </dependencies> 
+
+
+    <dependency>
+    	<groupId>com.gimnasiopap</groupId>
+    	<artifactId>gymswing</artifactId>
+    	<version>0.0.1-SNAPSHOT</version>
+    </dependency>
+   </dependencies> 
 </project>

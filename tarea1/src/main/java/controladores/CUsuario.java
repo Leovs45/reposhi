@@ -31,7 +31,6 @@ public class CUsuario implements IUsuario {
 	@Override
 	public void altaUsuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento, InstitucionDeportiva institucion, String descripcionGeneral, String biografia, String sitioWeb){
 		Usuario profe = new Profesor(nickname, nombre, apellido, correoElectronico, fechaNacimiento, institucion, descripcionGeneral, biografia, sitioWeb);
-		//usuarios.add(profe);
 		//=====================================================================			
 		em.getTransaction().begin();
 		em.persist(profe);
@@ -74,6 +73,7 @@ public class CUsuario implements IUsuario {
 		 else 
 			return true;
 	}
+	
 	
 	@Override
 	public boolean esProfesor(String nombre) {

@@ -82,21 +82,33 @@ public class CActividadDeportiva implements IActividadDeportiva {
 //=====================================================================	
 	public void modificarDescripcion(String nombreActividad, String nuevaDescripcion) {
 		ActividadDeportiva actividad = buscarActividadDeportiva(nombreActividad);
+		em.getTransaction().begin();
 		actividad.setDescripcion(nuevaDescripcion);
+		em.merge(actividad);
+		em.getTransaction().commit();
+		
 	}
 
 //=====================================================================	
 
 	public void modificarDuracion(String nombreActividad, int nuevaDuracion) {
 		ActividadDeportiva actividad = buscarActividadDeportiva(nombreActividad);
+		em.getTransaction().begin();
 		actividad.setDuracionMinutos(nuevaDuracion);
+		em.merge(actividad);
+		em.getTransaction().commit();
 	}
 
 //=====================================================================	
 
 	public void modificarCosto(String nombreActividad, double nuevoCosto) {
 		ActividadDeportiva actividad = buscarActividadDeportiva(nombreActividad);
+		
+		em.getTransaction().begin();
 		actividad.setCosto(nuevoCosto);
+		em.merge(actividad);
+		em.getTransaction().commit();
+		
 	}
 	
 	

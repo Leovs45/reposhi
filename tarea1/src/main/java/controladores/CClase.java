@@ -71,7 +71,10 @@ public class CClase implements IClase {
 	    int i, j;
 	    boolean swapped;
 	    Clase temp;
-	    List<Clase> clasesOrdenadas = new ArrayList<>(clases);
+	    String consultaClases = "SELECT c FROM Clase c";
+		TypedQuery<Clase> queryClase = em.createQuery(consultaClases, Clase.class);
+	    List<Clase> clasesOrdenadas = new ArrayList<>(queryClase.getResultList());
+		
 
 	    for (i = 0; i < clasesOrdenadas.size() - 1; i++) {
 	        swapped = false;
@@ -88,7 +91,6 @@ public class CClase implements IClase {
 	            break;
 	        }
 	    }
-
 	    List<DtClase> rankingDtClases = new ArrayList<>();
 	    for (Clase clase : clasesOrdenadas) {
 	        List<Registro> claseRegistro = clase.getArrayRegistro();
@@ -98,22 +100,5 @@ public class CClase implements IClase {
 
 	    return rankingDtClases;
 	}
-	
-	@Override
-	public Clase buscarClase(String abuscar) {
-		Clase clas = null;
-		if (clases.size() == 0) {
-			return clas;
-		} else {
-			for(Clase c: clases) {
-				if (c.getNombreClase().equals(abuscar)) {
-					clas = c;
-				}
-			}
-		}
-
-		return clas;
-	}
-
 	
 }

@@ -125,9 +125,9 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 	}
 	
 	@Override
-	public List<String> obtenerActividadesDeUnaInstitucion(String nombre){
+	public List<String> obtenerActividadesDeUnaInstitucion(String nombreInstitucion){
 		List<String> asd = new ArrayList<>();
-		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombre);
+		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombreInstitucion);
 		List<ActividadDeportiva> actividades = institucion.getArrayActividadDeportiva();
 		for(ActividadDeportiva act: actividades)
 			asd.add(act.getNombre());

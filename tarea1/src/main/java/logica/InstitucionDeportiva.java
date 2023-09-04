@@ -130,7 +130,6 @@ public class InstitucionDeportiva {
 		actividades.add(actividad);
 		Fabrica f = Fabrica.getInstancia();
 		IActividadDeportiva iActividad = f.getIActividadDeportiva();
-		iActividad.agregarActividad(actividad);
 	}
 	
 	public boolean existenActividades() {

@@ -138,6 +138,7 @@ public class GUIAltaActividad extends JInternalFrame {
 						lblError2.setVisible(false);
 						System.out.println(duracion +"  " +costo);
 						iActividad.altaActividadDeportiva(iInstitucion.buscarInstitucionDeportiva(nombreInstitucion), nombre, descripcion, duracion, costo, new Date());
+						
 						JOptionPane.showMessageDialog(null, "La actividad fue creada correctamente", "Success", JOptionPane.INFORMATION_MESSAGE);
 					} catch (Exception exc) {
 						JOptionPane.showMessageDialog(null, "Duracion y costo debe ser un valores numéricos", "Error", JOptionPane.ERROR_MESSAGE);

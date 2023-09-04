@@ -111,7 +111,7 @@ public class GUIConsultaUsuario extends JInternalFrame {
 		labelEmail.setBounds(31, 147, 105, 13);
 		getContentPane().add(labelEmail);
 		
-		labelFechaNac.setBounds(31, 170, 105, 15);
+		labelFechaNac.setBounds(31, 170, 132, 15);
 		getContentPane().add(labelFechaNac);
 		
 		labelDescripcion.setBounds(31, 195, 105, 13);
@@ -130,28 +130,28 @@ public class GUIConsultaUsuario extends JInternalFrame {
 		labelClases.setVisible(false);
 		getContentPane().add(labelClases);
 		
-		nickname.setBounds(147, 78, 308, 13);
+		nickname.setBounds(177, 78, 308, 13);
 		getContentPane().add(nickname);
 		
-		nombre.setBounds(147, 101, 308, 13);
+		nombre.setBounds(177, 101, 308, 13);
 		getContentPane().add(nombre);
 		
-		apellido.setBounds(147, 124, 308, 13);
+		apellido.setBounds(177, 124, 308, 13);
 		getContentPane().add(apellido);
 		
-		email.setBounds(147, 147, 308, 13);
+		email.setBounds(177, 147, 308, 13);
 		getContentPane().add(email);
 		
-		fechaNac.setBounds(147, 171, 308, 13);
+		fechaNac.setBounds(177, 171, 308, 13);
 		getContentPane().add(fechaNac);
 		
-		descripcion.setBounds(147, 195, 308, 13);
+		descripcion.setBounds(177, 195, 308, 13);
 		getContentPane().add(descripcion);
 		
-		biografia.setBounds(147, 218, 308, 13);
+		biografia.setBounds(177, 218, 308, 13);
 		getContentPane().add(biografia);
 		
-		sitioWeb.setBounds(147, 241, 308, 13);
+		sitioWeb.setBounds(177, 241, 308, 13);
 		getContentPane().add(sitioWeb);
 		
 		labelRegistros.setBounds(31, 195, 73, 13);

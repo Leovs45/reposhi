@@ -36,14 +36,13 @@ public class CActividadDeportiva implements IActividadDeportiva {
 //==========================EntityManager =============================		
 			Conexion conexion = Conexion.getInstancia();
 			EntityManager em = conexion.getEntityManager();
-//=====================================================================	
-
 
 //=========================Hibernate altaActividadDeportiva============================================
 	@Override
 	public void altaActividadDeportiva(InstitucionDeportiva institucion, String nombreActividad, String descripcion, int duracionMinutos,
 			double costo, Date fechaAlta) {
 		ActividadDeportiva actividad = new ActividadDeportiva(institucion, nombreActividad, descripcion, duracionMinutos, costo, fechaAlta);
+		institucion.agregarActividadDeportiva(actividad);
 		
 		em.getTransaction().begin();
 		em.persist(actividad);
@@ -114,8 +113,10 @@ public class CActividadDeportiva implements IActividadDeportiva {
 	public List<DtActividad> getRankingActividades() {
 	    int i, j;
 	    boolean swapped;
-	    ActividadDeportiva temp;
-	    List<ActividadDeportiva> actividadesOrdenadas = new ArrayList<>(actividades);
+	    ActividadDeportiva temp; 
+	    String consultaActividad= "SELECT a FROM ActividadDeportiva a";
+		TypedQuery<ActividadDeportiva> queryActividad = em.createQuery(consultaActividad, ActividadDeportiva.class);
+	    List<ActividadDeportiva> actividadesOrdenadas = new ArrayList<>(queryActividad.getResultList());
 
 	    for (i = 0; i < actividadesOrdenadas.size() - 1; i++) {
 	        swapped = false;

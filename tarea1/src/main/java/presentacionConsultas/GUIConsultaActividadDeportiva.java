@@ -101,23 +101,6 @@ public class GUIConsultaActividadDeportiva extends JInternalFrame {
         JLabel lblNewLabel = new JLabel("Actividades :");
         lblNewLabel.setBounds(23, 83, 108, 14);
         getContentPane().add(lblNewLabel);
-  
-//==================================Evento para click en la tabla ==================================== 
-        /* tabla.addMouseListener(new MouseAdapter() {
-        	@Override
-        	public void mouseClicked(MouseEvent e) {
-        
-                    int filaSeleccionada = tabla.getSelectedRow();
-                    int columnaSeleccionada = tabla.getSelectedColumn();
-                    
-                    if (filaSeleccionada != -1 && columnaSeleccionada != -1) {
-                        Object valorCelda = tabla.getValueAt(filaSeleccionada, columnaSeleccionada);
-                        JOptionPane.showMessageDialog(null, "Aca llamo a Consulta dicatado de clase y muestro datos" + valorCelda, "Celda Clickeada", JOptionPane.INFORMATION_MESSAGE);
-                    
-                    }
-        	}
-        }); */
-        
         
 //====================================================================== 
         cmbInstituciones.addActionListener(new ActionListener() {
@@ -125,7 +108,6 @@ public class GUIConsultaActividadDeportiva extends JInternalFrame {
                 String institucion = (String) cmbInstituciones.getSelectedItem();
                 cmbActividades.removeAllItems();
                 cmbActividades.setSelectedIndex(-1);
-
                 if(institucion != null) {
                 	List<String> act = iInstitucion.obtenerActividadesDeUnaInstitucion(institucion);
                     for (String a : act) {

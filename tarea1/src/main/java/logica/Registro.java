@@ -38,16 +38,6 @@ public Registro(){};
 		this.clase = iclase.buscarClase(clase);		
 	}
 	
-	public Registro(Date fechaRegistro, String socio, String clase) {
-		super();
-		this.fechaRegistro = fechaRegistro;
-		Fabrica f = Fabrica.getInstancia();
-		IUsuario iUsuario = f.getIUsuario();
-		this.socio = (Socio) iUsuario.buscarSocio(socio);
-		IClase iclase = f.getIClase();
-		this.clase = iclase.buscarClase(clase);		
-	}
-	
 	//Getters & setters
 	public Date getfechaRegistro() {
 		return fechaRegistro;

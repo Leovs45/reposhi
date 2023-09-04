@@ -480,12 +480,12 @@ public class GUIPrincipal {
 			}
 		});
 		
-		JMenuItem mntmSalir = new JMenuItem("Salir");
-		mntmSalir.addActionListener(new ActionListener() {
+		JMenu menuSalir = new JMenu("Salir");
+		menuSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
 			}
 		});
-		menuBar.add(mntmSalir);
+		menuBar.add(menuSalir);
 	}
 }

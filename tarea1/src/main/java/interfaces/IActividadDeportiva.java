@@ -5,6 +5,7 @@ import java.util.List;
 
 import datatypes.DtActividad;
 import datatypes.DtClase;
+import excepciones.ExisteActividadDepException;
 import logica.ActividadDeportiva;
 import logica.InstitucionDeportiva;
 
@@ -13,7 +14,7 @@ public interface IActividadDeportiva {
 	public List<ActividadDeportiva> actividades = new ArrayList<>();
 	
 	public void altaActividadDeportiva(InstitucionDeportiva institucion, String nombreActividad, String descripcion, int duracionMinutos,
-			double costo, Date fechaAlta);
+			double costo, Date fechaAlta) throws ExisteActividadDepException;
 	public ActividadDeportiva buscarActividadDeportiva(String nombreActividad);
 	public List<ActividadDeportiva> consultaActividadDeportiva(String institucion);
 	public ActividadDeportiva buscarActividad(String nombreActividad);

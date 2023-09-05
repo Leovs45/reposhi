@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 
 import datatypes.DtActividad;
 import datatypes.DtClase;
+import excepciones.ExisteActividadDepException;
 import interfaces.IActividadDeportiva;
 import logica.ActividadDeportiva;
 import logica.Clase;
@@ -40,13 +41,18 @@ public class CActividadDeportiva implements IActividadDeportiva {
 //=========================Hibernate altaActividadDeportiva============================================
 	@Override
 	public void altaActividadDeportiva(InstitucionDeportiva institucion, String nombreActividad, String descripcion, int duracionMinutos,
-			double costo, Date fechaAlta) {
-		ActividadDeportiva actividad = new ActividadDeportiva(institucion, nombreActividad, descripcion, duracionMinutos, costo, fechaAlta);
-		institucion.agregarActividadDeportiva(actividad);
-		
-		em.getTransaction().begin();
-		em.persist(actividad);
-		em.getTransaction().commit();		
+			double costo, Date fechaAlta)throws ExisteActividadDepException {
+		ActividadDeportiva actividad = buscarActividadDeportiva(nombreActividad);
+		if(actividad != null) {
+			throw new ExisteActividadDepException("Ya existe una actividad con el nombre");
+		}else {
+			actividad = new ActividadDeportiva(institucion, nombreActividad, descripcion, duracionMinutos, costo, fechaAlta);
+			institucion.agregarActividadDeportiva(actividad);
+		    em.getTransaction().begin();
+		    em.persist(actividad);
+		    em.getTransaction().commit();
+		}
+
 	}
 	
 //=========================Hibernate buscarActividadDeportiva============================================

@@ -9,6 +9,7 @@ import interfaces.IClase;
 import interfaces.IInstitucionDeportiva;
 import interfaces.IUsuario;
 import datatypes.DtProfesor;
+import excepciones.ClaseRepetidaException;
 import datatypes.DtActividad;
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -116,31 +117,17 @@ public class GUIAltaDictadoClase extends JInternalFrame {
                     JOptionPane.showMessageDialog(null, "Por favor completa todos los campos.", "Campos vacíos", JOptionPane.ERROR_MESSAGE);
                     return; // Detener la ejecución debido a campos vacíos.
                 }
-                System.out.println("test1");
                 // Alta dictado de clases...
                 String str = (String) cmbInstituciones.getSelectedItem();
                 String str2 = (String) cmbActividades.getSelectedItem();
-
-                if (!iActividad.existeClaseEnActividad(str2, textNombre.getText())) {
-                	String profesor = (String) cmbProfesor.getSelectedItem();
+            	try {
+            		String profesor = (String) cmbProfesor.getSelectedItem();
                     iClase.altaDictadoClase(textNombre.getText().toString(), iInstitucion.obtenerActividadDeUnaInstitucion(str, str2), fechaActual, profesor, textHora.getText(), textUrl.getText(), fechaActual);
                     JOptionPane.showMessageDialog(null, "Se creó la clase.", textNombre.getText(), JOptionPane.INFORMATION_MESSAGE);
                     pegarLimpieza();
-                
-                } else {
-                    int result = JOptionPane.showConfirmDialog(null, "¿Desea Modificarla?", "Confirmación", JOptionPane.OK_CANCEL_OPTION);
-                    if (result == JOptionPane.OK_OPTION) {
-                        // Realizar la edición ???
-                        
-                        JOptionPane.showMessageDialog(null, "Se Editó la clase.", textNombre.getText(), JOptionPane.INFORMATION_MESSAGE);
-                        pegarLimpieza();
-                    
-                    } else if (result == JOptionPane.CANCEL_OPTION) {
-                        // Cancelar la operación o realizar alguna otra acción.
-                    	//pegarLimpieza();
-                    	dispose();
-                    }
-                }
+            	}catch(ClaseRepetidaException claseRep) {
+            		JOptionPane.showMessageDialog(null, claseRep.getMessage(), "CLASE EXISTENTE", JOptionPane.ERROR_MESSAGE);
+            	}
             }
         });
 

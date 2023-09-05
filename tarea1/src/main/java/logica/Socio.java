@@ -39,14 +39,6 @@ public class Socio extends Usuario {
 		registros.add(registro);
 	}
 	
-	public void listarRegistros() {
-		if(registros.size() > 0) {
-			for(Registro r: registros) {
-				System.out.println("- " + r.getclase().getNombreClase() + "\n  Fecha de registro: " + r.getfechaRegistro());
-			}
-		}
-	}
-	
 	public DtSocio getDtSocio() {
 		return new DtSocio(getNickname(), getNombre(), getApellido(), getCorreoElectronico(), getFechaNacimiento(), registros);
 	}

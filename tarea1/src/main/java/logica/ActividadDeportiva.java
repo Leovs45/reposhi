@@ -127,17 +127,6 @@ public class ActividadDeportiva {
 		}
 		return clase;
 	}
-	
-	public void listarClases() {
-		if (clases.size() == 0) {
-			System.out.println("  ERROR - No hay clases");
-		} else {
-			System.out.println("\nCLASES: \n");
-			for (Clase c: clases) {
-				System.out.println(c.getNombreClase() + " - " + c.getActividadDeportiva().getNombre() + " - " + c.getFechaClase() + " - " + c.getProfesor().getNombre() + " - " + c.getHoraInicio());
-			}
-		}
-	}
 
 	public void agregarClase(Clase c) {
 		clases.add(c);
@@ -146,13 +135,8 @@ public class ActividadDeportiva {
 	public void registroClase(String nombreClase, Usuario usuario){
 		Socio socio = (Socio) usuario;
 		Clase clase = buscarClase(nombreClase);
-		
-		if (clase == null) {
-			System.out.println("  ERROR - No existe una clase con el nombre " + nombreClase);
-		} else {
+		if (clase != null) 
 			clase.registroClase(socio, clase);
-		}
-		System.out.println("Registrado usuario " + usuario.getNickname() + " en la clase" + clase.getNombreClase());
 	}
 	
 	public boolean existenClases() {

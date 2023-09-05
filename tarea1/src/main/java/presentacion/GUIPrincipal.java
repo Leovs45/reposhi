@@ -479,13 +479,5 @@ public class GUIPrincipal {
 				rankingClaseInternalFrame.doDefaultCloseAction();
 			}
 		});
-		
-		JMenu menuSalir = new JMenu("Salir");
-		menuSalir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-			}
-		});
-		menuBar.add(menuSalir);
 	}
 }

@@ -17,6 +17,7 @@ import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
 import datatypes.DtUsuario;
+import excepciones.RegistroClaseRepetidoException;
 import datatypes.DtActividad;
 import datatypes.DtClase;
 import datatypes.DtInstitucion;
@@ -48,7 +49,6 @@ public class GUIRegistroDictadoClase extends JInternalFrame {
 	JComboBox cmb_socios = new JComboBox();
 	JButton btnAceptar = new JButton("Aceptar");
     JButton btnCancelar = new JButton("Cancelar");
-    JLabel lblRegistroExitoso = new JLabel("¡Registro creado con exito! ¡Buena crack!");
 	public void limpiarCampos() {
 		cmb_socios.setEnabled(false);
 		cmb_socios.setSelectedIndex(-1);
@@ -60,7 +60,6 @@ public class GUIRegistroDictadoClase extends JInternalFrame {
 		cmb_actsdeps.setSelectedIndex(-1);
 		cmb_actsdeps.removeAllItems();
 		cmb_instituciones.setSelectedIndex(-1);
-		lblRegistroExitoso.setVisible(false);
     }
 
 	public GUIRegistroDictadoClase(IRegistro iRegistro, IUsuario iUsuario, IInstitucionDeportiva iInstitucion) {
@@ -136,12 +135,6 @@ public class GUIRegistroDictadoClase extends JInternalFrame {
         }
         getContentPane().add(cmb_instituciones);
         
-        
-        lblRegistroExitoso.setForeground(Color.GREEN);
-        lblRegistroExitoso.setBounds(10, 335, 215, 14);
-        getContentPane().add(lblRegistroExitoso);
-        lblRegistroExitoso.setVisible(false);
-        
         limpiarCampos();
         
         cmb_instituciones.addItemListener(new ItemListener() {
@@ -159,7 +152,6 @@ public class GUIRegistroDictadoClase extends JInternalFrame {
 						cmb_socios.setEnabled(false);
 						cmb_socios.setSelectedIndex(-1);
 						btnAceptar.setEnabled(false);
-						lblRegistroExitoso.setVisible(false);
 					} 
 					//si no tengo seleccionada la nada misma, busco las actividades deportivas correspondientes a la institucion seleccionada
 					else {
@@ -239,15 +231,16 @@ public class GUIRegistroDictadoClase extends JInternalFrame {
         
         btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				try {
 				String clasesel = (String) cmb_clases.getSelectedItem();
 				String sociosel = (String) cmb_socios.getSelectedItem();
-				lblRegistroExitoso.setVisible(true);
 				iRegistro.RegistroDictadoClases(new Date(), sociosel , clasesel);
 				 JOptionPane.showMessageDialog(null, "Se agregó un registro nuevo", "Exito", JOptionPane.INFORMATION_MESSAGE);
 				//Limpia los campos
             	limpiarCampos();
-				
+				}catch(RegistroClaseRepetidoException exc) {
+            		JOptionPane.showMessageDialog(null, exc.getMessage(),"Registro repetido", JOptionPane.ERROR_MESSAGE);
+            		}
 			}
 		});
         

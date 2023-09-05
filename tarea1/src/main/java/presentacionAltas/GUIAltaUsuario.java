@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JTable;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -24,6 +25,9 @@ import java.awt.Font;
 import java.awt.Color;
 import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
+
+import excepciones.NicknameRepetidoException;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -184,30 +188,6 @@ public class GUIAltaUsuario extends JInternalFrame {
 		rdbtnProfesor.setBounds(395, 144, 87, 23);
 		getContentPane().add(rdbtnProfesor);
 		
-		JLabel lblError1 = new JLabel("Ingrese los campos");
-		lblError1.setForeground(Color.RED);
-		lblError1.setBounds(377, 375, 151, 20);
-		getContentPane().add(lblError1);
-		lblError1.setVisible(false);
-		
-		JLabel lblError2 = new JLabel("que tienen un *");
-		lblError2.setForeground(Color.RED);
-		lblError2.setBounds(377, 396, 135, 15);
-		getContentPane().add(lblError2);
-		lblError2.setVisible(false);
-		
-		JLabel lblUsuarioIngresado = new JLabel("Usuario ingresado");
-		lblUsuarioIngresado.setForeground(Color.GREEN);
-		lblUsuarioIngresado.setBounds(377, 429, 135, 15);
-		getContentPane().add(lblUsuarioIngresado);
-		lblUsuarioIngresado.setVisible(false);
-		
-		JLabel lblUsuarioExistente = new JLabel("Usuario existente");
-		lblUsuarioExistente.setForeground(Color.RED);
-		lblUsuarioExistente.setBounds(377, 378, 137, 15);
-		getContentPane().add(lblUsuarioExistente);
-		lblUsuarioExistente.setVisible(false);
-		
 		rdbtnProfesor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(rdbtnProfesor.isSelected())
@@ -228,66 +208,55 @@ public class GUIAltaUsuario extends JInternalFrame {
 		JButton btnAgregar = new JButton("Agregar");
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String nickname = textFieldNickname.getText();
-				if (iUsuario.buscarUsuario(nickname) != null) {
-					lblError1.setVisible(false);
-					lblError2.setVisible(false);
-					lblUsuarioIngresado.setVisible(false);
-					lblUsuarioExistente.setVisible(true);
-				}else {
-					String nombre = textFieldNombre.getText();
-					String apellido = textFieldApellido.getText();
-					String email = textFieldCorreoElectronico.getText();
-					Date fechaNac = dateFechaNac.getDate();
-					
-					if(rdbtnSocio.isSelected()) {
-						if(textFieldNickname.getText().isEmpty()
-								|| textFieldNombre.getText().isEmpty() 
-								|| textFieldApellido.getText().isEmpty() 
-								|| textFieldCorreoElectronico.getText().isEmpty()
-								|| dateFechaNac.getDate() == null ) {
-								lblError1.setVisible(true);
-								lblError2.setVisible(true);
-								lblUsuarioIngresado.setVisible(false);
-						}else {
-							lblError1.setVisible(false);
-							lblError2.setVisible(false);					
-							lblUsuarioIngresado.setVisible(true);
-							iUsuario.altaUsuario(nickname, nombre, apellido, email, fechaNac);
-						}
-						
-					}
-					else if(rdbtnProfesor.isSelected()) {
-						if(textFieldNickname.getText().isEmpty() 
-								|| textFieldNombre.getText().isEmpty() 
-								|| textFieldApellido.getText().isEmpty() 
-								|| textFieldCorreoElectronico.getText().isEmpty()
-								|| listaInstitucion.getSelectedIndex() == -1
-								|| dateFechaNac.getDate() == null 
-								|| textFieldDescripcion.getText().isEmpty()
-								|| textFieldBiografia.getText().isEmpty()
-								|| textFieldSitioWeb.getText().isEmpty()) {
-							lblError1.setVisible(true);
-							lblError2.setVisible(true);
-							lblUsuarioIngresado.setVisible(false);
-						}
-						else {
-							String nombreInstitucion = listaInstitucion.getSelectedValue().toString();							
-							String descripcion = textFieldDescripcion.getText();
-							String biografia = textFieldBiografia.getText();
-							String sitioweb = textFieldSitioWeb.getText();
-							lblError1.setVisible(false);
-							lblError2.setVisible(false);
-							lblUsuarioIngresado.setVisible(true);
-							iUsuario.altaUsuario( nickname, nombre, apellido, email, fechaNac , iInstitucion.buscarInstitucionDeportiva(nombreInstitucion), descripcion, biografia, sitioweb);
-	
-						}
-					}
-				}
+		        try {
+		            String nickname = textFieldNickname.getText();
+		            String nombre = textFieldNombre.getText();
+		            String apellido = textFieldApellido.getText();
+	                String email = textFieldCorreoElectronico.getText();
+	                Date fechaNac = dateFechaNac.getDate();
+
+	                if (rdbtnSocio.isSelected()) {
+	                    if (textFieldNickname.getText().isEmpty()
+	                            || textFieldNombre.getText().isEmpty()
+	                            || textFieldApellido.getText().isEmpty()
+	                            || textFieldCorreoElectronico.getText().isEmpty()
+	                            || dateFechaNac.getDate() == null) {
+	                    	JOptionPane.showMessageDialog(null,"Ingrese los campos vacios", "Campos Vacios", JOptionPane.ERROR_MESSAGE);
+	                    } else {
+	                        iUsuario.altaUsuario(nickname, nombre, apellido, email, fechaNac);
+	                        JOptionPane.showMessageDialog(null, "Socio ingresado", "Socio ingresado", JOptionPane.INFORMATION_MESSAGE);
+	                    }
+
+	                } else if (rdbtnProfesor.isSelected()) {
+	                    if (textFieldNickname.getText().isEmpty()
+	                            || textFieldNombre.getText().isEmpty()
+	                            || textFieldApellido.getText().isEmpty()
+	                            || textFieldCorreoElectronico.getText().isEmpty()
+	                            || listaInstitucion.getSelectedIndex() == -1
+	                            || dateFechaNac.getDate() == null
+	                            || textFieldDescripcion.getText().isEmpty()
+	                            || textFieldBiografia.getText().isEmpty()
+	                            || textFieldSitioWeb.getText().isEmpty()) {
+	                    	JOptionPane.showMessageDialog(null,"Ingrese los campos vacios", "Campos Vacios", JOptionPane.ERROR_MESSAGE);
+	                    } else {
+	                        String nombreInstitucion = listaInstitucion.getSelectedValue().toString();
+	                        String descripcion = textFieldDescripcion.getText();
+	                        String biografia = textFieldBiografia.getText();
+	                        String sitioweb = textFieldSitioWeb.getText();
+	                        iUsuario.altaUsuario(nickname, nombre, apellido, email, fechaNac, iInstitucion.buscarInstitucionDeportiva(nombreInstitucion), descripcion, biografia, sitioweb);
+	                        JOptionPane.showMessageDialog(null, "Profesor ingresado", "Profesor ingresado", JOptionPane.INFORMATION_MESSAGE);
+	                    }
+	                }
+	            
+		        } catch (NicknameRepetidoException ex) {
+		            JOptionPane.showMessageDialog(null,ex.getMessage(),"Usuario existente", JOptionPane.ERROR_MESSAGE);
+		            }
 			}
-		});
+			});
+
 		btnAgregar.setBounds(395, 327, 117, 25);
 		getContentPane().add(btnAgregar);
+		
 	}
 }
 

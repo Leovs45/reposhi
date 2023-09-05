@@ -8,6 +8,9 @@ import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+
+import excepciones.ExisteActividadDepException;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
@@ -120,36 +123,39 @@ public class GUIAltaActividad extends JInternalFrame {
 		JButton btnAgregar = new JButton("Agregar");
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(textFieldNombre.getText().isEmpty()
-						|| textFieldDescripcion.getText().isEmpty() 
-						|| textFieldDuracion.getText().isEmpty() 
-						|| textFieldCosto.getText().isEmpty()
-						|| cmbInstituciones.getSelectedIndex() == -1){
-					JOptionPane.showMessageDialog(null, "Completa todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
-				}
-				else {
-					String nombreInstitucion = (String) cmbInstituciones.getSelectedItem();
-					String nombre = textFieldNombre.getText();
-					try {
-						String descripcion = textFieldDescripcion.getText();
-						int duracion = Integer.parseInt(textFieldDuracion.getText());
-						double costo = Double.parseDouble(textFieldCosto.getText());
-						lblError1.setVisible(false);
-						lblError2.setVisible(false);
-						System.out.println(duracion +"  " +costo);
-						iActividad.altaActividadDeportiva(iInstitucion.buscarInstitucionDeportiva(nombreInstitucion), nombre, descripcion, duracion, costo, new Date());
-						
-						JOptionPane.showMessageDialog(null, "La actividad fue creada correctamente", "Success", JOptionPane.INFORMATION_MESSAGE);
-					} catch (Exception exc) {
-						JOptionPane.showMessageDialog(null, "Duracion y costo debe ser un valores numéricos", "Error", JOptionPane.ERROR_MESSAGE);
-					}
-				}
-				
-			}
-		});
+				if (textFieldNombre.getText().isEmpty()
+			            || textFieldDescripcion.getText().isEmpty()
+			            || textFieldDuracion.getText().isEmpty()
+			            || textFieldCosto.getText().isEmpty()
+			            || cmbInstituciones.getSelectedIndex() == -1) {
+			            
+			            JOptionPane.showMessageDialog(null, "Completa todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+			        } else {
+			            String nombreInstitucion = (String) cmbInstituciones.getSelectedItem();
+			            String nombre = textFieldNombre.getText();
+			            try {
+			                String descripcion = textFieldDescripcion.getText();
+			                int duracion = Integer.parseInt(textFieldDuracion.getText());
+			                double costo = Double.parseDouble(textFieldCosto.getText());
+			                
+			                iActividad.altaActividadDeportiva(iInstitucion.buscarInstitucionDeportiva(nombreInstitucion), nombre, descripcion, duracion, costo, new Date());
+			                
+			                JOptionPane.showMessageDialog(null, "La actividad fue creada correctamente", "Success", JOptionPane.INFORMATION_MESSAGE);
+			                
+			            } catch (NumberFormatException numExc) {
+			                JOptionPane.showMessageDialog(null, "Duracion y costo debe ser un valores numéricos", "Error", JOptionPane.ERROR_MESSAGE);
+			            } catch (ExisteActividadDepException ayExc) {
+			                JOptionPane.showMessageDialog(null, "La actividad deportiva ya existe.", "Error", JOptionPane.ERROR_MESSAGE);
+			            } catch (Exception exc) {
+			                JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado.", "Error", JOptionPane.ERROR_MESSAGE);
+			            }
+			        }
+			    }
+			});
+
 		btnAgregar.setBounds(283, 302, 117, 25);
 		getContentPane().add(btnAgregar);
-
-	}
-}
+		
+		}
+		}
 

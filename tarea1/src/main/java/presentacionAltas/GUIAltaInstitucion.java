@@ -2,7 +2,11 @@ package presentacionAltas;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import excepciones.InstitucionRepetidaException;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import interfaces.IInstitucionDeportiva;
@@ -55,24 +59,6 @@ public class GUIAltaInstitucion extends JInternalFrame {
 		getContentPane().add(textFieldURL);
 		textFieldURL.setColumns(10);
 		
-		JLabel lblError = new JLabel("Ingrese los campos requeridos (*)");
-		lblError.setForeground(Color.RED);
-		lblError.setBounds(95, 172, 248, 15);
-		getContentPane().add(lblError);
-		lblError.setVisible(false);
-		
-		JLabel lblInstitucionAgregada = new JLabel("Institucion agregada");
-		lblInstitucionAgregada.setForeground(Color.GREEN);
-		lblInstitucionAgregada.setBounds(142, 172, 154, 15);
-		getContentPane().add(lblInstitucionAgregada);
-		lblInstitucionAgregada.setVisible(false);
-		
-		JLabel lblInstitucionYaExiste = new JLabel("Institucion ya existe");
-		lblInstitucionYaExiste.setForeground(Color.RED);
-		lblInstitucionYaExiste.setBounds(124, 172, 172, 15);
-		getContentPane().add(lblInstitucionYaExiste);
-		lblInstitucionYaExiste.setVisible(false);
-		
 		JButton btnAgregar = new JButton("Agregar");
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -80,20 +66,15 @@ public class GUIAltaInstitucion extends JInternalFrame {
 				String descripcion = textFieldDescripcion.getText();
 				String url = textFieldURL.getText();
 				if(nombre.isEmpty() || descripcion.isEmpty() || url.isEmpty()) {
-					lblError.setVisible(true);
-					lblInstitucionAgregada.setVisible(false);
-					lblInstitucionYaExiste.setVisible(false);
+					JOptionPane.showMessageDialog(null, "Ingrese los campos vacios", "Campos Vacios", JOptionPane.ERROR_MESSAGE);
 				}
 				else {
-					if(iInstitucion.existeInstitucion(nombre)) {
-						lblInstitucionAgregada.setVisible(false);
-						lblError.setVisible(false);
-						lblInstitucionYaExiste.setVisible(true);
-					}else {
+					try {
 						iInstitucion.altaInstitucionDeportiva(nombre, descripcion, url);
-						lblInstitucionAgregada.setVisible(true);
-						lblError.setVisible(false);
-						lblInstitucionYaExiste.setVisible(false);
+						JOptionPane.showMessageDialog(null, "Institucion creada", "Institucion Creada", JOptionPane.INFORMATION_MESSAGE);
+
+					}catch(InstitucionRepetidaException exc) {
+						JOptionPane.showMessageDialog(null, exc.getMessage(), "Institucion Repetida", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 

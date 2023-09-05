@@ -14,12 +14,11 @@ import persistencia.Conexion;
 import datatypes.DtActividad;
 import datatypes.DtClase;
 import datatypes.DtInstitucion;
+import excepciones.InstitucionRepetidaException;
 
 public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 	Conexion conexion = Conexion.getInstancia();
-	EntityManager em = conexion.getEntityManager();
-	//private List<InstitucionDeportiva> instituciones = new ArrayList<>();
-	
+	EntityManager em = conexion.getEntityManager();	
 	private static CInstitucionDeportiva instancia = null;
 	
 	public static CInstitucionDeportiva getInstancia() {
@@ -29,22 +28,18 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 	}
 
 	@Override
-	public void altaInstitucionDeportiva(String nombre, String descripcion, String url) {
-		if(buscarInstitucionDeportiva(nombre) == null) {
-			InstitucionDeportiva institucion = new InstitucionDeportiva(nombre, descripcion, url);
-			System.out.println("OK  -  La institucion fue creada correctamente");
-//=====================================================================			
+	public void altaInstitucionDeportiva(String nombre, String descripcion, String url) throws InstitucionRepetidaException {
+		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombre);
+		if(institucion != null)
+			throw new InstitucionRepetidaException("La institucion ya existe");
+		else {
+			institucion = new InstitucionDeportiva(nombre, descripcion, url);
 			em.getTransaction().begin();
 			em.persist(institucion);
 			em.getTransaction().commit();
-//=====================================================================
 		}
-		else
-			System.out.println("Institucion ya existente");
 	}
 	
-	// Recibe un string y devuelve una institución deportiva con ese nombre
-	// Si no existe una institución deportiva con ese nombre devuelve null
 	@Override
 	public InstitucionDeportiva buscarInstitucionDeportiva(String nombre) {
 		InstitucionDeportiva institucion = em.find(InstitucionDeportiva.class, nombre);

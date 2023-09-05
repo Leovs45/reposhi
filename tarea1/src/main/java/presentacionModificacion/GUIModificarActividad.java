@@ -58,7 +58,6 @@ public class GUIModificarActividad extends JInternalFrame {
 					
 				for(DtActividad a: actividades) {
 					cmbActividades.addItem(a.getNombre());
-					System.out.println(a.getNombre());
 				}
 				
 				cmbActividades.setSelectedIndex(-1);	

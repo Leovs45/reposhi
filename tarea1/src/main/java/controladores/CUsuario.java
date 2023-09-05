@@ -12,6 +12,7 @@ import javax.persistence.TypedQuery;
 import datatypes.DtProfesor;
 import datatypes.DtSocio;
 import datatypes.DtUsuario;
+import excepciones.NicknameRepetidoException;
 import interfaces.Fabrica;
 import interfaces.IUsuario;
 
@@ -29,26 +30,31 @@ public class CUsuario implements IUsuario {
 	
 
 	@Override
-	public void altaUsuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento, InstitucionDeportiva institucion, String descripcionGeneral, String biografia, String sitioWeb){
-		Usuario profe = new Profesor(nickname, nombre, apellido, correoElectronico, fechaNacimiento, institucion, descripcionGeneral, biografia, sitioWeb);
-		//=====================================================================			
-		em.getTransaction().begin();
-		em.persist(profe);
-		em.getTransaction().commit();
-//=====================================================================
+	public void altaUsuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento, InstitucionDeportiva institucion, String descripcionGeneral, String biografia, String sitioWeb)throws NicknameRepetidoException{
+		
+		boolean existeProfe = existeUsuario(nickname);
+		if(existeProfe == true) {
+			throw new NicknameRepetidoException("Ya existe un usuario con ese nickname");
+		}else {
+			Usuario profe = new Profesor(nickname, nombre, apellido, correoElectronico, fechaNacimiento, institucion, descripcionGeneral, biografia, sitioWeb);
+			em.getTransaction().begin();
+			em.persist(profe);
+			em.getTransaction().commit();
+		}
 		
 				
 	}
 	
-	public void altaUsuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento) {
-		Usuario socio = new Socio(nickname, nombre, apellido, correoElectronico, fechaNacimiento);
-		//usuarios.add(socio);
-		//=====================================================================			
-		em.getTransaction().begin();
-		em.persist(socio);
-		em.getTransaction().commit();
-//=====================================================================
-		
+	public void altaUsuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento)throws NicknameRepetidoException {
+		boolean existeSocio = existeUsuario(nickname);
+		if(existeSocio == true) {
+			throw new NicknameRepetidoException("Ya existe un usuario con ese nickname");
+		}else {
+			Usuario socio = new Socio(nickname, nombre, apellido, correoElectronico, fechaNacimiento);
+			em.getTransaction().begin();
+			em.persist(socio);
+			em.getTransaction().commit();
+		}	
 	}	
 	
 	@Override

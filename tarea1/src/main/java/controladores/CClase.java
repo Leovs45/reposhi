@@ -18,6 +18,7 @@ import logica.Usuario;
 import persistencia.Conexion;
 import datatypes.DtActividad;
 import datatypes.DtClase;
+import excepciones.ClaseRepetidaException;
 
 public class CClase implements IClase {
 	Conexion conexion = Conexion.getInstancia();
@@ -40,7 +41,7 @@ public class CClase implements IClase {
 	}	
 	@Override
 	public void altaDictadoClase(String nombreClase, DtActividad actividadDeportiva, Date fechaClase, String nombreProfesor,
-			String horaInicio, String urlClase, Date fechaRegistro) {
+			String horaInicio, String urlClase, Date fechaRegistro) throws ClaseRepetidaException {
 		Fabrica f = Fabrica.getInstancia();
 		IUsuario iUsuario = f.getIUsuario();
 		IActividadDeportiva iActividad = f.getIActividadDeportiva();
@@ -49,22 +50,18 @@ public class CClase implements IClase {
 		Profesor profesor = (Profesor) usuario;
 		ActividadDeportiva act = iActividad.buscarActividadDeportiva(actividadDeportiva.getNombre());
 
-		Clase clase = new Clase(nombreClase, act, fechaClase, profesor, horaInicio, urlClase, fechaRegistro);
-		profesor.agregarClase(clase);
-		act.agregarClase(clase);
-		System.out.println("OK - Clase Creada");
-		//=====================================================================			
-				Conexion conexion = Conexion.getInstancia();
-				EntityManager em = conexion.getEntityManager();
-				em.getTransaction().begin();
-				em.persist(clase);
-				em.getTransaction().commit();
-		//=====================================================================
+		Clase clase = buscarClase(nombreClase);
+		if(clase != null) {
+			throw new ClaseRepetidaException("Ya existe una clase con ese nombre");
+		}else {
+			clase = new Clase(nombreClase, act, fechaClase, profesor, horaInicio, urlClase, fechaRegistro);
+			profesor.agregarClase(clase);
+			act.agregarClase(clase);
+			em.getTransaction().begin();
+			em.persist(clase);
+			em.getTransaction().commit();
+		}
 	}
-	
-	/**********************************/
-	// OPCIONALES
-	/**********************************/
 	
 	@Override
 	public List<DtClase> getRankingClases() {

@@ -86,18 +86,6 @@ public class InstitucionDeportiva {
 		
 	}
 	
-	public void listarActividades() {
-		if(actividades.size() == 0) {
-			System.out.println("  ERROR - No existe ninguna actividad");
-		} else {
-			int contador = 1;
-			for(ActividadDeportiva a: actividades) {
-				System.out.println("  " + contador + " - " + a.getNombre());
-				contador++;
-			}
-		}
-	}
-	
 	public ActividadDeportiva obtenerActividad(int opt) {
 		ActividadDeportiva ad = null;
 		if (actividades.size() == 0) {
@@ -134,19 +122,6 @@ public class InstitucionDeportiva {
 	
 	public boolean existenActividades() {
 		return actividades.size() > 0;
-	}
-	
-	public void listarActividadesClases() {
-		if(actividades.size() == 0) {
-			System.out.println("  ERROR - No existe ninguna actividad");
-		} else {
-			for(ActividadDeportiva a: actividades) {
-				System.out.println(" - " + a.getNombre());
-				if(a.existenClases()) {
-					a.listarClases();
-				}
-			}
-		}
 	}
 	
 	public DtInstitucion getDtInstitucion() {

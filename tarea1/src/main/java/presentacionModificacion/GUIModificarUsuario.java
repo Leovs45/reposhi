@@ -53,7 +53,6 @@ public class GUIModificarUsuario extends JInternalFrame {
 		addComponentListener(new ComponentAdapter() {
 			@Override
 			public void componentShown(ComponentEvent e) {
-				System.out.println("InternalFrame se hizo visible");
 				cmbUsuarios.removeAllItems();
 				usuarios = iUsuario.getUsuarios();
 					

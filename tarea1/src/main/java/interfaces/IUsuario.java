@@ -31,4 +31,5 @@ public interface IUsuario {
 	public DtProfesor getDtProfesor(String nickname);
 	boolean existeUsuario(String nickname);
 	public List<DtProfesor> getListaProfesores();
+	boolean esContrasena(String nickname, String password);
 }

@@ -225,4 +225,15 @@ public class CUsuario implements IUsuario {
 		return dtProfesores;
 	}
 	
+	@Override
+	public boolean esContrasena(String nickname, String password) {
+		Usuario user = buscarUsuario(nickname);
+		
+		if(user.getPassword().equals(password)) {
+			return true;
+		}
+		
+		return false;
+	}
+	
 }

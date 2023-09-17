@@ -22,8 +22,8 @@ public class Socio extends Usuario {
 	public Socio() {};
 	
 	//Constructor
-    public Socio(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento) {
-		super(nickname, nombre, apellido, correoElectronico, fechaNacimiento);
+    public Socio(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento, String password) {
+		super(nickname, nombre, apellido, correoElectronico, fechaNacimiento, password);
 	}
 
     //Getters & Setters

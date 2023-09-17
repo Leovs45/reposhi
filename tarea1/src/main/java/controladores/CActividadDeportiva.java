@@ -195,6 +195,8 @@ public class CActividadDeportiva implements IActividadDeportiva {
 	
 //========================= Hibernate existeActividad ============================================
 	public boolean existeActividad(String nombreActividad) {
+		Conexion conexion = Conexion.getInstancia();
+		EntityManager em = conexion.getEntityManager();
         // Utiliza el método find del EntityManager para buscar la actividad por su nombre
         ActividadDeportiva actividad = em.find(ActividadDeportiva.class, nombreActividad);
         // Devuelve true si la actividad se encontró (actividad != null), de lo contrario, devuelve false

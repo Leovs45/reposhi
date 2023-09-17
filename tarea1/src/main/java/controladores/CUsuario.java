@@ -36,7 +36,7 @@ public class CUsuario implements IUsuario {
 		if(existeProfe == true) {
 			throw new NicknameRepetidoException("Ya existe un usuario con ese nickname");
 		}else {
-			Usuario profe = new Profesor(nickname, nombre, apellido, correoElectronico, fechaNacimiento, institucion, descripcionGeneral, biografia, sitioWeb);
+			Usuario profe = new Profesor(nickname, nombre, apellido, correoElectronico, fechaNacimiento, nickname, institucion, descripcionGeneral, biografia, sitioWeb);
 			em.getTransaction().begin();
 			em.persist(profe);
 			em.getTransaction().commit();
@@ -50,7 +50,7 @@ public class CUsuario implements IUsuario {
 		if(existeSocio == true) {
 			throw new NicknameRepetidoException("Ya existe un usuario con ese nickname");
 		}else {
-			Usuario socio = new Socio(nickname, nombre, apellido, correoElectronico, fechaNacimiento);
+			Usuario socio = new Socio(nickname, nombre, apellido, correoElectronico, fechaNacimiento, nickname);
 			em.getTransaction().begin();
 			em.persist(socio);
 			em.getTransaction().commit();

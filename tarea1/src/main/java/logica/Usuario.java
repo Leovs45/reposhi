@@ -24,6 +24,8 @@ public abstract class Usuario {
     private String correoElectronico;
 	@Column
     private Date fechaNacimiento;
+	@Column
+	private String password;
     
     //cosntructor vacio
     public Usuario() {};
@@ -31,18 +33,27 @@ public abstract class Usuario {
     
     
     //Constructor
-    public Usuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento) {
+    public Usuario(String nickname, String nombre, String apellido, String correoElectronico, Date fechaNacimiento, String password) {
     	super();
         this.nickname = nickname;
         this.nombre = nombre;
         this.apellido = apellido;
         this.correoElectronico = correoElectronico;
         this.fechaNacimiento = fechaNacimiento;
+        this.password = password;
     }
 
     //Getters & Setters
 	public String getNickname() {
 		return nickname;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
+	
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public void setNickname(String nickname) {

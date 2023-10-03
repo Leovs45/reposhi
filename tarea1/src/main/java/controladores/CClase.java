@@ -12,6 +12,7 @@ import interfaces.IUsuario;
 import interfaces.IActividadDeportiva;
 import logica.ActividadDeportiva;
 import logica.Clase;
+import logica.InstitucionDeportiva;
 import logica.Profesor;
 import logica.Registro;
 import logica.Usuario;
@@ -96,6 +97,15 @@ public class CClase implements IClase {
 	    }
 
 	    return rankingDtClases;
+	}
+	
+	public List<String> obtenerSociosDeUnaClase(String nombreClase){
+		List<String> lista = new ArrayList<>();
+		Clase cla = buscarClase(nombreClase);
+		List<Registro> registros = cla.getArrayRegistro();
+		for(Registro rec: registros)
+			lista.add(rec.getsocio());
+		return lista;
 	}
 	
 }

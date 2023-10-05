@@ -97,15 +97,17 @@ public class CClase implements IClase {
 	    }
 
 	    return rankingDtClases;
-	}
+	}	
 	
 	public List<String> obtenerSociosDeUnaClase(String nombreClase){
 		List<String> lista = new ArrayList<>();
-		Clase cla = buscarClase(nombreClase);
+		Fabrica f = Fabrica.getInstancia();
+		IClase icla = f.getIClase();
+		Clase cla = icla.buscarClase(nombreClase);
 		List<Registro> registros = cla.getArrayRegistro();
-		for(Registro rec: registros)
-			lista.add(rec.getsocio());
+		for(Registro rec: registros) {
+			lista.add(rec.getsocio().getNickname());
+			System.out.println("Prueba de socio" + rec.getsocio().getNickname());}
 		return lista;
 	}
-	
 }

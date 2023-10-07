@@ -39,7 +39,7 @@ public class GUIConsultaDictadoClase extends JInternalFrame {
 		});
 	}
 
-	public GUIConsultaDictadoClase(IInstitucionDeportiva iInstitucion, IClase iClase) {
+	public GUIConsultaDictadoClase(IInstitucionDeportiva iInstitucion) {
 		setBounds(100, 100, 450, 320);
 		setClosable(true);
 		setResizable(true);
@@ -107,10 +107,6 @@ public class GUIConsultaDictadoClase extends JInternalFrame {
 		JLabel fechaRegistro = new JLabel("");
 		fechaRegistro.setBounds(207, 242, 192, 13);
 		getContentPane().add(fechaRegistro);
-		
-		JComboBox cmbSocios = new JComboBox();
-		cmbSocios.setBounds(207, 130, 132, 21);
-		getContentPane().add(cmbSocios);
 		
 		
 		cmbInstituciones.addItemListener(new ItemListener() {
@@ -206,15 +202,6 @@ public class GUIConsultaDictadoClase extends JInternalFrame {
 						fechaRegistro.setText("");
 					} else {
 						DtClase clase = iInstitucion.obtenerDtClase(nombreInstitucion, nombreActividad, nombreClase);
-						
-						List<String> registros = iClase.obtenerSociosDeUnaClase(nombreClase);
-						cmbSocios.removeAllItems();
-						
-						for(String c: registros) {
-							cmbSocios.addItem(c);
-							System.out.println(c);
-						}
-						
 						nombre.setText(clase.getNombre());
 						labelNombre.setVisible(true);
 						fechaClase.setText(clase.getFechaClase().toString());

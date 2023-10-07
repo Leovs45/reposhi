@@ -154,7 +154,7 @@ public class GUIPrincipal {
 		modificarActividadInternalFrame.getContentPane().setLayout(null);
 		
 		//Crea fram consulta dictado clase
-		consultaDictadoClaseInternalFrame = new GUIConsultaDictadoClase(iInstitucion, iClase);
+		consultaDictadoClaseInternalFrame = new GUIConsultaDictadoClase(iInstitucion);
 		jInternalFrameSize = consultaDictadoClaseInternalFrame.getSize();
 		consultaDictadoClaseInternalFrame.setLocation((desktopSize.width - jInternalFrameSize.width)/2
 				,(desktopSize.height - jInternalFrameSize.height)/2);

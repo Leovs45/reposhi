@@ -107,7 +107,7 @@ public class CClase implements IClase {
 		List<Registro> registros = cla.getArrayRegistro();
 		for(Registro rec: registros) {
 			lista.add(rec.getsocio().getNickname());
-			System.out.println("Prueba de socio" + rec.getsocio().getNickname());}
+		}
 		return lista;
 	}
 }

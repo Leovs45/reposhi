@@ -117,4 +117,11 @@ public class CClase implements IClase {
 		return cla.getDtClase();
 	}
 	
+	public boolean existeClase(String nombreClase) {
+		Conexion conexion = Conexion.getInstancia();
+		EntityManager em = conexion.getEntityManager();
+        Clase cla = em.find(Clase.class, nombreClase);
+        return cla != null;
+    }
+	
 }

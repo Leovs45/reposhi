@@ -15,4 +15,5 @@ public interface IClase {
 	public List<DtClase> getRankingClases();
 	public List<String> obtenerSociosDeUnaClase(String nombreClase);
 	public DtClase getDtClase(String nombreClase);
+	public boolean existeClase(String nombreClase);
 }

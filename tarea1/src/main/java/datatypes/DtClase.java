@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import logica.ActividadDeportiva;
 import logica.Clase;
 import logica.Registro;
 
 public class DtClase {
 	private String nombre;
+	private ActividadDeportiva actividad;
 	private Date fechaClase;
 	private String horaInicio;
 	private String url;
@@ -31,6 +33,15 @@ public class DtClase {
     	this.url = url;
     	this.registros = registros;
     }
+	
+	public DtClase(String nombre, ActividadDeportiva actividad, Date fechaClase, String horaInicio,String url, Date fechaRegistro) {
+		this.nombre = nombre;
+		this.actividad = actividad;
+		this.fechaClase = fechaClase;
+		this.horaInicio = horaInicio;
+		this.url = url;
+		this.fechaRegistro = fechaRegistro;
+	}
 	
 	public String getNombre() {
 		return nombre;

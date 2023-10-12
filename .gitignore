@@ -1,3 +1,4 @@
 /target/
 *.class
 .metadata/
+ tarea1/src/main/java/META-INF/persistence.xml

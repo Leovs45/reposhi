@@ -10,7 +10,10 @@ import java.util.List;
 
 import javax.swing.JInternalFrame;
 
+import interfaces.IClase;
 import interfaces.IInstitucionDeportiva;
+import interfaces.IUsuario;
+
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import datatypes.DtClase;

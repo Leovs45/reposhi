@@ -110,4 +110,11 @@ public class CClase implements IClase {
 		}
 		return lista;
 	}
+	
+	public DtClase getDtClase(String nombreClase) {
+		Clase cla = buscarClase(nombreClase);
+		
+		return cla.getDtClase();
+	}
+	
 }

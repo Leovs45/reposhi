@@ -14,4 +14,5 @@ public interface IClase {
 	public Clase buscarClase(String abuscar);
 	public List<DtClase> getRankingClases();
 	public List<String> obtenerSociosDeUnaClase(String nombreClase);
+	public DtClase getDtClase(String nombreClase);
 }

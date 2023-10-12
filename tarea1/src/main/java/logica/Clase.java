@@ -121,6 +121,10 @@ public class Clase {
 		socio.agregarRegistro(registro);
 	}
 	
+	public void agregarRegistro(Registro registro) {
+		registros.add(registro);
+	}
+	
 	public int getCantidadRegistros() {
 		return registros.size();
 	}

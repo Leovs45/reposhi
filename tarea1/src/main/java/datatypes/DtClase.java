@@ -46,6 +46,10 @@ public class DtClase {
 	public String getNombre() {
 		return nombre;
 	}
+	
+	public ActividadDeportiva getActividadDeportiva() {
+		return actividad;
+	}
 
 	public String getUrl() {
 		return url;

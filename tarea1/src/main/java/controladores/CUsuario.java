@@ -14,6 +14,7 @@ import datatypes.DtSocio;
 import datatypes.DtUsuario;
 import excepciones.NicknameRepetidoException;
 import interfaces.Fabrica;
+import interfaces.IClase;
 import interfaces.IUsuario;
 
 public class CUsuario implements IUsuario {

@@ -13,4 +13,5 @@ public interface IClase {
 			String horaInicio, String urlClase, Date fechaRegistro) throws ClaseRepetidaException;
 	public Clase buscarClase(String abuscar);
 	public List<DtClase> getRankingClases();
+	public List<String> obtenerSociosDeUnaClase(String nombreClase);
 }

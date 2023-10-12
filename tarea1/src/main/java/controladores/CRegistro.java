@@ -38,8 +38,11 @@ public class CRegistro implements IRegistro {
 		else {
 			Registro unRegistro = new Registro(FechaRegistro,unSocio,unaClase);
 			socio.agregarRegistro(unRegistro);
+			clase.agregarRegistro(unRegistro);
 			em.getTransaction().begin();
 			em.persist(unRegistro);
+			em.persist(socio);
+			em.persist(clase);
 			em.getTransaction().commit();
 		}
 	}

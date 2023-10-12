@@ -14,6 +14,7 @@ import logica.ActividadDeportiva;
 import logica.Clase;
 import logica.InstitucionDeportiva;
 import logica.Profesor;
+import logica.InstitucionDeportiva;
 import logica.Registro;
 import logica.Usuario;
 import persistencia.Conexion;

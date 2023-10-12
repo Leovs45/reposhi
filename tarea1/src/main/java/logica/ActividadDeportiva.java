@@ -104,7 +104,7 @@ public class ActividadDeportiva {
 	public List<DtClase> getDtArrayClase(){
 		List<DtClase> arrDtClase = new ArrayList<>();
 		for(Clase c: clases) {
-			DtClase dtC = new DtClase(c.getNombreClase(), c.getFechaClase(), c.getHoraInicio(), c.getUrlClase(), c.getFechaRegistro());
+			DtClase dtC = new DtClase(c.getNombreClase(), c.getActividadDeportiva(),c.getFechaClase(), c.getHoraInicio(), c.getUrlClase(), c.getFechaRegistro());
 			arrDtClase.add(dtC);
 		}
 		return arrDtClase;

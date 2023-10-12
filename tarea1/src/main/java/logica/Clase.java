@@ -129,7 +129,7 @@ public class Clase {
 	}
 	
 	public DtClase getDtClase() {
-		return new DtClase(nombreClase, fechaClase, horaInicio, urlClase, fechaRegistro);
+		return new DtClase(nombreClase, actividadDeportiva, fechaClase, horaInicio, urlClase, fechaRegistro);
 	}
 
 }

@@ -82,7 +82,7 @@ public class DtActividad{
 		} else {
 			for(Clase c: clases) {
 				if (c.getNombreClase().equals(nombre)) {
-					clase = new DtClase(c.getNombreClase(),c.getFechaClase(),c.getHoraInicio(),c.getUrlClase(),c.getFechaRegistro());
+					clase = new DtClase(c.getNombreClase(),c.getActividadDeportiva(),c.getFechaClase(),c.getHoraInicio(),c.getUrlClase(),c.getFechaRegistro());
 				}
 			}
 		}

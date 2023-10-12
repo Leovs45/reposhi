@@ -120,6 +120,9 @@ public class Clase {
 		registros.add(registro);
 		socio.agregarRegistro(registro);
 	}
+	public void agregarRegistro(Registro registro) {
+		registros.add(registro);
+	}
 	
 	public void agregarRegistro(Registro registro) {
 		registros.add(registro);

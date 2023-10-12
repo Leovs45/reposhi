@@ -12,6 +12,7 @@ import interfaces.IUsuario;
 import interfaces.IActividadDeportiva;
 import logica.ActividadDeportiva;
 import logica.Clase;
+import logica.InstitucionDeportiva;
 import logica.Profesor;
 import logica.InstitucionDeportiva;
 import logica.Registro;
@@ -97,7 +98,7 @@ public class CClase implements IClase {
 	    }
 
 	    return rankingDtClases;
-	}
+	}	
 	
 	public List<String> obtenerSociosDeUnaClase(String nombreClase){
 		List<String> lista = new ArrayList<>();
@@ -110,5 +111,18 @@ public class CClase implements IClase {
 		}
 		return lista;
 	}
+	
+	public DtClase getDtClase(String nombreClase) {
+		Clase cla = buscarClase(nombreClase);
+		
+		return cla.getDtClase();
+	}
+	
+	public boolean existeClase(String nombreClase) {
+		Conexion conexion = Conexion.getInstancia();
+		EntityManager em = conexion.getEntityManager();
+        Clase cla = em.find(Clase.class, nombreClase);
+        return cla != null;
+    }
 	
 }

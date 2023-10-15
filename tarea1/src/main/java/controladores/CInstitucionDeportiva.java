@@ -178,7 +178,10 @@ public  class CInstitucionDeportiva implements IInstitucionDeportiva {
 	@Override
 	public DtInstitucion getDtInstitucion(String nombreInstitucion) {
 		InstitucionDeportiva institucion = buscarInstitucionDeportiva(nombreInstitucion);
-		return institucion.getDtInstitucion();
+		if(institucion!= null)
+			return institucion.getDtInstitucion();
+		else
+			return null;
 	}
 	
 }

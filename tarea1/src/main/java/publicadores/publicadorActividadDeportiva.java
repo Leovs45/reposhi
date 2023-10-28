@@ -14,6 +14,7 @@ import interfaces.IActividadDeportiva;
 @WebService
 @SOAPBinding(style = Style.RPC, parameterStyle = ParameterStyle.WRAPPED)
 public class publicadorActividadDeportiva {
+	
 	private Fabrica fabrica;
 	private IActividadDeportiva iAct;
 	private Endpoint endpoint;
@@ -26,15 +27,15 @@ public class publicadorActividadDeportiva {
 	
 	@WebMethod(exclude = true)//este no lo queremos accesible desde los web services
     public void publicar(){
-         endpoint = Endpoint.publish("http://localhost:8080/publicadores", this);
+         endpoint = Endpoint.publish("http://localhost:1981/publicado", this); //pregunta para el profe se publica cada servicio en un puerto distinto?
     }
-	
+	/* este podemos o no tenerlo/usuarlo 
 	@WebMethod(exclude = true)
     public Endpoint getEndpoint() {
             return endpoint;
-    }
+    }*/
 
-	//LOS MÉTODOS QUE VAMOS A PUBLICAR (segun caso de uso solo los que utilizo en este caso,tambien se podrian publicar todos)
+	//LOS MÉTODOS QUE VAMOS A PUBLICAR (yo solo publicaria los metodos de las interfaces que utilizo para el CU de la tarea 2 en el servlet,tambien se podrian publicar todos)
 	
 	@WebMethod
 	public boolean existeActividad(String nombreActividad){

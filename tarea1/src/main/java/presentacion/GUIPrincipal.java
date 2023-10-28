@@ -21,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JInternalFrame;
 import publicadores.publicadorActividadDeportiva;
+import publicadores.publicadorConsultaUsuario;
 
 public class GUIPrincipal {
 
@@ -44,7 +45,9 @@ public class GUIPrincipal {
 		
 	//===================== agregado para tarea 3 =====================//
 		publicadorActividadDeportiva pad = new publicadorActividadDeportiva();
+		publicadorConsultaUsuario pcu= new publicadorConsultaUsuario();
 	    pad.publicar();
+	    pcu.publicar();
 	//===================== agregado para tarea 3 =====================//      
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

@@ -36,9 +36,9 @@ public class publicadorConsultaUsuario {
 	}
 	
 	@WebMethod(exclude = true)//este no lo queremos accesible desde los web services
-    public void publicar(){
-         endpoint = Endpoint.publish("http://localhost:1980/publicado", this);
-    }
+	public void publicar(){
+		endpoint = Endpoint.publish("http://localhost:1980/publicado", this);
+	}
 	
 	
 	//LOS MÉTODOS QUE VAMOS A PUBLICAR (yo solo publicaria los metodos de las interfaces que utilizo para el CU de la tarea 2 en el servlert,tambien se podrian publicar todos)
